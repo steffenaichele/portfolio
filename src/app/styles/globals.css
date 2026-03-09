@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  /* Colors */
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #171717;
+  --text-secondary: #6b7280;
+
+  /* Layout*/
+  --padding: 16px;
+  --whitespace: 16px;
+  --columns: 4;
+  --gap: 28px;
+}
+
+@layer components {
+  .type-h1 {
+    font-family: var(--font-sans);
+    font-size: 24px;
+    line-height: 135%;
+    font-weight: 500;
+    letter-spacing: -3%;
+  }
+
+  .type-h2 {
+    font-family: var(--font-sans);
+    font-size: 24px;
+    line-height: 135%;
+    font-weight: 400;
+  }
+
+  .type-h3 {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    line-height: 100%;
+    font-weight: 400;
+  }
+
+  .type-h4 {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 600;
+  }
+
+  .type-h5 {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+  }
+
+  .type-h6 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 100%;
+    font-weight: 500;
+    font-feature-settings: "ss08" on;
+  }
+}
+
+@media (width >=80rem) {
+  :root {
+    --padding: 16px;
+    --whitespace: 76px;
+    --columns: 12;
+    --gap: 28px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #ededed;
+    --text-secondary: #9ca3af;
+  }
+}
+
+body {
+  width: 100%;
+  background: var(--background);
+  color: var(--foreground);
+  display: grid;
+  grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap)) 1fr var(--whitespace) var(--padding);
+  column-rule-style: solid;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings:
+      "ss01" on, "ss02" on, "ss03" on,
+      "ss04" on, "ss05" on, "ss06" on,
+      "ss07" on, "ss08" on, "ss09" on;
+}
