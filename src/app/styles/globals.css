@@ -19,7 +19,7 @@
 }
 
 @layer components {
-  .type-h1 {
+  h1 {
     font-family: var(--font-sans);
     font-size: 24px;
     line-height: 135%;
@@ -27,35 +27,35 @@
     letter-spacing: -3%;
   }
 
-  .type-h2 {
+  h2 {
     font-family: var(--font-sans);
     font-size: 24px;
     line-height: 135%;
     font-weight: 400;
   }
 
-  .type-h3 {
+  h3 {
     font-family: var(--font-sans);
     font-size: 20px;
     line-height: 100%;
     font-weight: 400;
   }
 
-  .type-h4 {
+  h4 {
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 100%;
     font-weight: 600;
   }
 
-  .type-h5 {
+  h5 {
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 100%;
     font-weight: 400;
   }
 
-  .type-h6 {
+  h6 {
     font-family: var(--font-mono);
     font-size: 12px;
     line-height: 100%;
