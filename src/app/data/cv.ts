@@ -14,7 +14,7 @@ export type CVEntry = {
 	description: string[];
 };
 
-export const expierience: CVEntry[] = [
+export const experience: CVEntry[] = [
 	{
 		organization:
 			"Klinikum Christophsbad MuSeele e.V. - Klinik für Psychiatrie, Psychotherapie und Psychosomatik",

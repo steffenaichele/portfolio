@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Steffen Aichele",
-  description: "hi",
+  description: "Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Stuttgart.",
 };
 
 export default function RootLayout({

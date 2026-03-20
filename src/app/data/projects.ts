@@ -24,7 +24,7 @@ export const projects: Project[] = [
 		year: 2025,
 	},
 	{
-		slug: "museum-exhibit",
+		slug: "gewohnheiten",
 		title: "Digitale Gewohnheitsentwicklungshilfe",
 		description:
 			"React/Electron App als Ersatz für eine Legacy Flash-Anwendung.",
