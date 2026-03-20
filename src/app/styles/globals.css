@@ -1,99 +1,148 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fonts */
-  --font-sans: "Geist", sans-serif;
-  --font-mono: "Geist Mono", monospace;
+	/* Fonts */
+	--font-sans: "Geist", sans-serif;
+	--font-mono: "Geist Mono", monospace;
 
-  /* Colors */
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #171717;
-  --text-secondary: #6b7280;
+	/* Colors */
+	--background: var(--color-neutral-900);
+	--foreground: var(--color-neutral-200);
 
-  /* Layout*/
-  --padding: 16px;
-  --whitespace: 16px;
-  --columns: 4;
-  --gap: 28px;
+	--bg-footer: var(--color-neutral-900);
+
+	--text-primary: var(--color-neutral-950);
+	--text-secondary: var(--color-neutral-800);
+	--text-tertiary: var(--color-neutral-500);
+	--text-quaternary: var(--color-neutral-600);
+	--text-inverted: var(--color-white);
+
+	--button-label-primary: var(--text-inverted);
+	--button-bg-primary: var(--color-neutral-900);
+	--button-bg-primary-hover: var(--color-neutral-950);
+	--button-bg-primary-active: var(--color-black);
+
+	--button-label-secondary: var(--text-secondary);
+	--button-bg-secondary: var(--color-white);
+	--button-bg-secondary-hover: var(--color-neutral-100);
+	--button-bg-secondary-active: var(--color-neutral-200);
+
+	--button-label-ghost: var(--text-tertiary);
+	--button-bg-ghost: bg-transparent;
+	--button-bg-ghost-hover: var(--color-neutral-100);
+	--button-bg-ghost-active: var(--color-neutral-200);
+
+	/* Layout*/
+	--padding: 16px;
+	--whitespace: 16px;
+	--columns: 4;
+	--gap: 28px;
 }
 
 @layer components {
-  h1 {
-    font-family: var(--font-sans);
-    font-size: 24px;
-    line-height: 135%;
-    font-weight: 500;
-    letter-spacing: -3%;
-  }
+	h1 {
+		font-size: 24px;
+		line-height: 135%;
+		font-weight: 500;
+	}
 
-  h2 {
-    font-family: var(--font-sans);
-    font-size: 24px;
-    line-height: 135%;
-    font-weight: 400;
-  }
+	h2 {
+		font-size: 24px;
+		line-height: 135%;
+		font-weight: 400;
+	}
 
-  h3 {
-    font-family: var(--font-sans);
-    font-size: 20px;
-    line-height: 100%;
-    font-weight: 400;
-  }
+	h3 {
+		font-size: 14px;
+		line-height: 100%;
+		font-weight: 500;
+	}
 
-  h4 {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 100%;
-    font-weight: 600;
-  }
+	h4 {
+		font-size: 16px;
+		line-height: 100%;
+		font-weight: 600;
+	}
 
-  h5 {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 100%;
-    font-weight: 400;
-  }
+	h5 {
+		font-size: 16px;
+		line-height: 100%;
+		font-weight: 400;
+	}
 
-  h6 {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    line-height: 100%;
-    font-weight: 500;
-    font-feature-settings: "ss08" on;
-  }
+	h6 {
+		font-size: 12px;
+		line-height: 100%;
+		font-weight: 500;
+	}
+
+	.mono {
+		font-family: var(--font-mono);
+		font-size: 14px;
+		line-height: 100%;
+		font-weight: 600;
+		white-space: nowrap;
+	}
+
+	.label-sm {
+		font-size: 14px;
+		line-height: 100%;
+		font-weight: 500;
+	}
+
+	.label-md {
+		font-size: 18px;
+		line-height: 100%;
+		font-weight: 500;
+	}
 }
 
 @media (width >=80rem) {
-  :root {
-    --padding: 16px;
-    --whitespace: 76px;
-    --columns: 12;
-    --gap: 28px;
-  }
+	:root {
+		--padding: 16px;
+		--whitespace: 76px;
+		--columns: 12;
+		--gap: 28px;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary: #ededed;
-    --text-secondary: #9ca3af;
-  }
-}
+/* @media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--color-black);
+		--foreground: var(--color-neutral-900);
+
+		--bg-footer: var(--color-black);
+
+		--text-primary: var(--color-white);
+		--text-secondary: var(--color-neutral-100);
+		--text-tertiary: var(--color-neutral-400);
+		--text-quaternary: var(--color-neutral-600);
+		--text-inverted: var(--color-black);
+	}
+} */
 
 body {
-  width: 100%;
-  background: var(--background);
-  color: var(--foreground);
-  display: grid;
-  grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap)) 1fr var(--whitespace) var(--padding);
-  column-rule-style: solid;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings:
-      "ss01" on, "ss02" on, "ss03" on,
-      "ss04" on, "ss05" on, "ss06" on,
-      "ss07" on, "ss08" on, "ss09" on;
+	width: 100%;
+	background: var(--background);
+	display: grid;
+	grid-template-columns:
+		var(--padding) var(--whitespace) repeat(
+			calc(var(--columns) - 1),
+			1fr var(--gap)
+		)
+		1fr var(--whitespace) var(--padding);
+	font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings:
+		"ss01" on,
+		"ss02" on,
+		"ss03" on,
+		"ss04" on,
+		"ss05" on,
+		"ss06" on,
+		"ss07" on,
+		"ss08" on,
+		"ss09" on;
+	letter-spacing: -2%;
 }
