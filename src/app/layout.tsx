@@ -5,16 +5,6 @@ import "./styles/globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Steffen Aichele",
   description: "hi",
@@ -26,10 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-		<html
-			lang="en"
-			>
-			<body className={`${geistSans.variable} ${geistMono.variable}`}>
+		<html lang="en">
+			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full body-grid ">
 				<Header />
 				{children}
 				<Footer />

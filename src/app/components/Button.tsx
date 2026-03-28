@@ -20,7 +20,7 @@ const variantClasses: Record<Variant, string> = {
 	secondary:
 		"bg-[var(--button-bg-secondary)] text-[var(--button-label-secondary)] hover:bg-[var(--button-bg-secondary-hover)] active:bg-[var(--button-bg-secondary-active)] focus:outline-2 focus:outline-orange-300",
 	ghost: 
-		"bg-[var(--button-bg-ghost)] text-[var(--button-label-ghost)] hover:bg-[var(--button-bg-ghost-hover)] active:bg-[var(--button-bg-ghost-active)] focus:outline-2 focus:outline-orange-300",
+		"bg-[var(--button-bg-ghost)] text-[var(--button-label-ghost)] hover:text-[var(--button-label-ghost-hover)] active:bg-[var(--button-bg-ghost-active)] focus:outline-2 focus:outline-orange-300",
 };
 
 const sizeClasses: Record<Size, string> = {
