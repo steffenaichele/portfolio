@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.css";
 
 import Header from "./components/Header";
@@ -17,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
 		<html lang="en">
-			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full body-grid ">
+			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full body-grid">
 				<Header />
 				{children}
 				<Footer />
