@@ -1,9 +1,71 @@
 @import "tailwindcss";
 
+@layer base {
+	:root {
+		color-scheme: light;
+	}
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Light.woff2") format("woff2");
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Book.woff2") format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Italic.woff2") format("woff2");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-SemiBold.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "PPNeueMontreal";
+	src: url("../../fonts/PPNeueMontreal-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
 @theme {
 	/* Fonts */
-	--font-sans: "Geist", sans-serif;
-	--font-mono: "Geist Mono", monospace;
+	--font-sans: "PPNeueMontreal", sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
 	--background: var(--color-neutral-900);
