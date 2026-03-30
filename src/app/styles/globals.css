@@ -59,7 +59,7 @@
 @theme {
 	/* Fonts */
 	--font-sans: "PPNeueMontreal", sans-serif;
-	--font-mono: "Geist Mono", monospace;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
 	--background: var(--color-neutral-900);
