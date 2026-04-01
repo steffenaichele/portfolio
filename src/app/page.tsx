@@ -4,7 +4,7 @@ import CVSection from "./components/CVSection";
 
 export default function Home() {
 	return (
-		<main className="bg-(--foreground) text-(--text-primary)">
+		<main className="text-(--text-primary)">
 			<HeroSection />
 			<CVSection />
 			<ProjectsSection />
