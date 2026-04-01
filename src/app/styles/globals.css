@@ -152,7 +152,7 @@
 		font-weight: 500;
 	}
 
-	.body-grid {
+	.layout-grid {
 		display: grid;
 		grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap))1fr var(--whitespace) var(--padding);
 		gap: 0;
@@ -184,7 +184,7 @@
 			font-size: 13px;
 		}
 
-		.body-grid {
+		.layout-grid {
 			grid-template-columns: repeat(var(--columns), 1fr);
 			column-gap: var(--gap);
 		}

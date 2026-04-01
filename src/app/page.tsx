@@ -4,8 +4,7 @@ import CVSection from "./components/CVSection";
 
 export default function Home() {
 	return (
-		<main
-			className="col-start-1 -col-end-1 grid grid-cols-subgrid gap-y-40 xl:gap-y-20 bg-(--foreground) text-(--text-primary)">
+		<main className="h-dvh overflow-y-scroll bg-(--foreground) text-(--text-primary)">
 			<HeroSection />
 			<CVSection />
 			<ProjectsSection />

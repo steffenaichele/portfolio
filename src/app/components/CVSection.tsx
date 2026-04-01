@@ -4,7 +4,7 @@ import Icon from "./Icon";
 
 export default function CVSection() {
 	return (
-		<section className="col-start-1 xl:col-start-2 -col-end-1 xl:col-end-5 grid grid-cols-subgrid xl:grid-cols-3 gap-y-9 xl:gap-y-7">
+		<section className="layout-grid gap-y-9 xl:gap-y-7">
 			<h3 className="col-start-3 xl:col-start-1 -col-end-3 xl:col-end-2 row-start-1 row-end-2 text-(--text-tertiary)">
 				experience
 			</h3>

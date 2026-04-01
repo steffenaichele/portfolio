@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-		<html lang="en">
-			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full body-grid">
+		<html lang="en" className="scroll-smooth">
+			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full">
 				<Header />
 				{children}
 				<Footer />
