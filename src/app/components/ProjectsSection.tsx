@@ -19,7 +19,7 @@ const ProjectsSection = () => {
 				<Slideshow slides={slides} />
 			</div>
 			<div className="col-start-2 -col-end-2 row-start-3 row-end-4">
-				<Button content="iconRight" variant="ghost" size="md">
+				<Button content="iconRight" variant="primary">
 					Projekte ansehen
 					<Icon icon={ArrowRight} />
 				</Button>
