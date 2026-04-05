@@ -37,6 +37,10 @@
 	--button-bg-ghost: bg-transparent;
 	--button-bg-ghost-active: var(--color-neutral-200);
 
+	--color-footer-bg: var(--background);
+	--color-footer-text-primary: var(--color-neutral-50);
+	--color-footer-text-secondary: var(--color-neutral-200);
+
 	/* Layout*/
 	--padding: 16px;
 	--whitespace: 16px;
