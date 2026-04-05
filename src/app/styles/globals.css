@@ -12,29 +12,23 @@
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
-	--color-bg: var(--color-neutral-900);
+	--color-bg: var(--color-black);
 	--color-bg-elevated: var(--color-neutral-100);
 
-	--text-primary: var(--color-neutral-950);
-	--text-secondary: var(--color-neutral-800);
-	--text-tertiary: var(--color-neutral-600);
-	--text-quaternary: var(--color-neutral-500);
-	--text-inverted: var(--color-white);
+	--color-text-primary: var(--color-neutral-950);
+	--color-text-secondary: var(--color-neutral-800);
+	--color-text-tertiary: var(--color-neutral-600);
+	--color-text-quaternary: var(--color-neutral-500);
 
-	--button-label-primary: var(--text-inverted);
-	--button-bg-primary: var(--color-neutral-900);
-	--button-bg-primary-hover: var(--color-neutral-950);
-	--button-bg-primary-active: var(--color-black);
+	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-bg: var(--color-white);
+	--color-button-primary-bg-hover: var(--color-neutral-200);
+	--color-button-primary-bg-active: var(--color-neutral-400);
 
-	--button-label-secondary: var(--text-secondary);
-	--button-bg-secondary: var(--color-white);
-	--button-bg-secondary-hover: var(--color-neutral-100);
-	--button-bg-secondary-active: var(--color-neutral-200);
-
-	--button-label-ghost: var(--text-quaternary);
-	--button-label-ghost-hover: var(--text-secondary);
-	--button-bg-ghost: bg-transparent;
-	--button-bg-ghost-active: var(--color-neutral-200);
+	/* --color-button-secondary-label: var(--color-text-secondary);
+	--color-button-secondary-bg: var(--color-white);
+	--color-button-secondary-bg-hover: var(--color-neutral-100);
+	--color-button-secondary-bg-active: var(--color-neutral-200); */
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
@@ -58,19 +52,19 @@
 	h2 {
 		font-size: 24px;
 		line-height: 135%;
-		font-weight: 400;
-	}
-
-	h3 {
-		font-size: 14px;
-		line-height: 100%;
 		font-weight: 500;
 	}
 
-	h4 {
-		font-size: 16px;
+	h3 {
+		font-size: 20px;
 		line-height: 100%;
-		font-weight: 600;
+		font-weight: 400;
+	}
+
+	h4 {
+		font-size: 18px;
+		line-height: 100%;
+		font-weight: 500;
 	}
 
 	h5 {
@@ -80,23 +74,18 @@
 	}
 
 	h6 {
-		font-family: var(--font-mono);
-		font-size: 14px;
+		font-size: 16px;
 		line-height: 100%;
 		font-weight: 600;
 		white-space: nowrap;
+		text-transform: uppercase;
+		letter-spacing: 0;
 	}
 
 	.p-md {
 		font-size: 18px;
 		line-height: 150%;
 		font-weight: 400;
-	}
-
-	.label-sm {
-		font-size: 14px;
-		line-height: 100%;
-		font-weight: 500;
 	}
 
 	.label-md {
