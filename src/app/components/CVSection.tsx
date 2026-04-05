@@ -2,6 +2,22 @@ import Button from "./Button";
 import { ArrowRight } from "lucide-react";
 import Icon from "./Icon";
 
+import { experience, education } from "../data/cv";
+import { getYearRange } from "../data/cv";
+
+//Combine experence and education arrays and add a corresponding tag
+const entries = [
+	...experience.map((entry) => ({ ...entry, type: "experience" })),
+	...education.map((entry) => ({ ...entry, type: "education" })),
+];
+
+//Sort entries by their overall year range (startYear of the earliest role to endYear of the latest role)
+entries.sort((a, b) => {
+	const aRange = getYearRange(a);
+	const bRange = getYearRange(b);
+	return bRange.endYear - aRange.endYear; // Sort in descending order (most recent first)
+});
+
 export default function CVSection() {
 	return (
 		<section className="layout-grid gap-y-9 xl:gap-y-7">
@@ -9,54 +25,20 @@ export default function CVSection() {
 				experience
 			</h3>
 			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-y-3 px-4 py-5 bg-neutral-100 rounded-2xl corner-squircle border border-neutral-300">
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">WBS Coding School</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-sky-200 rounded-sm">
-						<h6>2025 → 2026</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">Freelance</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-green-200 rounded-sm">
-						<h6>2025 → 2026</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">Hochschule für Gestaltung</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-sky-200 rounded-sm">
-						<h6>2021 → 2024</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">Future Forms</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-green-200 rounded-sm">
-						<h6>2023 → 2024</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">halbautomaten</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-green-200 rounded-sm">
-						<h6>2022 → 2023</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">amplify design</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-green-200 rounded-sm">
-						<h6>2018 → 2021</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">Johannes-Gutenberg-Schule</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-sky-200 rounded-sm">
-						<h6>2017 → 2020</h6>
-					</div>
-				</div>
-				<div className="flex justify-between items-center">
-					<h4 className="truncate mr-4">Paperdice Solutions</h4>
-					<div className="items-center px-2 py-1 gap-x-4 bg-green-200 rounded-sm">
-						<h6>2017 → 2018</h6>
-					</div>
-				</div>
+				{entries.map((entry) => {
+					const { startYear, endYear } = getYearRange(entry);
+					return (
+						<dl
+							key={entry.organization}
+							className="flex flex-col gap-1">
+							<dt>{entry.organization}</dt>
+							<dd
+								className={`entry.type === "education" ? "bg-()" : "bg-()"} p-3 rounded-lg corner-squircle`}>
+								{startYear} → {endYear}
+							</dd>
+						</dl>
+					);
+				})}
 			</div>
 			<div className="col-start-2 -col-end-2 xl:col-end-4 row-start-3 xl:row-start-1 row-end-4 xl:row-end-2">
 				<Button content="iconRight" variant="primary">
