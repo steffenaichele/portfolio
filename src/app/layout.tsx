@@ -50,7 +50,7 @@ export default function RootLayout({
 		<html
 			lang="en"
 			className={`bg-(--color-black) overscroll-x-none overscroll-y-contain scroll-smooth ${instrumentSans.variable}`}>
-			<body className="bg-(--color-bg-elevated) text-(--color-text-primary) font-sans antialiased tracking-[-2%] w-full">
+			<body className=" text-(--color-text-primary) font-sans antialiased tracking-[-2%] w-full">
 				<Header />
 				{children}
 				<Footer />
