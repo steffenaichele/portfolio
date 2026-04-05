@@ -59,7 +59,7 @@ export default function CVSection() {
 				</div>
 			</div>
 			<div className="col-start-2 -col-end-2 xl:col-end-4 row-start-3 xl:row-start-1 row-end-4 xl:row-end-2">
-				<Button content="iconRight" variant="ghost" size="md">
+				<Button content="iconRight" variant="primary">
 					CV ansehen
 					<Icon icon={ArrowRight} />
 				</Button>
