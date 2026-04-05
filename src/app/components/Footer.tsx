@@ -26,7 +26,7 @@ const Footer = () => {
 			</div>
 
 			<nav aria-label="Footer-Navigation" className="flex gap-4">
-				<div className="flex flex-col gap-3">
+				<div className="flex flex-col flex-1 gap-3">
 					<h6 className="text-(--color-footer-text-tertiary)">
 						Seiten
 					</h6>
@@ -45,7 +45,7 @@ const Footer = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="flex flex-col gap-3">
+				<div className="flex flex-col flex-1 gap-3">
 					<h6 className="text-(--color-footer-text-tertiary)">
 						Links
 					</h6>
