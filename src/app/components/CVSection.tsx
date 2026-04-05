@@ -24,7 +24,7 @@ export default function CVSection() {
 			<h3 className="col-start-3 xl:col-start-1 -col-end-3 xl:col-end-2 row-start-1 row-end-2">
 				experience
 			</h3>
-			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-5 py-7 bg-(--color-surface) rounded-2xl corner-squircle">
+			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-5 py-7 bg-(--color-surface) rounded-(--radius-squircle-md) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
@@ -35,7 +35,7 @@ export default function CVSection() {
 								{entry.organizationShort}
 							</h4>
 							<div
-								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full text-nowrap flex items-center gap-1 flex-none p-number px-3 rounded-lg corner-squircle`}>
+								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full text-nowrap flex items-center gap-1 flex-none p-number px-3 rounded-(--radius-squircle-sm) corner-squircle`}>
 								<span>{startYear}</span>
 								<Icon icon={ArrowRight} />
 								<span>{endYear}</span>

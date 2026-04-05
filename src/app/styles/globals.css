@@ -1,8 +1,18 @@
 @import "tailwindcss";
+@plugin "@toolwind/corner-shape";
 
 @layer base {
 	:root {
 		color-scheme: light;
+	}
+
+	/* Fallback for browsers without corner-shape support: use half the squircle radius */
+	@supports not (corner-shape: squircle) {
+		:root {
+			--radius-squircle-sm: 8px;
+			--radius-squircle-md: 16px;
+			--radius-squircle-lg: 32px;
+		}
 	}
 }
 
@@ -33,6 +43,11 @@
 	--color-footer-text-primary: var(--color-neutral-50);
 	--color-footer-text-secondary: var(--color-neutral-200);
 	--color-footer-text-tertiary: var(--color-neutral-400);
+
+	/* Squircle radii (2× the intended visual radius) */
+	--radius-squircle-sm: 16px;  /* visually ~8px, replaces rounded-lg */
+	--radius-squircle-md: 32px;  /* visually ~16px, replaces rounded-2xl */
+	--radius-squircle-lg: 64px;  /* visually ~32px, replaces rounded-4xl */
 
 	/* Layout */
 	--padding: 16px;
