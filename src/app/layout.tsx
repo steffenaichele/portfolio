@@ -23,7 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-		<html lang="en" className={`scroll-smooth ${instrumentSans.variable}`}>
+		<html
+			lang="en"
+			className={`bg-(--color-black) overscroll-x-none overscroll-y-contain scroll-smooth ${instrumentSans.variable}`}>
 			<body className="bg-(--color-bg-elevated) font-sans antialiased tracking-[-2%] w-full">
 				<Header />
 				{children}
