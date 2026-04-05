@@ -30,6 +30,9 @@
 	--color-button-secondary-bg-hover: var(--color-neutral-100);
 	--color-button-secondary-bg-active: var(--color-neutral-200); */
 
+	--color-badge-experience-bg: var(--color-green-300);
+	--color-badge-education-bg: var(--color-blue-300);
+
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
 	--color-footer-text-secondary: var(--color-neutral-200);
