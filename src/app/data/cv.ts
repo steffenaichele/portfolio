@@ -4,20 +4,30 @@ export type CVRole = {
 	startYear: number;
 	endMonth: string;
 	endYear: number;
-	// tags?: string[];
 };
 
 export type CVEntry = {
 	organization: string;
+	organizationShort: string;
 	location: string;
 	roles: CVRole[];
-	description: string[];
+	description?: string[];
 };
+
+// Utility function to get the overall year range for a CV entry, based on its roles
+export function getYearRange(entry: CVEntry) {
+  const startYears = entry.roles.map((r) => r.startYear);
+  const endYears = entry.roles.map((r) => r.endYear);
+  return {
+    startYear: Math.min(...startYears),
+    endYear: Math.max(...endYears),
+  };
+}
 
 export const experience: CVEntry[] = [
 	{
-		organization:
-			"Klinikum Christophsbad MuSeele e.V. - Klinik für Psychiatrie, Psychotherapie und Psychosomatik",
+		organization: "Freelance für Klinikum Christophsbad",
+		organizationShort: "Freelance",
 		location: "Remote",
 		roles: [
 			{
@@ -38,6 +48,7 @@ export const experience: CVEntry[] = [
 	},
 	{
 		organization: "Future Forms GmbH",
+		organizationShort: "Future Forms",
 		location: "Stuttgart",
 		roles: [
 			{
@@ -72,6 +83,7 @@ export const experience: CVEntry[] = [
 	},
 	{
 		organization: "halbautomaten Kommunikationsdesign GmbH",
+		organizationShort: "halbautomaten",
 		location: "Stuttgart",
 		roles: [
 			{
@@ -90,6 +102,7 @@ export const experience: CVEntry[] = [
 	},
 	{
 		organization: "amplify design GmbH",
+		organizationShort: "amplify design",
 		location: "Stuttgart",
 		roles: [
 			{
@@ -123,6 +136,7 @@ export const experience: CVEntry[] = [
 	},
 	{
 		organization: "Paperdice Solutions GmbH",
+		organizationShort: "Paperdice Solutions",
 		location: "Stuttgart",
 		roles: [
 			{
@@ -144,6 +158,7 @@ export const experience: CVEntry[] = [
 export const education: CVEntry[] = [
 	{
 		organization: "WBS Coding School",
+		organizationShort: "WBS Coding School",
 		location: "Berlin",
 		roles: [
 			{
@@ -165,6 +180,7 @@ export const education: CVEntry[] = [
 	},
 	{
 		organization: "Hochschule für Gestaltung",
+		organizationShort: "HfG Schwäbisch Gmünd",
 		location: "Schwäbisch Gmünd",
 		roles: [
 			{
@@ -180,6 +196,34 @@ export const education: CVEntry[] = [
 			"Projektbasiertes Arbeiten in interdisziplinären Teams mit methodischem, research-basiertem Designprozess.",
 			"Schwerpunkte in Application Design und Interface Design: Konzeption, Usability und Visual Design von Software und Hardware-Produkten.",
 			"Grundlagen in Programmierung und digitaler Technik als Brücke zwischen Design und Entwicklung.",
+		],
+	},
+	{
+		organization: "Johannes-Gutenberg-Schule",
+		organizationShort: "Johannes-Gutenberg-Schule",
+		location: "Stuttgart",
+		roles: [
+			{
+				title: "Mediengestalter Digital & Print",
+				startMonth: "Aug",
+				startYear: 2017,
+				endMonth: "Jan",
+				endYear: 2020,
+			},
+		],
+	},
+	{
+		organization: "Gewerbliche Schule Schwäbisch Gmünd",
+		organizationShort: "Gewerbliche Schule GD",
+		location: "Schwäbisch Gmünd",
+		roles: [
+			{
+				title: "Allgemeine Hochschulreife (Gestaltungs- und Medientechnik)",
+				startMonth: "Sep",
+				startYear: 2012,
+				endMonth: "Jul",
+				endYear: 2016,
+			},
 		],
 	},
 ];
