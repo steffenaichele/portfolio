@@ -4,12 +4,46 @@
 	:root {
 		color-scheme: light;
 	}
+
+	* {
+		/*
+		 * Instrument Sans font feature settings (applied globally)
+		 * ss01: Runde Interpunktion, Tittles (Punkte über i/j) und Diakritika
+		 * ss02: Alternatives „a"
+		 * ss03: Alternatives „y"
+		 * ss04: Alternatives „K"
+		 * ss05: Alternatives „R"
+		 * ss06: Alternatives „M"
+		 * ss07: Alternatives „G"
+		 * ss08: Alternatives „J"
+		 * ss09: Alternatives „Q"
+		 * ss10: Alternative „2"
+		 * ss11: Alternatives „&"
+		 * ss12: Alternatives „$"/„¢"
+		 * liga: Ligaturen
+		 * kern: Kerning
+		 */
+		font-feature-settings:
+			"ss01" 1,
+			"ss02" 1,
+			"ss03" 1,
+			"ss04" 1,
+			"ss05" 1,
+			"ss06" 1,
+			"ss07" 0,
+			"ss08" 1,
+			"ss09" 1,
+			"ss10" 1,
+			"ss11" 0,
+			"ss12" 0,
+			"liga" 1,
+			"kern" 1;
+	}
 }
 
 @theme {
 	/* Fonts */
 	--font-sans: var(--font-instrument-sans), sans-serif;
-	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
 	--color-bg: var(--color-black);
@@ -27,11 +61,6 @@
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 	--color-button-primary-bg-active: var(--color-neutral-400);
 
-	/* --color-button-secondary-label: var(--color-text-secondary);
-	--color-button-secondary-bg: var(--color-white);
-	--color-button-secondary-bg-hover: var(--color-neutral-100);
-	--color-button-secondary-bg-active: var(--color-neutral-200); */
-
 	--color-badge-experience-bg: var(--color-emerald-200);
 	--color-badge-education-bg: var(--color-sky-200);
 
@@ -40,7 +69,7 @@
 	--color-footer-text-secondary: var(--color-neutral-200);
 	--color-footer-text-tertiary: var(--color-neutral-400);
 
-	/* Layout*/
+	/* Layout */
 	--padding: 16px;
 	--whitespace: 16px;
 	--columns: 4;
@@ -68,7 +97,7 @@
 
 	h4 {
 		font-size: 18px;
-		line-height: 100%;
+		line-height: 150%;
 		font-weight: 500;
 	}
 
@@ -97,7 +126,7 @@
 		font-size: 18px;
 		line-height: 125%;
 		font-weight: 500;
-		font-feature-settings: "tnum";
+		font-variant-numeric: tabular-nums;
 	}
 
 	.label-md {
@@ -108,11 +137,16 @@
 
 	.layout-grid {
 		display: grid;
-		grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap))1fr var(--whitespace) var(--padding);
+		grid-template-columns:
+			var(--padding) var(--whitespace) repeat(
+				calc(var(--columns) - 1),
+				1fr var(--gap)
+			)
+			1fr var(--whitespace) var(--padding);
 		gap: 0;
 	}
 
-	@media (width >=80rem) {
+	@media (width >= 80rem) {
 		:root {
 			--padding: 32px;
 			--whitespace: 76px;

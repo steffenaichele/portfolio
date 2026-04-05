@@ -136,7 +136,7 @@ export const experience: CVEntry[] = [
 	},
 	{
 		organization: "Paperdice Solutions GmbH",
-		organizationShort: "Paperdice",
+		organizationShort: "Paperdice Solutions",
 		location: "Stuttgart",
 		roles: [
 			{
@@ -214,7 +214,7 @@ export const education: CVEntry[] = [
 	},
 	{
 		organization: "Gewerbliche Schule Schwäbisch Gmünd",
-		organizationShort: "GSGD",
+		organizationShort: "Gewerbliche Schule GD",
 		location: "Schwäbisch Gmünd",
 		roles: [
 			{
