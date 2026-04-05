@@ -1,6 +1,22 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 
+/**
+ * LinkButton — a styled anchor using Next.js <Link>.
+ *
+ * Props:
+ *   href      (required)  — destination URL, internal or external
+ *   children  (required)  — button label / content
+ *   hasIcon   (optional)  — adds right padding + gap for an icon, default false
+ *   external  (optional)  — opens in new tab + sets rel="noopener noreferrer", default false
+ *
+ * Examples:
+ *   <LinkButton href="/projects">View projects</LinkButton>
+ *   <LinkButton href="/contact" hasIcon><ArrowRight />Get in touch</LinkButton>
+ *   <LinkButton href="https://github.com/..." external>GitHub</LinkButton>
+ *   <LinkButton href="https://behance.net/..." external hasIcon><ExternalLink />Behance</LinkButton>
+ */
+
 interface LinkButtonProps {
 	href: string;
 	hasIcon?: boolean;

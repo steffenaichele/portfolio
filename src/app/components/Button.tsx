@@ -1,5 +1,23 @@
 import { ReactNode } from "react";
 
+/**
+ * Button — a styled button element.
+ *
+ * Props:
+ *   children  (required)  — button label / content
+ *   variant   (optional)  — "primary", default "primary"
+ *   content   (optional)  — "text" | "iconOnly" | "iconRight", default "text"
+ *   onClick   (optional)  — click handler
+ *   disabled  (optional)  — disables the button, default false
+ *   type      (optional)  — "button" | "submit" | "reset", default "button"
+ *
+ * Examples:
+ *   <Button>Save</Button>
+ *   <Button content="iconRight"><span>Download</span><Download /></Button>
+ *   <Button onClick={() => console.log("clicked")}>More</Button>
+ *   <Button type="submit" disabled>Submitting…</Button>
+ */
+
 type Variant = "primary";
 type ContentType = "text" | "iconOnly" | "iconRight";
 
