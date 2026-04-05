@@ -13,7 +13,9 @@
 
 	/* Colors */
 	--color-bg: var(--color-black);
-	--color-bg-elevated: var(--color-neutral-100);
+	--color-bg-elevated: var(--color-neutral-300);
+
+	--color-surface: var(--color-white);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-800);
@@ -30,8 +32,8 @@
 	--color-button-secondary-bg-hover: var(--color-neutral-100);
 	--color-button-secondary-bg-active: var(--color-neutral-200); */
 
-	--color-badge-experience-bg: var(--color-green-300);
-	--color-badge-education-bg: var(--color-blue-300);
+	--color-badge-experience-bg: var(--color-emerald-200);
+	--color-badge-education-bg: var(--color-sky-200);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
@@ -89,6 +91,13 @@
 		font-size: 18px;
 		line-height: 150%;
 		font-weight: 400;
+	}
+
+	.p-number {
+		font-size: 18px;
+		line-height: 125%;
+		font-weight: 500;
+		font-feature-settings: "tnum";
 	}
 
 	.label-md {
