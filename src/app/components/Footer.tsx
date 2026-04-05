@@ -1,42 +1,83 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import Icon from "./Icon";
+import Button from "./Button";
+import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
-		<footer className="col-start-1 xl:col-start-2 -col-end-1 xl:-col-end-2 w-full bg-(--bg-footer) xl:rounded-3xl xl:my-4 px-8 py-10">
-			<div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-8">
-				<div className="flex flex-col gap-2">
-					<span className="text-(--text-inverted) font-medium text-lg">
-						steffen aichele
-					</span>
-					<span className="label-sm text-(--text-tertiary)">
-						UX/UI Designer & Full Stack Developer
-					</span>
+		<footer className="w-full flex flex-col gap-12 px-8 py-12 bg-(--color-footer-bg)">
+			<div className="flex flex-col gap-0">
+				<h2 className="text-(--color-footer-text-primary)">
+					Steffen Aichele
+				</h2>
+				<p className="p-md text-(--color-footer-text-tertiary)">
+					UX/UI Designer & Web Developer
+				</p>
+			</div>
+
+			<div className="flex gap-4 justify-between items-center">
+				<h3 className="text-(--color-footer-text-primary)">
+					Get in Touch
+				</h3>
+				<Button content="text" variant="primary">
+					Holler at me
+				</Button>
+			</div>
+
+			<nav aria-label="Footer-Navigation" className="flex gap-4">
+				<div className="flex flex-col flex-1 gap-3">
+					<h6 className="text-(--color-footer-text-tertiary)">
+						Seiten
+					</h6>
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
+						<li>
+							<LinkButton href="/">Home</LinkButton>
+						</li>
+						<li>
+							<LinkButton href="/">Projekte</LinkButton>
+						</li>
+						<li>
+							<LinkButton href="/">Über mich</LinkButton>
+						</li>
+						<li>
+							<LinkButton href="/">Impressum</LinkButton>
+						</li>
+					</ul>
 				</div>
+				<div className="flex flex-col flex-1 gap-3">
+					<h6 className="text-(--color-footer-text-tertiary)">
+						Links
+					</h6>
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
+						<li>
+							<LinkButton
+								href="www.linkedin.com/in/steffenaichele"
+								external
+								hasIcon>
+								LinkedIn
+								<Icon icon={ArrowUpRight} />
+							</LinkButton>
+						</li>
+						<li>
+							<LinkButton
+								href="https://github.com/steffenaichele"
+								external
+								hasIcon>
+								GitHub
+								<Icon icon={ArrowUpRight} />
+							</LinkButton>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-				<nav className="flex flex-col xl:flex-row gap-4 xl:gap-8">
-					<Link
-						href="mailto:mail@steffen-aichele.de"
-						className="label-sm text-(--text-tertiary) hover:text-(--text-inverted) transition-colors duration-200">
-						mail@steffen-aichele.de
-					</Link>
-					<Link
-						href="https://linkedin.com/in/steffen-aichele"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="label-sm text-(--text-tertiary) hover:text-(--text-inverted) transition-colors duration-200">
-						LinkedIn
-					</Link>
-					<Link
-						href="https://github.com/steffenaichele"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="label-sm text-(--text-tertiary) hover:text-(--text-inverted) transition-colors duration-200">
-						GitHub
-					</Link>
-				</nav>
-
-				<p className="label-sm text-(--text-tertiary)">
-					© 2026 Steffen Aichele
+			<div className="flex flex-col gap-4">
+				<p className="p-md text-(--color-footer-text-tertiary)">
+					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
+				</p>
+				<p className="p-md text-(--color-footer-text-tertiary)">
+					Built with Next.js & Tailwind CSS
 				</p>
 			</div>
 		</footer>

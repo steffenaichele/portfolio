@@ -6,93 +6,34 @@
 	}
 }
 
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Light.woff2") format("woff2");
-	font-weight: 200;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Book.woff2") format("woff2");
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Italic.woff2") format("woff2");
-	font-weight: 400;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-SemiBold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-
 @theme {
 	/* Fonts */
-	--font-sans: "PPNeueMontreal", sans-serif;
+	--font-sans: var(--font-instrument-sans), sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
-	--background: var(--color-neutral-900);
-	--foreground: var(--color-neutral-100);
+	--color-bg: var(--color-black);
+	--color-bg-elevated: var(--color-neutral-100);
 
-	--bg-footer: var(--color-neutral-900);
+	--color-text-primary: var(--color-neutral-950);
+	--color-text-secondary: var(--color-neutral-800);
+	--color-text-tertiary: var(--color-neutral-600);
+	--color-text-quaternary: var(--color-neutral-500);
 
-	--text-primary: var(--color-neutral-950);
-	--text-secondary: var(--color-neutral-800);
-	--text-tertiary: var(--color-neutral-600);
-	--text-quaternary: var(--color-neutral-500);
-	--text-inverted: var(--color-white);
+	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-bg: var(--color-white);
+	--color-button-primary-bg-hover: var(--color-neutral-200);
+	--color-button-primary-bg-active: var(--color-neutral-400);
 
-	--button-label-primary: var(--text-inverted);
-	--button-bg-primary: var(--color-neutral-900);
-	--button-bg-primary-hover: var(--color-neutral-950);
-	--button-bg-primary-active: var(--color-black);
+	/* --color-button-secondary-label: var(--color-text-secondary);
+	--color-button-secondary-bg: var(--color-white);
+	--color-button-secondary-bg-hover: var(--color-neutral-100);
+	--color-button-secondary-bg-active: var(--color-neutral-200); */
 
-	--button-label-secondary: var(--text-secondary);
-	--button-bg-secondary: var(--color-white);
-	--button-bg-secondary-hover: var(--color-neutral-100);
-	--button-bg-secondary-active: var(--color-neutral-200);
-
-	--button-label-ghost: var(--text-quaternary);
-	--button-label-ghost-hover: var(--text-secondary);
-	--button-bg-ghost: bg-transparent;
-	--button-bg-ghost-active: var(--color-neutral-200);
+	--color-footer-bg: var(--color-bg);
+	--color-footer-text-primary: var(--color-neutral-50);
+	--color-footer-text-secondary: var(--color-neutral-200);
+	--color-footer-text-tertiary: var(--color-neutral-400);
 
 	/* Layout*/
 	--padding: 16px;
@@ -111,19 +52,19 @@
 	h2 {
 		font-size: 24px;
 		line-height: 135%;
-		font-weight: 400;
-	}
-
-	h3 {
-		font-size: 14px;
-		line-height: 100%;
 		font-weight: 500;
 	}
 
-	h4 {
-		font-size: 16px;
+	h3 {
+		font-size: 20px;
 		line-height: 100%;
-		font-weight: 600;
+		font-weight: 400;
+	}
+
+	h4 {
+		font-size: 18px;
+		line-height: 100%;
+		font-weight: 500;
 	}
 
 	h5 {
@@ -133,17 +74,18 @@
 	}
 
 	h6 {
-		font-family: var(--font-mono);
-		font-size: 14px;
+		font-size: 16px;
 		line-height: 100%;
 		font-weight: 600;
 		white-space: nowrap;
+		text-transform: uppercase;
+		letter-spacing: 0;
 	}
 
-	.label-sm {
-		font-size: 14px;
-		line-height: 100%;
-		font-weight: 500;
+	.p-md {
+		font-size: 18px;
+		line-height: 150%;
+		font-weight: 400;
 	}
 
 	.label-md {
@@ -152,7 +94,7 @@
 		font-weight: 500;
 	}
 
-	.body-grid {
+	.layout-grid {
 		display: grid;
 		grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap))1fr var(--whitespace) var(--padding);
 		gap: 0;
@@ -184,7 +126,7 @@
 			font-size: 13px;
 		}
 
-		.body-grid {
+		.layout-grid {
 			grid-template-columns: repeat(var(--columns), 1fr);
 			column-gap: var(--gap);
 		}
