@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import Icon from "./Icon";
 import Button from "./Button";
+import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
@@ -23,34 +26,47 @@ const Footer = () => {
 			</div>
 
 			<nav aria-label="Footer-Navigation" className="flex gap-4">
-				<div>
-					<h6>Seiten</h6>
-					<ul>
-						<li></li>
-						<li></li>
-						<li></li>
-					</ul>
-				</div>
-				<div>
-					<h6>Links</h6>
-					<ul>
+				<div className="flex flex-col gap-3">
+					<h6 className="text-(--color-footer-text-tertiary)">
+						Seiten
+					</h6>
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
 						<li>
-							<Link
-								href="https://linkedin.com/in/steffen-aichele"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="label-sm text-(--text-tertiary) hover:text-(--text-inverted) transition-colors duration-200">
-								LinkedIn
-							</Link>
+							<LinkButton href="/">Home</LinkButton>
 						</li>
 						<li>
-							<Link
+							<LinkButton href="/">Projekte</LinkButton>
+						</li>
+						<li>
+							<LinkButton href="/">Über mich</LinkButton>
+						</li>
+						<li>
+							<LinkButton href="/">Impressum</LinkButton>
+						</li>
+					</ul>
+				</div>
+				<div className="flex flex-col gap-3">
+					<h6 className="text-(--color-footer-text-tertiary)">
+						Links
+					</h6>
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
+						<li>
+							<LinkButton
+								href="www.linkedin.com/in/steffenaichele"
+								external
+								hasIcon>
+								LinkedIn
+								<Icon icon={ArrowUpRight} />
+							</LinkButton>
+						</li>
+						<li>
+							<LinkButton
 								href="https://github.com/steffenaichele"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="label-sm text-(--text-tertiary) hover:text-(--text-inverted) transition-colors duration-200">
+								external
+								hasIcon>
 								GitHub
-							</Link>
+								<Icon icon={ArrowUpRight} />
+							</LinkButton>
 						</li>
 					</ul>
 				</div>
