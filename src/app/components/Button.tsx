@@ -52,7 +52,7 @@ const Button = ({
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 rounded-2xl corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
+		"h-11 label-md rounded-2xl corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
 	return (
 		<button
