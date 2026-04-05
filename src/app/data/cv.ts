@@ -14,6 +14,16 @@ export type CVEntry = {
 	description: string[];
 };
 
+// Utility function to get the overall year range for a CV entry, based on its roles
+export function getYearRange(entry: CVEntry) {
+  const startYears = entry.roles.map((r) => r.startYear);
+  const endYears = entry.roles.map((r) => r.endYear);
+  return {
+    startYear: Math.min(...startYears),
+    endYear: Math.max(...endYears),
+  };
+}
+
 export const experience: CVEntry[] = [
 	{
 		organization:
