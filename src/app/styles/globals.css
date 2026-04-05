@@ -12,9 +12,8 @@
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
-	--background: var(--color-neutral-100);
-
-	--bg-footer: var(--color-neutral-900);
+	--color-bg: var(--color-neutral-900);
+	--color-bg-elevated: var(--color-neutral-100);
 
 	--text-primary: var(--color-neutral-950);
 	--text-secondary: var(--color-neutral-800);
@@ -37,7 +36,7 @@
 	--button-bg-ghost: bg-transparent;
 	--button-bg-ghost-active: var(--color-neutral-200);
 
-	--color-footer-bg: var(--background);
+	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
 	--color-footer-text-secondary: var(--color-neutral-200);
 	--color-footer-text-tertiary: var(--color-neutral-400);

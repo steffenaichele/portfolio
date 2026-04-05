@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
 		<html lang="en" className={`scroll-smooth ${instrumentSans.variable}`}>
-			<body className="bg-(--background) font-sans antialiased tracking-[-2%] w-full">
+			<body className="bg-(--color-bg-elevated) font-sans antialiased tracking-[-2%] w-full">
 				<Header />
 				{children}
 				<Footer />
