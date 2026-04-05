@@ -3,7 +3,6 @@ import Link from "next/link";
 const Footer = () => {
 	return (
 		<footer className="w-full flex flex-col gap-3 px-2 pb-8">
-			<section className="bg-(--bg-footer) px-6 py-7 rounded-2xl ">
 				<div className="flex flex-col gap-2">
 					<span className="text-(--text-inverted) font-medium text-lg">
 						steffen aichele
@@ -12,9 +11,7 @@ const Footer = () => {
 						UX/UI Designer & Full Stack Developer
 					</span>
 				</div>
-			</section>
 
-			<section className="bg-(--bg-footer) px-6 py-7 rounded-2xl ">
 				<nav className="flex flex-col xl:flex-row gap-4 xl:gap-8">
 					<Link
 						href="mailto:mail@steffen-aichele.de"
@@ -36,13 +33,11 @@ const Footer = () => {
 						GitHub
 					</Link>
 				</nav>
-			</section>
 
-			<section className="bg-(--bg-footer) px-6 py-7 rounded-2xl ">
+
 				<p className="label-sm text-(--text-tertiary)">
 					© 2026 Steffen Aichele
 				</p>
-			</section>
 
 		</footer>
 	);

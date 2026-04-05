@@ -6,65 +6,9 @@
 	}
 }
 
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Light.woff2") format("woff2");
-	font-weight: 200;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Book.woff2") format("woff2");
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Italic.woff2") format("woff2");
-	font-weight: 400;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-SemiBold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-
 @theme {
 	/* Fonts */
-	--font-sans: "PPNeueMontreal", sans-serif;
+	--font-sans: var(--font-instrument-sans), sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	/* Colors */
@@ -137,6 +81,12 @@
 		line-height: 100%;
 		font-weight: 600;
 		white-space: nowrap;
+	}
+
+	.p-md {
+		font-size: 18px;
+		line-height: 150%;
+		font-weight: 400;
 	}
 
 	.label-sm {
