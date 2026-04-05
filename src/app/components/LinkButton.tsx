@@ -31,14 +31,14 @@ const LinkButton = ({
 	external = false,
 }: LinkButtonProps) => {
 	const baseClasses =
-		"inline-flex flex-row items-center justify-center transition-all duration-150 select-none";
+		"h-7 inline-flex flex-row items-center justify-center label-md py-1 transition-all duration-150 select-none";
 
 	return (
 		<Link
 			href={href}
 			target={external ? "_blank" : undefined}
 			rel={external ? "noopener noreferrer" : undefined}
-			className={`${baseClasses} ${hasIcon ? "pr-2 gap-2" : ""}`}>
+			className={`${baseClasses} ${hasIcon ? "gap-2" : ""}`}>
 			{children}
 		</Link>
 	);
