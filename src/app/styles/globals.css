@@ -4,41 +4,6 @@
 	:root {
 		color-scheme: light;
 	}
-
-	* {
-		/*
-		 * Instrument Sans font feature settings (applied globally)
-		 * ss01: Runde Interpunktion, Tittles (Punkte über i/j) und Diakritika
-		 * ss02: Alternatives „a"
-		 * ss03: Alternatives „y"
-		 * ss04: Alternatives „K"
-		 * ss05: Alternatives „R"
-		 * ss06: Alternatives „M"
-		 * ss07: Alternatives „G"
-		 * ss08: Alternatives „J"
-		 * ss09: Alternatives „Q"
-		 * ss10: Alternative „2"
-		 * ss11: Alternatives „&"
-		 * ss12: Alternatives „$"/„¢"
-		 * liga: Ligaturen
-		 * kern: Kerning
-		 */
-		font-feature-settings:
-			"ss01" 1,
-			"ss02" 1,
-			"ss03" 1,
-			"ss04" 1,
-			"ss05" 1,
-			"ss06" 1,
-			"ss07" 0,
-			"ss08" 1,
-			"ss09" 1,
-			"ss10" 1,
-			"ss11" 0,
-			"ss12" 0,
-			"liga" 1,
-			"kern" 1;
-	}
 }
 
 @theme {
@@ -76,7 +41,26 @@
 	--gap: 28px;
 }
 
+/*
+ * Instrument Sans font feature settings (applied globally)
+ * ss01: Runde Interpunktion, Tittles (Punkte über i/j) und Diakritika
+ * ss02: Alternatives „a"       ss03: Alternatives „y"
+ * ss04: Alternatives „K"       ss05: Alternatives „R"
+ * ss06: Alternatives „M"       ss07: Alternatives „G" (off)
+ * ss08: Alternatives „J"       ss09: Alternatives „Q"
+ * ss10: Alternative „2"        ss11: Alternatives „&" (off)
+ * ss12: Alternatives „$"/„¢" (off)
+ * liga: Ligaturen              kern: Kerning
+ */
 @layer components {
+	* {
+		font-feature-settings:
+			"ss01" 1, "ss02" 1, "ss03" 1, "ss04" 1,
+			"ss05" 1, "ss06" 1, "ss07" 0, "ss08" 1,
+			"ss09" 1, "ss10" 1, "ss11" 0, "ss12" 0,
+			"liga" 1, "kern" 1;
+	}
+
 	h1 {
 		font-size: 24px;
 		line-height: 135%;
