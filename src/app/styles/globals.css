@@ -40,6 +40,7 @@
 	--color-footer-bg: var(--background);
 	--color-footer-text-primary: var(--color-neutral-50);
 	--color-footer-text-secondary: var(--color-neutral-200);
+	--color-footer-text-tertiary: var(--color-neutral-400);
 
 	/* Layout*/
 	--padding: 16px;
