@@ -56,8 +56,7 @@ const Header = () => {
 				{/* Mobile hamburger */}
 				<div className="xl:hidden">
 					<Button
-						variant="ghost"
-						size="sm"
+						variant="primary"
 						content="iconOnly"
 						onClick={() => setOpen((v) => !v)}
 						aria-label={open ? "Menu schließen" : "Menu öffnen"}
