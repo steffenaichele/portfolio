@@ -52,7 +52,7 @@ export default function RootLayout({
 		<html
 			lang="de"
 			className={`bg-(--color-black) overscroll-x-none overscroll-y-contain scroll-smooth ${instrumentSans.variable}`}>
-			<body className=" text-(--color-text-primary) font-sans antialiased tracking-[-2%] w-full">
+			<body className=" text-(--color-text-primary) font-sans antialiased tracking-(--letter-spacing) w-full">
 				<Header />
 				<main className="bg-(--color-bg-elevated) bg-pattern flex flex-col gap-24 pb-24 rounded-bl-squircle-lg rounded-br-squircle-lg corner-squircle">
 					<BGGrid />

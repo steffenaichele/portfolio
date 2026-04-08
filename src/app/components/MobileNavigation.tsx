@@ -13,6 +13,8 @@ const navLinks = [
 	{ label: "Über mich", href: "/about-me" },
 ];
 
+const EMAIL = "hi@steffenaichele.xyz";
+
 const countLinks = navLinks.length; // for transition delay calculation
 
 const MobileNavigation = () => {
@@ -68,14 +70,16 @@ const MobileNavigation = () => {
 									: "opacity-0 -translate-y-2 pointer-events-none"
 							}`}
 					style={{
-						transitionDelay: open ? `${(countLinks + 1) * 100}ms` : "0ms",
+						transitionDelay: open
+							? `${(countLinks + 1) * 100}ms`
+							: "0ms",
 					}}>
 					<Button
 						variant="cta"
 						content="iconRight"
-						onClick={() => {}}>
-						    Kontakt
-                            <Icon icon={Mail} />
+						onClick={() => navigator.clipboard.writeText(EMAIL)}>
+						Kontakt
+						<Icon icon={Mail} />
 					</Button>
 				</li>
 			</ul>

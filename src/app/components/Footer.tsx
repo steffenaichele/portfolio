@@ -1,8 +1,11 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+"use client";
+
+import { ArrowUpRight, Mail } from "lucide-react";
 import Icon from "./Icon";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
+
+const EMAIL = "hi@steffenaichele.xyz";
 
 const Footer = () => {
 	return (
@@ -20,8 +23,12 @@ const Footer = () => {
 				<h3 className="text-(--color-footer-text-primary)">
 					Get in Touch
 				</h3>
-				<Button content="text" variant="primary">
+				<Button
+					content="iconRight"
+					variant="primary"
+					onClick={() => navigator.clipboard.writeText(EMAIL)}>
 					Holler at me
+					<Icon icon={Mail} />
 				</Button>
 			</div>
 
@@ -35,13 +42,13 @@ const Footer = () => {
 							<LinkButton href="/">Home</LinkButton>
 						</li>
 						<li>
-							<LinkButton href="/">Projekte</LinkButton>
+							<LinkButton href="/projects">Projekte</LinkButton>
 						</li>
 						<li>
-							<LinkButton href="/">Über mich</LinkButton>
+							<LinkButton href="/about-me">Über mich</LinkButton>
 						</li>
 						<li>
-							<LinkButton href="/">Impressum</LinkButton>
+							<LinkButton href="/imprint">Impressum</LinkButton>
 						</li>
 					</ul>
 				</div>
@@ -72,12 +79,12 @@ const Footer = () => {
 				</div>
 			</nav>
 
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-0">
 				<p className="p-md text-(--color-footer-text-tertiary)">
 					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
 				</p>
 				<p className="p-md text-(--color-footer-text-tertiary)">
-					Built with Next.js & Tailwind CSS
+					Built with Next.js & Tailwind CSS ✨
 				</p>
 			</div>
 		</footer>
