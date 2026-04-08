@@ -1,11 +1,12 @@
 const HeroSection = () => {
 	return (
-		<section className="col-start-3 xl:col-start-2 col-end-10 xl:col-end-8 grid-cols-subgrid pt-120 xl:pt-55 justify-center flex flex-col gap-3">
-			<h1>Hi, ich bin Steffen ✌🏻</h1>
-			<h2>
-				Interaktionsgestaltung studiert. Web- und App Development
-				nachgelegt. Best of both worlds.
-			</h2>
+		<section className="pt-120 px-8 xl:pt-55 justify-center flex flex-col gap-3">
+			<p className="p-lg text-(--color-text-primary)">
+				Hi, ich bin Steffen ✌🏻
+			</p>
+			<p className="p-lg text-(--color-text-tertiary)">
+				Ich bin UX/UI Designer und Web Entwickler aus Schwäbisch Gmünd.
+			</p>
 		</section>
 	);
 };

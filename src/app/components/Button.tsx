@@ -1,12 +1,30 @@
+"use client";
+
 import { ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
-type Size = "sm" | "md";
-type ContentType = "text" | "iconOnly" | "iconLeft" | "iconRight";
+/**
+ * Button — a styled button element.
+ *
+ * Props:
+ *   children  (required)  — button label / content
+ *   variant   (optional)  — "primary", default "primary"
+ *   content   (optional)  — "text" | "iconOnly" | "iconRight", default "text"
+ *   onClick   (optional)  — click handler
+ *   disabled  (optional)  — disables the button, default false
+ *   type      (optional)  — "button" | "submit" | "reset", default "button"
+ *
+ * Examples:
+ *   <Button>Save</Button>
+ *   <Button content="iconRight"><span>Download</span><Download /></Button>
+ *   <Button onClick={() => console.log("clicked")}>More</Button>
+ *   <Button type="submit" disabled>Submitting…</Button>
+ */
+
+type Variant = "primary" | "cta";
+type ContentType = "text" | "iconOnly" | "iconRight";
 
 interface ButtonProps {
 	variant?: Variant;
-	size?: Size;
 	content?: ContentType;
 	children: ReactNode;
 	onClick?: () => void;
@@ -16,28 +34,18 @@ interface ButtonProps {
 
 const variantClasses: Record<Variant, string> = {
 	primary:
-		"bg-[var(--button-bg-primary)] text-[var(--button-label-primary)] hover:bg-[var(--button-bg-primary-hover)] active:bg-[var(--button-bg-primary-active)] focus:outline-2 focus:outline-orange-300",
-	secondary:
-		"bg-[var(--button-bg-secondary)] text-[var(--button-label-secondary)] hover:bg-[var(--button-bg-secondary-hover)] active:bg-[var(--button-bg-secondary-active)] focus:outline-2 focus:outline-orange-300",
-	ghost: 
-		"bg-[var(--button-bg-ghost)] text-[var(--button-label-ghost)] hover:text-[var(--button-label-ghost-hover)] active:bg-[var(--button-bg-ghost-active)] focus:outline-2 focus:outline-orange-300",
-};
-
-const sizeClasses: Record<Size, string> = {
-	sm: "h-7 px-3 py-1 label-sm",
-	md: "h-9 px-4 label-md",
+		"bg-(--color-button-primary-bg) text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300",
+	cta: "bg-(--color-button-cta-bg) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-95 active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300",
 };
 
 const contentClasses: Record<ContentType, string> = {
-	text: "",
-	iconOnly: "",
-	iconLeft: "pl-2 gap-2",
-	iconRight: "pr-2 gap-2",
+	text: "px-4",
+	iconOnly: "px-4",
+	iconRight: "pr-4 pl-4 gap-3",
 };
 
 const Button = ({
 	variant = "primary",
-	size = "md",
 	content = "text",
 	children,
 	onClick,
@@ -45,14 +53,14 @@ const Button = ({
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
-		"rounded-lg corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer disabled:opacity-40 disabled:pointer-events-none select-none";
+		"h-11 flex-none label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
 	return (
 		<button
 			type={type}
 			onClick={onClick}
 			disabled={disabled}
-			className={`${baseClasses} ${sizeClasses[size]} ${contentClasses[content]} ${variantClasses[variant]}`}>
+			className={`${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`}>
 			{children}
 		</button>
 	);

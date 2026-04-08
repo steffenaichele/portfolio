@@ -1,107 +1,114 @@
 @import "tailwindcss";
+@plugin "@toolwind/corner-shape";
 
 @layer base {
 	:root {
 		color-scheme: light;
 	}
-}
 
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Light.woff2") format("woff2");
-	font-weight: 200;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Book.woff2") format("woff2");
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Italic.woff2") format("woff2");
-	font-weight: 400;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-SemiBold.woff2") format("woff2");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "PPNeueMontreal";
-	src: url("../../fonts/PPNeueMontreal-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
+	/* Fallback for browsers without corner-shape support: use half the squircle radius */
+	@supports not (corner-shape: squircle) {
+		:root {
+			--radius-squircle-sm: 8px;
+			--radius-squircle-md: 16px;
+			--radius-squircle-lg: 24px;
+		}
+	}
 }
 
 @theme {
 	/* Fonts */
-	--font-sans: "PPNeueMontreal", sans-serif;
-	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-sans: var(--font-instrument-sans), sans-serif;
+
+	--letter-spacing: -3%;
 
 	/* Colors */
-	--background: var(--color-neutral-900);
-	--foreground: var(--color-neutral-100);
+	--color-bg: var(--color-black);
+	--color-bg-elevated: var(--color-neutral-100);
 
-	--bg-footer: var(--color-neutral-900);
+	--color-surface: var(--color-white);
 
-	--text-primary: var(--color-neutral-950);
-	--text-secondary: var(--color-neutral-800);
-	--text-tertiary: var(--color-neutral-600);
-	--text-quaternary: var(--color-neutral-500);
-	--text-inverted: var(--color-white);
+	--color-text-primary: var(--color-neutral-950);
+	--color-text-secondary: var(--color-neutral-800);
+	--color-text-tertiary: var(--color-neutral-600);
+	--color-text-quaternary: var(--color-neutral-500);
 
-	--button-label-primary: var(--text-inverted);
-	--button-bg-primary: var(--color-neutral-900);
-	--button-bg-primary-hover: var(--color-neutral-950);
-	--button-bg-primary-active: var(--color-black);
+	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-bg: var(--color-white);
+	--color-button-primary-bg-hover: var(--color-neutral-200);
+	--color-button-primary-bg-active: var(--color-neutral-400);
 
-	--button-label-secondary: var(--text-secondary);
-	--button-bg-secondary: var(--color-white);
-	--button-bg-secondary-hover: var(--color-neutral-100);
-	--button-bg-secondary-active: var(--color-neutral-200);
+	--color-button-cta-label: var(--color-white);
+	--color-button-cta-label-hover: var(--color-neutral-200);
+	--color-button-cta-label-active: var(--color-neutral-400);
+	--color-button-cta-bg: var(--color-neutral-900);
+	--color-button-cta-bg-hover: var(--color-neutral-800);
+	--color-button-cta-bg-active: var(--color-neutral-900);
 
-	--button-label-ghost: var(--text-quaternary);
-	--button-label-ghost-hover: var(--text-secondary);
-	--button-bg-ghost: bg-transparent;
-	--button-bg-ghost-active: var(--color-neutral-200);
+	--color-badge-experience-bg: var(--color-emerald-200);
+	--color-badge-education-bg: var(--color-sky-200);
 
-	/* Layout*/
+	--color-footer-bg: var(--color-bg);
+	--color-footer-text-primary: var(--color-neutral-50);
+	--color-footer-text-secondary: var(--color-neutral-200);
+	--color-footer-text-tertiary: var(--color-neutral-400);
+
+	/* Shadows */
+	--shadow: 
+		0px 0px 0px 1px rgba(0, 0, 0, 0.04), 
+		0px 1px 1px -0.5px rgba(0, 0, 0, 0.04),
+		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 
+		0px 6px 6px -3px rgba(0, 0, 0, 0.04),
+		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
+		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
+
+	/* Squircle radii (2× the intended visual radius) */
+	--radius-squircle-sm: 16px; /* visually ~8px */
+	--radius-squircle-md: 32px; /* visually ~16px */
+	--radius-squircle-lg: 48px; /* visually ~24px */
+
+	/* Layout */
 	--padding: 16px;
 	--whitespace: 16px;
 	--columns: 4;
 	--gap: 28px;
+
+	/* Background Pattern */
+	--dot-size: 1px;
+	--dot-space: 48px;
+	--dot-color: var(--color-neutral-400);
 }
 
+/*
+ * Instrument Sans font feature settings (applied globally)
+ * ss01: Runde Interpunktion, Tittles (Punkte über i/j) und Diakritika
+ * ss02: Alternatives „a"       ss03: Alternatives „y"
+ * ss04: Alternatives „K"       ss05: Alternatives „R"
+ * ss06: Alternatives „M"       ss07: Alternatives „G" (off)
+ * ss08: Alternatives „J"       ss09: Alternatives „Q"
+ * ss10: Alternative „2"        ss11: Alternatives „&" (off)
+ * ss12: Alternatives „$"/„¢" (off)
+ * liga: Ligaturen              kern: Kerning
+ */
 @layer components {
+	* {
+		font-feature-settings:
+			"ss01" 1,
+			"ss02" 1,
+			"ss03" 1,
+			"ss04" 1,
+			"ss05" 1,
+			"ss06" 1,
+			"ss07" 0,
+			"ss08" 1,
+			"ss09" 1,
+			"ss10" 1,
+			"ss11" 0,
+			"ss12" 0,
+			"liga" 1,
+			"kern" 1;
+	}
+
 	h1 {
 		font-size: 24px;
 		line-height: 135%;
@@ -111,19 +118,19 @@
 	h2 {
 		font-size: 24px;
 		line-height: 135%;
-		font-weight: 400;
-	}
-
-	h3 {
-		font-size: 14px;
-		line-height: 100%;
 		font-weight: 500;
 	}
 
-	h4 {
-		font-size: 16px;
+	h3 {
+		font-size: 20px;
 		line-height: 100%;
-		font-weight: 600;
+		font-weight: 400;
+	}
+
+	h4 {
+		font-size: 18px;
+		line-height: 150%;
+		font-weight: 500;
 	}
 
 	h5 {
@@ -133,17 +140,31 @@
 	}
 
 	h6 {
-		font-family: var(--font-mono);
-		font-size: 14px;
+		font-size: 16px;
 		line-height: 100%;
 		font-weight: 600;
 		white-space: nowrap;
+		text-transform: uppercase;
+		letter-spacing: 0;
 	}
 
-	.label-sm {
-		font-size: 14px;
-		line-height: 100%;
+	.p-lg {
+		font-size: 24px;
+		line-height: 135%;
+		font-weight: 400;
+	}
+
+	.p-md {
+		font-size: 18px;
+		line-height: 135%;
+		font-weight: 400;
+	}
+
+	.p-number {
+		font-size: 18px;
+		line-height: 125%;
 		font-weight: 500;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.label-md {
@@ -152,13 +173,35 @@
 		font-weight: 500;
 	}
 
-	.body-grid {
+	.layout-grid {
 		display: grid;
-		grid-template-columns: var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1), 1fr var(--gap))1fr var(--whitespace) var(--padding);
-		gap: 0;
+		grid-template-columns:
+			var(--padding) var(--whitespace) repeat(
+				calc(var(--columns) - 1),
+				1fr var(--gap)
+			)
+			1fr var(--whitespace) var(--padding);
+		row-gap: 16px;
 	}
 
-	@media (width >=80rem) {
+	.bg-pattern {
+		background-image:
+			radial-gradient(
+				ellipse at center,
+				transparent 25%,
+				var(--color-bg-elevated) 100%
+			),
+			radial-gradient(
+				circle,
+				var(--dot-color) var(--dot-size),
+				transparent var(--dot-size)
+			);
+		background-size:
+			100% 100%,
+			var(--dot-space) var(--dot-space);
+	}
+
+	@media (width >= 80rem) {
 		:root {
 			--padding: 32px;
 			--whitespace: 76px;
@@ -184,7 +227,7 @@
 			font-size: 13px;
 		}
 
-		.body-grid {
+		.layout-grid {
 			grid-template-columns: repeat(var(--columns), 1fr);
 			column-gap: var(--gap);
 		}
