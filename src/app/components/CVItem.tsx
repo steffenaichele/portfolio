@@ -25,7 +25,7 @@ export default function CVItem({ entry }: CVItemProps) {
 						<h4>{role.title} ( - )</h4>
 					</div>
 					<ul>
-						{entry.description.map((desc, descIndex) => (
+						{entry.description?.map((desc, descIndex) => (
 							<li key={descIndex}>{desc}</li>
 						))}
 					</ul>
