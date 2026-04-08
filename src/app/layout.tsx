@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import BGGrid from "./components/BGGrid";
 
 const instrumentSans = localFont({
 	src: [
@@ -37,24 +38,28 @@ const instrumentSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Steffen Aichele",
-  description: "Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Stuttgart.",
+	title: "Steffen Aichele",
+	description:
+		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
+	return (
 		<html
-			lang="en"
+			lang="de"
 			className={`bg-(--color-black) overscroll-x-none overscroll-y-contain scroll-smooth ${instrumentSans.variable}`}>
 			<body className=" text-(--color-text-primary) font-sans antialiased tracking-[-2%] w-full">
 				<Header />
-				{children}
+				<main className="bg-(--color-bg-elevated) bg-pattern flex flex-col gap-24 pb-24 rounded-bl-squircle-lg rounded-br-squircle-lg corner-squircle">
+					<BGGrid />
+					{children}
+				</main>
 				<Footer />
 			</body>
 		</html>
-  );
+	);
 }

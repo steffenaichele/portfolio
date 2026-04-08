@@ -31,7 +31,7 @@ const MobileNavigation = () => {
 			</Button>
 
 			<ul
-				className={`w-content flex flex-col items-end gap-2 open ? "visible" : "invisible" `}
+				className={`w-content flex flex-col items-end gap-2 ${open ? "visible" : "invisible"}`}
 				aria-label="Mobile Navigation">
 				{navLinks.map((link, index) => (
 					<li
