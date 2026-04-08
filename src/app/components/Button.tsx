@@ -18,7 +18,7 @@ import { ReactNode } from "react";
  *   <Button type="submit" disabled>Submitting…</Button>
  */
 
-type Variant = "primary";
+type Variant = "primary" | "cta";
 type ContentType = "text" | "iconOnly" | "iconRight";
 
 interface ButtonProps {
@@ -32,15 +32,14 @@ interface ButtonProps {
 
 const variantClasses: Record<Variant, string> = {
 	primary:
-		"bg-[var(--color-button-primary-bg)] text-[var(--color-button-primary-label)] hover:bg-[var(--color-button-primary-bg-hover)] active:bg-[var(--color-button-primary-bg-hover-active)] focus:outline-1 focus:outline-orange-300",
-	// secondary:
-	// 	"bg-[var(--button-bg-secondary)] text-[var(--button-label-secondary)] hover:bg-[var(--button-bg-secondary-hover)] active:bg-[var(--button-bg-secondary-active)] focus:outline-2 focus:outline-orange-300",
+		"bg-(--color-button-primary-bg) text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300",
+	cta: "bg-(--color-button-cta-bg) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-95 active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300",
 };
 
 const contentClasses: Record<ContentType, string> = {
 	text: "px-4",
 	iconOnly: "px-4",
-	iconRight: "pr-2 pl-4 gap-2",
+	iconRight: "pr-4 pl-4 gap-2",
 };
 
 const Button = ({
@@ -52,7 +51,7 @@ const Button = ({
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
+		"h-11 flex-none label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
 	return (
 		<button
