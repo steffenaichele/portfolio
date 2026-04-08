@@ -1,3 +1,5 @@
+"use client";
+
 import { Mail } from "lucide-react";
 import Icon from "../components/Icon";
 import Button from "../components/Button";
