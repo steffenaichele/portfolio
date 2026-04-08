@@ -20,6 +20,8 @@
 	/* Fonts */
 	--font-sans: var(--font-instrument-sans), sans-serif;
 
+	--letter-spacing: -3%;
+
 	/* Colors */
 	--color-bg: var(--color-black);
 	--color-bg-elevated: var(--color-neutral-100);
@@ -146,9 +148,15 @@
 		letter-spacing: 0;
 	}
 
+	.p-lg {
+		font-size: 24px;
+		line-height: 135%;
+		font-weight: 400;
+	}
+
 	.p-md {
 		font-size: 18px;
-		line-height: 150%;
+		line-height: 135%;
 		font-weight: 400;
 	}
 
@@ -173,7 +181,7 @@
 				1fr var(--gap)
 			)
 			1fr var(--whitespace) var(--padding);
-		gap: 0;
+		row-gap: 16px;
 	}
 
 	.bg-pattern {
