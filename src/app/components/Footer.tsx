@@ -7,7 +7,7 @@ import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
-		<footer className="w-full flex flex-col gap-12 px-8 py-12 bg-(--color-footer-bg)">
+		<footer className="w-full flex flex-col gap-12 px-8 py-16 bg-(--color-footer-bg)">
 			<div className="flex flex-col gap-0">
 				<h2 className="text-(--color-footer-text-primary)">
 					Steffen Aichele
@@ -77,11 +77,11 @@ const Footer = () => {
 				</div>
 			</nav>
 
-			<div className="flex flex-col gap-0">
-				<p className="p-md text-(--color-footer-text-tertiary)">
+			<div className="flex flex-col md:flex-row wrap gap-1">
+				<p className="p-sm text-(--color-footer-text-tertiary)">
 					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
 				</p>
-				<p className="p-md text-(--color-footer-text-tertiary)">
+				<p className="p-sm text-(--color-footer-text-tertiary)">
 					Built with Next.js & Tailwind CSS ✨
 				</p>
 			</div>
