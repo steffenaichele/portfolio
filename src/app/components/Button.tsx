@@ -41,8 +41,8 @@ const variantClasses: Record<Variant, string> = {
 
 const contentClasses: Record<ContentType, string> = {
 	text: "px-5",
-	iconOnly: "px-5",
-	iconRight: "pr-4 pl-5 gap-2",
+	iconOnly: "px-4",
+	iconRight: "pr-4 pl-5 gap-3",
 };
 
 const Button = ({
