@@ -21,7 +21,7 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="layout-grid">
-			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-5 py-7 bg-(--color-surface) rounded-(--radius-squircle-md) corner-squircle">
+			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-5 py-7 bg-(--color-surface) border border-surface-stroke rounded-(--radius-squircle-md) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
@@ -29,10 +29,11 @@ export default function CVSection() {
 							key={entry.organization}
 							className="h-8 flex flex-row justify-between items-center gap-4">
 							<h4 className="truncate">
-								{entry.organizationShort}
+								<span className="md:hidden">{entry.organizationShort}</span>
+								<span className="hidden md:block">{entry.organization}</span>
 							</h4>
 							<div
-								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full text-nowrap flex items-center gap-1 flex-none p-number px-3 rounded-(--radius-squircle-sm) corner-squircle`}>
+								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none p-number px-3 rounded-(--radius-squircle-sm) corner-squircle`}>
 								<span>{startYear}</span>
 								<Icon icon={ArrowRight} />
 								<span>{endYear}</span>

@@ -26,7 +26,8 @@
 	--color-bg: var(--color-black);
 	--color-bg-elevated: var(--color-neutral-100);
 
-	--color-surface: var(--color-white);
+	--color-surface: var(--color-neutral-50);
+	--color-surface-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-800);
@@ -110,6 +111,7 @@
 			"ss12" 0,
 			"liga" 1,
 			"kern" 1;
+			box-sizing: border-box;
 	}
 
 	h1 {
