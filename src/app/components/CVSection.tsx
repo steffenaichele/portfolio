@@ -21,7 +21,7 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="layout-grid">
-			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-5 py-7 bg-(--color-surface) border border-surface-stroke rounded-(--radius-squircle-md) corner-squircle">
+			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-4 py-5 bg-(--color-surface) border border-surface-stroke rounded-(--radius-squircle-md) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
