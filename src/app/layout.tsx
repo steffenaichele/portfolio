@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import BGGrid from "./components/BGGrid";
+// import BGGrid from "./components/BGGrid";
 
 const instrumentSans = localFont({
 	src: [
@@ -58,7 +58,6 @@ export default function RootLayout({
 			<body className=" text-(--color-text-primary) font-sans antialiased tracking-(--letter-spacing) w-full">
 				<Header />
 				<main className="min-h-dvh bg-(--color-bg-elevated) bg-pattern flex flex-col gap-24 pb-24 rounded-bl-squircle-lg rounded-br-squircle-lg corner-squircle">
-					<BGGrid />
 					{children}
 				</main>
 				<Footer />
