@@ -5,8 +5,6 @@ import Icon from "./Icon";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
 
-const EMAIL = "hi@steffenaichele.xyz";
-
 const Footer = () => {
 	return (
 		<footer className="w-full flex flex-col gap-12 px-8 py-12 bg-(--color-footer-bg)">
@@ -26,7 +24,7 @@ const Footer = () => {
 				<Button
 					content="iconRight"
 					variant="primary"
-					onClick={() => navigator.clipboard.writeText(EMAIL)}>
+					onClick={() => navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL ?? "")}>
 					Holler at me
 					<Icon icon={Mail} />
 				</Button>

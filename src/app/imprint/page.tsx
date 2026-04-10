@@ -4,8 +4,6 @@ import { Mail } from "lucide-react";
 import Icon from "../components/Icon";
 import Button from "../components/Button";
 
-const EMAIL = "hi@steffenaichele.xyz";
-
 export default function Imprint() {
 	return (
 		<>
@@ -21,7 +19,7 @@ export default function Imprint() {
 			<Button
 				variant="cta"
 				content="iconRight"
-				onClick={() => navigator.clipboard.writeText(EMAIL)}>
+				onClick={() => navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL ?? "")}>
 				Kontakt
 				<Icon icon={Mail} />
 			</Button>
