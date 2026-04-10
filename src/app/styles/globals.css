@@ -34,6 +34,7 @@
 	--color-text-quaternary: var(--color-neutral-500);
 
 	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 5%, transparent);
 	--color-button-primary-bg: var(--color-white);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 	--color-button-primary-bg-active: var(--color-neutral-400);
@@ -41,12 +42,14 @@
 	--color-button-cta-label: var(--color-white);
 	--color-button-cta-label-hover: var(--color-neutral-200);
 	--color-button-cta-label-active: var(--color-neutral-400);
+	--color-button-cta-stroke: color-mix(in oklab, var(--color-white) 35%, transparent);
 	--color-button-cta-bg: var(--color-neutral-900);
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
 	--color-badge-experience-bg: var(--color-emerald-200);
 	--color-badge-education-bg: var(--color-sky-200);
+	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
