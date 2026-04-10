@@ -58,18 +58,21 @@
 	--color-footer-text-tertiary: var(--color-neutral-400);
 
 	/* Shadows */
-	--shadow: 
-		0px 0px 0px 1px rgba(0, 0, 0, 0.04), 
+	--shadow:
+		0px 0px 0px 1px rgba(0, 0, 0, 0.04),
 		0px 1px 1px -0.5px rgba(0, 0, 0, 0.04),
-		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 
+		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
 		0px 6px 6px -3px rgba(0, 0, 0, 0.04),
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
 
 	/* Squircle radii (2× the intended visual radius) */
-	--radius-squircle-sm: 16px; /* visually ~8px */
-	--radius-squircle-md: 32px; /* visually ~16px */
-	--radius-squircle-lg: 48px; /* visually ~24px */
+	--radius-squircle-sm: 16px;
+	/* visually ~8px */
+	--radius-squircle-md: 32px;
+	/* visually ~16px */
+	--radius-squircle-lg: 48px;
+	/* visually ~24px */
 
 	/* Layout */
 	--padding: 16px;
@@ -111,11 +114,11 @@
 			"ss12" 0,
 			"liga" 1,
 			"kern" 1;
-			box-sizing: border-box;
+		box-sizing: border-box;
 	}
 
 	h1 {
-		font-size: 24px;
+		font-size: 36px;
 		line-height: 135%;
 		font-weight: 500;
 	}
@@ -165,6 +168,12 @@
 		font-weight: 400;
 	}
 
+	.p-sm {
+		font-size: 14px;
+		line-height: 135%;
+		font-weight: 400;
+	}
+
 	.p-number {
 		font-size: 18px;
 		line-height: 125%;
@@ -181,32 +190,25 @@
 	.layout-grid {
 		display: grid;
 		grid-template-columns:
-			var(--padding) var(--whitespace) repeat(
-				calc(var(--columns) - 1),
-				1fr var(--gap)
-			)
-			1fr var(--whitespace) var(--padding);
+			var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1),
+				1fr var(--gap)) 1fr var(--whitespace) var(--padding);
 		row-gap: 16px;
 	}
 
 	.bg-pattern {
 		background-image:
-			radial-gradient(
-				ellipse at center,
+			radial-gradient(ellipse at center,
 				transparent 25%,
-				var(--color-bg-elevated) 100%
-			),
-			radial-gradient(
-				circle,
+				var(--color-bg-elevated) 100%),
+			radial-gradient(circle,
 				var(--dot-color) var(--dot-size),
-				transparent var(--dot-size)
-			);
+				transparent var(--dot-size));
 		background-size:
 			100% 100%,
 			var(--dot-space) var(--dot-space);
 	}
 
-	@media (width >= 80rem) {
+	@media (width >=80rem) {
 		:root {
 			--padding: 32px;
 			--whitespace: 76px;
