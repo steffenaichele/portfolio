@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 export default function Imprint() {
 	return (
-		<section className="layout-grid pt-64 px-8">
+		<section className="layout-grid pt-64">
 			<h1 className="col-start-3 -col-end-3 row-start-1 row-end-2">
 				Impressum
 			</h1>
@@ -18,7 +18,7 @@ export default function Imprint() {
 				Lönsstraße 4 <br />
 				73529 Schwäbisch Gmünd
 			</p>
-			<div className="col-start-3 -col-end-3 row-start-3 row-end-4 pt-8">
+			<div className="col-start-3 -col-end-3 row-start-3 row-end-4 pt-6">
 				<Button
 					variant="cta"
 					content="iconRight"
