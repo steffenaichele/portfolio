@@ -22,7 +22,7 @@ const MobileNavigation = () => {
 	const menuIcon = open ? X : Menu;
 
 	return (
-		<nav className="relative h-auto flex-none flex xl:hidden flex-col items-end gap-8">
+		<nav className="relative h-auto flex-none flex flex-col items-end gap-8">
 			<Button
 				variant="primary"
 				content="iconOnly"
