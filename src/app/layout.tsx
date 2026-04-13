@@ -3,6 +3,7 @@ import "./styles/globals.css";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "sileo";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -63,6 +64,7 @@ export default function RootLayout({
 				<Footer />
 				<Analytics />
 				<SpeedInsights />
+				<Toaster position="bottom-center" />
 			</body>
 		</html>
 	);
