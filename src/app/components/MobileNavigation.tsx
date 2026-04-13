@@ -29,7 +29,7 @@ const MobileNavigation = () => {
 		return () => window.removeEventListener("keydown", handleEscape);
 	}, [open]);
 
-	const buttonClasses = "bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300 h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none px-4";
+	const buttonClasses = "bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300 h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,border-color,color,transform] duration-150 cursor-pointer select-none px-4";
 
 	const menuIcon = open ? X : Menu;
 

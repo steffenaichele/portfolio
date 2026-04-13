@@ -45,6 +45,8 @@ const Slideshow = ({ slides, interval = 8000 }: SlideshowProps) => {
 			<img
 				src={slides[current].src}
 				alt={slides[current].alt}
+				width={800}
+				height={800}
 				className={`w-full h-full object-cover transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
 			/>
 		</div>

@@ -44,6 +44,9 @@ export const metadata: Metadata = {
 	title: "Steffen Aichele",
 	description:
 		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+};
+
+export const viewport = {
 	themeColor: "#000000",
 };
 
@@ -56,6 +59,7 @@ export default function RootLayout({
 		<html
 			lang="de"
 			data-scroll-behavior="smooth"
+			style={{ colorScheme: "dark" }}
 			className={`bg-bg overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
 			<body className=" text-text-primary font-sans antialiased w-full">
 				<a
