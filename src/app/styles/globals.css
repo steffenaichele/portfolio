@@ -77,6 +77,12 @@
 	--dot-size: 1px;
 	--dot-space: 48px;
 	--dot-color: var(--color-neutral-400);
+
+	/* Toast (Sileo) */
+	--sileo-width: 280px;
+	--sileo-height: 44px;
+	--sileo-duration: 500ms;
+	--sileo-state-success: oklch(0.6 0.15 142);
 }
 
 /*
@@ -232,6 +238,18 @@
 			column-gap: var(--gap);
 		}
 	}
+}
+
+/* Toast (Sileo) overrides */
+[data-sileo-viewport] {
+	font-family: var(--font-sans);
+}
+
+[data-sileo-title] {
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: var(--letter-spacing);
+	text-transform: none;
 }
 
 /* @media (prefers-color-scheme: dark) {

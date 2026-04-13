@@ -24,7 +24,7 @@ const Footer = () => {
 				<Button
 					content="iconRight"
 					variant="primary"
-					onClick={() => navigator.clipboard.writeText(process.env.NEXT_PUBLIC_EMAIL ?? "")}>
+					copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 					Holler at me
 					<Icon icon={Mail} />
 				</Button>

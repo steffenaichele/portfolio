@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { sileo } from "sileo";
 
 /**
  * Button — a styled button element.
@@ -28,6 +29,7 @@ interface ButtonProps {
 	content?: ContentType;
 	children: ReactNode;
 	onClick?: () => void;
+	copyToClipboard?: string;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 }
@@ -49,16 +51,25 @@ const Button = ({
 	content = "text",
 	children,
 	onClick,
+	copyToClipboard,
 	disabled,
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
 		"h-11 flex-none label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
+	const handleClick = () => {
+		if (copyToClipboard) {
+			navigator.clipboard.writeText(copyToClipboard).catch(() => {});
+			sileo.success({ title: "Email copied to clipboard!" });
+		}
+		onClick?.();
+	};
+
 	return (
 		<button
 			type={type}
-			onClick={onClick}
+			onClick={handleClick}
 			disabled={disabled}
 			className={`${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`}>
 			{children}
