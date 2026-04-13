@@ -26,8 +26,8 @@
 	--color-bg: var(--color-black);
 	--color-bg-elevated: var(--color-neutral-100);
 
-	--color-surface: var(--color-neutral-50);
-	--color-surface-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
+	--color-surface-bg: var(--color-neutral-50);
+	--color-surface-stroke: var(--color-white);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-800);
@@ -35,7 +35,7 @@
 	--color-text-quaternary: var(--color-neutral-500);
 
 	--color-button-primary-label: var(--color-text-primary);
-	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 5%, transparent);
+	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 2%, transparent);
 	--color-button-primary-bg: var(--color-white);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 	--color-button-primary-bg-active: var(--color-neutral-400);

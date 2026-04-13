@@ -23,7 +23,7 @@ const Slideshow = ({ slides, interval = 8000 }: SlideshowProps) => {
 	}, [slides.length, interval]);
 
 	return (
-		<div className="relative w-full aspect-square overflow-hidden bg-neutral-100 rounded-(--radius-squircle-md) corner-squircle border border-neutral-300">
+		<div className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke rounded-(--radius-squircle-md) corner-squircle border shadow-(--shadow)">
 			<img
 				src={slides[current]}
 				alt=""
