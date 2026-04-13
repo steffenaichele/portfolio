@@ -33,7 +33,7 @@ const LinkButton = ({
 	external = false,
 }: LinkButtonProps) => {
 	const baseClasses =
-		"h-7 inline-flex flex-row items-center justify-center label-md py-1 transition-all duration-150 select-none";
+		"h-7 inline-flex flex-row items-center justify-center label-md py-1 transition-all duration-150 select-none focus:outline-1 focus:outline-orange-300 focus:outline-offset-2 rounded";
 
 	return (
 		<Link
@@ -42,6 +42,9 @@ const LinkButton = ({
 			rel={external ? "noopener noreferrer" : undefined}
 			className={`${baseClasses} ${hasIcon ? "gap-2" : ""}`}>
 			{children}
+			{external && (
+				<span className="sr-only">(Opens in new window)</span>
+			)}
 		</Link>
 	);
 };

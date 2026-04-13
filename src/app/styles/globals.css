@@ -18,8 +18,6 @@
 	/* Fonts */
 	--font-sans: var(--font-instrument-sans), sans-serif;
 
-	--letter-spacing: -3%;
-
 	/* Radii */
 	--radius-multiplier: 2;
 
@@ -134,30 +132,35 @@
 		font-size: 36px;
 		line-height: 135%;
 		font-weight: 500;
+		text-wrap: balance;
 	}
 
 	h2 {
 		font-size: 24px;
 		line-height: 135%;
 		font-weight: 500;
+		text-wrap: balance;
 	}
 
 	h3 {
 		font-size: 20px;
 		line-height: 100%;
 		font-weight: 400;
+		text-wrap: balance;
 	}
 
 	h4 {
 		font-size: 18px;
 		line-height: 150%;
 		font-weight: 500;
+		text-wrap: balance;
 	}
 
 	h5 {
 		font-size: 16px;
 		line-height: 100%;
 		font-weight: 400;
+		text-wrap: balance;
 	}
 
 	h6 {
@@ -173,18 +176,21 @@
 		font-size: 24px;
 		line-height: 135%;
 		font-weight: 400;
+		text-wrap: pretty;
 	}
 
 	.p-md {
 		font-size: 18px;
 		line-height: 135%;
 		font-weight: 400;
+		text-wrap: pretty;
 	}
 
 	.p-sm {
 		font-size: 14px;
 		line-height: 135%;
 		font-weight: 400;
+		text-wrap: pretty;
 	}
 
 	.p-number {
@@ -262,7 +268,6 @@
 [data-sileo-title] {
 	font-size: 14px;
 	font-weight: 500;
-	letter-spacing: var(--letter-spacing);
 	text-transform: none;
 }
 

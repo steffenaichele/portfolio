@@ -57,7 +57,7 @@ const Footer = () => {
 					<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 						<li>
 							<LinkButton
-								href="www.linkedin.com/in/steffenaichele"
+								href="https://www.linkedin.com/in/steffenaichele"
 								external
 								hasIcon>
 								LinkedIn
@@ -86,7 +86,7 @@ const Footer = () => {
 					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
 				</p>
 				<p className="p-sm">
-					Built with Next.js & Tailwind CSS ✨
+					Built with Next.js & Tailwind CSS <span aria-hidden="true">✨</span>
 				</p>
 			</div>
 		</footer>

@@ -33,6 +33,9 @@ interface ButtonProps {
 	copySuccessMessage?: string;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
+	"aria-label"?: string;
+	"aria-expanded"?: boolean;
+	"aria-controls"?: string;
 }
 
 const variantClasses: Record<Variant, string> = {
@@ -57,9 +60,12 @@ const Button = ({
 	copySuccessMessage = "Copied to clipboard!",
 	disabled,
 	type = "button",
+	"aria-label": ariaLabel,
+	"aria-expanded": ariaExpanded,
+	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
+		"h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 cursor-pointer select-none";
 
 	const handleClick = async () => {
 		if (copyToClipboard) {
@@ -82,6 +88,9 @@ const Button = ({
 			type={type}
 			onClick={handleClick}
 			disabled={disabled}
+			aria-label={ariaLabel}
+			aria-expanded={ariaExpanded}
+			aria-controls={ariaControls}
 			className={`${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`}>
 			{children}
 		</button>

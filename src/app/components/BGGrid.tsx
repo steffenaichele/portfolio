@@ -18,8 +18,6 @@ const BGGrid = () => {
 		return () => window.removeEventListener("resize", readPadding);
 	}, []);
 
-	console.log("Padding:", padding);
-
 	return <div></div>;
 };
 

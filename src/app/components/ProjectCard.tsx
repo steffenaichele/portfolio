@@ -8,11 +8,13 @@ type Props = {
 
 const ProjectCard = ( { project }: Props) => {
 	return (
-		<Link href={`/projects/${project.slug}`} className="px-4">
+		<Link
+			href={`/projects/${project.slug}`}
+			className="px-4 focus:outline-2 focus:outline-orange-300 focus:outline-offset-2 rounded-(--radius-surface) block">
 			<div className="relative bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
 				<Image
-					width={100}
-					height={100}
+					width={600}
+					height={400}
 					className="w-full h-full"
 					src={project.coverImage}
 					alt={project.title}

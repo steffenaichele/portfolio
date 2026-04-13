@@ -10,14 +10,14 @@ export default function Imprint() {
 			<h1 className="col-start-3 -col-end-3 row-start-1 row-end-2">
 				Impressum
 			</h1>
-			<p className="col-start-3 -col-end-3 row-start-2 row-end-3 p-md text-(--color-text-tertiary) ">
-				Angaben gemäß § 5 TMG <br />
-				<br />
-				Steffen Aichele
-				<br />
-				Lönsstraße 4 <br />
-				73529 Schwäbisch Gmünd
-			</p>
+			<div className="col-start-3 -col-end-3 row-start-2 row-end-3 p-md text-(--color-text-tertiary)">
+				<p className="mb-4">Angaben gemäß § 5 TMG</p>
+				<address className="not-italic">
+					<p>Steffen Aichele</p>
+					<p>Lönsstraße 4</p>
+					<p>73529 Schwäbisch Gmünd</p>
+				</address>
+			</div>
 			<div className="col-start-3 -col-end-3 row-start-3 row-end-4 pt-6">
 				<Button
 					variant="cta"

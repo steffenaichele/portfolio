@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 	title: "Steffen Aichele",
 	description:
 		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+	themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -56,9 +57,14 @@ export default function RootLayout({
 			lang="de"
 			data-scroll-behavior="smooth"
 			className={`bg-bg overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
-			<body className=" text-text-primary font-sans antialiased tracking-(--letter-spacing) w-full">
+			<body className=" text-text-primary font-sans antialiased w-full">
+				<a
+					href="#main-content"
+					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button)">
+					Skip to main content
+				</a>
 				<Header />
-				<main className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
+				<main id="main-content" className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
 					{children}
 				</main>
 				<Footer />
