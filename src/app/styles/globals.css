@@ -45,6 +45,7 @@
 	--radius-button: var(--radius-squircle-lg);
 
 	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-icon: var(--color-text-secondary);
 	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 2%, transparent);
 	--color-button-primary-bg: var(--color-white);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
@@ -53,6 +54,7 @@
 	--color-button-cta-label: var(--color-white);
 	--color-button-cta-label-hover: var(--color-neutral-200);
 	--color-button-cta-label-active: var(--color-neutral-400);
+	--color-button-cta-icon: var(--color-text-secondary);
 	--color-button-cta-stroke: color-mix(in oklab, var(--color-white) 35%, transparent);
 	--color-button-cta-bg: var(--color-neutral-900);
 	--color-button-cta-bg-hover: var(--color-neutral-800);
