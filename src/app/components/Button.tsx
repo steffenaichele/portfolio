@@ -30,6 +30,7 @@ interface ButtonProps {
 	children: ReactNode;
 	onClick?: () => void;
 	copyToClipboard?: string;
+	copySuccessMessage?: string;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 }
@@ -53,16 +54,25 @@ const Button = ({
 	children,
 	onClick,
 	copyToClipboard,
+	copySuccessMessage = "Copied to clipboard!",
 	disabled,
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
 		"h-11 flex-none label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
-	const handleClick = () => {
+	const handleClick = async () => {
 		if (copyToClipboard) {
-			navigator.clipboard.writeText(copyToClipboard).catch(() => {});
-			sileo.success({ title: "Email copied to clipboard!" });
+			if (!navigator.clipboard) {
+				sileo.error({ title: "Failed to copy to clipboard." });
+			} else {
+				try {
+					await navigator.clipboard.writeText(copyToClipboard);
+					sileo.success({ title: copySuccessMessage });
+				} catch {
+					sileo.error({ title: "Failed to copy to clipboard." });
+				}
+			}
 		}
 		onClick?.();
 	};
