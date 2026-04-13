@@ -10,8 +10,8 @@
 	@supports not (corner-shape: squircle) {
 		:root {
 			--radius-squircle-sm: 8px;
-			--radius-squircle-md: 16px;
-			--radius-squircle-lg: 24px;
+			--radius-squircle-md: 12px;
+			--radius-squircle-lg: 16px;
 		}
 	}
 }
