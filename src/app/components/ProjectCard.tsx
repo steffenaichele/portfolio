@@ -8,7 +8,7 @@ type Props = {
 
 const ProjectCard = ( { project }: Props) => {
 	return (
-		<Link href={`/projekte/${project.slug}`} className="px-4">
+		<Link href={`/projects/${project.slug}`} className="px-4">
 			<div className="relative bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
 				<Image
 					width={100}
