@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 export default function Imprint() {
 	return (
-		<section className="layout-grid pt-64">
+		<section className="layout-grid">
 			<h1 className="col-start-3 -col-end-3 row-start-1 row-end-2">
 				Impressum
 			</h1>

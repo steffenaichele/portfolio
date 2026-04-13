@@ -59,7 +59,7 @@ const Button = ({
 	type = "button",
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none label-md rounded-(--radius-squircle-lg) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
+		"h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-all duration-150 cursor-pointer select-none";
 
 	const handleClick = async () => {
 		if (copyToClipboard) {

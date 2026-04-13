@@ -55,10 +55,10 @@ export default function RootLayout({
 		<html
 			lang="de"
 			data-scroll-behavior="smooth"
-			className={`bg-(--color-black) overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
-			<body className=" text-(--color-text-primary) font-sans antialiased tracking-(--letter-spacing) w-full">
+			className={`bg-bg overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
+			<body className=" text-text-primary font-sans antialiased tracking-(--letter-spacing) w-full">
 				<Header />
-				<main className="min-h-dvh bg-(--color-bg-elevated) bg-pattern flex flex-col gap-24 pt-150 pb-24 rounded-bl-squircle-lg rounded-br-squircle-lg corner-squircle">
+				<main className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
 					{children}
 				</main>
 				<Footer />

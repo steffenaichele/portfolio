@@ -9,9 +9,7 @@
 	/* Fallback for browsers without corner-shape support: use half the squircle radius */
 	@supports not (corner-shape: squircle) {
 		:root {
-			--radius-squircle-sm: 8px;
-			--radius-squircle-md: 12px;
-			--radius-squircle-lg: 16px;
+			--radius-multiplier: 1;
 		}
 	}
 }
@@ -22,17 +20,30 @@
 
 	--letter-spacing: -3%;
 
+	/* Radii */
+	--radius-multiplier: 2;
+
+	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
+	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
+	--radius-squircle-lg: calc(24px * var(--radius-multiplier)); /* visually ~24px */
+	--radius-squircle-xl: calc(28px * var(--radius-multiplier)); /* visually ~32px */
+	--radius-full: 9999px;
+
 	/* Colors */
 	--color-bg: var(--color-black);
-	--color-bg-elevated: var(--color-neutral-100);
+	--color-main: var(--color-neutral-100);
+	--radius-main: var(--radius-squircle-xl);
 
 	--color-surface-bg: var(--color-neutral-50);
 	--color-surface-stroke: var(--color-white);
+	--radius-surface: var(--radius-squircle-md);
 
 	--color-text-primary: var(--color-neutral-950);
-	--color-text-secondary: var(--color-neutral-800);
-	--color-text-tertiary: var(--color-neutral-600);
-	--color-text-quaternary: var(--color-neutral-500);
+	--color-text-secondary: var(--color-neutral-700);
+	--color-text-tertiary: var(--color-neutral-500);
+	--color-text-quaternary: var(--color-neutral-400);
+
+	--radius-button: var(--radius-squircle-lg);
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 2%, transparent);
@@ -66,13 +77,8 @@
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
 
-	/* Squircle radii (2× the intended visual radius) */
-	--radius-squircle-sm: 16px;
-	/* visually ~8px */
-	--radius-squircle-md: 32px;
-	/* visually ~16px */
-	--radius-squircle-lg: 48px;
-	/* visually ~24px */
+
+
 
 	/* Layout */
 	--padding: 16px;
@@ -198,7 +204,7 @@
 		grid-template-columns:
 			var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1),
 				1fr var(--gap)) 1fr var(--whitespace) var(--padding);
-		row-gap: 16px;
+		row-gap: 32px;
 	}
 
 	.bg-pattern {
