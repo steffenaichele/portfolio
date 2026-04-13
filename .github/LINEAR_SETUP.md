@@ -23,7 +23,7 @@ Quick setup guide for integrating Linear with Claude Code.
      "mcpServers": {
        "linear": {
          "command": "npx",
-         "args": ["-y", "@modelcontextprotocol/server-linear"],
+         "args": ["-y", "@hatcloud/linear-mcp"],
          "env": {
            "LINEAR_API_KEY": "lin_api_YOUR_KEY_HERE"
          }
@@ -44,7 +44,7 @@ Quick setup guide for integrating Linear with Claude Code.
        },
        "linear": {
          "command": "npx",
-         "args": ["-y", "@modelcontextprotocol/server-linear"],
+         "args": ["-y", "@hatcloud/linear-mcp"],
          "env": {
            "LINEAR_API_KEY": "lin_api_YOUR_KEY_HERE"
          }
@@ -120,7 +120,7 @@ Save this to `~/.config/claude-code/config.json`:
   "mcpServers": {
     "linear": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "args": ["-y", "@hatcloud/linear-mcp"],
       "env": {
         "LINEAR_API_KEY": "lin_api_YOUR_ACTUAL_KEY"
       }
@@ -128,6 +128,8 @@ Save this to `~/.config/claude-code/config.json`:
   }
 }
 ```
+
+**Note**: Using `@hatcloud/linear-mcp` (latest version with optimized GraphQL queries)
 
 ## Next Steps
 
