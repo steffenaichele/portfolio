@@ -10,8 +10,8 @@
 	@supports not (corner-shape: squircle) {
 		:root {
 			--radius-squircle-sm: 8px;
-			--radius-squircle-md: 16px;
-			--radius-squircle-lg: 24px;
+			--radius-squircle-md: 12px;
+			--radius-squircle-lg: 16px;
 		}
 	}
 }
@@ -26,7 +26,8 @@
 	--color-bg: var(--color-black);
 	--color-bg-elevated: var(--color-neutral-100);
 
-	--color-surface: var(--color-white);
+	--color-surface: var(--color-neutral-50);
+	--color-surface-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-800);
@@ -34,6 +35,7 @@
 	--color-text-quaternary: var(--color-neutral-500);
 
 	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 5%, transparent);
 	--color-button-primary-bg: var(--color-white);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 	--color-button-primary-bg-active: var(--color-neutral-400);
@@ -41,12 +43,14 @@
 	--color-button-cta-label: var(--color-white);
 	--color-button-cta-label-hover: var(--color-neutral-200);
 	--color-button-cta-label-active: var(--color-neutral-400);
+	--color-button-cta-stroke: color-mix(in oklab, var(--color-white) 35%, transparent);
 	--color-button-cta-bg: var(--color-neutral-900);
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
 	--color-badge-experience-bg: var(--color-emerald-200);
 	--color-badge-education-bg: var(--color-sky-200);
+	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-50);
@@ -54,18 +58,21 @@
 	--color-footer-text-tertiary: var(--color-neutral-400);
 
 	/* Shadows */
-	--shadow: 
-		0px 0px 0px 1px rgba(0, 0, 0, 0.04), 
+	--shadow:
+		0px 0px 0px 1px rgba(0, 0, 0, 0.04),
 		0px 1px 1px -0.5px rgba(0, 0, 0, 0.04),
-		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06), 
+		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
 		0px 6px 6px -3px rgba(0, 0, 0, 0.04),
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
 
 	/* Squircle radii (2× the intended visual radius) */
-	--radius-squircle-sm: 16px; /* visually ~8px */
-	--radius-squircle-md: 32px; /* visually ~16px */
-	--radius-squircle-lg: 48px; /* visually ~24px */
+	--radius-squircle-sm: 16px;
+	/* visually ~8px */
+	--radius-squircle-md: 32px;
+	/* visually ~16px */
+	--radius-squircle-lg: 48px;
+	/* visually ~24px */
 
 	/* Layout */
 	--padding: 16px;
@@ -113,10 +120,11 @@
 			"ss12" 0,
 			"liga" 1,
 			"kern" 1;
+		box-sizing: border-box;
 	}
 
 	h1 {
-		font-size: 24px;
+		font-size: 36px;
 		line-height: 135%;
 		font-weight: 500;
 	}
@@ -166,6 +174,12 @@
 		font-weight: 400;
 	}
 
+	.p-sm {
+		font-size: 14px;
+		line-height: 135%;
+		font-weight: 400;
+	}
+
 	.p-number {
 		font-size: 18px;
 		line-height: 125%;
@@ -182,32 +196,25 @@
 	.layout-grid {
 		display: grid;
 		grid-template-columns:
-			var(--padding) var(--whitespace) repeat(
-				calc(var(--columns) - 1),
-				1fr var(--gap)
-			)
-			1fr var(--whitespace) var(--padding);
+			var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1),
+				1fr var(--gap)) 1fr var(--whitespace) var(--padding);
 		row-gap: 16px;
 	}
 
 	.bg-pattern {
 		background-image:
-			radial-gradient(
-				ellipse at center,
+			radial-gradient(ellipse at center,
 				transparent 25%,
-				var(--color-bg-elevated) 100%
-			),
-			radial-gradient(
-				circle,
+				var(--color-bg-elevated) 100%),
+			radial-gradient(circle,
 				var(--dot-color) var(--dot-size),
-				transparent var(--dot-size)
-			);
+				transparent var(--dot-size));
 		background-size:
 			100% 100%,
 			var(--dot-space) var(--dot-space);
 	}
 
-	@media (width >= 80rem) {
+	@media (width >=80rem) {
 		:root {
 			--padding: 32px;
 			--whitespace: 76px;

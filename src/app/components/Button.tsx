@@ -36,8 +36,9 @@ interface ButtonProps {
 
 const variantClasses: Record<Variant, string> = {
 	primary:
-		"bg-(--color-button-primary-bg) text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300",
-	cta: "bg-(--color-button-cta-bg) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-95 active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300",
+		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border-1 text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300",
+	cta: 
+		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-95 active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300",
 };
 
 const contentClasses: Record<ContentType, string> = {

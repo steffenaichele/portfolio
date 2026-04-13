@@ -179,7 +179,7 @@ export const education: CVEntry[] = [
 		],
 	},
 	{
-		organization: "Hochschule für Gestaltung",
+		organization: "Hochschule für Gestaltung Schwäbisch Gmünd",
 		organizationShort: "HfG Schwäbisch Gmünd",
 		location: "Schwäbisch Gmünd",
 		roles: [
