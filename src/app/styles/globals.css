@@ -25,7 +25,7 @@
 
 	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
 	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
-	--radius-squircle-lg: calc(24px * var(--radius-multiplier)); /* visually ~24px */
+	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~24px */
 	--radius-squircle-xl: calc(28px * var(--radius-multiplier)); /* visually ~32px */
 	--radius-full: 9999px;
 
@@ -64,9 +64,9 @@
 	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-footer-bg: var(--color-bg);
-	--color-footer-text-primary: var(--color-neutral-50);
-	--color-footer-text-secondary: var(--color-neutral-200);
-	--color-footer-text-tertiary: var(--color-neutral-400);
+	--color-footer-text-primary: var(--color-neutral-100);
+	--color-footer-text-secondary: var(--color-neutral-400);
+	--color-footer-text-tertiary: var(--color-neutral-600);
 
 	/* Shadows */
 	--shadow:

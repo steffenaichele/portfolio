@@ -12,7 +12,7 @@ const Footer = () => {
 				<h2 className="text-(--color-footer-text-primary)">
 					Steffen Aichele
 				</h2>
-				<p className="p-md text-(--color-footer-text-tertiary)">
+				<p className="p-md text-(--color-footer-text-secondary)">
 					UX/UI Designer & Web Developer
 				</p>
 			</div>
@@ -35,7 +35,7 @@ const Footer = () => {
 					<h6 className="text-(--color-footer-text-tertiary)">
 						Seiten
 					</h6>
-					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 						<li>
 							<LinkButton href="/">Home</LinkButton>
 						</li>
@@ -54,14 +54,16 @@ const Footer = () => {
 					<h6 className="text-(--color-footer-text-tertiary)">
 						Links
 					</h6>
-					<ul className="flex flex-col gap-1 text-(--color-footer-text-secondary)">
+					<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 						<li>
 							<LinkButton
 								href="www.linkedin.com/in/steffenaichele"
 								external
 								hasIcon>
 								LinkedIn
-								<Icon icon={ArrowUpRight} />
+								<span className="text-(--color-footer-text-secondary)">
+									<Icon icon={ArrowUpRight} />
+								</span>
 							</LinkButton>
 						</li>
 						<li>
@@ -70,18 +72,20 @@ const Footer = () => {
 								external
 								hasIcon>
 								GitHub
-								<Icon icon={ArrowUpRight} />
+								<span className="text-(--color-footer-text-secondary)">
+									<Icon icon={ArrowUpRight} />
+								</span>
 							</LinkButton>
 						</li>
 					</ul>
 				</div>
 			</nav>
 
-			<div className="flex flex-col md:flex-row wrap gap-1">
-				<p className="p-sm text-(--color-footer-text-tertiary)">
+			<div className="flex flex-col md:flex-row wrap gap-1 text-(--color-footer-text-secondary)">
+				<p className="p-sm">
 					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
 				</p>
-				<p className="p-sm text-(--color-footer-text-tertiary)">
+				<p className="p-sm">
 					Built with Next.js & Tailwind CSS ✨
 				</p>
 			</div>
