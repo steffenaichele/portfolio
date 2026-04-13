@@ -22,11 +22,7 @@ export default function Imprint() {
 				<Button
 					variant="cta"
 					content="iconRight"
-					onClick={() =>
-						navigator.clipboard.writeText(
-							process.env.NEXT_PUBLIC_EMAIL ?? "",
-						)
-					}>
+					copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 					Kontakt
 					<Icon icon={Mail} />
 				</Button>
