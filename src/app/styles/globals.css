@@ -39,9 +39,8 @@
 	--radius-surface: var(--radius-squircle-md);
 
 	--color-text-primary: var(--color-neutral-950);
-	--color-text-secondary: var(--color-neutral-700);
-	--color-text-tertiary: var(--color-neutral-500);
-	--color-text-quaternary: var(--color-neutral-400);
+	--color-text-secondary: var(--color-neutral-600);
+	--color-text-tertiary: var(--color-neutral-400);
 
 	--radius-button: var(--radius-squircle-lg);
 
@@ -66,7 +65,7 @@
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-100);
 	--color-footer-text-secondary: var(--color-neutral-400);
-	--color-footer-text-tertiary: var(--color-neutral-600);
+	--color-footer-text-tertiary: var(--color-neutral-500);
 
 	/* Shadows */
 	--shadow:
