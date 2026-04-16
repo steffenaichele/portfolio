@@ -10,7 +10,7 @@ const ProjectCard = ( { project }: Props) => {
 	return (
 		<Link
 			href={`/projects/${project.slug}`}
-			className="px-4 focus:outline-2 focus:outline-orange-300 focus:outline-offset-2 rounded-(--radius-surface) block">
+			className="focus:outline-2 focus:outline-orange-300 focus:outline-offset-2 rounded-(--radius-surface) block">
 			<div className="relative bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
 				<Image
 					width={600}
@@ -20,7 +20,7 @@ const ProjectCard = ( { project }: Props) => {
 					alt={project.title}
 				/>
 				<div className="absolute bottom-0 left-0">
-					<h4>{project.title}</h4>
+					<h3>{project.title}</h3>
 				</div>
 			</div>
 		</Link>
