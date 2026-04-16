@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import Link from "next/link";
 import { sileo } from "sileo";
 
 /**
@@ -28,6 +29,7 @@ interface ButtonProps {
 	variant?: Variant;
 	content?: ContentType;
 	children: ReactNode;
+	href?: string;
 	onClick?: () => void;
 	copyToClipboard?: string;
 	copySuccessMessage?: string;
@@ -55,6 +57,7 @@ const Button = ({
 	variant = "primary",
 	content = "text",
 	children,
+	href,
 	onClick,
 	copyToClipboard,
 	copySuccessMessage = "Copied to clipboard!",
@@ -66,6 +69,20 @@ const Button = ({
 }: ButtonProps) => {
 	const baseClasses =
 		"h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 cursor-pointer select-none";
+
+	const className = `${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`;
+
+	if (href) {
+		return (
+			<Link
+				href={href}
+				onClick={onClick}
+				aria-label={ariaLabel}
+				className={className}>
+				{children}
+			</Link>
+		);
+	}
 
 	const handleClick = async () => {
 		if (copyToClipboard) {
@@ -91,7 +108,7 @@ const Button = ({
 			aria-label={ariaLabel}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
-			className={`${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`}>
+			className={className}>
 			{children}
 		</button>
 	);
