@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Icon from "./Icon";
+import Button from "./Button";
 
 import { experience, education } from "../data/cv";
 import { getYearRange } from "../data/cv";
@@ -21,7 +21,7 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="layout-grid">
-			<div className="col-start-2 xl:col-start-1 -col-end-2 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-4 py-5 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
+			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-4 py-5 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
@@ -45,13 +45,11 @@ export default function CVSection() {
 					);
 				})}
 			</div>
-			<div className="col-start-3 -col-end-3 xl:col-end-4 row-start-3 xl:row-start-1 row-end-4 xl:row-end-2 flex justify-end">
-				<Link
-					href="/about-me"
-					className="bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300 h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform] duration-150 cursor-pointer select-none pl-4 pr-4 gap-2 [&_svg]:text-(--color-button-primary-icon)">
+			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-3 xl:row-start-1 row-end-4 xl:row-end-2 flex justify-end">
+				<Button href="/about-me" content="iconRight">
 					CV ansehen
 					<Icon icon={ArrowRight} />
-				</Link>
+				</Button>
 			</div>
 		</section>
 	);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Button from "./Button";
 
 import { Menu, X, Mail } from "lucide-react";
@@ -28,8 +27,6 @@ const MobileNavigation = () => {
 		window.addEventListener("keydown", handleEscape);
 		return () => window.removeEventListener("keydown", handleEscape);
 	}, [open]);
-
-	const buttonClasses = "bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300 h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,border-color,color,transform] duration-150 cursor-pointer select-none px-4";
 
 	const menuIcon = open ? X : Menu;
 
@@ -61,12 +58,11 @@ const MobileNavigation = () => {
 						style={{
 							transitionDelay: open ? `${index * 100}ms` : "0ms",
 						}}>
-						<Link
+						<Button
 							href={link.href}
-							className={buttonClasses}
 							onClick={() => setOpen(false)}>
 							{link.label}
-						</Link>
+						</Button>
 					</li>
 				))}
 				<li
