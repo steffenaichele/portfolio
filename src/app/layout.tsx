@@ -61,14 +61,16 @@ export default function RootLayout({
 			data-scroll-behavior="smooth"
 			style={{ colorScheme: "dark" }}
 			className={`bg-bg overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
-			<body className=" text-text-primary font-sans antialiased w-full">
+			<body className="text-text-primary font-sans antialiased w-full">
 				<a
 					href="#main-content"
-					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button)">
+					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button) before:absolute before:">
 					Skip to main content
 				</a>
 				<Header />
-				<main id="main-content" className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 px-5 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
+				<main
+					id="main-content"
+					className="relative overflow-y-visible min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 px-5 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle before:content-[''] before:absolute before:-top-full before:left-0 before:right-0 before:h-screen before:bg-main before:pointer-events-none">
 					{children}
 				</main>
 				<Footer />
