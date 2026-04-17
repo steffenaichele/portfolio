@@ -56,20 +56,20 @@
 	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
 	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
 	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~24px */
-	--radius-squircle-xl: calc(28px * var(--radius-multiplier)); /* visually ~32px */
+	--radius-squircle-xl: calc(36px * var(--radius-multiplier)); /* visually ~32px */
 	--radius-full: 9999px;
 
+	--radius-main: var(--radius-squircle-xl);
 	--radius-button: var(--radius-squircle-lg);
+	--radius-surface: var(--radius-squircle-lg);
 
 
 	/* Colors */
 	--color-bg: var(--color-black);
 	--color-main: var(--color-neutral-100);
-	--radius-main: var(--radius-squircle-xl);
 
 	--color-surface-bg: var(--color-neutral-50);
 	--color-surface-stroke: var(--color-white);
-	--radius-surface: var(--radius-squircle-md);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-600);

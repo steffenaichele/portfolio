@@ -5,7 +5,7 @@ export default function ProjectsPage() {
     const projects = getPublicProjects();
 
     return (
-		<section className="layout-grid">
+		<>
 			<h1 className="5xl-regular col-start-1 -col-end-1 row-start-1 row-end-2">
 				Projekte
 			</h1>
@@ -16,7 +16,7 @@ export default function ProjectsPage() {
 					</li>
 				))}
 			</ul>
-		</section>
+		</>
 	);
 }
 
