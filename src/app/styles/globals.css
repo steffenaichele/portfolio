@@ -208,7 +208,6 @@
 
 	.layout-grid {
 		display: grid;
-		padding: 0 var(--padding);
 		grid-template-columns: repeat(var(--columns), 1fr);
 		column-gap: var(--gap);
 		row-gap: 32px;

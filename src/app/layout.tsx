@@ -68,7 +68,7 @@ export default function RootLayout({
 					Skip to main content
 				</a>
 				<Header />
-				<main id="main-content" className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
+				<main id="main-content" className="min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 px-5 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
 					{children}
 				</main>
 				<Footer />

@@ -7,7 +7,7 @@ import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
-		<footer className="w-full flex flex-col gap-12 px-8 py-16 bg-(--color-footer-bg)">
+		<footer className="w-full flex flex-col gap-12 px-5 py-16 bg-(--color-footer-bg)">
 			<div className="flex flex-col gap-0">
 				<h2 className="text-(--color-footer-text-primary)">
 					Steffen Aichele
