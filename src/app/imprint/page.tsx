@@ -6,11 +6,11 @@ import Button from "../components/Button";
 
 export default function Imprint() {
 	return (
-		<section className="layout-grid">
-			<h1 className="5xl-regular col-start-1 -col-end-1 row-start-1 row-end-2">
+		<section className="pt-50 px-5 flex flex-col items-start gap-10">
+			<h1 className="5xl-regular text-(--color-text-primary)">
 				Impressum
 			</h1>
-			<div className="col-start-1 -col-end-1 row-start-2 row-end-3 md-reguar text-(--color-text-tertiary)">
+			<div className="md-reguar text-(--color-text-tertiary)">
 				<p className="mb-4">Angaben gemäß § 5 TMG</p>
 				<address className="not-italic">
 					<p>Steffen Aichele</p>
@@ -18,7 +18,6 @@ export default function Imprint() {
 					<p>73529 Schwäbisch Gmünd</p>
 				</address>
 			</div>
-			<div className="col-start-1 -col-end-1 row-start-3 row-end-4 pt-6">
 				<Button
 					variant="cta"
 					content="iconRight"
@@ -26,7 +25,7 @@ export default function Imprint() {
 					Kontakt
 					<Icon icon={Mail} />
 				</Button>
-			</div>
+
 		</section>
 	);
 }
