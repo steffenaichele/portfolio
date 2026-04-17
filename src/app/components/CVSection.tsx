@@ -20,8 +20,8 @@ entries.sort((a, b) => {
 
 export default function CVSection() {
 	return (
-		<section className="layout-grid">
-			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 pl-5 pr-4 py-6 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow-soft) rounded-(--radius-surface) corner-squircle">
+		<section className="px-5 flex flex-col gap-5 items-end">
+			<div className="w-full flex flex-col gap-2 pl-5 pr-4 py-6 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow-soft) rounded-(--radius-surface) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
@@ -51,12 +51,10 @@ export default function CVSection() {
 					);
 				})}
 			</div>
-			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-3 xl:row-start-1 row-end-4 xl:row-end-2 flex justify-end">
 				<Button href="/about-me" content="iconRight">
 					CV ansehen
 					<Icon icon={ArrowRight} />
 				</Button>
-			</div>
 		</section>
 	);
 }

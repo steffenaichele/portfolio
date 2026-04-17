@@ -4,8 +4,8 @@ import CVSection from "./components/CVSection";
 export default function Home() {
 	return (
 		<>
-			<section className="layout-grid pt-100 ">
-				<div className="col-start-1 -col-end-1 row-start-1 row-end-2 flex flex-col gap-3">
+			<section className="pt-150 px-5 ">
+				<div className="flex flex-col gap-3">
 					<h1 className="xl-regular text-(--color-text-primary)">
 						Hi, ich bin Steffen{" "}
 						<span aria-label="Peace sign">✌🏻</span>

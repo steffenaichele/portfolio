@@ -5,18 +5,18 @@ export default function ProjectsPage() {
     const projects = getPublicProjects();
 
     return (
-		<>
-			<h1 className="5xl-regular col-start-1 -col-end-1 row-start-1 row-end-2">
+		<section className="pt-50 px-5 flex flex-col gap-24">
+			<h1 className="5xl-regular">
 				Projekte
 			</h1>
-			<ul className="col-start-1 -col-end-1 row-start-2 row-end-3 flex flex-col gap-20">
+			<ul className="flex flex-col gap-20">
 				{projects.map((project) => (
 					<li key={project.slug}>
 						<ProjectCard project={project} />
 					</li>
 				))}
 			</ul>
-		</>
+		</section>
 	);
 }
 

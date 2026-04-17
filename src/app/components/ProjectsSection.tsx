@@ -11,16 +11,12 @@ const slides = [
 
 const ProjectsSection = () => {
 	return (
-		<section className="layout-grid">
-			<div className="col-start-1 -col-end-1 row-start-1 row-end-2 ">
+		<section className="px-5 flex flex-col gap-5 items-end">
 				<Slideshow slides={slides} />
-			</div>
-			<div className="col-start-1 -col-end-1 row-start-2 row-end-3 flex justify-end">
 				<Button href="/projects" content="iconRight">
 					Projekte ansehen
 					<Icon icon={ArrowRight} />
 				</Button>
-			</div>
 		</section>
 	);
 };

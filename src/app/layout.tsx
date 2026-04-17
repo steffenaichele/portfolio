@@ -70,7 +70,7 @@ export default function RootLayout({
 				<Header />
 				<main
 					id="main-content"
-					className="relative overflow-y-visible min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pt-50 px-5 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle before:content-[''] before:absolute before:-top-full before:left-0 before:right-0 before:h-screen before:bg-main before:pointer-events-none">
+					className="relative overflow-y-visible min-h-[95dvh] bg-main bg-pattern flex flex-col gap-24 pb-24 rounded-bl-(--radius-main) rounded-br-(--radius-main) corner-squircle">
 					{children}
 				</main>
 				<Footer />
