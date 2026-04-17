@@ -33,7 +33,7 @@ const LinkButton = ({
 	external = false,
 }: LinkButtonProps) => {
 	const baseClasses =
-		"h-7 inline-flex flex-row items-center justify-center label-md py-1 transition-[color,opacity] duration-150 select-none focus:outline-1 focus:outline-orange-300 focus:outline-offset-2 rounded";
+		"h-7 inline-flex flex-row items-center justify-center md-emphasized py-1 transition-[color,opacity] duration-150 select-none focus:outline-1 focus:outline-orange-300 focus:outline-offset-2 rounded";
 
 	return (
 		<Link

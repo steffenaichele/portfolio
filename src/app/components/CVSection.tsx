@@ -21,24 +21,30 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="layout-grid">
-			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 px-4 py-5 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow) rounded-(--radius-surface) corner-squircle">
+			<div className="col-start-1 -col-end-1 xl:col-end-4 row-start-2 row-end-3 flex flex-col gap-2 pl-5 pr-4 py-6 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow-soft) rounded-(--radius-surface) corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
 						<div
 							key={entry.organization}
-							className="h-8 flex flex-row justify-between items-center gap-4">
-							<h4 className="truncate">
-								<span className="md:hidden">{entry.organizationShort}</span>
-								<span className="hidden md:block">{entry.organization}</span>
+							className="h-7 flex flex-row justify-between items-center gap-4">
+							<h4 className="sm-regular text-(--color-text-primary) truncate">
+								<span className="md:hidden">
+									{entry.organizationShort}
+								</span>
+								<span className="hidden md:block">
+									{entry.organization}
+								</span>
 							</h4>
 							<div
-								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none p-number px-3 rounded-(--radius-squircle-sm) corner-squircle tabular-nums`}>
+								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none sm-number text-(--color-text-secondary) px-2 rounded-(--radius-squircle-sm) corner-squircle tabular-nums`}>
 								<span className="sr-only">
-									{entry.type === "education" ? "Bildung" : "Berufserfahrung"}
+									{entry.type === "education"
+										? "Bildung"
+										: "Berufserfahrung"}
 								</span>
 								<span>{startYear}</span>
-								<Icon icon={ArrowRight} />
+								<span>→</span>
 								<span>{endYear}</span>
 							</div>
 						</div>

@@ -5,7 +5,7 @@ interface IconProps {
 }
 
 const Icon = ({ icon: LucideIcon }: IconProps) => (
-	<LucideIcon size={20} strokeWidth={2} />
+	<LucideIcon size={24} strokeWidth={2} />
 );
 
 export default Icon;
