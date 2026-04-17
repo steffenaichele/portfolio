@@ -7,10 +7,10 @@ import Button from "../components/Button";
 export default function Imprint() {
 	return (
 		<section className="layout-grid">
-			<h1 className="col-start-1 -col-end-1 row-start-1 row-end-2">
+			<h1 className="5xl-regular col-start-1 -col-end-1 row-start-1 row-end-2">
 				Impressum
 			</h1>
-			<div className="col-start-1 -col-end-1 row-start-2 row-end-3 p-md text-(--color-text-tertiary)">
+			<div className="col-start-1 -col-end-1 row-start-2 row-end-3 md-reguar text-(--color-text-tertiary)">
 				<p className="mb-4">Angaben gemäß § 5 TMG</p>
 				<address className="not-italic">
 					<p>Steffen Aichele</p>
