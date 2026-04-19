@@ -176,7 +176,6 @@
 		font-size: var(--size-font-xs);
 		line-height: var(--size-line-xs);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-xs);
 	}
 
@@ -184,7 +183,6 @@
 		font-size: var(--size-font-xs);
 		line-height: var(--size-line-xs);
 		font-weight: 500;
-		text-wrap: balance;
 		letter-spacing: 1%;
 	}
 
@@ -192,7 +190,6 @@
 		font-size: var(--size-font-sm);
 		line-height: var(--size-line-sm);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-sm);
 	}
 
@@ -200,7 +197,6 @@
 		font-size: var(--size-font-sm);
 		line-height: var(--size-line-sm);
 		font-weight: 500;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-sm);
 	}
 
@@ -208,7 +204,6 @@
 		font-size: var(--size-font-sm);
 		line-height: var(--size-line-sm);
 		font-weight: 500;
-		text-wrap: balance;
 		letter-spacing: -4%;
 	}
 
@@ -216,7 +211,6 @@
 		font-size: var(--size-font-md);
 		line-height: var(--size-line-md);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-md);
 	}
 
@@ -224,7 +218,6 @@
 		font-size: var(--size-font-md);
 		line-height: var(--size-line-md);
 		font-weight: 500;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-md);
 	}
 
@@ -232,7 +225,6 @@
 		font-size: var(--size-font-lg);
 		line-height: var(--size-line-lg);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-lg);
 	}
 
@@ -240,7 +232,6 @@
 		font-size: var(--size-font-xl);
 		line-height: var(--size-line-xl);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-xl);
 	}
 
@@ -248,7 +239,6 @@
 		font-size: var(--size-font-2xl);
 		line-height: var(--size-line-2xl);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-2xl);
 	}
 
@@ -256,7 +246,6 @@
 		font-size: var(--size-font-3xl);
 		line-height: var(--size-line-3xl);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-3xl);
 	}
 
@@ -264,7 +253,6 @@
 		font-size: var(--size-font-4xl);
 		line-height: var(--size-line-4xl);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-4xl);
 	}
 
@@ -272,7 +260,6 @@
 		font-size: var(--size-font-5xl);
 		line-height: var(--size-line-5xl);
 		font-weight: 400;
-		text-wrap: balance;
 		letter-spacing: var(--size-letterSpacing-5xl);
 	}
 
