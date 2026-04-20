@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./styles/globals.css";
-import localFont from "next/font/local";
+import { Inter_Tight } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sileo";
@@ -9,35 +9,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import BGGrid from "./components/BGGrid";
 
-const instrumentSans = localFont({
-	src: [
-		{
-			path: "../fonts/InstrumentSans-Regular.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "../fonts/InstrumentSans-Italic.ttf",
-			weight: "400",
-			style: "italic",
-		},
-		{
-			path: "../fonts/InstrumentSans-Medium.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "../fonts/InstrumentSans-SemiBold.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../fonts/InstrumentSans-Bold.ttf",
-			weight: "700",
-			style: "normal",
-		},
-	],
-	variable: "--font-instrument-sans",
+const inter = Inter_Tight({
+	subsets: ["latin"],
+	variable: "--font-inter",
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +35,7 @@ export default function RootLayout({
 			lang="de"
 			data-scroll-behavior="smooth"
 			style={{ colorScheme: "dark" }}
-			className={`bg-bg overscroll-x-none overscroll-y-contain ${instrumentSans.variable}`}>
+			className={`bg-bg overscroll-x-none overscroll-y-contain ${inter.variable}`}>
 			<body className="text-text-primary font-sans antialiased w-full">
 				<a
 					href="#main-content"
