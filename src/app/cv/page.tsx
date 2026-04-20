@@ -13,8 +13,8 @@ export default function CVPage() {
 	return (
 		<>
 			<section className="pt-50 px-5 flex flex-col gap-4">
-				<h1 className="text-4xl text-li text-(--color-text-primary)">
-					Sevus, Moin & Hallo
+				<h1 className="text-4xl text-(--color-text-primary)">
+					Servus, Moin & Hallo
 				</h1>
 				<p className="text-lg text-(--color-text-tertiary)">
 					Designer mit Hintergrund in Interaktionsgestaltung und

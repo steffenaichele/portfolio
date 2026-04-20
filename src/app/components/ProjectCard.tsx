@@ -14,7 +14,7 @@ const ProjectCard = ( { project }: Props) => {
 			<Image
 				width={600}
 				height={400}
-				className="w-full aspect-2/3 bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow-soft) rounded-(--radius-surface) corner-squircle object-cover object-center"
+				className="w-full aspect-[2/3] bg-(--color-surface-bg) border border-surface-stroke shadow-(--shadow-soft) rounded-(--radius-surface) corner-squircle object-cover object-center"
 				src={project.coverImage}
 				alt={project.title}
 			/>

@@ -11,7 +11,7 @@ const Header = () => {
 
 	return (
 		<header
-			className={`fixed w-full pt-16 z-50 bg-(--foreground rounded-xl transition-[padding-bottom] duration-300 ease-out ${navOpen ? "pb-6" : "pb-0"}`}
+			className={`fixed w-full pt-16 z-50 bg-(--color-foreground) rounded-xl transition-[padding-bottom] duration-300 ease-out ${navOpen ? "pb-6" : "pb-0"}`}
 			aria-label="Site header">
 			<BlurEffect
 				className="absolute inset-0 h-full pointer-events-none"

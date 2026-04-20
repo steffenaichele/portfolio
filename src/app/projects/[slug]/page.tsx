@@ -41,11 +41,11 @@ export default async function ProjectPage({ params }: Props) {
 				width={1200}
 				height={800}
 				priority
-				className="w-full aspect-2/2.5 bg-amber-300 border border-surface-stroke rounded-bl-(--radius-squircle-lg) rounded-br-(--radius-squircle-lg) corner-squircle shadow-(--shadow-soft) object-cover"
+				className="w-full aspect-[2/2.5] bg-amber-300 border border-surface-stroke rounded-bl-(--radius-squircle-lg) rounded-br-(--radius-squircle-lg) corner-squircle shadow-(--shadow-soft) object-cover"
 			/>
 			<div className="flex flex-col gap-4">
-				<h1 className="4xl-regular">{project.title}</h1>
-				<p className="md-regular text-(--color-text-tertiary)">
+				<h1 className="text-4xl font-normal">{project.title}</h1>
+				<p className="text-base font-normal text-(--color-text-tertiary)">
 					{project.description}
 				</p>
 			</div>

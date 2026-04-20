@@ -13,7 +13,7 @@ export default function ProjectsPage() {
 
     return (
 		<section className="pt-50 px-5 flex flex-col gap-24">
-			<h1 className="5xl-regular">
+			<h1 className="text-4xl text-(--color-text-primary)">
 				Projekte
 			</h1>
 			<ul className="flex flex-col gap-20">
