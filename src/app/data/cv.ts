@@ -192,7 +192,7 @@ export const education: CVEntry[] = [
 		],
 	},
 	{
-		organization: "Hochschule für Gestaltung Schwäbisch Gmünd",
+		organization: "Hochschule für Gestaltung",
 		organizationShort: "HfG Schwäbisch Gmünd",
 		location: "Schwäbisch Gmünd",
 		roles: [
@@ -210,8 +210,6 @@ export const education: CVEntry[] = [
 			"Schwerpunkte in Application Design und Interface Design: Konzeption, Usability und Visual Design von Software und Hardware-Produkten.",
 			"Grundlagen in Programmierung und digitaler Technik als Brücke zwischen Design und Entwicklung.",
 		],
-		descriptionShort:
-			"Full-Stack-Entwicklung mit JavaScript, TypeScript, React, Node.js, Express.js und MongoDB. Fokus auf modernes UI-Development, Backend-Integration und generative KI-Features. Agile Entwicklungsmethoden und Teamarbeit. Abschlussprojekt: Full-Stack-Planungstool für Tattoo-Artists mit React, TypeScript, Express.js und MongoDB.",
 	},
 	{
 		organization: "Johannes-Gutenberg-Schule",

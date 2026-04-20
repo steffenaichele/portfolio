@@ -30,9 +30,13 @@ export default function CVPage() {
 					className="text-3xl mb-8 text-(--color-text-secondary)">
 					Erfahrung
 				</h2>
-				<ul className="flex flex-col gap-16">
+				<ul>
 					{experience.map((entry) => (
-						<CVEntryItem key={entry.organization} entry={entry} />
+						<CVEntryItem
+							key={entry.organization}
+							entry={entry}
+							type="experience"
+						/>
 					))}
 				</ul>
 			</section>
@@ -43,9 +47,13 @@ export default function CVPage() {
 					className="text-2xl mb-8 text-(--color-text-secondary)">
 					Ausbildung
 				</h2>
-				<ul className="space-y-12">
+				<ul>
 					{education.map((entry) => (
-						<CVEntryItem key={entry.organization} entry={entry} />
+						<CVEntryItem
+							key={entry.organization}
+							entry={entry}
+							type="education"
+						/>
 					))}
 				</ul>
 			</section>

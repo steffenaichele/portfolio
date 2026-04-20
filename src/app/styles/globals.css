@@ -62,9 +62,15 @@
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
-	--color-badge-experience-bg: var(--color-emerald-200);
-	--color-badge-education-bg: var(--color-sky-200);
+	--color-badge-exp-bg: var(--color-emerald-200);
+	--color-badge-edu-bg: var(--color-sky-200);
 	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
+
+
+	--color-cvindicator-bg-exp: var(--color-emerald-300);
+	--color-cvindicator-bg-edu: var(--color-sky-300);
+	--color-cvindicator-border: var(--color-main);
+	--color-cvindicator-line: var(--color-neutral-200);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-100);
