@@ -43,7 +43,7 @@ const Footer = () => {
 							<LinkButton href="/projects">Projekte</LinkButton>
 						</li>
 						<li>
-							<LinkButton href="/about-me">Über mich</LinkButton>
+							<LinkButton href="/cv">CV</LinkButton>
 						</li>
 						<li>
 							<LinkButton href="/imprint">Impressum</LinkButton>

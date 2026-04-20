@@ -12,7 +12,10 @@ export type CVEntry = {
 	location: string;
 	roles: CVRole[];
 	description?: string[];
+	descriptionShort?: string;
 };
+
+export const skills = ['Design Thinking','Wireframing','Prototyping','Visual Design','Design Token', 'SCSS', 'Tailwind CSS', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Express.js', 'MongoDB','Prompt Engineering'];
 
 // Utility function to get the overall year range for a CV entry, based on its roles
 export function getYearRange(entry: CVEntry) {
@@ -26,12 +29,12 @@ export function getYearRange(entry: CVEntry) {
 
 export const experience: CVEntry[] = [
 	{
-		organization: "Freelance für Klinikum Christophsbad",
+		organization: "MuSeele e.V. / Klinikum Christophsbad",
 		organizationShort: "Freelance",
-		location: "Remote",
+		location: "Göppingen",
 		roles: [
 			{
-				title: "UX/UI Designer & Full Stack Developer",
+				title: "Freelance Developer",
 				startMonth: "Mar",
 				startYear: 2025,
 				endMonth: "Dez",
@@ -45,6 +48,8 @@ export const experience: CVEntry[] = [
 			"Technische Umsetzung als Offline-fähige Desktop-App mit React, Tailwind CSS und Electron, lauffähig unter Windows direkt vom USB-Stick",
 			"Vollständige Verantwortung über den gesamten Produktentwicklungsprozess: von Konzeption und UX/UI Design bis zur technischen Umsetzung",
 		],
+		descriptionShort:
+			"Entwicklung eines interaktiven Museumsexponats mit React, Tailwind CSS und Electron. Gestaltung des gesamten Produktentwicklungsprozesses von UX/UI-Design bis zur technischen Implementierung.",
 	},
 	{
 		organization: "Future Forms GmbH",
@@ -80,6 +85,8 @@ export const experience: CVEntry[] = [
 			"Erstellen einer eigenen UI-Library für die Erstellung von Wireframes in Figma, um die Effizienz bei der Erstellung von Prototypen zu steigern und die Konsistenz im Design zu gewährleisten",
 			"Brand-Development, Testen von neuen Technologien und Tools und Prozess-Optimierung",
 		],
+		descriptionShort:
+			"Entwicklung digitaler Produkte und Benutzeroberflächen. Projektleitung bei Kundenaufträgen – von Research über Wireframing bis Testing und Design-System-Erstellung.",
 	},
 	{
 		organization: "halbautomaten Kommunikationsdesign GmbH",
@@ -99,6 +106,8 @@ export const experience: CVEntry[] = [
 			"Erstellung von Vorlagen für digitale Varianten von Printmedien, wie beispielsweise Produktkataloge, um für eine effizientere und konsistentere Erstellung von Marketingmaterialien zu sorgen.",
 			"Design und Entwicklung der neuen Website der Agentur in SquareSpace, um die Online-Präsenz der Agentur zu verbessern.",
 		],
+		descriptionShort:
+			"Mitarbeit bei Projekten im Bereich Corporate Design, Webdesign und Printmedien. Entwicklung von Vorlagen für digitale Varianten von Printmedien und der neuen Website der Agentur.",
 	},
 	{
 		organization: "amplify design GmbH",
@@ -133,6 +142,8 @@ export const experience: CVEntry[] = [
 			"Erstellung und Optimierung von 3D Modellen in Cinema 4D für die Nutzung in diversen Kundenprojekten",
 			"Betreuung von Praktikant*innen und Werkstudent*innen",
 		],
+		descriptionShort:
+			"Überarbeitung von User Flows, Erstellung von Wireframes und Visual Design Vorschlägen für das Redesign einer Software. Mitarbeit bei der Entwicklung eines Design Systems sowie die Erstellung eines interaktiven Style Guides und einer UI Library. Erstellung und Optimierung von 3D-Modellen in Cinema 4D für Kundenprojekte. Mentoring von Praktikanten.",
 	},
 	{
 		organization: "Paperdice Solutions GmbH",
@@ -152,6 +163,8 @@ export const experience: CVEntry[] = [
 			"Mitentwicklung der Markenidentität sowie Entwicklung eines ausführlichen Style Guides",
 			"Erstellung von Requisiten und Kulissen für Escape Rooms und deren Spielstätten.",
 		],
+		descriptionShort:
+			"Entwurf, Vereinheitlichung und Überarbeitung diverser Printprodukte für mehrere Marken und Standorte. Mitentwicklung der Markenidentität sowie Entwicklung eines ausführlichen Style Guides. Erstellung von Requisiten und Kulissen für Escape Rooms und deren Spielstätten.",
 	},
 ];
 
@@ -197,6 +210,8 @@ export const education: CVEntry[] = [
 			"Schwerpunkte in Application Design und Interface Design: Konzeption, Usability und Visual Design von Software und Hardware-Produkten.",
 			"Grundlagen in Programmierung und digitaler Technik als Brücke zwischen Design und Entwicklung.",
 		],
+		descriptionShort:
+			"Full-Stack-Entwicklung mit JavaScript, TypeScript, React, Node.js, Express.js und MongoDB. Fokus auf modernes UI-Development, Backend-Integration und generative KI-Features. Agile Entwicklungsmethoden und Teamarbeit. Abschlussprojekt: Full-Stack-Planungstool für Tattoo-Artists mit React, TypeScript, Express.js und MongoDB.",
 	},
 	{
 		organization: "Johannes-Gutenberg-Schule",

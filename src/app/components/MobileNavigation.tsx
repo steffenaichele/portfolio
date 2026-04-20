@@ -9,7 +9,7 @@ import Icon from "./Icon";
 const navLinks = [
     { label: "Home", href: "/" },
 	{ label: "Projekte", href: "/projects" },
-	{ label: "Über mich", href: "/about-me" },
+	{ label: "CV", href: "/cv" },
 ];
 
 const countLinks = navLinks.length; // for transition delay calculation
