@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { getPublicProjects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
+
+export const metadata: Metadata = {
+	title: "Projekte – Steffen Aichele",
+	description:
+		"Ausgewählte Projekte von Steffen Aichele – UX/UI Design und Web Development.",
+};
 
 export default function ProjectsPage() {
     const projects = getPublicProjects();

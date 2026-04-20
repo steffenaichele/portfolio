@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getProjectBySlug, projects } from "@/app/data/projects";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -9,6 +10,22 @@ export function generateStaticParams() {
 type Props = {
 	params: Promise<{ slug: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params;
+	const project = getProjectBySlug(slug);
+
+	if (!project) {
+		return {
+			title: "Projekt nicht gefunden – Steffen Aichele",
+		};
+	}
+
+	return {
+		title: `${project.title} – Steffen Aichele`,
+		description: project.description,
+	};
+}
 
 export default async function ProjectPage({ params }: Props) {
 	const { slug } = await params;

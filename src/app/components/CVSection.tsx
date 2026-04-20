@@ -28,7 +28,7 @@ export default function CVSection() {
 						<div
 							key={entry.organization}
 							className="h-7 flex flex-row justify-between items-center gap-4">
-							<h4 className="sm-regular text-(--color-text-primary) truncate">
+							<h4 className="text-base text-(--color-text-primary) truncate">
 								<span className="md:hidden">
 									{entry.organizationShort}
 								</span>
@@ -37,21 +37,21 @@ export default function CVSection() {
 								</span>
 							</h4>
 							<div
-								className={`${entry.type === "education" ? "bg-(--color-badge-education-bg)" : "bg-(--color-badge-experience-bg)"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none sm-number text-(--color-text-secondary) px-2 rounded-(--radius-squircle-sm) corner-squircle tabular-nums`}>
+								className={`${entry.type === "education" ? "bg-(--color-badge-edu-bg)" : "bg-(--color-badge-exp-bg)"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none text-md font-semibold tabular-nums tracking-tighter text-(--color-text-secondary) px-2 rounded-(--radius-squircle-sm) corner-squircle`}>
 								<span className="sr-only">
 									{entry.type === "education"
 										? "Bildung"
 										: "Berufserfahrung"}
 								</span>
 								<span>{startYear}</span>
-								<span>→</span>
+								<span>-</span>
 								<span>{endYear}</span>
 							</div>
 						</div>
 					);
 				})}
 			</div>
-				<Button href="/about-me" content="iconRight">
+				<Button href="/cv" content="iconRight">
 					CV ansehen
 					<Icon icon={ArrowRight} />
 				</Button>
