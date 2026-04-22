@@ -31,6 +31,10 @@
 	--radius-button: var(--radius-squircle-lg);
 	--radius-surface: var(--radius-squircle-lg);
 
+	/* Easing Curves */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
 
 	/* Colors */
 	--color-bg: var(--color-black);
@@ -111,7 +115,7 @@
 	/* Toast (Sileo) */
 	--sileo-width: 280px;
 	--sileo-height: 44px;
-	--sileo-duration: 500ms;
+	--sileo-duration: 400ms;
 	--sileo-state-success: oklch(0.6 0.15 142);
 }
 

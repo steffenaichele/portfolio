@@ -34,7 +34,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 	const menuIcon = open ? X : Menu;
 
 	return (
-		<nav className={`flex-none flex flex-col items-end transition-[gap] duration-300 ease-out ${open ? "gap-8" : "gap-0"}`}>
+		<nav className={`flex-none flex flex-col items-end transition-[gap] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${open ? "gap-8" : "gap-0"}`}>
 			<Button
 				variant="primary"
 				content="iconOnly"
@@ -45,7 +45,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				<Icon icon={menuIcon} />
 			</Button>
 
-			<div className={`grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+			<div className={`grid transition-[grid-template-rows] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
 				<ul
 					id="mobile-menu"
 					className="min-h-0 flex flex-col items-end gap-2"
@@ -53,13 +53,13 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 					{navLinks.map((link, index) => (
 						<li
 							key={link.href}
-							className={`transition-[opacity,transform] duration-300 ease-out ${
+							className={`transition-[opacity,transform] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${
 								open
 									? "opacity-100 translate-y-0"
 									: "opacity-0 -translate-y-2 pointer-events-none"
 							}`}
 							style={{
-								transitionDelay: open ? `${index * 100}ms` : "0ms",
+								transitionDelay: open ? `${index * 60}ms` : "0ms",
 							}}>
 							<Button
 								href={link.href}
@@ -69,14 +69,14 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 						</li>
 					))}
 					<li
-						className={`transition-[opacity,transform] duration-300 ease-out ${
+						className={`transition-[opacity,transform] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${
 							open
 								? "opacity-100 translate-y-0"
 								: "opacity-0 -translate-y-2 pointer-events-none"
 						}`}
 						style={{
 							transitionDelay: open
-								? `${(countLinks + 1) * 100}ms`
+								? `${(countLinks + 1) * 60}ms`
 								: "0ms",
 						}}>
 						<Button
