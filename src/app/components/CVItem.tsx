@@ -1,4 +1,4 @@
-import { CVEntry } from "../data/cv";
+import { CVEntry } from "../data/cv_de";
 
 type CVItemProps = {
 	entry: CVEntry;
