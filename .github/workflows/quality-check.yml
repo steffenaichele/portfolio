@@ -104,8 +104,17 @@ jobs:
           npm i -g vercel@latest
           vercel --version
 
-          # Deploy and capture URL
-          PREVIEW_URL=$(vercel deploy --token=$VERCEL_TOKEN --yes 2>&1 | grep -o 'https://[^ ]*')
+          # Deploy and capture ONLY one URL (first match), remove any newlines
+          PREVIEW_URL="$(vercel deploy --token="$VERCEL_TOKEN" --yes 2>&1 \
+            | grep -Eo 'https://[^ ]+' \
+            | head -n 1 \
+            | tr -d '\r\n')"
+
+          if [ -z "$PREVIEW_URL" ]; then
+            echo "Failed to extract preview URL from Vercel output" >&2
+            exit 1
+          fi
+
           echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment Preview URL
