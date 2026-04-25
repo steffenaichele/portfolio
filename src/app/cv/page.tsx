@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { experience, education, skills } from "@/app/data/cv";
+import { experience, education, skills } from "@/app/data/cv_de";
 import { CVEntryItem } from "@/app/components/CVEntryItem";
 import { Tag } from "@/app/components/Tag";
 
