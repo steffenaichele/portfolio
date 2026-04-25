@@ -134,6 +134,16 @@
 		box-sizing: border-box;
 	}
 
+	.project-card {
+		transition: transform 200ms var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.project-card:hover {
+			transform: translateY(-4px);
+		}
+	}
+
 	.layout-grid {
 		display: grid;
 		grid-template-columns: repeat(var(--columns), 1fr);
