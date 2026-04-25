@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import Link from "next/link";
 import { sileo } from "sileo";
 
 /**
@@ -28,6 +29,7 @@ interface ButtonProps {
 	variant?: Variant;
 	content?: ContentType;
 	children: ReactNode;
+	href?: string;
 	onClick?: () => void;
 	copyToClipboard?: string;
 	copySuccessMessage?: string;
@@ -40,9 +42,9 @@ interface ButtonProps {
 
 const variantClasses: Record<Variant, string> = {
 	primary:
-		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-95 focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
+		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-[0.97] focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
 	cta:
-		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-95 active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
+		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
 };
 
 const contentClasses: Record<ContentType, string> = {
@@ -55,6 +57,7 @@ const Button = ({
 	variant = "primary",
 	content = "text",
 	children,
+	href,
 	onClick,
 	copyToClipboard,
 	copySuccessMessage = "Copied to clipboard!",
@@ -65,7 +68,21 @@ const Button = ({
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none label-md rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 cursor-pointer select-none";
+		"h-11 flex-none text-lg font-medium tracking-wide rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+
+	const className = `${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`;
+
+	if (href) {
+		return (
+			<Link
+				href={href}
+				onClick={onClick}
+				aria-label={ariaLabel}
+				className={className}>
+				{children}
+			</Link>
+		);
+	}
 
 	const handleClick = async () => {
 		if (copyToClipboard) {
@@ -91,7 +108,7 @@ const Button = ({
 			aria-label={ariaLabel}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
-			className={`${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`}>
+			className={className}>
 			{children}
 		</button>
 	);

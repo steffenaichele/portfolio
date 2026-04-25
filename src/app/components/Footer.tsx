@@ -7,18 +7,18 @@ import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
-		<footer className="w-full flex flex-col gap-12 px-8 py-16 bg-(--color-footer-bg)">
-			<div className="flex flex-col gap-0">
-				<h2 className="text-(--color-footer-text-primary)">
+		<footer className="w-full flex flex-col gap-12 px-5 py-16 bg-(--color-footer-bg)">
+			<div className="flex flex-col">
+				<h2 className="text-2xl font-medium text-(--color-footer-text-primary)">
 					Steffen Aichele
 				</h2>
-				<p className="p-md text-(--color-footer-text-secondary)">
+				<p className="text-sm tracking-wide text-(--color-footer-text-secondary)">
 					UX/UI Designer & Web Developer
 				</p>
 			</div>
 
 			<div className="flex gap-4 justify-between items-center">
-				<h3 className="text-(--color-footer-text-primary)">
+				<h3 className="text-lg text-(--color-footer-text-primary)">
 					Get in Touch
 				</h3>
 				<Button
@@ -32,10 +32,10 @@ const Footer = () => {
 
 			<nav aria-label="Footer-Navigation" className="flex gap-4">
 				<div className="flex flex-col flex-1 gap-3">
-					<h6 className="text-(--color-footer-text-tertiary)">
+					<h6 className="text-sm font-medium tracking-wider uppercase text-(--color-footer-text-tertiary)">
 						Seiten
 					</h6>
-					<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
+					<ul className="flex flex-col gap-2 text-(--color-footer-text-primary)">
 						<li>
 							<LinkButton href="/">Home</LinkButton>
 						</li>
@@ -43,7 +43,7 @@ const Footer = () => {
 							<LinkButton href="/projects">Projekte</LinkButton>
 						</li>
 						<li>
-							<LinkButton href="/about-me">Über mich</LinkButton>
+							<LinkButton href="/cv">CV</LinkButton>
 						</li>
 						<li>
 							<LinkButton href="/imprint">Impressum</LinkButton>
@@ -51,10 +51,10 @@ const Footer = () => {
 					</ul>
 				</div>
 				<div className="flex flex-col flex-1 gap-3">
-					<h6 className="text-(--color-footer-text-tertiary)">
+					<h6 className="text-sm font-medium tracking-wide uppercase text-(--color-footer-text-tertiary)">
 						Links
 					</h6>
-					<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
+					<ul className="flex flex-col gap-2 text-(--color-footer-text-primary)">
 						<li>
 							<LinkButton
 								href="https://www.linkedin.com/in/steffenaichele"
@@ -81,12 +81,11 @@ const Footer = () => {
 				</div>
 			</nav>
 
-			<div className="flex flex-col md:flex-row wrap gap-1 text-(--color-footer-text-secondary)">
-				<p className="p-sm">
-					© 2026 Steffen Aichele - Alle Rechte vorbehalten.
-				</p>
-				<p className="p-sm">
-					Built with Next.js & Tailwind CSS <span aria-hidden="true">✨</span>
+			<div className="flex flex-col md:flex-row wrap text-(--color-footer-text-secondary) text-md">
+				<p>© 2026 Steffen Aichele - Alle Rechte vorbehalten.</p>
+				<p>
+					Built with Next.js & Tailwind CSS{" "}
+					<span aria-hidden="true">✨</span>
 				</p>
 			</div>
 		</footer>

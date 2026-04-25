@@ -16,7 +16,7 @@
 
 @theme {
 	/* Fonts */
-	--font-sans: var(--font-instrument-sans), sans-serif;
+	--font-sans: var(--font-inter), sans-serif;
 
 	/* Radii */
 	--radius-multiplier: 2;
@@ -24,23 +24,31 @@
 	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
 	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
 	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~24px */
-	--radius-squircle-xl: calc(28px * var(--radius-multiplier)); /* visually ~32px */
+	--radius-squircle-xl: calc(36px * var(--radius-multiplier)); /* visually ~32px */
 	--radius-full: 9999px;
+
+	--radius-main: var(--radius-squircle-xl);
+	--radius-button: var(--radius-squircle-lg);
+	--radius-surface: var(--radius-squircle-lg);
+
+	/* Easing Curves */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
 
 	/* Colors */
 	--color-bg: var(--color-black);
 	--color-main: var(--color-neutral-100);
-	--radius-main: var(--radius-squircle-xl);
 
 	--color-surface-bg: var(--color-neutral-50);
 	--color-surface-stroke: var(--color-white);
-	--radius-surface: var(--radius-squircle-md);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-600);
 	--color-text-tertiary: var(--color-neutral-400);
 
-	--radius-button: var(--radius-squircle-lg);
+	--color-logo-fill: var(--color-neutral-200);
+	--color-logo-stroke: var(--color-neutral-950);
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
@@ -58,9 +66,15 @@
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
-	--color-badge-experience-bg: var(--color-emerald-200);
-	--color-badge-education-bg: var(--color-sky-200);
+	--color-badge-exp-bg: var(--color-emerald-200);
+	--color-badge-edu-bg: var(--color-sky-200);
 	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
+
+
+	--color-cvindicator-bg-exp: var(--color-emerald-300);
+	--color-cvindicator-bg-edu: var(--color-sky-300);
+	--color-cvindicator-border: var(--color-main);
+	--color-cvindicator-line: var(--color-neutral-200);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-100);
@@ -69,9 +83,17 @@
 
 	/* Shadows */
 	--shadow:
+		0px 0px 0px 1px rgba(0, 0, 0, 0.05),
+		0px 1px 1px 0px rgba(0, 0, 0, 0.05),
+		0px 2px 2px 0px rgba(0, 0, 0, 0.05),
+		0px 4px 4px 0px rgba(0, 0, 0, 0.05),
+		0px 8px 8px 0px rgba(0, 0, 0, 0.05),
+		0px 16px 16px 0px rgba(0, 0, 0, 0.05);
+
+	--shadow-soft:
 		0px 0px 0px 1px rgba(0, 0, 0, 0.04),
 		0px 1px 1px -0.5px rgba(0, 0, 0, 0.04),
-		0px 3px 3px -1.5px rgba(0, 0, 0, 0.06),
+		0px 3px 3px -1.5px rgba(0, 0, 0, 0.04),
 		0px 6px 6px -3px rgba(0, 0, 0, 0.04),
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
@@ -83,7 +105,7 @@
 	--padding: 16px;
 	--whitespace: 16px;
 	--columns: 4;
-	--gap: 28px;
+	--gap: 20px;
 
 	/* Background Pattern */
 	--dot-size: 1px;
@@ -93,124 +115,39 @@
 	/* Toast (Sileo) */
 	--sileo-width: 280px;
 	--sileo-height: 44px;
-	--sileo-duration: 500ms;
+	--sileo-duration: 400ms;
 	--sileo-state-success: oklch(0.6 0.15 142);
 }
 
 /*
- * Instrument Sans font feature settings (applied globally)
- * ss01: Runde Interpunktion, Tittles (Punkte über i/j) und Diakritika
- * ss02: Alternatives „a"       ss03: Alternatives „y"
- * ss04: Alternatives „K"       ss05: Alternatives „R"
- * ss06: Alternatives „M"       ss07: Alternatives „G" (off)
- * ss08: Alternatives „J"       ss09: Alternatives „Q"
- * ss10: Alternative „2"        ss11: Alternatives „&" (off)
- * ss12: Alternatives „$"/„¢" (off)
- * liga: Ligaturen              kern: Kerning
+ * Inter font feature settings (applied globally)
+ * liga: Ligatures
+ * kern: Kerning
+ * calt: Contextual alternates
  */
 @layer components {
 	* {
 		font-feature-settings:
-			"ss01" 1,
-			"ss02" 1,
-			"ss03" 1,
-			"ss04" 1,
-			"ss05" 1,
-			"ss06" 1,
-			"ss07" 0,
-			"ss08" 1,
-			"ss09" 1,
-			"ss10" 1,
-			"ss11" 0,
-			"ss12" 0,
 			"liga" 1,
-			"kern" 1;
+			"kern" 1,
+			"calt" 1;
 		box-sizing: border-box;
 	}
 
-	h1 {
-		font-size: 36px;
-		line-height: 135%;
-		font-weight: 500;
-		text-wrap: balance;
+	.project-card {
+		transition: transform 200ms var(--ease-out);
 	}
 
-	h2 {
-		font-size: 24px;
-		line-height: 135%;
-		font-weight: 500;
-		text-wrap: balance;
-	}
-
-	h3 {
-		font-size: 20px;
-		line-height: 100%;
-		font-weight: 400;
-		text-wrap: balance;
-	}
-
-	h4 {
-		font-size: 18px;
-		line-height: 150%;
-		font-weight: 500;
-		text-wrap: balance;
-	}
-
-	h5 {
-		font-size: 16px;
-		line-height: 100%;
-		font-weight: 400;
-		text-wrap: balance;
-	}
-
-	h6 {
-		font-size: 16px;
-		line-height: 100%;
-		font-weight: 600;
-		white-space: nowrap;
-		text-transform: uppercase;
-		letter-spacing: 0;
-	}
-
-	.p-lg {
-		font-size: 24px;
-		line-height: 135%;
-		font-weight: 400;
-		text-wrap: pretty;
-	}
-
-	.p-md {
-		font-size: 18px;
-		line-height: 135%;
-		font-weight: 400;
-		text-wrap: pretty;
-	}
-
-	.p-sm {
-		font-size: 14px;
-		line-height: 135%;
-		font-weight: 400;
-		text-wrap: pretty;
-	}
-
-	.p-number {
-		font-size: 18px;
-		line-height: 125%;
-		font-weight: 500;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.label-md {
-		font-size: 18px;
-		line-height: 100%;
-		font-weight: 500;
+	@media (hover: hover) and (pointer: fine) {
+		.project-card:hover {
+			transform: translateY(-4px);
+		}
 	}
 
 	.layout-grid {
 		display: grid;
-		grid-template-columns:
-			var(--padding) var(--whitespace) repeat(calc(var(--columns) - 1),
-				1fr var(--gap)) 1fr var(--whitespace) var(--padding);
+		grid-template-columns: repeat(var(--columns), 1fr);
+		column-gap: var(--gap);
 		row-gap: 32px;
 	}
 
@@ -235,24 +172,6 @@
 			--gap: 32px;
 		}
 
-		h1 {
-			font-size: 28px;
-			line-height: 125%;
-		}
-
-		h2 {
-			font-size: 28px;
-			line-height: 125%;
-		}
-
-		h4 {
-			font-size: 13px;
-		}
-
-		h6 {
-			font-size: 13px;
-		}
-
 		.layout-grid {
 			grid-template-columns: repeat(var(--columns), 1fr);
 			column-gap: var(--gap);
@@ -266,7 +185,7 @@
 }
 
 [data-sileo-title] {
-	font-size: 14px;
+	font-size: var(--size-font-md);
 	font-weight: 500;
 	text-transform: none;
 }
