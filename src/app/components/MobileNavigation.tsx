@@ -47,7 +47,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 
 			<div
 				className={`grid transition-[grid-template-rows] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-				{...(!open ? { inert: "" } : {})}>
+				inert={!open}>
 				<ul
 					id="mobile-menu"
 					className="min-h-0 flex flex-col items-end gap-2"
