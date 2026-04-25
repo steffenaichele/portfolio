@@ -81,7 +81,7 @@ const Footer = () => {
 				</div>
 			</nav>
 
-			<div className="flex flex-col md:flex-row wrap text-(--color-footer-text-secondary) text-md">
+			<div className="flex flex-col md:flex-row flex-wrap text-[var(--color-footer-text-secondary)] text-base">
 				<p>© 2026 Steffen Aichele - Alle Rechte vorbehalten.</p>
 				<p>
 					Built with Next.js & Tailwind CSS{" "}

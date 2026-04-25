@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 export default function CVPage() {
 	return (
 		<>
-			<section className="pt-50 px-5 flex flex-col gap-4">
-				<h1 className="text-4xl text-(--color-text-primary)">
+			<section className="pt-[50px] px-5 flex flex-col gap-4">
+				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Servus, Moin & Hallo
 				</h1>
-				<p className="text-lg text-(--color-text-tertiary)">
+				<p className="text-lg text-[var(--color-text-tertiary)]">
 					Designer mit Hintergrund in Interaktionsgestaltung und
 					Full-Stack-Webentwicklung. Ich arbeite gerne an der
 					Schnittstelle von Design und Code und bringe Begeisterung in
@@ -27,7 +27,7 @@ export default function CVPage() {
 			<section aria-labelledby="experience-heading" className="px-5">
 				<h2
 					id="experience-heading"
-					className="text-3xl mb-8 text-(--color-text-secondary)">
+					className="text-3xl mb-8 text-[var(--color-text-secondary)]">
 					Erfahrung
 				</h2>
 				<ul>
@@ -44,7 +44,7 @@ export default function CVPage() {
 			<section aria-labelledby="education-heading" className="px-5">
 				<h2
 					id="education-heading"
-					className="text-2xl mb-8 text-(--color-text-secondary)">
+					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
 					Ausbildung
 				</h2>
 				<ul>
@@ -61,7 +61,7 @@ export default function CVPage() {
 			<section aria-labelledby="skills-heading" className="px-5 layout-grid">
 				<h2
 					id="skills-heading"
-					className="text-2xl mb-8 text-(--color-text-secondary)">
+					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
 					Skills
 				</h2>
 				<div className="flex flex-wrap gap-2">

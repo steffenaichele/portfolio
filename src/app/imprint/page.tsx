@@ -6,11 +6,11 @@ import Button from "../components/Button";
 
 export default function Imprint() {
 	return (
-		<section className="pt-50 px-5 flex flex-col items-start gap-10">
-			<h1 className="text-4xl text-(--color-text-primary)">
+		<section className="pt-[50px] px-5 flex flex-col items-start gap-10">
+			<h1 className="text-4xl text-[var(--color-text-primary)]">
 				Impressum
 			</h1>
-			<div className="text-(--color-text-tertiary)">
+			<div className="text-[var(--color-text-tertiary)]">
 				<p className="mb-4">Angaben gemäß § 5 TMG</p>
 				<address className="not-italic">
 					<p>Steffen Aichele</p>

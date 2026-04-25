@@ -2,7 +2,7 @@ import LogoSvg from "../../../public/logo/logo.svg";
 
 const Logo = () => (
 	<LogoSvg
-		className="drop-shadow-(--shadow-soft)"
+		className="drop-shadow-[var(--shadow-soft)]"
 		aria-hidden="true"
 	/>
 );

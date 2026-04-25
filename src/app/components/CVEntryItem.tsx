@@ -16,7 +16,7 @@ export function CVEntryItem({ entry, type }: CVEntryItemProps) {
 			<div className="flex gap-1">
 				<div className="relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-[50%] before:-translate-x-1/2 before:-translate-y-1/2">
 					<span
-						className="flex-none w-3 h-3 mt-2 rounded-full border-2 bg-[var(--color-cvindicator-border)] z-5"
+						className="flex-none w-3 h-3 mt-2 rounded-full border-2 bg-[var(--color-cvindicator-border)] z-[5]"
 						style={{
 							borderColor: indicatorColor,
 						}}></span>
@@ -54,7 +54,7 @@ export function CVEntryItem({ entry, type }: CVEntryItemProps) {
 								className="relative flex flex-col mb-4 pl-4 "
 								key={`${role.title}-${role.startYear}-${role.startMonth}`}>
 								<span
-									className="absolute top-2.5 -left-1 flex-none  w-2 h-2 border-2 border-[var(--color-cvindicator-border)] rounded-full z-5"
+									className="absolute top-2.5 -left-1 flex-none  w-2 h-2 border-2 border-[var(--color-cvindicator-border)] rounded-full z-[5]"
 									style={{
 										backgroundColor: indicatorColor,
 									}}></span>
@@ -69,7 +69,7 @@ export function CVEntryItem({ entry, type }: CVEntryItemProps) {
 						);
 					})}
 					{entry.descriptionShort && (
-						<p className="text-md leading-8 text-[var(--color-text-secondary)] pl-4 my-2 ">
+						<p className="text-base leading-8 text-[var(--color-text-secondary)] pl-4 my-2 ">
 							{entry.descriptionShort}
 						</p>
 					)}
