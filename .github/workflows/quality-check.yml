@@ -104,13 +104,10 @@ jobs:
           npm i -g vercel@latest
           vercel --version
 
-          # Link project in CI (avoids interactive prompt)
-          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN" --scope="$VERCEL_ORG_ID"
-
-          # Deploy and capture only the final plain deployment URL
-          PREVIEW_URL="$(vercel deploy --yes --token="$VERCEL_TOKEN" --scope="$VERCEL_ORG_ID" --no-color 2>&1 \
-            | grep -E '^https://[^[:space:]]+$' \
-            | tail -n 1 \
+          # Deploy and capture ONLY one URL (first match), remove any newlines
+          PREVIEW_URL="$(vercel deploy --token="$VERCEL_TOKEN" --yes 2>&1 \
+            | grep -Eo 'https://[^ ]+' \
+            | head -n 1 \
             | tr -d '\r\n')"
 
           if [ -z "$PREVIEW_URL" ]; then
