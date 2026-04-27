@@ -4,7 +4,7 @@ import CVSection from "./components/CVSection";
 export default function Home() {
 	return (
 		<>
-			<section className="pt-[150px] px-5 ">
+			<section className="pt-150 px-5 ">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-2xl text-[var(--color-text-primary)]">
 						Hi, ich bin Steffen{" "}

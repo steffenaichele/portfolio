@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function CVPage() {
 	return (
 		<>
-			<section className="pt-[50px] px-5 flex flex-col gap-4">
+			<section className="pt-50 px-5 flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Servus, Moin & Hallo
 				</h1>
@@ -58,7 +58,7 @@ export default function CVPage() {
 				</ul>
 			</section>
 
-			<section aria-labelledby="skills-heading" className="px-5 layout-grid">
+			<section aria-labelledby="skills-heading" className="px-5">
 				<h2
 					id="skills-heading"
 					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
