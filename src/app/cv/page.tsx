@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { experience, education, skills } from "@/app/data/cv_de";
-import { CVEntryItem } from "@/app/components/CVEntryItem";
+import { CVExperienceItem } from "@/app/components/CVExperienceItem";
+import { CVEducationItem } from "@/app/components/CVEducationItem";
 import { Tag } from "@/app/components/Tag";
 
 export const metadata: Metadata = {
@@ -31,11 +32,12 @@ export default function CVPage() {
 					Erfahrung
 				</h2>
 				<ul>
-					{experience.map((entry) => (
-						<CVEntryItem
+					{experience.map((entry, index) => (
+						<CVExperienceItem
 							key={entry.organization}
 							entry={entry}
-							type="experience"
+							isFirst={index === 0}
+							isLast={index === experience.length - 1}
 						/>
 					))}
 				</ul>
@@ -48,11 +50,11 @@ export default function CVPage() {
 					Ausbildung
 				</h2>
 				<ul>
-					{education.map((entry) => (
-						<CVEntryItem
+					{education.map((entry, index) => (
+						<CVEducationItem
 							key={entry.organization}
 							entry={entry}
-							type="education"
+							isFirst={index === 0}
 						/>
 					))}
 				</ul>

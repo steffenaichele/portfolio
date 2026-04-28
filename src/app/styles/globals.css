@@ -75,7 +75,8 @@
 
 	--color-cvindicator-bg-exp: var(--color-emerald-300);
 	--color-cvindicator-bg-edu: var(--color-sky-300);
-	--color-cvindicator-border: var(--color-main);
+	--color-cvindicator-bg-main: var(--color-main);
+	--color-cvindicator-border: color-mix(in oklab, var(--color-black) 10%, transparent);
 	--color-cvindicator-line: var(--color-neutral-200);
 
 	--color-footer-bg: var(--color-bg);

@@ -1,22 +1,24 @@
 import type { CVEntry } from "../data/cv_de";
 
-interface CVEntryItemProps {
+interface CVExperienceItemProps {
 	entry: CVEntry;
-	type: "experience" | "education";
+	isFirst?: boolean;
+	isLast?: boolean;
 }
 
-export function CVEntryItem({ entry, type }: CVEntryItemProps) {
-	const indicatorColor =
-		type === "experience"
-			? "var(--color-cvindicator-bg-exp)"
-			: "var(--color-cvindicator-bg-edu)";
+export function CVExperienceItem({ entry, isFirst = false, isLast = false }: CVExperienceItemProps) {
+	const indicatorColor = "var(--color-cvindicator-bg-exp)";
+
+	const lineClasses = isFirst
+		? "relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-[calc(100%-16px)] before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:bottom-0 before:left-[50%] before:-translate-x-1/2"
+		: "relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-[50%] before:-translate-x-1/2 before:-translate-y-1/2";
 
 	return (
 		<li>
-			<div className="flex gap-1">
-				<div className="relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-[50%] before:-translate-x-1/2 before:-translate-y-1/2">
+			<div className="flex gap-2">
+				<div className={lineClasses}>
 					<span
-						className="flex-none w-3 h-3 mt-2 rounded-full border-2 bg-[var(--color-cvindicator-border)] z-[5]"
+						className="flex-none w-4 h-4 mt-1.5 rounded-full border-3 bg-[var(--color-cvindicator-bg-main)] z-[5]"
 						style={{
 							borderColor: indicatorColor,
 						}}></span>
@@ -47,32 +49,27 @@ export function CVEntryItem({ entry, type }: CVEntryItemProps) {
 				</svg>
 			</div>
 			<div className="flex ml-8 gap-1 relative before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-0 before:-translate-x-1/2 before:-translate-y-1/2">
-				<div className="flex flex-col">
+				<div className="flex flex-col gap-4">
 					{entry.roles.map((role) => {
 						return (
 							<div
-								className="relative flex flex-col mb-4 pl-4 "
+								className="relative flex flex-col pl-6 "
 								key={`${role.title}-${role.startYear}-${role.startMonth}`}>
 								<span
-									className="absolute top-2.5 -left-1 flex-none  w-2 h-2 border-2 border-[var(--color-cvindicator-border)] rounded-full z-[5]"
+									className="absolute top-2 -left-1.5 flex-none w-3 h-3 border-2 border-[var(--color-cvindicator-border)] rounded-full z-[5]"
 									style={{
 										backgroundColor: indicatorColor,
 									}}></span>
 								<h3 className="text-lg font-medium text-[var(--color-text-primary)]">
 									{role.title}
 								</h3>
-								<div className="text-xs tracking-wide text-[var(--color-text-tertiary)]">
+								<div className="text-sm tracking-wide text-[var(--color-text-tertiary)]">
 									{role.startMonth} {role.startYear} {" — "}
 									{role.endMonth} {role.endYear}
 								</div>
 							</div>
 						);
 					})}
-					{entry.descriptionShort && (
-						<p className="text-base leading-8 text-[var(--color-text-secondary)] pl-4 my-2 ">
-							{entry.descriptionShort}
-						</p>
-					)}
 				</div>
 			</div>
 			<div className="h-[18px] pl-[15px] relative before:absolute before:content-[''] before:w-0.5 before:h-0.5 before:bg-[var(--color-cvindicator-line)] before:top-0 before:left-[31px] before:rounded-br-sm after:absolute after:content-[''] after:w-0.5 after:h-0.5 after:bg-[var(--color-cvindicator-line)] after:bottom-0 after:left-[15px] after:rounded-tl-sm">
@@ -91,7 +88,19 @@ export function CVEntryItem({ entry, type }: CVEntryItemProps) {
 					/>
 				</svg>
 			</div>
-			<div className="relative w-full h-12 before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-4 before:-translate-x-1/2 before:-translate-y-1/2"></div>
+			<div className="flex gap-2">
+				<div className="relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-[50%] before:-translate-x-1/2 before:-translate-y-1/2"></div>
+				<div className="flex flex-col pt-2 pb-1 mb-2">
+					{entry.descriptionShort && (
+						<p className="text-base leading-7 text-[var(--color-text-secondary)] ">
+							{entry.descriptionShort}
+						</p>
+					)}
+				</div>
+			</div>
+			{!isLast && (
+				<div className="relative w-full h-12 before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-4 before:-translate-x-1/2 before:-translate-y-1/2"></div>
+			)}
 		</li>
 	);
 }
