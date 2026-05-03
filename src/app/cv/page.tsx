@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function CVPage() {
 	return (
 		<>
-			<section className="pt-50 px-5 flex flex-col gap-4">
+			<section className="pt-50flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Servus, Moin & Hallo
 				</h1>

@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 export default function Imprint() {
 	return (
-		<section className="pt-50 px-5 flex flex-col items-start gap-10">
+		<section className="pt-50 flex flex-col items-start gap-10">
 			<h1 className="text-4xl text-[var(--color-text-primary)]">
 				Impressum
 			</h1>

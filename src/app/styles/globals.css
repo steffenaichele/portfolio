@@ -16,7 +16,7 @@
 
 @theme {
 	/* Fonts */
-	--font-sans: var(--font-inter), sans-serif;
+	--font-sans: var(--ppNeueMontreal), sans-serif;
 
 	/* Radii */
 	--radius-multiplier: 2;
@@ -40,13 +40,13 @@
 
 	/* Colors */
 	--color-bg: var(--color-black);
-	--color-main: var(--color-neutral-100);
+	--color-main: var(--color-white);
 
 	--color-surface-bg: var(--color-neutral-50);
 	--color-surface-stroke: var(--color-white);
 
 	--color-text-primary: var(--color-neutral-950);
-	--color-text-secondary: var(--color-neutral-600);
+	--color-text-secondary: var(--color-neutral-500);
 	--color-text-tertiary: var(--color-neutral-400);
 
 	--color-logo-fill: var(--color-neutral-200);

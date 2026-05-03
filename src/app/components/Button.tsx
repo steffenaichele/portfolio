@@ -68,7 +68,7 @@ const Button = ({
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none text-lg font-medium tracking-wide rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+		"h-11 flex-none text-lg rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
 	const className = `${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`;
 
