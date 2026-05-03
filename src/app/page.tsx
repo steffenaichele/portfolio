@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<>
 			<section className="pt-150">
-				<div className="flex flex-col gap-1 px-4">
+				<div className="flex flex-col gap-1">
 					<h1 className="text-2xl text-[var(--color-text-primary)]">
 						Hi, ich bin Steffen{" "}
 						<span role="img" aria-label="Peace sign">✌🏻</span>

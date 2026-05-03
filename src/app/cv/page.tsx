@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function CVPage() {
 	return (
 		<>
-			<section className="pt-50flex flex-col gap-4">
+			<section className="pt-80 flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Servus, Moin & Hallo
 				</h1>
@@ -25,7 +25,7 @@ export default function CVPage() {
 				</p>
 			</section>
 
-			<section aria-labelledby="experience-heading" className="px-5">
+			<section aria-labelledby="experience-heading">
 				<h2
 					id="experience-heading"
 					className="text-3xl mb-8 text-[var(--color-text-secondary)]">
@@ -43,7 +43,7 @@ export default function CVPage() {
 				</ul>
 			</section>
 
-			<section aria-labelledby="education-heading" className="px-5">
+			<section aria-labelledby="education-heading">
 				<h2
 					id="education-heading"
 					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
@@ -60,7 +60,7 @@ export default function CVPage() {
 				</ul>
 			</section>
 
-			<section aria-labelledby="skills-heading" className="px-5">
+			<section aria-labelledby="skills-heading">
 				<h2
 					id="skills-heading"
 					className="text-2xl mb-8 text-[var(--color-text-secondary)]">

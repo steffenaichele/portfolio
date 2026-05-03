@@ -14,7 +14,7 @@ export function CVEducationItem({ entry, isFirst = false }: CVEducationItemProps
 		: "relative w-8 flex-none flex justify-center before:absolute before:content-[''] before:w-0.5 before:h-full before:rounded-[1px] before:bg-[var(--color-cvindicator-line)] before:top-[50%] before:left-[50%] before:-translate-x-1/2 before:-translate-y-1/2";
 
 	return (
-		<li>
+		<li className="bg-[var(--color-surface-bg)] stroke-[var(--color-surface-stroke)] border rounded-[var(--radius-surface)] p-6 relative">
 			<div className="flex gap-2">
 				<div className={lineClasses}>
 					<span

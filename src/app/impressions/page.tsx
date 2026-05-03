@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AboutMe() {
 	return (
-		<section className="pt-50 flex flex-col gap-24">
+		<section className="pt-80 flex flex-col gap-24">
 			<div className="flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Impressions
