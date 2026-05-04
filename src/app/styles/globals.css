@@ -42,8 +42,8 @@
 	--color-bg: var(--color-black);
 	--color-main: var(--color-white);
 
-	--color-surface-bg: var(--color-neutral-50);
-	--color-surface-stroke: var(--color-white);
+	--color-surface-bg: var(--color-neutral-100);
+	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
@@ -78,6 +78,9 @@
 	--color-cvindicator-bg-main: var(--color-main);
 	--color-cvindicator-border: color-mix(in oklab, var(--color-black) 10%, transparent);
 	--color-cvindicator-line: var(--color-neutral-200);
+
+	--color-text-cvitem-exp: var(--color-emerald-600);
+	--color-text-cvitem-edu: var(--color-sky-700);
 
 	--color-footer-bg: var(--color-bg);
 	--color-footer-text-primary: var(--color-neutral-100);

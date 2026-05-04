@@ -94,7 +94,7 @@ export const experience: CVEntry[] = [
 				endYear: 2024,
 			},
 			{
-				title: "Senior Intern Design & Engineering",
+				title: "Senior Interaction Design Intern",
 				startMonth: "Apr",
 				startYear: 2023,
 				endMonth: "Sep",

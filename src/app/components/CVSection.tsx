@@ -21,7 +21,7 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="flex flex-col gap-5 items-end">
-			<div className="w-full flex flex-col gap-2 pl-5 pr-4 py-6 bg-[var(--color-surface-bg)] border border-surface-stroke shadow-[var(--shadow-soft)] rounded-[var(--radius-surface)] corner-squircle">
+			<div className="w-full flex flex-col gap-2 pl-5 pr-4 py-6 bg-[var(--color-surface-bg)] border border-[var(--color-surface-stroke)] shadow-[var(--shadow-soft)] rounded-[var(--radius-surface)] corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
@@ -37,7 +37,7 @@ export default function CVSection() {
 								</span>
 							</h4>
 							<div
-								className={`${entry.type === "education" ? "bg-[var(--color-badge-edu-bg)]" : "bg-[var(--color-badge-exp-bg)]"} h-full border-badge-stroke border text-nowrap flex items-center gap-1 flex-none text-md font-semibold tabular-nums tracking-tighter text-[var(--color-text-secondary)] px-2 rounded-[var(--radius-squircle-sm)] corner-squircle`}>
+								className={`${entry.type === "education" ? "bg-[var(--color-badge-edu-bg)]" : "bg-[var(--color-badge-exp-bg)]"} h-full border-[var(--color-badge-stroke)] border text-nowrap flex items-center gap-1 flex-none text-base tabular-nums tracking-tight text-[var(--color-text-primary)] px-2 rounded-[var(--radius-squircle-sm)] corner-squircle`}>
 								<span className="sr-only">
 									{entry.type === "education"
 										? "Bildung"
@@ -51,10 +51,10 @@ export default function CVSection() {
 					);
 				})}
 			</div>
-				<Button href="/cv" content="iconRight">
-					CV ansehen
-					<Icon icon={ArrowRight} />
-				</Button>
+			<Button href="/cv" content="iconRight">
+				CV ansehen
+				<Icon icon={ArrowRight} />
+			</Button>
 		</section>
 	);
 }

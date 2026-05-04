@@ -28,7 +28,7 @@ export default function CVPage() {
 			<section aria-labelledby="experience-heading">
 				<h2
 					id="experience-heading"
-					className="text-3xl mb-8 text-[var(--color-text-secondary)]">
+					className="text-3xl mb-8 text-[var(--color-text-priamry)]">
 					Erfahrung
 				</h2>
 				<ul>
@@ -36,7 +36,6 @@ export default function CVPage() {
 						<CVExperienceItem
 							key={entry.organization}
 							entry={entry}
-							isFirst={index === 0}
 							isLast={index === experience.length - 1}
 						/>
 					))}
@@ -46,7 +45,7 @@ export default function CVPage() {
 			<section aria-labelledby="education-heading">
 				<h2
 					id="education-heading"
-					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Ausbildung
 				</h2>
 				<ul>
@@ -54,7 +53,7 @@ export default function CVPage() {
 						<CVEducationItem
 							key={entry.organization}
 							entry={entry}
-							isFirst={index === 0}
+							isLast={index === education.length - 1}
 						/>
 					))}
 				</ul>
@@ -63,7 +62,7 @@ export default function CVPage() {
 			<section aria-labelledby="skills-heading">
 				<h2
 					id="skills-heading"
-					className="text-2xl mb-8 text-[var(--color-text-secondary)]">
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Skills
 				</h2>
 				<div className="flex flex-wrap gap-2">
