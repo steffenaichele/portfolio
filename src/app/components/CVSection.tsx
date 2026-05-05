@@ -21,12 +21,12 @@ entries.sort((a, b) => {
 export default function CVSection() {
 	return (
 		<section className="flex flex-col gap-5 items-end">
-			<div className="w-full flex flex-col gap-2 pl-5 pr-4 py-6 bg-[var(--color-surface-bg)] border border-[var(--color-surface-stroke)] shadow-[var(--shadow-soft)] rounded-[var(--radius-surface)] corner-squircle">
+			<div className="w-full flex flex-col gap-2 p-5 bg-[var(--color-surface-bg)] border border-[var(--color-surface-stroke)] shadow-[var(--shadow-soft)] rounded-[var(--radius-surface)] corner-squircle">
 				{entries.map((entry) => {
 					const { startYear, endYear } = getYearRange(entry);
 					return (
 						<div
-							key={entry.organization}
+							key={`${entry.organization}-${getYearRange(entry).startYear}`}
 							className="h-7 flex flex-row justify-between items-center gap-4">
 							<h4 className="text-base text-[var(--color-text-primary)] truncate">
 								<span className="md:hidden">

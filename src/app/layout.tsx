@@ -91,8 +91,8 @@ export default function RootLayout({
 		<html
 			lang="de"
 			data-scroll-behavior="smooth"
-			className={`bg-[var(--color-bg)] overscroll-x-none overscroll-y-contain ${ppNeueMontreal.variable}`}>
-			<body className=" bg-[var(--color-main)] bg-pattern text-[var(--color-text-primary)] font-sans antialiased w-full">
+			className={`overscroll-x-none overscroll-y-contain ${ppNeueMontreal.variable}`}>
+			<body className=" bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
 				<a
 					href="#main-content"
 					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button) ">
@@ -101,7 +101,7 @@ export default function RootLayout({
 				<Header />
 				<main
 					id="main-content"
-					className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 px-5 pb-24 ">
+					className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 px-4 pb-24 ">
 					{children}
 				</main>
 				<Footer />

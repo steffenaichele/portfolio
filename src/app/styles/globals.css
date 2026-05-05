@@ -23,8 +23,8 @@
 
 	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
 	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
-	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~24px */
-	--radius-squircle-xl: calc(36px * var(--radius-multiplier)); /* visually ~32px */
+	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~16px */
+	--radius-squircle-xl: calc(36px * var(--radius-multiplier)); /* visually ~72px */
 	--radius-full: 9999px;
 
 	--radius-main: var(--radius-squircle-xl);
@@ -39,10 +39,9 @@
 	--size-font-md: 1rem; /* 16px - matches Tailwind text-base */
 
 	/* Colors */
-	--color-bg: var(--color-black);
-	--color-main: var(--color-white);
+	--color-bg: var(--color-neutral-100);
 
-	--color-surface-bg: var(--color-neutral-100);
+	--color-surface-bg: var(--color-white);
 	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
@@ -68,21 +67,18 @@
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
-	--color-badge-exp-bg: var(--color-emerald-200);
-	--color-badge-edu-bg: var(--color-sky-200);
-	--color-badge-stroke: color-mix(in oklab, var(--color-black) 10%, transparent);
+	--color-badge-exp-bg: var(--color-emerald-50);
+	--color-badge-exp-text: var(--color-emerald-600);
+	--color-badge-edu-bg: var(--color-sky-50);
+	--color-badge-edu-text: var(--color-sky-600);
 
-
-	--color-cvindicator-bg-exp: var(--color-emerald-300);
-	--color-cvindicator-bg-edu: var(--color-sky-300);
-	--color-cvindicator-bg-main: var(--color-main);
 	--color-cvindicator-border: color-mix(in oklab, var(--color-black) 10%, transparent);
 	--color-cvindicator-line: var(--color-neutral-200);
 
 	--color-text-cvitem-exp: var(--color-emerald-600);
 	--color-text-cvitem-edu: var(--color-sky-700);
 
-	--color-footer-bg: var(--color-bg);
+	--color-footer-bg: var(--color-black);
 	--color-footer-text-primary: var(--color-neutral-100);
 	--color-footer-text-secondary: var(--color-neutral-400);
 	--color-footer-text-tertiary: var(--color-neutral-500);

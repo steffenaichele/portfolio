@@ -29,12 +29,12 @@ export default function CVPage() {
 				<h2
 					id="experience-heading"
 					className="text-3xl mb-8 text-[var(--color-text-priamry)]">
-					Erfahrung
+					Berufserfahrung
 				</h2>
 				<ul>
 					{experience.map((entry, index) => (
 						<CVExperienceItem
-							key={entry.organization}
+							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
 							isLast={index === experience.length - 1}
 						/>
@@ -51,7 +51,7 @@ export default function CVPage() {
 				<ul>
 					{education.map((entry, index) => (
 						<CVEducationItem
-							key={entry.organization}
+							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
 							isLast={index === education.length - 1}
 						/>
