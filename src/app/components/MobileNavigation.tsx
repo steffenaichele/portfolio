@@ -6,13 +6,18 @@ import Button from "./Button";
 import { Menu, X, Mail } from "lucide-react";
 import Icon from "./Icon";
 
+const DURATION_OPEN = 300;
+const DURATION_CLOSE = 200;
+const STAGGER_DELAY = 60;
+const MENU_GAP = 32;
+
 const navLinks = [
-    { label: "Home", href: "/" },
-	{ label: "Projekte", href: "/projects" },
+	{ label: "Home", href: "/" },
+	{ label: "Impressions", href: "/impressions" },
 	{ label: "CV", href: "/cv" },
 ];
 
-const countLinks = navLinks.length; // for transition delay calculation
+const countLinks = navLinks.length;
 
 interface MobileNavigationProps {
 	open: boolean;
@@ -20,7 +25,6 @@ interface MobileNavigationProps {
 }
 
 const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
-	// Close menu on Escape key
 	useEffect(() => {
 		const handleEscape = (e: KeyboardEvent) => {
 			if (e.key === "Escape" && open) {
@@ -32,9 +36,10 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 	}, [open, onOpenChange]);
 
 	const menuIcon = open ? X : Menu;
+	const duration = open ? DURATION_OPEN : DURATION_CLOSE;
 
 	return (
-		<nav className={`flex-none flex flex-col items-end transition-[gap] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${open ? "gap-8" : "gap-0"}`}>
+		<nav className="flex-none flex flex-col items-end">
 			<Button
 				variant="primary"
 				content="iconOnly"
@@ -46,7 +51,11 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 			</Button>
 
 			<div
-				className={`grid transition-[grid-template-rows] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+				className={`grid ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+				style={{
+					marginTop: open ? MENU_GAP : 0,
+					transition: `grid-template-rows ${duration}ms var(--ease-out), margin-top ${duration}ms var(--ease-out)`,
+				}}
 				inert={!open}>
 				<ul
 					id="mobile-menu"
@@ -55,13 +64,16 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 					{navLinks.map((link, index) => (
 						<li
 							key={link.href}
-							className={`transition-[opacity,transform] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${
+							className={`transition-[opacity,transform] [transition-timing-function:var(--ease-out)] ${
 								open
 									? "opacity-100 translate-y-0"
 									: "opacity-0 -translate-y-2 pointer-events-none"
 							}`}
 							style={{
-								transitionDelay: open ? `${index * 60}ms` : "0ms",
+								transitionDuration: `${duration}ms`,
+								transitionDelay: open
+									? `${index * STAGGER_DELAY}ms`
+									: "0ms",
 							}}>
 							<Button
 								href={link.href}
@@ -71,14 +83,15 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 						</li>
 					))}
 					<li
-						className={`transition-[opacity,transform] ${open ? "duration-300" : "duration-200"} [transition-timing-function:var(--ease-out)] ${
+						className={`transition-[opacity,transform] [transition-timing-function:var(--ease-out)] ${
 							open
 								? "opacity-100 translate-y-0"
 								: "opacity-0 -translate-y-2 pointer-events-none"
 						}`}
 						style={{
+							transitionDuration: `${duration}ms`,
 							transitionDelay: open
-								? `${(countLinks + 1) * 60}ms`
+								? `${(countLinks + 1) * STAGGER_DELAY}ms`
 								: "0ms",
 						}}>
 						<Button

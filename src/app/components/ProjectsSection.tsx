@@ -11,7 +11,7 @@ const slides = [
 
 const ProjectsSection = () => {
 	return (
-		<section className="px-5 flex flex-col gap-5 items-end">
+		<section className="flex flex-col gap-5 items-end">
 				<Slideshow slides={slides} />
 				<Button href="/projects" content="iconRight">
 					Projekte ansehen

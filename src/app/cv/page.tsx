@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { experience, education, skills } from "@/app/data/cv_de";
-import { CVEntryItem } from "@/app/components/CVEntryItem";
+import { CVItem } from "@/app/components/CVItem";
 import { Tag } from "@/app/components/Tag";
 
 export const metadata: Metadata = {
@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 export default function CVPage() {
 	return (
 		<>
-			<section className="pt-50 px-5 flex flex-col gap-4">
-				<h1 className="text-4xl text-(--color-text-primary)">
+			<section className="pt-80 flex flex-col gap-4">
+				<h1 className="text-4xl text-[var(--color-text-primary)]">
 					Servus, Moin & Hallo
 				</h1>
-				<p className="text-lg text-(--color-text-tertiary)">
+				<p className="text-lg text-[var(--color-text-tertiary)]">
 					Designer mit Hintergrund in Interaktionsgestaltung und
 					Full-Stack-Webentwicklung. Ich arbeite gerne an der
 					Schnittstelle von Design und Code und bringe Begeisterung in
@@ -24,44 +24,46 @@ export default function CVPage() {
 				</p>
 			</section>
 
-			<section aria-labelledby="experience-heading" className="px-5">
+			<section aria-labelledby="experience-heading">
 				<h2
 					id="experience-heading"
-					className="text-3xl mb-8 text-(--color-text-secondary)">
-					Erfahrung
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
+					Berufserfahrung
 				</h2>
-				<ul>
-					{experience.map((entry) => (
-						<CVEntryItem
-							key={entry.organization}
+				<ul className="flex flex-col gap-6">
+					{experience.map((entry, index) => (
+						<CVItem
+							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							type="experience"
+							index={index}
+							variant="experience"
 						/>
 					))}
 				</ul>
 			</section>
 
-			<section aria-labelledby="education-heading" className="px-5">
+			<section aria-labelledby="education-heading">
 				<h2
 					id="education-heading"
-					className="text-2xl mb-8 text-(--color-text-secondary)">
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Ausbildung
 				</h2>
-				<ul>
-					{education.map((entry) => (
-						<CVEntryItem
-							key={entry.organization}
+				<ul className="flex flex-col gap-6">
+					{education.map((entry, index) => (
+						<CVItem
+							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							type="education"
+							index={index}
+							variant="education"
 						/>
 					))}
 				</ul>
 			</section>
 
-			<section aria-labelledby="skills-heading" className="px-5 layout-grid">
+			<section aria-labelledby="skills-heading">
 				<h2
 					id="skills-heading"
-					className="text-2xl mb-8 text-(--color-text-secondary)">
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Skills
 				</h2>
 				<div className="flex flex-wrap gap-2">
