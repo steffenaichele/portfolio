@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { experience, education, skills } from "@/app/data/cv_de";
-import { CVExperienceItem } from "@/app/components/CVExperienceItem";
-import { CVEducationItem } from "@/app/components/CVEducationItem";
+import { CVItem } from "@/app/components/CVItem";
 import { Tag } from "@/app/components/Tag";
 
 export const metadata: Metadata = {
@@ -28,15 +27,16 @@ export default function CVPage() {
 			<section aria-labelledby="experience-heading">
 				<h2
 					id="experience-heading"
-					className="text-3xl mb-8 text-[var(--color-text-priamry)]">
+					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Berufserfahrung
 				</h2>
-				<ul>
+				<ul className="flex flex-col gap-6">
 					{experience.map((entry, index) => (
-						<CVExperienceItem
+						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							isLast={index === experience.length - 1}
+							index={index}
+							variant="experience"
 						/>
 					))}
 				</ul>
@@ -48,12 +48,13 @@ export default function CVPage() {
 					className="text-3xl mb-8 text-[var(--color-text-primary)]">
 					Ausbildung
 				</h2>
-				<ul>
+				<ul className="flex flex-col gap-6">
 					{education.map((entry, index) => (
-						<CVEducationItem
+						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							isLast={index === education.length - 1}
+							index={index}
+							variant="education"
 						/>
 					))}
 				</ul>

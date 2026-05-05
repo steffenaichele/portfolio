@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Über mich – Steffen Aichele",
+	title: "Impressions – Steffen Aichele",
 	description:
-		"Mehr über Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+		"Ausgewählte Arbeiten von Kundenprojekten, Studium und anderen Stationen meiner Karriere.",
 };
 
 export default function AboutMe() {

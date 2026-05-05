@@ -140,6 +140,15 @@
 		transition: transform 200ms var(--ease-out);
 	}
 
+	.cv-item {
+		transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+
+		@starting-style {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+	}
+
 	@media (hover: hover) and (pointer: fine) {
 		.project-card:hover {
 			transform: translateY(-4px);
