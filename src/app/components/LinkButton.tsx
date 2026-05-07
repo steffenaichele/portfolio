@@ -1,7 +1,12 @@
 "use client";
 
+// clsx merges class strings conditionally.
+// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
+// Strings, arrays, and objects are all valid — falsy values are ignored.
+
 import Link from "next/link";
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 /**
  * LinkButton — a styled anchor using Next.js <Link>.
@@ -40,7 +45,7 @@ const LinkButton = ({
 			href={href}
 			target={external ? "_blank" : undefined}
 			rel={external ? "noopener noreferrer" : undefined}
-			className={`${baseClasses} ${hasIcon ? "gap-2" : ""}`}>
+			className={clsx(baseClasses, hasIcon && "gap-2")}>
 			{children}
 			{external && (
 				<span className="sr-only">(Opens in new window)</span>

@@ -7,8 +7,8 @@ import LinkButton from "./LinkButton";
 
 const Footer = () => {
 	return (
-		<footer className="w-full px-2 pb-10 ">
-			<div className="flex flex-col gap-7 px-8 py-10 bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle">
+		<footer className="w-full px-2 pb-2 ">
+			<div className="flex flex-col gap-12 p-8 bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle">
 				<div className="flex flex-col">
 					<h2 className="text-2xl text-(--color-footer-text-primary)">
 						Steffen Aichele

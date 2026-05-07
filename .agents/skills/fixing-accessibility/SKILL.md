@@ -103,7 +103,7 @@ Reference these guidelines when:
 
 - images must have correct alt text (meaningful or empty)
 - videos with speech should provide captions when relevant
-- respect prefers-reduced-motion for non-essential motion
+<!-- - respect prefers-reduced-motion for non-essential motion -->
 - avoid autoplaying media with sound
 
 ### 9. tool boundaries (critical)

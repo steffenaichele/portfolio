@@ -1,6 +1,11 @@
 "use client";
 
+// clsx merges class strings conditionally.
+// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
+// Strings, arrays, and objects are all valid — falsy values are ignored.
+
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 
 interface Slide {
 	src: string;
@@ -47,7 +52,10 @@ const Slideshow = ({ slides, interval = 8000 }: SlideshowProps) => {
 				alt={slides[current].alt}
 				width={800}
 				height={800}
-				className={`w-full h-full object-cover transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
+				className={clsx(
+					"w-full h-full object-cover transition-opacity duration-300",
+					visible ? "opacity-100" : "opacity-0"
+				)}
 			/>
 		</div>
 	);

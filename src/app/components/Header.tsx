@@ -1,7 +1,12 @@
 "use client";
 
+// clsx merges class strings conditionally.
+// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
+// Strings, arrays, and objects are all valid — falsy values are ignored.
+
 import { useState } from "react";
 import Link from "next/link";
+import clsx from "clsx";
 import MobileNavigation from "./MobileNavigation";
 import Logo from "./Logo";
 import BlurEffect from "react-progressive-blur";
@@ -11,7 +16,10 @@ const Header = () => {
 
 	return (
 		<header
-			className={`fixed w-full pt-16 z-50 rounded-xl transition-[padding-bottom] duration-300 ease-out ${navOpen ? "pb-6" : "pb-0"}`}
+			className={clsx(
+				"fixed w-full pt-16 z-50 rounded-xl transition-[padding-bottom] duration-300 ease-out",
+				navOpen ? "pb-6" : "pb-0"
+			)}
 			aria-label="Site header">
 			<BlurEffect
 				className="absolute inset-0 h-full pointer-events-none"

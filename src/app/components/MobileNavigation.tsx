@@ -1,6 +1,11 @@
 "use client";
 
+// clsx merges class strings conditionally.
+// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
+// Strings, arrays, and objects are all valid — falsy values are ignored.
+
 import { useEffect } from "react";
+import clsx from "clsx";
 import Button from "./Button";
 
 import { Menu, X, Mail } from "lucide-react";
@@ -38,6 +43,11 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 	const menuIcon = open ? X : Menu;
 	const duration = open ? DURATION_OPEN : DURATION_CLOSE;
 
+	const itemClass = clsx(
+		"transition-[opacity,transform] [transition-timing-function:var(--ease-out)]",
+		open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+	);
+
 	return (
 		<nav className="flex-none flex flex-col items-end">
 			<Button
@@ -51,7 +61,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 			</Button>
 
 			<div
-				className={`grid ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+				className={clsx("grid", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
 				style={{
 					marginTop: open ? MENU_GAP : 0,
 					transition: `grid-template-rows ${duration}ms var(--ease-out), margin-top ${duration}ms var(--ease-out)`,
@@ -64,11 +74,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 					{navLinks.map((link, index) => (
 						<li
 							key={link.href}
-							className={`transition-[opacity,transform] [transition-timing-function:var(--ease-out)] ${
-								open
-									? "opacity-100 translate-y-0"
-									: "opacity-0 -translate-y-2 pointer-events-none"
-							}`}
+							className={itemClass}
 							style={{
 								transitionDuration: `${duration}ms`,
 								transitionDelay: open
@@ -83,11 +89,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 						</li>
 					))}
 					<li
-						className={`transition-[opacity,transform] [transition-timing-function:var(--ease-out)] ${
-							open
-								? "opacity-100 translate-y-0"
-								: "opacity-0 -translate-y-2 pointer-events-none"
-						}`}
+						className={itemClass}
 						style={{
 							transitionDuration: `${duration}ms`,
 							transitionDelay: open

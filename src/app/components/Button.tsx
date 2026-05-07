@@ -1,7 +1,12 @@
 "use client";
 
+// clsx merges class strings conditionally.
+// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
+// Strings, arrays, and objects are all valid — falsy values are ignored.
+
 import { ReactNode } from "react";
 import Link from "next/link";
+import clsx from "clsx";
 import { sileo } from "sileo";
 
 /**
@@ -70,7 +75,7 @@ const Button = ({
 	const baseClasses =
 		"h-11 flex-none text-lg rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = `${baseClasses} ${contentClasses[content]} ${variantClasses[variant]}`;
+	const className = clsx(baseClasses, contentClasses[content], variantClasses[variant]);
 
 	if (href) {
 		return (

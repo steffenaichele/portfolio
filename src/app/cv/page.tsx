@@ -31,11 +31,10 @@ export default function CVPage() {
 					Berufserfahrung
 				</h2>
 				<ul className="flex flex-col gap-6">
-					{experience.map((entry, index) => (
+					{experience.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							index={index}
 							variant="experience"
 						/>
 					))}
@@ -49,11 +48,10 @@ export default function CVPage() {
 					Ausbildung
 				</h2>
 				<ul className="flex flex-col gap-6">
-					{education.map((entry, index) => (
+					{education.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
-							index={index}
 							variant="education"
 						/>
 					))}
