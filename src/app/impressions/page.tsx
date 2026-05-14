@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import ImpressionCard from "../components/ImpressionCard";
+import { impressions } from "../data/impressions";
 
 export const metadata: Metadata = {
 	title: "Impressions – Steffen Aichele",
@@ -17,6 +19,15 @@ export default function AboutMe() {
 					Ein Mix ausgewählter Arbeiten von Kundenprojekten, meinem
 					Studium und anderen Stops meiner bisherigen Karriere.
 				</p>
+			</div>
+			<div
+				className="grid grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-3">
+				{impressions.map((impression) => (
+					<ImpressionCard
+						key={impression.id}
+						impression={impression}
+					/>
+				))}
 			</div>
 		</section>
 	);

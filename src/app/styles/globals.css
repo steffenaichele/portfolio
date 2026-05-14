@@ -41,7 +41,8 @@
 	/* Colors */
 	--color-bg: var(--color-neutral-100);
 
-	--color-surface-bg: var(--color-white);
+	--color-surface-bg: var(--color-neutral-50);
+	--color-surface-bg-hover: var(--color-white);
 	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
