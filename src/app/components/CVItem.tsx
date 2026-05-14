@@ -134,9 +134,9 @@ export function CVItem({ entry, variant }: CVItemProps) {
 									entry.description.length > 0 && (
 										<ul className="flex flex-col gap-4">
 											{entry.description.map(
-												(point, i) => (
+												(point) => (
 													<li
-														key={i}
+														key={point}
 														className="text-md text-[var(--color-text-secondary)]">
 														{point}
 													</li>

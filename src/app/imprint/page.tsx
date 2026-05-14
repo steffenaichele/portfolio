@@ -1,8 +1,12 @@
-"use client";
-
+import type { Metadata } from "next";
 import { Mail } from "lucide-react";
 import Icon from "../components/Icon";
 import Button from "../components/Button";
+
+export const metadata: Metadata = {
+	title: "Impressum – Steffen Aichele",
+	description: "Impressum und Kontaktdaten von Steffen Aichele.",
+};
 
 export default function Imprint() {
 	return (

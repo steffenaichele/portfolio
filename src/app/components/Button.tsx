@@ -89,7 +89,7 @@ const Button = ({
 		);
 	}
 
-	const handleClick = async () => {
+	const handleCopyToClipboard = async () => {
 		if (copyToClipboard) {
 			if (!navigator.clipboard) {
 				sileo.error({ title: "Failed to copy to clipboard." });
@@ -108,7 +108,7 @@ const Button = ({
 	return (
 		<button
 			type={type}
-			onClick={handleClick}
+			onClick={handleCopyToClipboard}
 			disabled={disabled}
 			aria-label={ariaLabel}
 			aria-expanded={ariaExpanded}

@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const BGGrid = () => {
-	const [padding, setPadding] = useState(0);
+	const padding = useRef(0);
 
 	useEffect(() => {
 		const readPadding = () => {
 			const value = getComputedStyle(document.documentElement)
 				.getPropertyValue("--padding")
 				.trim();
-			setPadding(parseInt(value));
+			padding.current = parseInt(value);
 		};
 
 		readPadding();

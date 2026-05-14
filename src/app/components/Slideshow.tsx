@@ -1,10 +1,7 @@
 "use client";
 
-// clsx merges class strings conditionally.
-// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
-// Strings, arrays, and objects are all valid — falsy values are ignored.
-
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
+import Image from "next/image";
 import clsx from "clsx";
 
 interface Slide {
@@ -17,28 +14,33 @@ interface SlideshowProps {
 	interval?: number;
 }
 
+type State = { current: number; visible: boolean };
+type Action = { type: "fade_out" } | { type: "advance"; total: number };
+
+function reducer(state: State, action: Action): State {
+	switch (action.type) {
+		case "fade_out": return { ...state, visible: false };
+		case "advance": return { current: (state.current + 1) % action.total, visible: true };
+	}
+}
+
 const Slideshow = ({ slides, interval = 8000 }: SlideshowProps) => {
-	const [current, setCurrent] = useState(0);
-	const [visible, setVisible] = useState(true);
+	const [{ current, visible }, dispatch] = useReducer(reducer, { current: 0, visible: true });
 
 	useEffect(() => {
-		// Respect prefers-reduced-motion
-		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 		if (prefersReducedMotion) {
-			// Still auto-advance but without fade transition
 			const timer = setInterval(() => {
-				setCurrent((i) => (i + 1) % slides.length);
+				dispatch({ type: "advance", total: slides.length });
 			}, interval);
 			return () => clearInterval(timer);
 		}
 
-		// Normal animation with fade
 		const timer = setInterval(() => {
-			setVisible(false);
+			dispatch({ type: "fade_out" });
 			setTimeout(() => {
-				setCurrent((i) => (i + 1) % slides.length);
-				setVisible(true);
+				dispatch({ type: "advance", total: slides.length });
 			}, 300);
 		}, interval);
 
@@ -47,7 +49,7 @@ const Slideshow = ({ slides, interval = 8000 }: SlideshowProps) => {
 
 	return (
 		<div className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke rounded-(--radius-surface) corner-squircle border shadow-[var(--shadow-soft)]">
-			<img
+			<Image
 				src={slides[current].src}
 				alt={slides[current].alt}
 				width={800}

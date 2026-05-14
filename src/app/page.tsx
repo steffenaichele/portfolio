@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import ProjectsSection from "./components/ProjectsSection";
 import CVSection from "./components/CVSection";
+
+export const metadata: Metadata = {
+	title: "Steffen Aichele – UX/UI Designer & Web Entwickler",
+	description: "Portfolio von Steffen Aichele – UX/UI Designer und Web Entwickler aus Schwäbisch Gmünd.",
+};
 
 export default function Home() {
 	return (
