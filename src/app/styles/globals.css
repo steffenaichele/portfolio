@@ -19,16 +19,30 @@
 	--font-sans: var(--ppNeueMontreal), sans-serif;
 
 	/* Radii */
-	--radius-multiplier: 2;
-
-	--radius-squircle-sm: calc(8px * var(--radius-multiplier)); /* visually ~8px */
-	--radius-squircle-md: calc(12px * var(--radius-multiplier)); /* visually ~12px */
-	--radius-squircle-lg: calc(16px * var(--radius-multiplier)); /* visually ~16px */
-	--radius-squircle-xl: calc(36px * var(--radius-multiplier)); /* visually ~72px */
+	--radius-none: 0;
+	--radius-xs: 2px;
+	--radius-sm: 4px;
+	--radius-md: 6px;
+	--radius-lg: 8px;
+	--radius-xl: 12px;
+	--radius-2xl: 16px;
+	--radius-3xl: 24px;
+	--radius-4xl: 32px;
 	--radius-full: 9999px;
 
-	--radius-main: var(--radius-squircle-xl);
-	--radius-button: var(--radius-squircle-lg);
+	--radius-multiplier: 2;
+
+	--radius-squircle-xs: calc(var(--radius-xs) * var(--radius-multiplier)); /* visually ~2px */
+	--radius-squircle-sm: calc(var(--radius-sm) * var(--radius-multiplier)); /* visually ~4px */
+	--radius-squircle-md: calc(var(--radius-md) * var(--radius-multiplier)); /* visually ~6px */
+	--radius-squircle-lg: calc(var(--radius-lg) * var(--radius-multiplier)); /* visually ~8px */
+	--radius-squircle-xl: calc(var(--radius-xl) * var(--radius-multiplier)); /* visually ~12px */
+	--radius-squircle-2xl: calc(var(--radius-2xl) * var(--radius-multiplier)); /* visually ~16px */
+	--radius-squircle-3xl: calc(var(--radius-3xl) * var(--radius-multiplier)); /* visually ~24px */
+	--radius-squircle-4xl: calc(var(--radius-4xl) * var(--radius-multiplier)); /* visually ~32px */
+
+	--radius-button-md: var(--radius-squircle-xl);
+	--radius-button-sm: var(--radius-squircle-lg);
 	--radius-surface: var(--radius-squircle-lg);
 
 	/* Easing Curves */
@@ -54,17 +68,17 @@
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
-	--color-button-primary-stroke: color-mix(in oklab, var(--color-black) 2%, transparent);
-	--color-button-primary-bg: var(--color-white);
+	--color-button-primary-stroke: color-mix(in oklab, var(--color-white) 55%, transparent);
+	--color-button-primary-bg: var(--color-neutral-100);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
-	--color-button-primary-bg-active: var(--color-neutral-400);
+	--color-button-primary-bg-active: var(--color-neutral-300);
 
 	--color-button-cta-label: var(--color-white);
 	--color-button-cta-label-hover: var(--color-neutral-200);
 	--color-button-cta-label-active: var(--color-neutral-400);
 	--color-button-cta-icon: var(--color-neutral-300);
 	--color-button-cta-stroke: color-mix(in oklab, var(--color-white) 35%, transparent);
-	--color-button-cta-bg: var(--color-neutral-900);
+	--color-button-cta-bg: var(--color-neutral-950);
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 

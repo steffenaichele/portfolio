@@ -28,10 +28,12 @@ import { sileo } from "sileo";
  */
 
 type Variant = "primary" | "cta";
+type Size = "md" | "sm";
 type ContentType = "text" | "iconOnly" | "iconRight";
 
 interface ButtonProps {
 	variant?: Variant;
+	size?: Size;
 	content?: ContentType;
 	children: ReactNode;
 	href?: string;
@@ -52,14 +54,27 @@ const variantClasses: Record<Variant, string> = {
 		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-[var(--shadow)] hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
 };
 
-const contentClasses: Record<ContentType, string> = {
-	text: "px-4",
-	iconOnly: "px-4",
-	iconRight: "pl-4 pr-4 gap-2",
+const sizeClasses: Record<Size, string> = {
+	md: "h-11 text-lg rounded-(--radius-button-md)",
+	sm: "h-6 text-sm rounded-(--radius-button-sm)",
+};
+
+const contentClasses: Record<Size, Record<ContentType, string>> = {
+	md: {
+		text: "px-4",
+		iconOnly: "px-4",
+		iconRight: "pl-4 pr-4 gap-2",
+	},
+	sm: {
+		text: "px-2",
+		iconOnly: "px-2",
+		iconRight: "pl-3 pr-3 gap-1.5",
+	},
 };
 
 const Button = ({
 	variant = "primary",
+	size = "md",
 	content = "text",
 	children,
 	href,
@@ -73,9 +88,9 @@ const Button = ({
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none text-lg rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+		"flex-none corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = clsx(baseClasses, contentClasses[content], variantClasses[variant]);
+	const className = clsx(baseClasses, sizeClasses[size], contentClasses[size][content], variantClasses[variant]);
 
 	if (href) {
 		return (

@@ -13,7 +13,7 @@ const ProjectsSection = () => {
 	return (
 		<section className="flex flex-col gap-5 items-end">
 				<Slideshow slides={slides} />
-				<Button href="/projects" content="iconRight">
+				<Button href="/projects" size="md" content="iconRight">
 					Projekte ansehen
 					<Icon icon={ArrowRight} />
 				</Button>

@@ -24,6 +24,7 @@ export default function Imprint() {
 			</div>
 				<Button
 					variant="cta"
+					size="md"
 					content="iconRight"
 					copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 					Kontakt

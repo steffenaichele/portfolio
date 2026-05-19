@@ -54,6 +54,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 		<nav className="flex-none flex flex-col items-end">
 			<Button
 				variant="primary"
+				size="md"
 				content="iconOnly"
 				aria-label={open ? "Menü schließen" : "Menü öffnen"}
 				aria-expanded={open}
@@ -85,6 +86,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 							}}>
 							<Button
 								href={link.href}
+								size="md"
 								onClick={() => onOpenChange(false)}>
 								{link.label}
 							</Button>
@@ -100,6 +102,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 						}}>
 						<Button
 							variant="cta"
+							size="md"
 							content="iconRight"
 							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 							Kontakt

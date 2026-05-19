@@ -98,6 +98,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								{impression.link && (
 									<Button
 										href={impression.link}
+										size="sm"
 										content="iconOnly"
 										aria-label={`${impression.label} öffnen`}>
 										<Icon icon={ArrowRight} />
@@ -173,6 +174,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 							{impression.link && (
 								<Button
 									href={impression.link}
+									size="sm"
 									content="iconRight"
 									aria-label={`${impression.label} extern öffnen`}>
 									Öffnen
