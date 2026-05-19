@@ -4,7 +4,8 @@
 // Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
 // Strings, arrays, and objects are all valid — falsy values are ignored.
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { flushSync } from "react-dom";
 import clsx from "clsx";
 import type { CVEntry } from "../data/cv_de";
 
@@ -24,6 +25,8 @@ interface CVItemProps {
 
 export function CVItem({ entry, variant }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const badgeRef = useRef<HTMLSpanElement>(null);
+
 	const latestRole = entry.roles[0];
 	const otherRoles = entry.roles.slice(1);
 	const hasExpandable =
@@ -33,12 +36,42 @@ export function CVItem({ entry, variant }: CVItemProps) {
 	const duration = isOpen ? DURATION_OPEN : DURATION_CLOSE;
 	const badge = badgeStyles[variant];
 
+	const getBadgeText = (open: boolean): string => {
+		if (open) {
+			return `${latestRole.startMonth} ${latestRole.startYear} – ${latestRole.endMonth} ${latestRole.endYear} · ${latestRole.duration}`;
+		}
+		return `${entry.totalStartMonth} ${entry.totalStartYear} – ${entry.totalEndMonth} ${entry.totalEndYear} · ${entry.totalDuration}`;
+	};
+
+	const [badgeText, setBadgeText] = useState(() => getBadgeText(false));
+
+	const handleToggle = () => {
+		const nextOpen = !isOpen;
+		setIsOpen(nextOpen);
+
+		const el = badgeRef.current;
+		if (!el) return;
+
+		const dur = parseFloat(
+			getComputedStyle(document.documentElement).getPropertyValue("--text-swap-dur"),
+		) || 200;
+
+		el.classList.add("is-exit");
+		setTimeout(() => {
+			el.classList.remove("is-exit");
+			el.classList.add("is-enter-start");
+			void el.offsetHeight;
+			flushSync(() => setBadgeText(getBadgeText(nextOpen)));
+			el.classList.remove("is-enter-start");
+		}, dur);
+	};
+
 	return (
 		<li
 			className="cv-item">
 			<div className="bg-[var(--color-surface-bg)] h-min rounded-[var(--radius-surface)] corner-squircle overflow-hidden shadow-[var(--shadow-soft)]">
 				<button
-					onClick={() => setIsOpen(!isOpen)}
+					onClick={handleToggle}
 					aria-expanded={isOpen}
 					disabled={!hasExpandable}
 					className={clsx(
@@ -71,16 +104,8 @@ export function CVItem({ entry, variant }: CVItemProps) {
 									"w-min h-6 px-2 flex gap-2 items-center rounded-[var(--radius-squircle-sm)] corner-squircle text-sm font-medium text-nowrap tabular-nums",
 									badge,
 								)}>
-								<span>
-									{isOpen
-										? `${latestRole.startMonth} ${latestRole.startYear} – ${latestRole.endMonth} ${latestRole.endYear}`
-										: `${entry.totalStartMonth} ${entry.totalStartYear} – ${entry.totalEndMonth} ${entry.totalEndYear}`}
-								</span>
-								<span>{" · "}</span>
-								<span>
-									{isOpen
-										? latestRole.duration
-										: entry.totalDuration}
+								<span ref={badgeRef} className="t-text-swap">
+									{badgeText}
 								</span>
 							</div>
 						</div>
