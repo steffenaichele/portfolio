@@ -386,7 +386,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.t-dropdown { transition: none !important; }
 	}
-<<<<<<< HEAD
 
 	/* 06 — Modal */
 	.t-modal {
@@ -429,8 +428,6 @@
 		.t-modal,
 		.t-modal-backdrop { transition: none !important; }
 	}
-=======
->>>>>>> feature/transitions-dev
 }
 
 /* Toast (Sileo) overrides */
