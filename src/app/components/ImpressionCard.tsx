@@ -31,7 +31,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					</div>
 					{/* Button – sichtbar bei Hover auf Desktop */}
 					{impression.link && (
-						<Button href={impression.link} content="iconOnly">
+						<Button href={impression.link} content="iconOnly" aria-label={`${impression.label} öffnen`}>
 							<Icon icon={ArrowRight} />
 						</Button>
 					)}
