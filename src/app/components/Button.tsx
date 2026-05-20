@@ -29,7 +29,7 @@ import { sileo } from "sileo";
 
 type Variant = "primary" | "cta";
 type Size = "md" | "sm";
-type ContentType = "text" | "iconOnly" | "iconRight";
+type ContentType = "text" | "icon";
 
 interface ButtonProps {
 	variant?: Variant;
@@ -55,20 +55,18 @@ const variantClasses: Record<Variant, string> = {
 };
 
 const sizeClasses: Record<Size, string> = {
-	md: "h-11 text-lg rounded-(--radius-button-md)",
-	sm: "h-6 text-sm rounded-(--radius-button-sm)",
+	md: "h-9 text-lg rounded-(--radius-button-md)",
+	sm: "h-6 text-sm text-medium rounded-(--radius-button-sm)",
 };
 
 const contentClasses: Record<Size, Record<ContentType, string>> = {
 	md: {
 		text: "px-4",
-		iconOnly: "px-4",
-		iconRight: "pl-4 pr-4 gap-2",
+		icon: "px-3",
 	},
 	sm: {
-		text: "px-2",
-		iconOnly: "px-2",
-		iconRight: "pl-3 pr-3 gap-1.5",
+		text: "px-2.5",
+		icon: "px-1.5",
 	},
 };
 
