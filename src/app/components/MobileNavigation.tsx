@@ -4,7 +4,7 @@
 // Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
 // Strings, arrays, and objects are all valid — falsy values are ignored.
 
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import clsx from "clsx";
 import Button from "./Button";
 
@@ -30,15 +30,17 @@ interface MobileNavigationProps {
 }
 
 const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
+	const closeOnEscape = useEffectEvent(() => {
+		if (open) onOpenChange(false);
+	});
+
 	useEffect(() => {
 		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && open) {
-				onOpenChange(false);
-			}
+			if (e.key === "Escape") closeOnEscape();
 		};
 		window.addEventListener("keydown", handleEscape);
 		return () => window.removeEventListener("keydown", handleEscape);
-	}, [open, onOpenChange]);
+	}, []);
 
 	const menuIcon = open ? X : Menu;
 	const duration = open ? DURATION_OPEN : DURATION_CLOSE;
@@ -52,7 +54,8 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 		<nav className="flex-none flex flex-col items-end">
 			<Button
 				variant="primary"
-				content="iconOnly"
+				size="md"
+				content="icon"
 				aria-label={open ? "Menü schließen" : "Menü öffnen"}
 				aria-expanded={open}
 				aria-controls="mobile-menu"
@@ -83,6 +86,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 							}}>
 							<Button
 								href={link.href}
+								size="md"
 								onClick={() => onOpenChange(false)}>
 								{link.label}
 							</Button>
@@ -98,6 +102,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 						}}>
 						<Button
 							variant="cta"
+							size="md"
 							content="iconRight"
 							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 							Kontakt

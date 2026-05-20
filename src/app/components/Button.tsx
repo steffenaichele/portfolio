@@ -28,10 +28,12 @@ import { sileo } from "sileo";
  */
 
 type Variant = "primary" | "cta";
-type ContentType = "text" | "iconOnly" | "iconRight";
+type Size = "md" | "sm";
+type ContentType = "text" | "icon" | "iconRight";
 
 interface ButtonProps {
 	variant?: Variant;
+	size?: Size;
 	content?: ContentType;
 	children: ReactNode;
 	href?: string;
@@ -40,6 +42,7 @@ interface ButtonProps {
 	copySuccessMessage?: string;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
+	className?: string;
 	"aria-label"?: string;
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
@@ -47,25 +50,39 @@ interface ButtonProps {
 
 const variantClasses: Record<Variant, string> = {
 	primary:
-		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-(--shadow) hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-[0.97] focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
+		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-[0.97] focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
 	cta:
-		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-(--shadow) hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
+		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-[var(--shadow)] hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus:outline-1 focus:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
 };
 
-const contentClasses: Record<ContentType, string> = {
-	text: "px-4",
-	iconOnly: "px-4",
-	iconRight: "pl-4 pr-4 gap-2",
+const sizeClasses: Record<Size, string> = {
+	md: "h-9 text-lg rounded-(--radius-button-md)",
+	sm: "h-6 text-sm text-medium rounded-(--radius-button-sm)",
+};
+
+const contentClasses: Record<Size, Record<ContentType, string>> = {
+	md: {
+		text: "px-4",
+		icon: "px-3",
+		iconRight: "pl-4 pr-3 gap-2",
+	},
+	sm: {
+		text: "px-2.5",
+		icon: "px-1.5",
+		iconRight: "pl-2.5 pr-1.5 gap-1",
+	},
 };
 
 const Button = ({
 	variant = "primary",
+	size = "md",
 	content = "text",
 	children,
 	href,
 	onClick,
 	copyToClipboard,
 	copySuccessMessage = "Copied to clipboard!",
+	className: classNameProp,
 	disabled,
 	type = "button",
 	"aria-label": ariaLabel,
@@ -73,9 +90,9 @@ const Button = ({
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"h-11 flex-none text-lg rounded-(--radius-button) corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+		"flex-none corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = clsx(baseClasses, contentClasses[content], variantClasses[variant]);
+	const className = clsx(baseClasses, sizeClasses[size], contentClasses[size][content], variantClasses[variant], classNameProp);
 
 	if (href) {
 		return (
@@ -89,7 +106,7 @@ const Button = ({
 		);
 	}
 
-	const handleClick = async () => {
+	const handleCopyToClipboard = async () => {
 		if (copyToClipboard) {
 			if (!navigator.clipboard) {
 				sileo.error({ title: "Failed to copy to clipboard." });
@@ -108,7 +125,7 @@ const Button = ({
 	return (
 		<button
 			type={type}
-			onClick={handleClick}
+			onClick={handleCopyToClipboard}
 			disabled={disabled}
 			aria-label={ariaLabel}
 			aria-expanded={ariaExpanded}

@@ -51,7 +51,7 @@ export default function CVSection() {
 					);
 				})}
 			</div>
-			<Button href="/cv" content="iconRight">
+			<Button href="/cv" size="md" content="iconRight">
 				CV ansehen
 				<Icon icon={ArrowRight} />
 			</Button>
