@@ -1,0 +1,32 @@
+export type CVRole = {
+	title: string;
+	startMonth: string;
+	startYear: number;
+	endMonth: string;
+	endYear: number;
+	duration: string;
+};
+
+export type CVEntry = {
+	organization: string;
+	organizationShort: string;
+	location: string;
+	roles: CVRole[];
+	description?: string[];
+	descriptionShort?: string;
+	technologies?: string[];
+	totalDuration: string;
+	totalStartMonth: string;
+	totalStartYear: number;
+	totalEndMonth: string;
+	totalEndYear: number;
+};
+
+export function getYearRange(entry: CVEntry) {
+	const startYears = entry.roles.map((r) => r.startYear);
+	const endYears = entry.roles.map((r) => r.endYear);
+	return {
+		startYear: Math.min(...startYears),
+		endYear: Math.max(...endYears),
+	};
+}

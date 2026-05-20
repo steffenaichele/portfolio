@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-	title: "Über mich – Steffen Aichele",
-	description:
-		"Mehr über Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('about_me');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function AboutMe() {
+export default async function AboutMe() {
+	const t = await getTranslations('about_me');
 	return (
 		<section className="pt-50 flex flex-col gap-24">
-			<h1 className="text-4xl text-[var(--color-text-primary)]">About Me</h1>
-            <p className="text-[var(--color-text-primary)]">hello:)</p>
+			<h1 className="text-4xl text-[var(--color-text-primary)]">{t('page_title')}</h1>
+			<p className="text-[var(--color-text-primary)]">hello:)</p>
 		</section>
 	);
 }

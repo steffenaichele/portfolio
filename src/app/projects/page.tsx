@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getPublicProjects } from "../data/content";
 import ProjectCard from "../components/ProjectCard";
 
-export const metadata: Metadata = {
-	title: "Projekte – Steffen Aichele",
-	description:
-		"Ausgewählte Projekte von Steffen Aichele – UX/UI Design und Web Development.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('projects');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function ProjectsPage() {
-    const projects = getPublicProjects();
+export default async function ProjectsPage() {
+	const t = await getTranslations('projects');
+	const projects = getPublicProjects();
 
-    return (
+	return (
 		<section className="pt-50 flex flex-col gap-24">
 			<h1 className="text-4xl text-[var(--color-text-primary)]">
-				Projekte
+				{t('page_title')}
 			</h1>
 			<ul className="flex flex-col gap-20">
 				{projects.map((project) => (

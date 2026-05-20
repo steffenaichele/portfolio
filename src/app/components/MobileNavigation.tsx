@@ -6,6 +6,7 @@
 
 import { useEffect, useEffectEvent } from "react";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 import Button from "./Button";
 
 import { Menu, X, Mail } from "lucide-react";
@@ -16,13 +17,13 @@ const DURATION_CLOSE = 200;
 const STAGGER_DELAY = 60;
 const MENU_GAP = 32;
 
-const navLinks = [
-	{ label: "Home", href: "/" },
-	{ label: "Impressions", href: "/impressions" },
-	{ label: "CV", href: "/cv" },
+const navLinkHrefs = [
+	{ key: "home" as const, href: "/" },
+	{ key: "impressions" as const, href: "/impressions" },
+	{ key: "cv" as const, href: "/cv" },
 ];
 
-const countLinks = navLinks.length;
+const countLinks = navLinkHrefs.length;
 
 interface MobileNavigationProps {
 	open: boolean;
@@ -30,6 +31,7 @@ interface MobileNavigationProps {
 }
 
 const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
+	const t = useTranslations('layout');
 	const closeOnEscape = useEffectEvent(() => {
 		if (open) onOpenChange(false);
 	});
@@ -56,7 +58,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				variant="primary"
 				size="md"
 				content="icon"
-				aria-label={open ? "Menü schließen" : "Menü öffnen"}
+				aria-label={open ? t('nav.menu_close') : t('nav.menu_open')}
 				aria-expanded={open}
 				aria-controls="mobile-menu"
 				onClick={() => onOpenChange(!open)}>
@@ -73,8 +75,8 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				<ul
 					id="mobile-menu"
 					className="min-h-0 flex flex-col items-end gap-2"
-					aria-label="Mobile Navigation">
-					{navLinks.map((link, index) => (
+					aria-label={t('nav.nav_label')}>
+					{navLinkHrefs.map((link, index) => (
 						<li
 							key={link.href}
 							className={itemClass}
@@ -88,7 +90,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 								href={link.href}
 								size="md"
 								onClick={() => onOpenChange(false)}>
-								{link.label}
+								{t(`nav.${link.key}`)}
 							</Button>
 						</li>
 					))}
@@ -104,8 +106,9 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 							variant="cta"
 							size="md"
 							content="iconRight"
-							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
-							Kontakt
+							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
+							copySuccessMessage={t('copy_success')}>
+							{t('contact_button')}
 							<Icon icon={Mail} />
 						</Button>
 					</li>

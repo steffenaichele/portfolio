@@ -1,36 +1,40 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Mail } from "lucide-react";
 import Icon from "../components/Icon";
 import Button from "../components/Button";
 
-export const metadata: Metadata = {
-	title: "Impressum – Steffen Aichele",
-	description: "Impressum und Kontaktdaten von Steffen Aichele.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('impressum');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function Imprint() {
+export default async function Imprint() {
+	const t = await getTranslations('impressum');
 	return (
 		<section className="pt-50 flex flex-col items-start gap-10">
 			<h1 className="text-4xl text-[var(--color-text-primary)]">
-				Impressum
+				{t('page_title')}
 			</h1>
 			<div className="text-[var(--color-text-tertiary)]">
-				<p className="mb-4">Angaben gemäß § 5 TMG</p>
+				<p className="mb-4">{t('legal_notice')}</p>
 				<address className="not-italic">
 					<p>Steffen Aichele</p>
 					<p>Lönsstraße 4</p>
 					<p>73529 Schwäbisch Gmünd</p>
 				</address>
 			</div>
-				<Button
-					variant="cta"
-					size="md"
-					content="iconRight"
-					copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
-					Kontakt
-					<Icon icon={Mail} />
-				</Button>
-
+			<Button
+				variant="cta"
+				size="md"
+				content="iconRight"
+				copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
+				{t('contact_button')}
+				<Icon icon={Mail} />
+			</Button>
 		</section>
 	);
 }

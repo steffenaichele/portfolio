@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import ImpressionCard from "../components/ImpressionCard";
 import { impressions, getProjectForImpression } from "../data/content";
 
-export const metadata: Metadata = {
-	title: "Impressions – Steffen Aichele",
-	description:
-		"Ausgewählte Arbeiten von Kundenprojekten, Studium und anderen Stationen meiner Karriere.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('impressions');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function AboutMe() {
+export default async function ImpressionsPage() {
+	const t = await getTranslations('impressions');
 	return (
 		<section className="pt-80 flex flex-col gap-24">
 			<div className="flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
-					Impressions
+					{t('page_title')}
 				</h1>
 				<p className="text-lg text-[var(--color-text-secondary)]">
-					Ein Mix ausgewählter Arbeiten von Kundenprojekten, meinem
-					Studium und anderen Stops meiner bisherigen Karriere.
+					{t('page_description')}
 				</p>
 			</div>
 			<div
