@@ -5,7 +5,6 @@
 // Strings, arrays, and objects are all valid — falsy values are ignored.
 
 import { useState, useRef } from "react";
-import { flushSync } from "react-dom";
 import clsx from "clsx";
 import type { CVEntry } from "../data/cv_de";
 
@@ -61,8 +60,10 @@ export function CVItem({ entry, variant }: CVItemProps) {
 			el.classList.remove("is-exit");
 			el.classList.add("is-enter-start");
 			void el.offsetHeight;
-			flushSync(() => setBadgeText(getBadgeText(nextOpen)));
+			const newText = getBadgeText(nextOpen);
+			el.textContent = newText;
 			el.classList.remove("is-enter-start");
+			setBadgeText(newText);
 		}, dur);
 	};
 

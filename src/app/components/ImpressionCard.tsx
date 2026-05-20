@@ -118,7 +118,11 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					{/* Backdrop */}
 					<div
 						ref={backdropRef}
+						role="button"
+						tabIndex={-1}
+						aria-label="Modal schließen"
 						onClick={closeModal}
+						onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeModal(); }}
 						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60"
 					/>
 
