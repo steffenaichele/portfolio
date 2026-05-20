@@ -74,44 +74,42 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		<>
 			{/* Card */}
 			<div
-				className={`flex justify-center items-center ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer`}>
+				className={`relative ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101 overflow-hidden`}>
+				<div className="h-10 flex px-4 pt-4 pb-0">
+					<div className="grow h-6 px-2 flex flex-wrap items-center gap-x-1 gap-y-0.5">
+						<p className="text-sm text-[var(--color-text-secondary)]">
+							{impression.label}
+						</p>
+						<p className="text-sm text-[var(--color-text-tertiary)]">
+							{" · "}
+						</p>
+						<p className="text-sm text-[var(--color-text-tertiary)]">
+							{impression.context}
+						</p>
+					</div>
+					{impression.link && (
+						<Button
+							href={impression.link}
+							size="sm"
+							content="icon"
+							aria-label={`${impression.label} öffnen`}>
+							<Icon icon={ArrowRight} />
+						</Button>
+					)}
+				</div>
+
+				{/* Image – click opens modal */}
+				<Image
+					src={`/impressions/${impression.src}`}
+					alt={impression.alt}
+					fill
+					sizes="(max-width: 1024px) 50vw, 25vw"
+					className="mt-12 object-scale-down transition-transform group-hover:scale-103"
+				/>
 				<button
 					onClick={openModal}
-					className="relative w-full h-full overflow-hidden bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101"
-					aria-label={`${impression.label} vergrößern`}>
-					{/* Info bar – reveals on group-hover via grid resize (01) */}
-					<div className="h-10 flex px-5 py-4">
-						<div className="flex flex-wrap gap-x-1 gap-y-0.5">
-							<p className="text-xs text-[var(--color-text-secondary)]">
-								{impression.label}
-							</p>
-							<p className="text-xs text-[var(--color-text-tertiary)]">
-								{" · "}
-							</p>
-							<p className="text-xs text-[var(--color-text-tertiary)]">
-								{impression.context}
-							</p>
-						</div>
-						{impression.link && (
-							<Button
-								href={impression.link}
-								size="sm"
-								content="icon"
-								aria-label={`${impression.label} öffnen`}>
-								<Icon icon={ArrowRight} />
-							</Button>
-						)}
-					</div>
-
-					{/* Image – click opens modal */}
-					<Image
-						src={`/impressions/${impression.src}`}
-						alt={impression.alt}
-						fill
-						sizes="(max-width: 1024px) 50vw, 25vw"
-						className="object-contain transition-transform group-hover:scale-105"
-					/>
-				</button>
+					className="absolute cursor-pointer inset-0 w-full h-full"
+					aria-label={`${impression.label} vergrößern`}></button>
 			</div>
 
 			{/* Modal */}
@@ -132,12 +130,14 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						aria-label={impression.label}
 						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow)] overflow-hidden">
 						{/* Close button */}
-						<button
-							onClick={closeModal}
-							className="absolute top-4 right-4 z-10 p-1.5 rounded-full hover:bg-[var(--color-button-primary-bg-hover)] transition-colors focus:outline-1 focus:outline-orange-300"
-							aria-label="Schließen">
-							<X size={16} strokeWidth={1.5} />
-						</button>
+						<Button
+							variant="primary"
+							size="sm"
+							content="icon"
+							aria-label="Modal schließen"
+							onClick={closeModal}>
+							<Icon icon={X} />
+						</Button>
 
 						{/* Image */}
 						<div

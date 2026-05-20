@@ -29,7 +29,7 @@ import { sileo } from "sileo";
 
 type Variant = "primary" | "cta";
 type Size = "md" | "sm";
-type ContentType = "text" | "icon";
+type ContentType = "text" | "icon" | "iconRight";
 
 interface ButtonProps {
 	variant?: Variant;
@@ -42,6 +42,7 @@ interface ButtonProps {
 	copySuccessMessage?: string;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
+	className?: string;
 	"aria-label"?: string;
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
@@ -63,10 +64,12 @@ const contentClasses: Record<Size, Record<ContentType, string>> = {
 	md: {
 		text: "px-4",
 		icon: "px-3",
+		iconRight: "pl-4 pr-3 gap-2",
 	},
 	sm: {
 		text: "px-2.5",
 		icon: "px-1.5",
+		iconRight: "pl-2.5 pr-1.5 gap-1",
 	},
 };
 
@@ -79,6 +82,7 @@ const Button = ({
 	onClick,
 	copyToClipboard,
 	copySuccessMessage = "Copied to clipboard!",
+	className: classNameProp,
 	disabled,
 	type = "button",
 	"aria-label": ariaLabel,
@@ -88,7 +92,7 @@ const Button = ({
 	const baseClasses =
 		"flex-none corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = clsx(baseClasses, sizeClasses[size], contentClasses[size][content], variantClasses[variant]);
+	const className = clsx(baseClasses, sizeClasses[size], contentClasses[size][content], variantClasses[variant], classNameProp);
 
 	if (href) {
 		return (

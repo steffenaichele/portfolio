@@ -55,7 +55,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 			<Button
 				variant="primary"
 				size="md"
-				content="iconOnly"
+				content="icon"
 				aria-label={open ? "Menü schließen" : "Menü öffnen"}
 				aria-expanded={open}
 				aria-controls="mobile-menu"
