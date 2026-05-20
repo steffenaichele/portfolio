@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Project } from "@/app/data/projects";
+import { Project } from "@/app/data/content";
 
 type Props = {
 	project: Project;
