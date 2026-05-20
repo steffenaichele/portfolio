@@ -59,7 +59,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				variant="primary"
 				size="md"
 				content="icon"
-				aria-label={open ? t('nav.menu_close') : t('nav.menu_open')}
+				aria-label={open ? t("nav.menu_close") : t("nav.menu_open")}
 				aria-expanded={open}
 				aria-controls="mobile-menu"
 				onClick={() => onOpenChange(!open)}>
@@ -67,7 +67,10 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 			</Button>
 
 			<div
-				className={clsx("grid", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
+				className={clsx(
+					"grid",
+					open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+				)}
 				style={{
 					marginTop: open ? MENU_GAP : 0,
 					transition: `grid-template-rows ${duration}ms var(--ease-out), margin-top ${duration}ms var(--ease-out)`,
@@ -76,7 +79,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				<ul
 					id="mobile-menu"
 					className="min-h-0 flex flex-col items-end gap-2"
-					aria-label={t('nav.nav_label')}>
+					aria-label={t("nav.nav_label")}>
 					{navLinkHrefs.map((link, index) => (
 						<li
 							key={link.href}
@@ -103,25 +106,25 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 								? `${countLinks * STAGGER_DELAY}ms`
 								: "0ms",
 						}}>
-						<LanguageToggle />
+						<Button
+							variant="cta"
+							size="md"
+							content="iconRight"
+							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
+							copySuccessMessage={t("copy_success")}>
+							{t("contact_button")}
+							<Icon icon={Mail} />
+						</Button>
 					</li>
 					<li
 						className={itemClass}
 						style={{
 							transitionDuration: `${duration}ms`,
 							transitionDelay: open
-								? `${(countLinks + 1) * STAGGER_DELAY}ms`
+								? `${(countLinks + 1) * (STAGGER_DELAY * 3)}ms`
 								: "0ms",
 						}}>
-						<Button
-							variant="cta"
-							size="md"
-							content="iconRight"
-							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
-							copySuccessMessage={t('copy_success')}>
-							{t('contact_button')}
-							<Icon icon={Mail} />
-						</Button>
+						<LanguageToggle />
 					</li>
 				</ul>
 			</div>

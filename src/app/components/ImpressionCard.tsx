@@ -100,7 +100,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 							href={impression.link}
 							size="sm"
 							content="icon"
-							aria-label={t('open_label', { label })}>
+							aria-label={t("open_label", { label })}>
 							<Icon icon={ArrowRight} />
 						</Button>
 					)}
@@ -112,12 +112,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					alt={alt}
 					fill
 					sizes="(max-width: 1024px) 50vw, 25vw"
-					className="mt-12 object-scale-down transition-transform group-hover:scale-103"
+					className="mt-12 p-2 object-top object-contain transition-transform group-hover:scale-103"
 				/>
 				<button
 					onClick={openModal}
 					className="absolute cursor-pointer inset-0 w-full h-full"
-					aria-label={t('zoom_label', { label })}></button>
+					aria-label={t("zoom_label", { label })}></button>
 			</div>
 
 			{/* Modal */}
@@ -128,9 +128,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						ref={backdropRef}
 						role="button"
 						tabIndex={-1}
-						aria-label={t('modal_close')}
+						aria-label={t("modal_close")}
 						onClick={closeModal}
-						onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeModal(); }}
+						onKeyDown={(e) => {
+							if (e.key === "Enter" || e.key === " ")
+								closeModal();
+						}}
 						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60"
 					/>
 
@@ -146,7 +149,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 							variant="primary"
 							size="sm"
 							content="icon"
-							aria-label={t('modal_close')}
+							aria-label={t("modal_close")}
 							onClick={closeModal}>
 							<Icon icon={X} />
 						</Button>
@@ -178,8 +181,8 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 									href={impression.link}
 									size="sm"
 									content="icon"
-									aria-label={t('external_label', { label })}>
-									{t('open_button')}
+									aria-label={t("external_label", { label })}>
+									{t("open_button")}
 									<Icon icon={ArrowRight} />
 								</Button>
 							)}
