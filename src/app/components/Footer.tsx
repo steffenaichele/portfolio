@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Icon from "./Icon";
 import { useTranslations } from "next-intl";
 import LinkButton from "./LinkButton";
+import LanguageToggle from "./LanguageToggle";
 
 const Footer = () => {
 	const t = useTranslations('layout.footer');
@@ -87,12 +88,15 @@ const Footer = () => {
 					</div>
 				</nav>
 
-				<div className="flex flex-col md:flex-row flex-wrap text-[var(--color-footer-text-secondary)] text-xs">
-					<p>{t('copyright')}</p>
-					<p>
-						{t('built_with')}{" "}
-						<span aria-hidden="true">✨</span>
-					</p>
+				<div className="flex flex-wrap items-center justify-between gap-4 text-[var(--color-footer-text-secondary)] text-xs">
+					<div className="flex flex-col gap-1">
+						<p>{t('copyright')}</p>
+						<p>
+							{t('built_with')}{" "}
+							<span aria-hidden="true">✨</span>
+						</p>
+					</div>
+					<LanguageToggle />
 				</div>
 			</div>
 		</footer>

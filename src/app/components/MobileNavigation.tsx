@@ -7,8 +7,8 @@
 import { useEffect, useEffectEvent } from "react";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
-import { useLocale } from "../hooks/useLocale";
 import Button from "./Button";
+import LanguageToggle from "./LanguageToggle";
 
 import { Menu, X, Mail } from "lucide-react";
 import Icon from "./Icon";
@@ -33,7 +33,6 @@ interface MobileNavigationProps {
 
 const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 	const t = useTranslations('layout');
-	const { locale, setLocale } = useLocale();
 	const closeOnEscape = useEffectEvent(() => {
 		if (open) onOpenChange(false);
 	});
@@ -104,31 +103,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 								? `${countLinks * STAGGER_DELAY}ms`
 								: "0ms",
 						}}>
-						<div className="flex items-center gap-2 h-9 px-1">
-							<button
-								onClick={() => setLocale("en")}
-								aria-label={t('nav.switch_to_en')}
-								className={clsx(
-									"text-base transition-colors",
-									locale === "en"
-										? "text-[var(--color-text-primary)] font-medium"
-										: "text-[var(--color-text-tertiary)]"
-								)}>
-								EN
-							</button>
-							<span className="text-base text-[var(--color-text-tertiary)]" aria-hidden>·</span>
-							<button
-								onClick={() => setLocale("de")}
-								aria-label={t('nav.switch_to_de')}
-								className={clsx(
-									"text-base transition-colors",
-									locale === "de"
-										? "text-[var(--color-text-primary)] font-medium"
-										: "text-[var(--color-text-tertiary)]"
-								)}>
-								DE
-							</button>
-						</div>
+						<LanguageToggle />
 					</li>
 					<li
 						className={itemClass}
