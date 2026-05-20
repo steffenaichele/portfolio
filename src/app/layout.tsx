@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sileo";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -82,29 +84,34 @@ export const metadata: Metadata = {
 		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const locale = await getLocale();
+	const messages = await getMessages();
+
 	return (
 		<html
-			lang="de"
+			lang={locale}
 			data-scroll-behavior="smooth"
 			className={`overscroll-x-none overscroll-y-contain ${ppNeueMontreal.variable}`}>
 			<body className=" bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
-				<a
-					href="#main-content"
-					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button) ">
-					Skip to main content
-				</a>
-				<Header />
-				<main
-					id="main-content"
-					className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 px-4 pb-24 ">
-					{children}
-				</main>
-				<Footer />
+				<NextIntlClientProvider locale={locale} messages={messages}>
+					<a
+						href="#main-content"
+						className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button) ">
+						Skip to main content
+					</a>
+					<Header />
+					<main
+						id="main-content"
+						className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 px-4 pb-24 ">
+						{children}
+					</main>
+					<Footer />
+				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />
 				<Toaster position="bottom-center" />
