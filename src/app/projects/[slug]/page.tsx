@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getProjectBySlug, projects } from "@/app/data/projects";
+import { getProjectBySlug, projects } from "@/app/data/content";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 

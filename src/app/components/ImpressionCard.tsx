@@ -6,10 +6,11 @@ import { ArrowRight, X } from "lucide-react";
 
 import Button from "./Button";
 import Icon from "./Icon";
-import type { Impression } from "../data/impressions";
+import type { Impression, Project } from "../data/content";
 
 interface ImpressionCardProps {
 	impression: Impression;
+	project?: Project;
 }
 
 const ImpressionCard = ({ impression }: ImpressionCardProps) => {

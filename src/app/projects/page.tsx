@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicProjects } from "../data/projects";
+import { getPublicProjects } from "../data/content";
 import ProjectCard from "../components/ProjectCard";
 
 export const metadata: Metadata = {

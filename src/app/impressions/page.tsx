@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ImpressionCard from "../components/ImpressionCard";
-import { impressions } from "../data/impressions";
+import { impressions, getProjectForImpression } from "../data/content";
 
 export const metadata: Metadata = {
 	title: "Impressions – Steffen Aichele",
@@ -26,6 +26,7 @@ export default function AboutMe() {
 					<ImpressionCard
 						key={impression.id}
 						impression={impression}
+						project={getProjectForImpression(impression)}
 					/>
 				))}
 			</div>
