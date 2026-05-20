@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import ProjectsSection from "./components/ProjectsSection";
 import CVSection from "./components/CVSection";
 
-export const metadata: Metadata = {
-	title: "Steffen Aichele – UX/UI Designer & Web Entwickler",
-	description: "Portfolio von Steffen Aichele – UX/UI Designer und Web Entwickler aus Schwäbisch Gmünd.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('home');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function Home() {
+export default async function Home() {
+	const t = await getTranslations('home');
 	return (
 		<>
 			<section className="pt-150">
 				<div className="flex flex-col gap-1">
 					<h1 className="text-2xl text-[var(--color-text-primary)]">
-						Hi, ich bin Steffen{" "}
-						<span role="img" aria-label="Peace sign">✌🏻</span>
+						{t('greeting')}{" "}
+						<span role="img" aria-label={t('emoji_label')}>✌🏻</span>
 					</h1>
 					<p className="text-2xl text-[var(--color-text-tertiary)]">
-						Ich bin UX/UI Designer und Web Entwickler aus Schwäbisch
-						Gmünd.
+						{t('subtitle')}
 					</p>
 				</div>
 			</section>

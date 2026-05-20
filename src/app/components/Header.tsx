@@ -7,12 +7,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 import MobileNavigation from "./MobileNavigation";
 import Logo from "./Logo";
 import BlurEffect from "react-progressive-blur";
 
 const Header = () => {
 	const [navOpen, setNavOpen] = useState(false);
+	const t = useTranslations('layout');
 
 	return (
 		<header
@@ -29,7 +31,7 @@ const Header = () => {
 			<div className="relative flex flex-row justify-between items-start px-5 min-h-11 z-10">
 				<Link
 					href="/"
-					aria-label="Steffen Aichele – Startseite"
+					aria-label={t('header.logo_label')}
 					className="h-11 flex items-center">
 					<Logo />
 				</Link>
