@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useEffectEvent } from "react";
 import Image from "next/image";
 import { ArrowRight, X } from "lucide-react";
+import { useTranslations, useMessages } from "next-intl";
 
 import Button from "./Button";
 import Icon from "./Icon";
@@ -14,6 +15,12 @@ interface ImpressionCardProps {
 }
 
 const ImpressionCard = ({ impression }: ImpressionCardProps) => {
+	const t = useTranslations('impressions');
+	const messages = useMessages() as { impressions?: { items?: Record<string, { label: string; context: string; alt: string }> } };
+	const itemMessages = messages.impressions?.items?.[impression.id];
+	const label = itemMessages?.label ?? impression.label;
+	const context = itemMessages?.context ?? impression.context;
+	const alt = itemMessages?.alt ?? impression.alt;
 	const [mounted, setMounted] = useState(false);
 	const modalRef = useRef<HTMLDivElement>(null);
 	const backdropRef = useRef<HTMLDivElement>(null);
@@ -79,13 +86,13 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 				<div className="h-10 flex px-4 pt-4 pb-0">
 					<div className="grow h-6 px-2 flex flex-wrap items-center gap-x-1 gap-y-0.5">
 						<p className="text-sm text-[var(--color-text-secondary)]">
-							{impression.label}
+							{label}
 						</p>
 						<p className="text-sm text-[var(--color-text-tertiary)]">
 							{" · "}
 						</p>
 						<p className="text-sm text-[var(--color-text-tertiary)]">
-							{impression.context}
+							{context}
 						</p>
 					</div>
 					{impression.link && (
@@ -93,7 +100,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 							href={impression.link}
 							size="sm"
 							content="icon"
-							aria-label={`${impression.label} öffnen`}>
+							aria-label={t('open_label', { label })}>
 							<Icon icon={ArrowRight} />
 						</Button>
 					)}
@@ -102,7 +109,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 				{/* Image – click opens modal */}
 				<Image
 					src={`/impressions/${impression.src}`}
-					alt={impression.alt}
+					alt={alt}
 					fill
 					sizes="(max-width: 1024px) 50vw, 25vw"
 					className="mt-12 object-scale-down transition-transform group-hover:scale-103"
@@ -110,7 +117,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 				<button
 					onClick={openModal}
 					className="absolute cursor-pointer inset-0 w-full h-full"
-					aria-label={`${impression.label} vergrößern`}></button>
+					aria-label={t('zoom_label', { label })}></button>
 			</div>
 
 			{/* Modal */}
@@ -121,7 +128,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						ref={backdropRef}
 						role="button"
 						tabIndex={-1}
-						aria-label="Modal schließen"
+						aria-label={t('modal_close')}
 						onClick={closeModal}
 						onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") closeModal(); }}
 						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60"
@@ -132,14 +139,14 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						ref={modalRef}
 						role="dialog"
 						aria-modal="true"
-						aria-label={impression.label}
+						aria-label={label}
 						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow)] overflow-hidden">
 						{/* Close button */}
 						<Button
 							variant="primary"
 							size="sm"
 							content="icon"
-							aria-label="Modal schließen"
+							aria-label={t('modal_close')}
 							onClick={closeModal}>
 							<Icon icon={X} />
 						</Button>
@@ -149,7 +156,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 							className={`relative w-full ${impression.square ? "aspect-square" : "aspect-3/2"}`}>
 							<Image
 								src={`/impressions/${impression.src}`}
-								alt={impression.alt}
+								alt={alt}
 								fill
 								sizes="(max-width: 768px) 100vw, 448px"
 								className="object-contain"
@@ -160,10 +167,10 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						<div className="flex flex-col gap-3 p-5">
 							<div className="flex flex-col gap-0.5">
 								<p className="text-md font-medium text-[var(--color-text-primary)]">
-									{impression.label}
+									{label}
 								</p>
 								<p className="text-xs text-[var(--color-text-tertiary)]">
-									{impression.context}
+									{context}
 								</p>
 							</div>
 							{impression.link && (
@@ -171,8 +178,8 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 									href={impression.link}
 									size="sm"
 									content="icon"
-									aria-label={`${impression.label} extern öffnen`}>
-									Öffnen
+									aria-label={t('external_label', { label })}>
+									{t('open_button')}
 									<Icon icon={ArrowRight} />
 								</Button>
 							)}

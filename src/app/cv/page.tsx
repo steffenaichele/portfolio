@@ -1,26 +1,30 @@
 import type { Metadata } from "next";
-import { experience, education, skills } from "@/app/data/cv_de";
+import { getTranslations, getMessages } from "next-intl/server";
+import type { CVEntry } from "@/app/data/cv_de";
 import { CVItem } from "@/app/components/CVItem";
 import { Tag } from "@/app/components/Tag";
 
-export const metadata: Metadata = {
-	title: "Lebenslauf – Steffen Aichele",
-	description:
-		"Beruflicher Werdegang und Ausbildung von Steffen Aichele, UI Designer & Frontend Developer.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('cv');
+	return {
+		title: t('meta_title'),
+		description: t('meta_description'),
+	};
+}
 
-export default function CVPage() {
+export default async function CVPage() {
+	const t = await getTranslations('cv');
+	const messages = await getMessages() as { cv: { experience: CVEntry[]; education: CVEntry[]; skills: string[] } };
+	const { experience, education, skills } = messages.cv;
+
 	return (
 		<>
 			<section className="pt-80 flex flex-col gap-4">
 				<h1 className="text-4xl text-[var(--color-text-primary)]">
-					Servus, Moin & Hallo
+					{t('page_title')}
 				</h1>
 				<p className="text-lg text-[var(--color-text-tertiary)]">
-					Designer mit Hintergrund in Interaktionsgestaltung und
-					Full-Stack-Webentwicklung. Ich arbeite gerne an der
-					Schnittstelle von Design und Code und bringe Begeisterung in
-					jedes Projekt mit.
+					{t('page_subtitle')}
 				</p>
 			</section>
 
@@ -28,7 +32,7 @@ export default function CVPage() {
 				<h2
 					id="experience-heading"
 					className="text-3xl mb-8 text-[var(--color-text-primary)]">
-					Berufserfahrung
+					{t('experience_heading')}
 				</h2>
 				<ul className="flex flex-col gap-6">
 					{experience.map((entry) => (
@@ -45,7 +49,7 @@ export default function CVPage() {
 				<h2
 					id="education-heading"
 					className="text-3xl mb-8 text-[var(--color-text-primary)]">
-					Ausbildung
+					{t('education_heading')}
 				</h2>
 				<ul className="flex flex-col gap-6">
 					{education.map((entry) => (
@@ -62,7 +66,7 @@ export default function CVPage() {
 				<h2
 					id="skills-heading"
 					className="text-3xl mb-8 text-[var(--color-text-primary)]">
-					Skills
+					{t('skills_heading')}
 				</h2>
 				<div className="flex flex-wrap gap-2">
 					{skills.map((skill) => (
