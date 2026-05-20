@@ -6,7 +6,7 @@
 
 import { useState, useRef } from "react";
 import clsx from "clsx";
-import type { CVEntry } from "../data/cv_de";
+import type { CVEntry } from "../data/cv";
 
 const DURATION_OPEN = 600;
 const DURATION_CLOSE = 200;

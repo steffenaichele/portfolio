@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useTranslations, useMessages } from "next-intl";
 import Icon from "./Icon";
 import Button from "./Button";
-import type { CVEntry } from "../data/cv_de";
+import type { CVEntry } from "../data/cv";
 
 function getYearRange(entry: CVEntry) {
 	const startYears = entry.roles.map((r) => r.startYear);

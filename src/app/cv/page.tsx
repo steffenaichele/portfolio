@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, getMessages } from "next-intl/server";
-import type { CVEntry } from "@/app/data/cv_de";
+import type { CVEntry } from "@/app/data/cv";
 import { CVItem } from "@/app/components/CVItem";
 import { Tag } from "@/app/components/Tag";
 
