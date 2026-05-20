@@ -35,9 +35,9 @@ const Footer = () => {
 
 				<nav aria-label="Footer-Navigation" className="flex gap-4">
 					<div className="flex flex-col flex-1 gap-2">
-						<h6 className="text-sm uppercase text-(--color-footer-text-tertiary)">
+						<p className="text-sm uppercase text-(--color-footer-text-tertiary)">
 							{t('pages_heading')}
-						</h6>
+						</p>
 						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 							<li>
 								<LinkButton href="/">Home</LinkButton>
@@ -58,9 +58,9 @@ const Footer = () => {
 						</ul>
 					</div>
 					<div className="flex flex-col flex-1 gap-2">
-						<h6 className="text-sm uppercase text-(--color-footer-text-tertiary)">
+						<p className="text-sm uppercase text-(--color-footer-text-tertiary)">
 							{t('links_heading')}
-						</h6>
+						</p>
 						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 							<li>
 								<LinkButton

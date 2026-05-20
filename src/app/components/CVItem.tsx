@@ -25,6 +25,7 @@ interface CVItemProps {
 export function CVItem({ entry, variant }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const badgeRef = useRef<HTMLSpanElement>(null);
+	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, '-').toLowerCase()}`;
 
 	const latestRole = entry.roles[0];
 	const otherRoles = entry.roles.slice(1);
@@ -74,18 +75,15 @@ export function CVItem({ entry, variant }: CVItemProps) {
 				<button
 					onClick={handleToggle}
 					aria-expanded={isOpen}
+					aria-controls={detailsId}
 					disabled={!hasExpandable}
 					className={clsx(
-						"w-full px-5 pb-6 text-left cursor-pointer transition-[margin-bottom] [transition-timing-function:var(--ease-out)] disabled:cursor-default",
-						isOpen ? "pt-6" : "pt-5",
+						"w-full px-5 pt-5 pb-6 text-left cursor-pointer disabled:cursor-default",
 					)}>
 					<div className="flex flex-col">
 						<div
-							className={clsx(
-								"w-full flex flex-wrap gap-x-1 transition-[margin-bottom] [transition-timing-function:var(--ease-out)]",
-								isOpen ? "mb-6" : "mb-4",
-							)}
-							style={{ transitionDuration: `${duration}ms` }}>
+							className="w-full flex flex-wrap gap-x-1 mb-4"
+							>
 							<p className="text-md text-[var(--color-text-primary)]">
 								{entry.organization}
 								{","}
@@ -113,6 +111,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 					</div>
 
 					<div
+						id={detailsId}
 						className={clsx(
 							"grid",
 							isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",

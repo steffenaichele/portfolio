@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./styles/globals.css";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
@@ -79,9 +79,38 @@ const ppNeueMontreal = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "Steffen Aichele",
+	metadataBase: new URL("https://steffenaichele.com"),
+	title: {
+		default: "Steffen Aichele",
+		template: "%s · Steffen Aichele",
+	},
 	description:
 		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+	openGraph: {
+		type: "website",
+		locale: "de_DE",
+		alternateLocale: "en_US",
+		url: "https://steffenaichele.com",
+		siteName: "Steffen Aichele",
+		title: "Steffen Aichele",
+		description:
+			"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+		images: [
+			{
+				url: "/og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "Steffen Aichele – UX/UI Designer und Full Stack Developer",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+	},
+};
+
+export const viewport: Viewport = {
+	themeColor: "#f5f5f5",
 };
 
 export default async function RootLayout({

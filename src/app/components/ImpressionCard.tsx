@@ -23,7 +23,8 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 	const alt = itemMessages?.alt ?? impression.alt;
 	const [mounted, setMounted] = useState(false);
 	const modalRef = useRef<HTMLDivElement>(null);
-	const backdropRef = useRef<HTMLDivElement>(null);
+	const backdropRef = useRef<HTMLButtonElement>(null);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	const closeModal = () => {
 		const modal = modalRef.current;
@@ -46,6 +47,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 			modal.classList.remove("is-closing");
 			backdrop?.classList.remove("is-closing");
 			setMounted(false);
+			triggerRef.current?.focus();
 		}, closeMs);
 	};
 
@@ -75,6 +77,43 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		document.body.style.overflow = mounted ? "hidden" : "";
 		return () => {
 			document.body.style.overflow = "";
+		};
+	}, [mounted]);
+
+	// Focus trap
+	useEffect(() => {
+		if (!mounted) return;
+		const modal = modalRef.current;
+		if (!modal) return;
+
+		const getFocusable = () => Array.from(
+			modal.querySelectorAll<HTMLElement>(
+				'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+			)
+		);
+
+		const rafId = requestAnimationFrame(() => {
+			getFocusable()[0]?.focus();
+		});
+
+		const trap = (e: KeyboardEvent) => {
+			if (e.key !== 'Tab') return;
+			const focusable = getFocusable();
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				last?.focus();
+			} else if (!e.shiftKey && document.activeElement === last) {
+				e.preventDefault();
+				first?.focus();
+			}
+		};
+
+		modal.addEventListener('keydown', trap);
+		return () => {
+			cancelAnimationFrame(rafId);
+			modal.removeEventListener('keydown', trap);
 		};
 	}, [mounted]);
 
@@ -115,26 +154,26 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					className="mt-12 p-2 object-top object-contain transition-transform group-hover:scale-103"
 				/>
 				<button
+					ref={triggerRef}
 					onClick={openModal}
 					className="absolute cursor-pointer inset-0 w-full h-full"
-					aria-label={t("zoom_label", { label })}></button>
+					aria-label={t("zoom_label", { label })}
+					aria-expanded={mounted}
+					aria-haspopup="dialog"
+				/>
 			</div>
 
 			{/* Modal */}
 			{mounted && (
 				<>
 					{/* Backdrop */}
-					<div
+					<button
 						ref={backdropRef}
-						role="button"
+						type="button"
 						tabIndex={-1}
 						aria-label={t("modal_close")}
 						onClick={closeModal}
-						onKeyDown={(e) => {
-							if (e.key === "Enter" || e.key === " ")
-								closeModal();
-						}}
-						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60"
+						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60 cursor-default w-full h-full border-none"
 					/>
 
 					{/* Panel */}

@@ -16,7 +16,6 @@ import Icon from "./Icon";
 const DURATION_OPEN = 300;
 const DURATION_CLOSE = 200;
 const STAGGER_DELAY = 60;
-const MENU_GAP = 32;
 
 const navLinkHrefs = [
 	{ key: "home" as const, href: "/" },
@@ -72,13 +71,12 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 					open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
 				)}
 				style={{
-					marginTop: open ? MENU_GAP : 0,
-					transition: `grid-template-rows ${duration}ms var(--ease-out), margin-top ${duration}ms var(--ease-out)`,
+					transition: `grid-template-rows ${duration}ms var(--ease-out)`,
 				}}
 				inert={!open}>
 				<ul
 					id="mobile-menu"
-					className="min-h-0 flex flex-col items-end gap-2"
+					className="min-h-0 flex flex-col items-end gap-2 pt-8"
 					aria-label={t("nav.nav_label")}>
 					{navLinkHrefs.map((link, index) => (
 						<li
