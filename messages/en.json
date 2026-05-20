@@ -1,0 +1,431 @@
+{
+  "layout": {
+    "header": {
+      "logo_label": "Steffen Aichele – Home"
+    },
+    "nav": {
+      "home": "Home",
+      "impressions": "Impressions",
+      "cv": "CV",
+      "menu_open": "Open menu",
+      "menu_close": "Close menu",
+      "nav_label": "Mobile Navigation"
+    },
+    "footer": {
+      "subtitle": "UX/UI Designer & Web Developer",
+      "pages_heading": "Pages",
+      "links_heading": "Links",
+      "imprint": "Imprint",
+      "copyright": "© 2026 Steffen Aichele – All rights reserved.",
+      "built_with": "Built with Next.js & Tailwind CSS"
+    },
+    "contact_button": "Contact",
+    "copy_success": "Copied to clipboard!",
+    "skip_to_main": "Skip to main content"
+  },
+  "home": {
+    "meta_title": "Steffen Aichele – UX/UI Designer & Web Developer",
+    "meta_description": "Portfolio of Steffen Aichele – UX/UI Designer and Web Developer from Schwäbisch Gmünd.",
+    "greeting": "Hi, I'm Steffen",
+    "emoji_label": "Peace sign",
+    "subtitle": "I'm a UX/UI Designer and Web Developer from Schwäbisch Gmünd.",
+    "projects_button": "View projects",
+    "cv_button": "View CV",
+    "slideshow_alt_1": "Project 1 preview",
+    "slideshow_alt_2": "Project 2 preview",
+    "slideshow_alt_3": "Project 3 preview"
+  },
+  "impressions": {
+    "meta_title": "Impressions – Steffen Aichele",
+    "meta_description": "A mix of selected work from client projects, my studies and other stops in my career so far.",
+    "page_title": "Impressions",
+    "page_description": "A mix of selected work from client projects, my studies and other stops in my career so far.",
+    "open_label": "Open {label}",
+    "zoom_label": "Zoom {label}",
+    "external_label": "Open {label} externally",
+    "modal_close": "Close modal",
+    "open_button": "Open",
+    "items": {
+      "01": {
+        "label": "Open Call",
+        "context": "Future Forms",
+        "alt": "Open Call page on nextmuseum.io"
+      },
+      "02": {
+        "label": "Festival Onboarding",
+        "context": "HfG Schwäbisch Gmünd",
+        "alt": "Dashboard"
+      },
+      "03": {
+        "label": "Dashboard",
+        "context": "Freelance",
+        "alt": "Dashboard"
+      },
+      "04": {
+        "label": "Branding",
+        "context": "HfG Schwäbisch Gmünd",
+        "alt": "Branding"
+      },
+      "05": {
+        "label": "Landing Page",
+        "context": "Freelance",
+        "alt": "Landing Page"
+      }
+    }
+  },
+  "projects": {
+    "meta_title": "Projects – Steffen Aichele",
+    "meta_description": "Selected projects by Steffen Aichele – UX/UI Design and Web Development.",
+    "page_title": "Projects",
+    "not_found_title": "Project not found – Steffen Aichele",
+    "inkcal": {
+      "title": "Tattoo Artist Calendar",
+      "description": "React web app for managing appointments, clients and designs for tattoo artists."
+    },
+    "museum-exhibit": {
+      "title": "Interactive Museum Exhibit",
+      "description": "React/Electron app replacing a legacy Flash application."
+    },
+    "gewohnheiten": {
+      "title": "Digital Habit Development Aid",
+      "description": "React/Electron app replacing a legacy Flash application."
+    }
+  },
+  "cv": {
+    "meta_title": "CV – Steffen Aichele",
+    "meta_description": "Career history and education of Steffen Aichele, UI Designer & Frontend Developer.",
+    "page_title": "Hello there",
+    "page_subtitle": "Designer with a background in interaction design and full-stack web development. I love working at the intersection of design and code and bring enthusiasm to every project.",
+    "experience_heading": "Experience",
+    "education_heading": "Education",
+    "skills_heading": "Skills",
+    "cv_button": "View CV",
+    "experience_sr_label": "Experience",
+    "education_sr_label": "Education",
+    "skills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "SCSS",
+      "Design Tokens",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "REST APIs",
+      "JWT",
+      "Figma",
+      "Design Systems",
+      "UI Libraries",
+      "Wireframing",
+      "Prototyping",
+      "Visual Design",
+      "Usability Testing",
+      "Electron",
+      "Git",
+      "CI/CD",
+      "Vercel",
+      "Prompt Engineering"
+    ],
+    "experience": [
+      {
+        "organization": "MuSeele e.V. / Klinikum Christophsbad",
+        "organizationShort": "Freelance",
+        "location": "Göppingen",
+        "roles": [
+          {
+            "title": "Freelance Design Engineer",
+            "startMonth": "Mar",
+            "startYear": 2025,
+            "endMonth": "Dec",
+            "endYear": 2025,
+            "duration": "9 months"
+          }
+        ],
+        "description": [
+          "Solo project: Independently replaced an outdated Adobe Flash museum exhibit with a modern, maintainable desktop application — full ownership from concept to deployment.",
+          "Designed and built an interactive journey through the history of psychology — projected onto a beamer in the museum and operable via mouse for visitors.",
+          "Developed a separate admin application for content management with full CRUD operations (creating, editing, deleting exhibit content).",
+          "Implemented as an offline-capable desktop app using React, TypeScript, Tailwind CSS and Electron — runs directly from a USB stick on Windows without an internet connection.",
+          "Full responsibility for UX research, UI design, frontend development, data persistence and final delivery to the client."
+        ],
+        "descriptionShort": "Solo project: Replaced a legacy Adobe Flash exhibit with an offline-capable Electron desktop app built in React, TypeScript and Tailwind CSS. End-to-end ownership from UX/UI concept to deployment.",
+        "technologies": ["React", "TypeScript", "Electron", "Tailwind CSS", "Figma", "Node.js"],
+        "totalDuration": "9 months",
+        "totalStartMonth": "Mar",
+        "totalStartYear": 2025,
+        "totalEndMonth": "Dec",
+        "totalEndYear": 2025
+      },
+      {
+        "organization": "Future Forms GmbH",
+        "organizationShort": "Future Forms",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Working Student — Design & Engineering",
+            "startMonth": "Sep",
+            "startYear": 2023,
+            "endMonth": "Jun",
+            "endYear": 2024,
+            "duration": "9 months"
+          },
+          {
+            "title": "Senior Intern — Design & Engineering",
+            "startMonth": "Apr",
+            "startYear": 2023,
+            "endMonth": "Sep",
+            "endYear": 2023,
+            "duration": "5 months"
+          },
+          {
+            "title": "Intern — Design & Engineering",
+            "startMonth": "Mar",
+            "startYear": 2023,
+            "endMonth": "Apr",
+            "endYear": 2023,
+            "duration": "1 month"
+          }
+        ],
+        "description": [
+          "Digital product and interaction design studio focused on outstanding user interfaces.",
+          "Independently led a client project over several months in a team of 2–3: workshop planning and facilitation, user research, wireframing, usability testing, building a design system and presenting results to the client.",
+          "Built an internal wireframe UI library in Figma with 20–40 reusable components — used team-wide to accelerate the wireframing process.",
+          "Brand development, process optimization and evaluation of new tools and technologies.",
+          "Active collaboration with designers and engineers in an interdisciplinary environment."
+        ],
+        "descriptionShort": "Independently led client projects from research and wireframing through usability testing to building a design system. Created an internal Figma UI library with 20–40 reusable components.",
+        "technologies": ["Figma", "Design Systems", "Wireframing", "Usability Testing"],
+        "totalDuration": "1 year 3 months",
+        "totalStartMonth": "Mar",
+        "totalStartYear": 2023,
+        "totalEndMonth": "Jun",
+        "totalEndYear": 2024
+      },
+      {
+        "organization": "halbautomaten Kommunikationsdesign GmbH",
+        "organizationShort": "halbautomaten",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Communication Designer",
+            "startMonth": "Mar",
+            "startYear": 2022,
+            "endMonth": "Feb",
+            "endYear": 2023,
+            "duration": "11 months"
+          }
+        ],
+        "description": [
+          "Contributed to a range of client projects across print and digital, primarily corporate design, web design and print media.",
+          "Designed and built the agency's new website (concept, UI design, implementation in SquareSpace) to strengthen its online presence.",
+          "Created templates for digital versions of print media such as product catalogues — enabling more efficient and consistent marketing materials."
+        ],
+        "descriptionShort": "Contributed to client projects in corporate design, web design and print media. Designed and built the agency's new website and templates for digital versions of print media.",
+        "technologies": ["Figma", "SquareSpace", "Visual Design"],
+        "totalDuration": "11 months",
+        "totalStartMonth": "Mar",
+        "totalStartYear": 2022,
+        "totalEndMonth": "Feb",
+        "totalEndYear": 2023
+      },
+      {
+        "organization": "amplify design GmbH",
+        "organizationShort": "amplify design",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Working Student — Digital Design",
+            "startMonth": "Jul",
+            "startYear": 2021,
+            "endMonth": "Sep",
+            "endYear": 2021,
+            "duration": "2 months"
+          }
+        ],
+        "technologies": ["Figma", "Cinema 4D", "Visual Design"],
+        "totalDuration": "2 months",
+        "totalStartMonth": "Jul",
+        "totalStartYear": 2021,
+        "totalEndMonth": "Sep",
+        "totalEndYear": 2021
+      },
+      {
+        "organization": "amplify design GmbH",
+        "organizationShort": "amplify design",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Digital Designer",
+            "startMonth": "Jan",
+            "startYear": 2020,
+            "endMonth": "Mar",
+            "endYear": 2021,
+            "duration": "1 year 2 months"
+          },
+          {
+            "title": "Apprenticeship — Media Designer Digital & Print (Visualization & Concept)",
+            "startMonth": "Oct",
+            "startYear": 2018,
+            "endMonth": "Jan",
+            "endYear": 2020,
+            "duration": "1 year 3 months"
+          }
+        ],
+        "description": [
+          "Redesign of a B2B software for coating thickness measurement and material analysis: user flow analysis, wireframes and visual design proposals.",
+          "Contributed to building a design system, including an interactive style guide and UI library.",
+          "3D modelling in Cinema 4D for various client projects.",
+          "Mentored interns and working students."
+        ],
+        "descriptionShort": "Redesign of a B2B software (user flows, wireframes, visual design). Contributed to a design system with interactive style guide and UI library. 3D modelling in Cinema 4D and mentoring of interns.",
+        "technologies": ["Figma", "Cinema 4D", "Design Systems", "Visual Design"],
+        "totalDuration": "2 years 5 months",
+        "totalStartMonth": "Oct",
+        "totalStartYear": 2018,
+        "totalEndMonth": "Mar",
+        "totalEndYear": 2021
+      },
+      {
+        "organization": "Paperdice Solutions GmbH",
+        "organizationShort": "Paperdice Solutions",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Apprenticeship — Media Designer Digital & Print (Design and Technology)",
+            "startMonth": "Aug",
+            "startYear": 2017,
+            "endMonth": "Sep",
+            "endYear": 2018,
+            "duration": "1 year 1 month"
+          }
+        ],
+        "description": [
+          "Designed, unified and refined a range of print products for several brands and locations.",
+          "Co-developed a brand identity and produced a comprehensive style guide.",
+          "Created props and sets for escape rooms and their venues."
+        ],
+        "descriptionShort": "Designed and refined print products for several brands and locations. Co-developed a brand identity and produced a comprehensive style guide.",
+        "technologies": ["Adobe CC", "Visual Design"],
+        "totalDuration": "1 year 1 month",
+        "totalStartMonth": "Aug",
+        "totalStartYear": 2017,
+        "totalEndMonth": "Sep",
+        "totalEndYear": 2018
+      }
+    ],
+    "education": [
+      {
+        "organization": "WBS Coding School",
+        "organizationShort": "WBS Coding School",
+        "location": "Berlin",
+        "roles": [
+          {
+            "title": "Full-Stack Web & App Development Bootcamp",
+            "startMonth": "Sep",
+            "startYear": 2025,
+            "endMonth": "Jan",
+            "endYear": 2026,
+            "duration": "4 months"
+          }
+        ],
+        "description": [
+          "Full-stack web development with JavaScript, TypeScript, React, Node.js, Express.js and MongoDB (637 hours, full-time).",
+          "Frontend: component-based UIs with React, state management, routing and deployment.",
+          "Backend: REST APIs, authentication, schema validation with Zod, middleware and database integration with MongoDB/Mongoose.",
+          "Integration of generative AI into web applications: prompt engineering, LLM APIs and AI-driven features.",
+          "Unit testing, Git/GitHub, agile methods and teamwork in software development.",
+          "Final project INKCAL: full-stack planning tool for tattoo artists, independently designed and built — React 19, TypeScript, 17 REST endpoints with Express.js, MongoDB and JWT authentication. Deployed on Vercel and Railway with CI/CD via GitHub Actions."
+        ],
+        "technologies": ["JavaScript", "TypeScript", "React", "Node.js", "Express.js", "MongoDB", "JWT", "Git"],
+        "totalDuration": "4 months",
+        "totalStartMonth": "Sep",
+        "totalStartYear": 2025,
+        "totalEndMonth": "Jan",
+        "totalEndYear": 2026
+      },
+      {
+        "organization": "Hochschule für Gestaltung",
+        "organizationShort": "HfG Schwäbisch Gmünd",
+        "location": "Schwäbisch Gmünd",
+        "roles": [
+          {
+            "title": "Bachelor of Arts in Interaction Design",
+            "startMonth": "Mar",
+            "startYear": 2021,
+            "endMonth": "Jul",
+            "endYear": 2024,
+            "duration": "3 years 4 months"
+          }
+        ],
+        "description": [
+          "Bachelor of Arts in Interaction Design — final grade 1.7 on the German scale (1.0 best / 4.0 pass), equivalent to UK First or US GPA ~3.7. 210 ECTS credits.",
+          "Focus areas: application design, interface design, user experience design, usability, visual design and prototyping.",
+          "User-centred concept and design of digital products — from research and prototyping to final UI design.",
+          "Project-based work in interdisciplinary teams using a methodical, research-driven design process.",
+          "Foundations in programming and digital technology as a bridge between design and engineering.",
+          "Bachelor thesis: \"Digital support for fostering positive behavioural patterns\"."
+        ],
+        "technologies": ["Figma", "Prototyping", "Wireframing", "Visual Design", "Usability Testing"],
+        "totalDuration": "3 years 4 months",
+        "totalStartMonth": "Mar",
+        "totalStartYear": 2021,
+        "totalEndMonth": "Jul",
+        "totalEndYear": 2024
+      },
+      {
+        "organization": "Johannes-Gutenberg-Schule",
+        "organizationShort": "Johannes-Gutenberg-Schule",
+        "location": "Stuttgart",
+        "roles": [
+          {
+            "title": "Vocational School — Media Designer Digital & Print",
+            "startMonth": "Aug",
+            "startYear": 2017,
+            "endMonth": "Jan",
+            "endYear": 2020,
+            "duration": "2 years 5 months"
+          }
+        ],
+        "totalDuration": "2 years 5 months",
+        "totalStartMonth": "Aug",
+        "totalStartYear": 2017,
+        "totalEndMonth": "Jan",
+        "totalEndYear": 2020
+      },
+      {
+        "organization": "Gewerbliche Schule Schwäbisch Gmünd",
+        "organizationShort": "Gewerbliche Schule GD",
+        "location": "Schwäbisch Gmünd",
+        "roles": [
+          {
+            "title": "Abitur (German university entrance qualification) — Design and Media Technology",
+            "startMonth": "Sep",
+            "startYear": 2012,
+            "endMonth": "Jul",
+            "endYear": 2016,
+            "duration": "3 years 10 months"
+          }
+        ],
+        "totalDuration": "3 years 10 months",
+        "totalStartMonth": "Sep",
+        "totalStartYear": 2012,
+        "totalEndMonth": "Jul",
+        "totalEndYear": 2016
+      }
+    ]
+  },
+  "about_me": {
+    "meta_title": "About Me – Steffen Aichele",
+    "meta_description": "More about Steffen Aichele – UX/UI Designer and Full Stack Developer from Schwäbisch Gmünd.",
+    "page_title": "About Me"
+  },
+  "impressum": {
+    "meta_title": "Imprint – Steffen Aichele",
+    "meta_description": "Legal notice and contact details of Steffen Aichele.",
+    "page_title": "Imprint",
+    "legal_notice": "Legal notice pursuant to § 5 TMG",
+    "contact_button": "Contact"
+  }
+}
