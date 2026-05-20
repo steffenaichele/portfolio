@@ -9,7 +9,9 @@
       "cv": "CV",
       "menu_open": "Menü öffnen",
       "menu_close": "Menü schließen",
-      "nav_label": "Mobile Navigation"
+      "nav_label": "Mobile Navigation",
+      "switch_to_en": "Zu Englisch wechseln",
+      "switch_to_de": "Zu Deutsch wechseln"
     },
     "footer": {
       "subtitle": "UX/UI Designer & Web Developer",
