@@ -1,9 +1,7 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { useTranslations, useMessages } from "next-intl";
-import Icon from "./Icon";
-import Button from "./Button";
+
 import { CVItem } from "./CVItem";
 import TabGroup from "./TabGroup";
 import type { CVEntry } from "../data/cv";
@@ -19,7 +17,7 @@ export default function CVSection() {
 		{
 			label: t("experience_heading"),
 			content: (
-				<ul className="flex flex-col gap-6">
+				<ul className="flex flex-col gap-1">
 					{experience.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
@@ -33,7 +31,7 @@ export default function CVSection() {
 		{
 			label: t("education_heading"),
 			content: (
-				<ul className="flex flex-col gap-6">
+				<ul className="flex flex-col gap-1">
 					{education.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
@@ -47,14 +45,10 @@ export default function CVSection() {
 	];
 
 	return (
-		<section className="flex flex-col gap-5 items-end">
+		<section className="flex flex-col gap-10 px-5">
 			<div className="w-full">
-				<TabGroup tabs={tabs} />
+				<TabGroup tabs={tabs}/>
 			</div>
-			<Button href="/cv" size="md" content="iconRight">
-				{t("cv_button")}
-				<Icon icon={ArrowRight} />
-			</Button>
 		</section>
 	);
 }

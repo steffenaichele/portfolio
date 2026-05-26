@@ -63,8 +63,8 @@
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
 	--color-text-tertiary: var(--color-neutral-400);
-	--color-text-exp: var(--color-emerald-500);
-	--color-text-edu: var(--color-sky-500);
+	--color-text-exp: var(--color-emerald-400);
+	--color-text-edu: var(--color-sky-400);
 
 	--color-logo-fill: var(--color-white);
 	--color-logo-stroke: var(--color-black);

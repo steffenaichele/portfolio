@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import clsx from "clsx";
 import Tab from "./Tab";
 
 interface TabItem {
@@ -10,14 +11,15 @@ interface TabItem {
 
 interface TabGroupProps {
 	tabs: TabItem[];
+	className?: string;
 }
 
-export default function TabGroup({ tabs }: TabGroupProps) {
+export default function TabGroup({ tabs, className }: TabGroupProps) {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<div className="flex flex-col gap-4">
-			<div role="tablist" className="flex flex-row -gap-2">
+		<div className={clsx("flex flex-col gap-10", className)}>
+			<div role="tablist" className="flex flex-row -gap-2 px-1">
 				{tabs.map((tab, i) => (
 					<Tab
 						key={tab.label}

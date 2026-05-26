@@ -246,20 +246,7 @@
             "endMonth": "Sep",
             "endYear": 2021,
             "duration": "2 Monate"
-          }
-        ],
-        "technologies": ["Figma", "Cinema 4D", "Visual Design"],
-        "totalDuration": "2 Monate",
-        "totalStartMonth": "Jul",
-        "totalStartYear": 2021,
-        "totalEndMonth": "Sep",
-        "totalEndYear": 2021
-      },
-      {
-        "organization": "amplify design GmbH",
-        "organizationShort": "amplify design",
-        "location": "Stuttgart",
-        "roles": [
+          },
           {
             "title": "Digital Designer",
             "startMonth": "Jan",
@@ -285,10 +272,10 @@
         ],
         "descriptionShort": "Redesign einer B2B-Software (User Flows, Wireframes, Visual Design). Mitarbeit am Aufbau eines Design Systems mit interaktivem Style Guide und UI Library. 3D-Modellierung in Cinema 4D und Mentoring von Praktikant:innen.",
         "technologies": ["Figma", "Cinema 4D", "Design Systems", "Visual Design"],
-        "totalDuration": "2 Jahre 5 Monate",
+        "totalDuration": "2 Jahre 11 Monate",
         "totalStartMonth": "Okt",
         "totalStartYear": 2018,
-        "totalEndMonth": "Mar",
+        "totalEndMonth": "Sep",
         "totalEndYear": 2021
       },
       {

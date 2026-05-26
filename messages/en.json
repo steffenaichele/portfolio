@@ -246,20 +246,7 @@
             "endMonth": "Sep",
             "endYear": 2021,
             "duration": "2 months"
-          }
-        ],
-        "technologies": ["Figma", "Cinema 4D", "Visual Design"],
-        "totalDuration": "2 months",
-        "totalStartMonth": "Jul",
-        "totalStartYear": 2021,
-        "totalEndMonth": "Sep",
-        "totalEndYear": 2021
-      },
-      {
-        "organization": "amplify design GmbH",
-        "organizationShort": "amplify design",
-        "location": "Stuttgart",
-        "roles": [
+          },
           {
             "title": "Digital Designer",
             "startMonth": "Jan",
@@ -285,10 +272,10 @@
         ],
         "descriptionShort": "Redesign of a B2B software (user flows, wireframes, visual design). Contributed to a design system with interactive style guide and UI library. 3D modelling in Cinema 4D and mentoring of interns.",
         "technologies": ["Figma", "Cinema 4D", "Design Systems", "Visual Design"],
-        "totalDuration": "2 years 5 months",
+        "totalDuration": "2 years 11 months",
         "totalStartMonth": "Oct",
         "totalStartYear": 2018,
-        "totalEndMonth": "Mar",
+        "totalEndMonth": "Sep",
         "totalEndYear": 2021
       },
       {
@@ -322,7 +309,7 @@
     "education": [
       {
         "organization": "WBS Coding School",
-        "organizationShort": "WBS Coding School",
+        "organizationShort": "Full-Stack Web & App Development",
         "location": "Berlin",
         "roles": [
           {
@@ -351,7 +338,7 @@
       },
       {
         "organization": "Hochschule für Gestaltung",
-        "organizationShort": "HfG Schwäbisch Gmünd",
+        "organizationShort": "Interaction Design (BA)",
         "location": "Schwäbisch Gmünd",
         "roles": [
           {
