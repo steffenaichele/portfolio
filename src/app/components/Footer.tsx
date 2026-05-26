@@ -48,9 +48,6 @@ const Footer = () => {
 								</LinkButton>
 							</li>
 							<li>
-								<LinkButton href="/cv">CV</LinkButton>
-							</li>
-							<li>
 								<LinkButton href="/imprint">
 									{t('imprint')}
 								</LinkButton>
