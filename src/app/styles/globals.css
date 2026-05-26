@@ -55,6 +55,8 @@
 	/* Colors */
 	--color-bg: var(--color-white);
 
+	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
+
 	--color-surface-bg: var(--color-white);
 	--color-surface-bg-hover: var(--color-white);
 	--color-surface-bg-active: var(--color-neutral-100);

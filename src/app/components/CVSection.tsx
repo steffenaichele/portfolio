@@ -46,6 +46,7 @@ export default function CVSection() {
 
 	return (
 		<section className="flex flex-col gap-10 px-5">
+			<span className="w-full h-[1px] bg-[var(--color-divider)]"></span>
 			<div className="w-full">
 				<TabGroup tabs={tabs}/>
 			</div>
