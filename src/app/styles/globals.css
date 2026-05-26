@@ -53,18 +53,21 @@
 	--size-font-md: 1rem; /* 16px - matches Tailwind text-base */
 
 	/* Colors */
-	--color-bg: var(--color-neutral-100);
+	--color-bg: var(--color-white);
 
-	--color-surface-bg: var(--color-neutral-50);
+	--color-surface-bg: var(--color-white);
 	--color-surface-bg-hover: var(--color-white);
+	--color-surface-bg-active: var(--color-neutral-100);
 	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
 	--color-text-tertiary: var(--color-neutral-400);
+	--color-text-exp: var(--color-emerald-500);
+	--color-text-edu: var(--color-sky-500);
 
-	--color-logo-fill: var(--color-neutral-200);
-	--color-logo-stroke: var(--color-neutral-950);
+	--color-logo-fill: var(--color-white);
+	--color-logo-stroke: var(--color-black);
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
