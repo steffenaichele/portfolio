@@ -20,7 +20,7 @@ const Header = () => {
 				position="top"
 				intensity={navOpen ? 100 : 50}
 			/>
-			<div className="relative flex flex-row justify-between items-start px-5 min-h-11 z-10">
+			<div className="relative flex flex-row justify-between items-start px-8 min-h-11 z-10">
 				<Link
 					href="/"
 					aria-label={t('header.logo_label')}

@@ -136,7 +136,7 @@ export default async function RootLayout({
 					<Header />
 					<main
 						id="main-content"
-						className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 px-4 pb-24 ">
+						className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 pb-24 ">
 						{children}
 					</main>
 					<Footer />
