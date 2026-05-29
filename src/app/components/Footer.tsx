@@ -7,7 +7,8 @@ import LinkButton from "./LinkButton";
 import LanguageToggle from "./LanguageToggle";
 
 const Footer = () => {
-	const t = useTranslations('layout.footer');
+	const t = useTranslations("layout.footer");
+	const tNav = useTranslations("layout.nav");
 	return (
 		<footer className="w-full px-2 pb-2 ">
 			<div className="flex flex-col gap-12 p-8 bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle">
@@ -40,11 +41,11 @@ const Footer = () => {
 						</p>
 						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 							<li>
-								<LinkButton href="/">Home</LinkButton>
+								<LinkButton href="/">{tNav("home")}</LinkButton>
 							</li>
 							<li>
 								<LinkButton href="/impressions">
-									Impressions
+									{tNav("impressions")}
 								</LinkButton>
 							</li>
 							<li>

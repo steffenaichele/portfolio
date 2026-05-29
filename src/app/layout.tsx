@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sileo";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -120,6 +120,7 @@ export default async function RootLayout({
 }>) {
 	const locale = await getLocale();
 	const messages = await getMessages();
+	const t = await getTranslations("layout");
 
 	return (
 		<html
@@ -131,7 +132,7 @@ export default async function RootLayout({
 					<a
 						href="#main-content"
 						className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-button) ">
-						Skip to main content
+						{t("skip_to_main")}
 					</a>
 					<Header />
 					<main
