@@ -1,13 +1,18 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { CVEntry } from "../data/cv";
 
-const ITEM_DURATION = 150;
-const STAGGER = 50;
-const BUFFER = 20;
-
-type AnimPhase = "idle" | "exiting" | "entering";
+// --- Animation parameters ---
+// Distance (px) elements travel while fading in/out.
+const SHIFT_DISTANCE = 4;
+// Duration (s) of the opacity/transform fade per element.
+const FADE_DURATION = 0.3;
+// Delay (s) between consecutive staggered children.
+const STAGGER_DELAY = 0.1;
+// Duration (s) of the container height (open/close) animation.
+const HEIGHT_DURATION = 0.2;
 
 const variantStyles = {
 	experience: "text-[var(--color-text-exp)]",
@@ -21,24 +26,9 @@ interface CVItemProps {
 
 type DetailSection = { key: string; node: React.ReactNode };
 
-function childAnimStyle(
-	containerVisible: boolean,
-	phase: AnimPhase,
-	index: number,
-): React.CSSProperties {
-	if (phase === "idle") return {};
-	const delay = `${index * STAGGER}ms`;
-	if (phase === "exiting" && containerVisible)
-		return { animation: `cv-fade-out-up ${ITEM_DURATION}ms ease-out ${delay} forwards` };
-	if (phase === "entering" && containerVisible)
-		return { animation: `cv-fade-in-up ${ITEM_DURATION}ms ease-out ${delay} both` };
-	return {};
-}
-
 export function CVItem({ entry, variant }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [phase, setPhase] = useState<AnimPhase>("idle");
-	const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+	const reduceMotion = useReducedMotion();
 
 	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, "-").toLowerCase()}`;
 	const otherRoles = entry.roles.slice(1);
@@ -49,35 +39,39 @@ export function CVItem({ entry, variant }: CVItemProps) {
 
 	const color = variantStyles[variant];
 
-	const detailSectionCount = [
-		otherRoles.length > 0,
-		!!entry.description?.length,
-		!!entry.technologies?.length,
-	].filter(Boolean).length;
-
 	const handleClick = () => {
-		if (!hasExpandable || phase !== "idle") return;
-
-		const exitCount = isOpen ? detailSectionCount : 2;
-		const enterCount = isOpen ? 2 : detailSectionCount;
-		const exitDuration = ITEM_DURATION + (exitCount - 1) * STAGGER + BUFFER;
-		const enterDuration = ITEM_DURATION + (Math.max(enterCount, 1) - 1) * STAGGER + BUFFER;
-
-		clearTimeout(timerRef.current);
-		setPhase("exiting");
-
-		timerRef.current = setTimeout(() => {
-			setIsOpen((prev) => !prev);
-			setPhase("entering");
-
-			timerRef.current = setTimeout(() => {
-				setPhase("idle");
-			}, enterDuration);
-		}, exitDuration);
+		if (!hasExpandable) return;
+		setIsOpen((prev) => !prev);
 	};
 
-	const summaryVisible = !isOpen;
-	const detailsVisible = isOpen;
+	const offset = reduceMotion ? 0 : SHIFT_DISTANCE;
+	const stagger = reduceMotion ? 0 : STAGGER_DELAY;
+	const heightDuration = reduceMotion ? 0 : HEIGHT_DURATION;
+
+	// Summary (closed view): elements fade in and out upward.
+	const summaryChild = {
+		hidden: { opacity: 0, y: offset },
+		visible: { opacity: 1, y: 0, transition: { duration: FADE_DURATION } },
+		exit: { opacity: 0, y: -offset, transition: { duration: FADE_DURATION } },
+	};
+	// Details (open view): elements fade in and out downward.
+	const detailsChild = {
+		hidden: { opacity: 0, y: -offset },
+		visible: { opacity: 1, y: 0, transition: { duration: FADE_DURATION } },
+		exit: { opacity: 0, y: offset, transition: { duration: FADE_DURATION } },
+	};
+	// Summary children stagger immediately.
+	const summaryContainer = {
+		hidden: {},
+		visible: { transition: { staggerChildren: stagger } },
+		exit: { transition: { staggerChildren: stagger } },
+	};
+	// Details children wait for the height animation, then stagger in.
+	const detailsContainer = {
+		hidden: {},
+		visible: { transition: { delayChildren: heightDuration, staggerChildren: stagger } },
+		exit: { transition: { staggerChildren: stagger } },
+	};
 
 	const detailSections: DetailSection[] = [];
 
@@ -150,38 +144,55 @@ export function CVItem({ entry, variant }: CVItemProps) {
 				aria-controls={detailsId}
 				disabled={!hasExpandable}
 				className="w-full p-0 text-left px-3">
-				{/* Closed: summary row */}
-				<div className={`overflow-hidden transition-[height] duration-200 ${isOpen ? "h-0" : "h-8"}`}>
-					<div className="h-8 flex items-center">
-						<div
-							style={childAnimStyle(summaryVisible, phase, 0)}
-							className="flex-1 min-w-0 flex text-md text-[var(--color-text-primary)]">
-							<p className="font-medium shrink-0">{entry.organizationShort}</p>
-							<p className="shrink-0 mr-1">{", "}</p>
-							<p className="truncate min-w-0 text-[var(--color-text-secondary)]">{entry.location}</p>
-						</div>
-						<div
-							style={childAnimStyle(summaryVisible, phase, 1)}
-							className={`shrink-0 flex items-center gap-0.5 tabular-nums ${color}`}>
-							<p>{entry.totalStartYear}</p>
-							<p>–</p>
-							<p>{entry.totalEndYear}</p>
-						</div>
-					</div>
-				</div>
-
-				{/* Open: expanded details */}
-				<div
+				<motion.div
 					id={detailsId}
-					className={`overflow-hidden grid transition-[grid-template-rows] duration-200 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} ${!isOpen ? "pointer-events-none" : ""}`}>
-					<div className="overflow-hidden min-h-0 flex flex-col gap-6">
-						{detailSections.map(({ key, node }, i) => (
-							<div key={key} style={childAnimStyle(detailsVisible, phase, i)}>
-								{node}
-							</div>
-						))}
-					</div>
-				</div>
+					layout
+					className="overflow-hidden"
+					transition={{ duration: heightDuration, ease: "easeOut" }}>
+					<AnimatePresence mode="wait" initial={false}>
+						{isOpen ? (
+							<motion.div
+								key="details"
+								variants={detailsContainer}
+								initial="hidden"
+								animate="visible"
+								exit="exit"
+								className="flex flex-col gap-6">
+								{detailSections.map(({ key, node }) => (
+									<motion.div key={key} variants={detailsChild}>
+										{node}
+									</motion.div>
+								))}
+							</motion.div>
+						) : (
+							<motion.div
+								key="summary"
+								variants={summaryContainer}
+								initial="hidden"
+								animate="visible"
+								exit="exit"
+								className="h-8 flex items-center text-md">
+								<motion.p
+									variants={summaryChild}
+									className="font-medium shrink-0 mr-1 text-[var(--color-text-primary)]">
+									{entry.organizationShort}{","}
+								</motion.p>
+								<motion.p
+									variants={summaryChild}
+									className="flex-1 min-w-0 truncate text-[var(--color-text-secondary)]">
+									{entry.location}
+								</motion.p>
+								<motion.div
+									variants={summaryChild}
+									className={`shrink-0 flex items-center gap-0.5 tabular-nums ${color}`}>
+									<p>{entry.totalStartYear}</p>
+									<p>–</p>
+									<p>{entry.totalEndYear}</p>
+								</motion.div>
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</motion.div>
 			</button>
 		</li>
 	);

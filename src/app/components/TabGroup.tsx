@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "motion/react";
+
 import { useState } from "react";
 import clsx from "clsx";
 import Tab from "./Tab";
@@ -29,7 +31,7 @@ export default function TabGroup({ tabs, className }: TabGroupProps) {
 					</Tab>
 				))}
 			</div>
-			<div role="tabpanel">{tabs[activeIndex].content}</div>
+			<div className="bg-red-500" role="tabpanel">{tabs[activeIndex].content} </div>
 		</div>
 	);
 }

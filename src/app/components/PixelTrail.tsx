@@ -79,7 +79,7 @@ function drawBresenhamLine(
 }
 
 export default function PixelTrail({
-	scale = 16,
+	scale = 8,
 	lifetimeMs = 2000,
 	brush = 1,
 	color = "var(--color-primary)",
