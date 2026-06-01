@@ -54,6 +54,7 @@
 
 	/* Colors */
 	--color-bg: var(--color-white);
+	--color-primary: var(--color-neutral-100);
 
 	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
 

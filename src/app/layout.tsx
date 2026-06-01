@@ -9,7 +9,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import BGGrid from "./components/BGGrid";
+import PixelTrail from "./components/PixelTrail";
 
 const ppNeueMontreal = localFont({
 	src: [
@@ -128,6 +128,7 @@ export default async function RootLayout({
 			data-scroll-behavior="smooth"
 			className={`overscroll-x-none overscroll-y-contain ${ppNeueMontreal.variable}`}>
 			<body className=" bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
+				<PixelTrail />
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<a
 						href="#main-content"
@@ -137,7 +138,7 @@ export default async function RootLayout({
 					<Header />
 					<main
 						id="main-content"
-						className="relative overflow-y-visible min-h-[95dvh] flex flex-col gap-20 pb-24 ">
+						className="relative z-10 overflow-y-visible min-h-[95dvh] flex flex-col gap-20 pb-24 ">
 						{children}
 					</main>
 					<Footer />
