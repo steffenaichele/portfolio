@@ -151,9 +151,6 @@ export default function PixelTrail({
 		const plotBrush = (px: number, py: number) => {
 			if (px < 0 || py < 0 || px >= canvas.width || py >= canvas.height) return;
 
-			ctx.globalCompositeOperation = "source-over";
-			ctx.fillStyle = resolveColor(colorRef.current);
-
 			const radius = Math.max(0, brush - 1);
 			for (let dy = -radius; dy <= radius; dy++) {
 				for (let dx = -radius; dx <= radius; dx++) {
@@ -173,6 +170,10 @@ export default function PixelTrail({
 			const moved = x >= 0 && (x !== prevX || y !== prevY);
 
 			if (moved) {
+				// Farbe einmal pro Frame auflösen (getComputedStyle ist teuer),
+				// statt bei jedem plotBrush-Aufruf entlang der Bresenham-Linie.
+				ctx.globalCompositeOperation = "source-over";
+				ctx.fillStyle = resolveColor(colorRef.current);
 				if (prevX >= 0) {
 					drawBresenhamLine(prevX, prevY, x, y, plotBrush);
 				} else {

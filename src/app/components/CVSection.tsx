@@ -17,7 +17,7 @@ export default function CVSection() {
 		{
 			label: t("experience_heading"),
 			content: (
-				<ul className="flex flex-col gap-1 bg-green-200">
+				<ul className="flex flex-col gap-1">
 					{experience.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
@@ -31,7 +31,7 @@ export default function CVSection() {
 		{
 			label: t("education_heading"),
 			content: (
-				<ul className="flex flex-col gap-1 bg-blue-200">
+				<ul className="flex flex-col gap-1">
 					{education.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}

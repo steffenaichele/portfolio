@@ -28,7 +28,10 @@ const Footer = () => {
 		setHeight();
 		const observer = new ResizeObserver(setHeight);
 		observer.observe(el);
-		return () => observer.disconnect();
+		return () => {
+			observer.disconnect();
+			document.documentElement.style.removeProperty("--footer-height");
+		};
 	}, []);
 
 	const segment = {

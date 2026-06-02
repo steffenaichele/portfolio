@@ -111,7 +111,11 @@ export function CVItem({ entry, variant }: CVItemProps) {
 
 	return (
 		<li
-			className={`cv-item rounded-[var(--radius-surface)] corner-squircle bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] active:bg-[var(--color-surface-bg-active)] transition-colors duration-150 cursor-pointer disabled:cursor-default hover:shadow-[var(--shadow-soft)]${isOpen ? " is-open" : ""}`}>
+			className={`cv-item rounded-[var(--radius-surface)] corner-squircle bg-[var(--color-surface-bg)] transition-colors duration-150 ${
+				hasExpandable
+					? "cursor-pointer hover:bg-[var(--color-surface-bg-hover)] active:bg-[var(--color-surface-bg-active)] hover:shadow-[var(--shadow-soft)]"
+					: "cursor-default"
+			}${isOpen ? " is-open" : ""}`}>
 			{/* `block` ist nötig: ein natives <button> ist sonst inline-block und
 			    erzeugt im <li> eine Baseline-Lücke (li wäre ~38px statt 32px). */}
 			<button
@@ -140,7 +144,6 @@ export function CVItem({ entry, variant }: CVItemProps) {
 					    Klassen der Texte/Layouts hier anpassen. Wichtig: bleibt
 					    `absolute` (Overlay) — sonst beeinflusst es die Flow-Höhe. */}
 					<motion.div
-						id="summaryContent"
 						variants={container}
 						initial={false}
 						animate={isOpen ? "open" : "closed"}
@@ -189,7 +192,6 @@ export function CVItem({ entry, variant }: CVItemProps) {
 					       bestimmt die `auto`-Höhe beim Öffnen.
 					    6. `inert`/`aria-hidden` an `!isOpen` gekoppelt lassen (A11y). */}
 					<motion.div
-						id="detailsContent"
 						variants={container}
 						initial={false}
 						animate={isOpen ? "open" : "closed"}

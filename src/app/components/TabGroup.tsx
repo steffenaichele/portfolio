@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
-
 import { useState } from "react";
 import clsx from "clsx";
 import Tab from "./Tab";
@@ -21,7 +19,7 @@ export default function TabGroup({ tabs, className }: TabGroupProps) {
 
 	return (
 		<div className={clsx("flex flex-col gap-10", className)}>
-			<div role="tablist" className="flex flex-row -gap-2 px-1">
+			<div role="tablist" className="flex flex-row gap-2 px-1">
 				{tabs.map((tab, i) => (
 					<Tab
 						key={tab.label}
@@ -31,7 +29,7 @@ export default function TabGroup({ tabs, className }: TabGroupProps) {
 					</Tab>
 				))}
 			</div>
-			<div className="bg-red-500" role="tabpanel">{tabs[activeIndex].content} </div>
+			<div role="tabpanel">{tabs[activeIndex].content}</div>
 		</div>
 	);
 }

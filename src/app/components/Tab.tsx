@@ -9,6 +9,7 @@ interface TabProps {
 const Tab = ({ children, isActive = false, onClick }: TabProps) => {
 	return (
 		<button
+			type="button"
 			role="tab"
 			aria-selected={isActive}
 			onClick={onClick}
