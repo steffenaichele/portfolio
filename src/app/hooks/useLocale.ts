@@ -3,8 +3,7 @@
 import { useLocale as useNextIntlLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
-type Locale = "en" | "de";
+import { type Locale, isLocale } from "@/i18n/config";
 
 const COOKIE_NAME = "NEXT_LOCALE";
 const MAX_AGE = 60 * 60 * 24 * 365;
@@ -12,7 +11,7 @@ const MAX_AGE = 60 * 60 * 24 * 365;
 function getCookieLocale(): Locale | null {
 	const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`));
 	const value = match?.[1];
-	return value === "en" || value === "de" ? value : null;
+	return isLocale(value) ? value : null;
 }
 
 function setBrowserLocale(locale: Locale) {
