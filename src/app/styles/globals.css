@@ -43,7 +43,8 @@
 
 	--radius-button-md: var(--radius-squircle-xl);
 	--radius-button-sm: var(--radius-squircle-lg);
-	--radius-surface: var(--radius-squircle-lg);
+	--radius-surface: var(--radius-squircle-2xl);
+	--radius-tab: var(--radius-2xl);
 
 	/* Easing Curves */
 	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -58,10 +59,15 @@
 
 	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
 
-	--color-surface-bg: var(--color-white);
-	--color-surface-bg-hover: var(--color-white);
-	--color-surface-bg-active: var(--color-neutral-100);
+	--color-surface-bg: var(--color-neutral-100);
+	--color-surface-bg-hover: var(--color-neutral-100);
+	--color-surface-bg-active: var(--color-neutral-200);
 	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
+
+	--color-tab-bg: var(--color-transparent);
+	--color-tab-bg-hover: var(--color-neutral-100);
+	--color-tab-bg-active: var(--color-neutral-200);
+
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
@@ -217,6 +223,86 @@
 	@media (hover: hover) and (pointer: fine) {
 		.project-card:hover {
 			transform: translateY(-4px);
+		}
+	}
+
+	/* Tabs: sliding hover pill via CSS anchor positioning */
+	.tab-list {
+		position: relative;
+	}
+
+	.tab:hover {
+		anchor-name: --hovered-tab;
+	}
+
+	.tab-pill {
+		position: absolute;
+		position-anchor: --hovered-tab;
+		inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+		opacity: 0;
+		pointer-events: none;
+		background: var(--color-tab-bg-hover);
+		transition: inset 300ms var(--ease-out), opacity 150ms var(--ease-out);
+	}
+
+	.tab-list:has(.tab:hover) .tab-pill {
+		opacity: 1;
+	}
+
+	/* Fallback when anchor positioning is unsupported (Firefox/Safari) */
+	@supports not (anchor-name: --x) {
+		.tab-pill {
+			display: none;
+		}
+
+		.tab:hover {
+			background: var(--color-tab-bg-hover);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tab-pill {
+			transition: opacity 150ms var(--ease-out);
+		}
+	}
+
+	/* CV list: sliding hover pill via CSS anchor positioning */
+	.cv-list {
+		position: relative;
+	}
+
+	.cv-item-interactive:hover {
+		anchor-name: --hovered-cv;
+	}
+
+	.cv-pill {
+		position: absolute;
+		position-anchor: --hovered-cv;
+		inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
+		opacity: 0;
+		pointer-events: none;
+		background: var(--color-surface-bg-hover);
+		transition: inset 300ms var(--ease-out), opacity 150ms var(--ease-out);
+	}
+
+	.cv-list:has(.cv-item-interactive:hover) .cv-pill {
+		opacity: 1;
+	}
+
+	/* Fallback when anchor positioning is unsupported (Firefox/Safari) */
+	@supports not (anchor-name: --x) {
+		.cv-pill {
+			display: none;
+		}
+
+		.cv-item-interactive:hover {
+			background: var(--color-surface-bg-hover);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cv-pill {
+			transition: opacity 150ms var(--ease-out);
 		}
 	}
 

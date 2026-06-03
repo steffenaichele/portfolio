@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { CVEntry } from "../data/cv";
 
@@ -13,11 +13,16 @@ const FADE_DURATION = 0.2;
 const STAGGER_DELAY = 0.075;
 // Verzögerung (s) zwischen Detail-Elementen beim Ausfaden (Schließen, minimal).
 const CLOSE_STAGGER = 0.05;
+// Geschwindigkeits-Multiplikator für den Summary-Fade-in beim Schließen.
+// 0.5 = halbe Geschwindigkeit → doppelte Dauer.
+const SUMMARY_CLOSE_FADE_SPEED = 0.5;
 // Dauer (s) pro animiertem Element für die Höhen-Animation des Containers
 // (Öffnen/Schließen). Gesamtdauer = dieser Wert × Anzahl der Detail-Elemente.
 const HEIGHT_PER_ELEMENT = 0.05;
 // Höhe (px) des geschlossenen Items / der Summary-Zeile (single source).
-const SUMMARY_HEIGHT = 32;
+const SUMMARY_HEIGHT = 36;
+// Abstand (px) unterhalb des Buttons, nur im geöffneten Zustand.
+const BOTTOM_SPACING = 20;
 // Anzahl der Summary-Elemente (Org, Location, Datum) — steuert das Öffnen-Timing.
 const SUMMARY_COUNT = 3;
 
@@ -33,6 +38,7 @@ interface CVItemProps {
 
 export function CVItem({ entry, variant }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [showSurfaceBg, setShowSurfaceBg] = useState(false);
 	const reduceMotion = useReducedMotion();
 
 	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, "-").toLowerCase()}`;
@@ -67,6 +73,27 @@ export function CVItem({ entry, variant }: CVItemProps) {
 	const detailsExitTime = Math.max(animatedCount - 1, 0) * closeStagger + FADE_DURATION / 2;
 	// Schließen: Phase 2 (Höhe schrumpfen) dauert genau so lange wie Phase 1.
 	const closeHeightDuration = reduceMotion ? 0 : detailsExitTime;
+	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
+	const surfaceBgCloseMs = reduceMotion
+		? 0
+		: ((detailsExitTime +
+				(SUMMARY_COUNT - 1) * stagger +
+				FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED) /
+				2) *
+			1000;
+
+	useEffect(() => {
+		if (isOpen) {
+			setShowSurfaceBg(true);
+			return;
+		}
+		if (surfaceBgCloseMs === 0) {
+			setShowSurfaceBg(false);
+			return;
+		}
+		const timeout = setTimeout(() => setShowSurfaceBg(false), surfaceBgCloseMs);
+		return () => clearTimeout(timeout);
+	}, [isOpen, surfaceBgCloseMs]);
 
 	// Beide Content-Blöcke bleiben dauerhaft gemountet (kein Mount/Unmount =
 	// kein Layout-Sprung). Zustände `open`/`closed` werden über `animate`
@@ -98,7 +125,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 		closed: (i: number) => ({
 			opacity: [0, 1],
 			y: [offset, 0],
-			transition: { duration: FADE_DURATION, delay: detailsExitTime + i * stagger },
+			transition: { duration: FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED, delay: detailsExitTime + i * stagger },
 		}),
 	};
 	// Leere Eltern-Varianten: machen den Container zum Varianten-Knoten, damit
@@ -110,14 +137,13 @@ export function CVItem({ entry, variant }: CVItemProps) {
 	const techBase = otherRoles.length + (entry.description?.length ?? 0);
 
 	return (
+		<>
 		<li
-			className={`cv-item rounded-[var(--radius-surface)] corner-squircle bg-[var(--color-surface-bg)] transition-colors duration-150 ${
+			className={`cv-item relative rounded-[var(--radius-tab)] transition-colors duration-150 ${
 				hasExpandable
-					? "cursor-pointer hover:bg-[var(--color-surface-bg-hover)] active:bg-[var(--color-surface-bg-active)] hover:shadow-[var(--shadow-soft)]"
+					? "cv-item-interactive cursor-pointer active:bg-[var(--color-surface-bg-active)]"
 					: "cursor-default"
-			}${isOpen ? " is-open" : ""}`}>
-			{/* `block` ist nötig: ein natives <button> ist sonst inline-block und
-			    erzeugt im <li> eine Baseline-Lücke (li wäre ~38px statt 32px). */}
+			}${showSurfaceBg ? " is-open bg-[var(--color-surface-bg)]" : ""}`}>
 			<button
 				onClick={handleClick}
 				aria-expanded={isOpen}
@@ -155,18 +181,19 @@ export function CVItem({ entry, variant }: CVItemProps) {
 							custom={0}
 							variants={summaryChild}
 							className="font-medium shrink-0 mr-1 text-[var(--color-text-primary)]">
-							{entry.organizationShort}{","}
+							{entry.organizationShort}
+							{","}
 						</motion.p>
 						<motion.p
 							custom={1}
 							variants={summaryChild}
-							className="flex-1 min-w-0 truncate text-[var(--color-text-secondary)]">
+							className="flex-1 min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
 							{entry.location}
 						</motion.p>
 						<motion.div
 							custom={2}
 							variants={summaryChild}
-							className={`shrink-0 flex items-center gap-0.5 tabular-nums ${color}`}>
+							className={`shrink-0 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
 							<p>{entry.totalStartYear}</p>
 							<p>–</p>
 							<p>{entry.totalEndYear}</p>
@@ -199,7 +226,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 						inert={!isOpen || undefined}
 						className="flex flex-col gap-6">
 						{otherRoles.length > 0 && (
-							<motion.div className="flex flex-col gap-6">
+							<motion.div className="flex flex-col gap-6 ">
 								{otherRoles.map((role, idx) => (
 									<motion.div
 										key={`${role.title}-${role.startYear}-${role.startMonth}`}
@@ -209,7 +236,8 @@ export function CVItem({ entry, variant }: CVItemProps) {
 										<h2 className="text-2xl text-[var(--color-text-primary)]">
 											{role.title}
 										</h2>
-										<div className={`w-min h-6 px-2 flex gap-2 items-center rounded-[var(--radius-squircle-sm)] corner-squircle text-sm font-medium text-nowrap tabular-nums ${color}`}>
+										<div
+											className={`w-min h-6 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-sm font-medium text-nowrap tabular-nums ${color}`}>
 											<span>
 												{role.startMonth}{" "}
 												{role.startYear} –{" "}
@@ -242,7 +270,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 										key={tech}
 										custom={techBase + idx}
 										variants={detailsChild}
-										className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-squircle-sm)] corner-squircle">
+										className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-sm)]">
 										{tech}
 									</motion.span>
 								))}
@@ -252,5 +280,16 @@ export function CVItem({ entry, variant }: CVItemProps) {
 				</motion.div>
 			</button>
 		</li>
+		<motion.div
+				aria-hidden
+				initial={false}
+				animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
+				transition={{
+					duration: isOpen ? heightDuration : closeHeightDuration,
+					ease: "easeOut",
+				}}
+				className="overflow-hidden"
+			/>
+		</>
 	);
 }
