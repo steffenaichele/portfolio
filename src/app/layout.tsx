@@ -138,7 +138,7 @@ export default async function RootLayout({
 					<Header />
 					<main
 						id="main-content"
-						className="sticky bottom-0 z-10 overflow-y-visible min-h-[95dvh] flex flex-col gap-20 pb-24 bg-[var(--color-bg)]">
+						className="overflow-y-visible min-h-[95dvh] flex flex-col gap-20 pb-24 bg-[var(--color-bg)]">
 						{children}
 					</main>
 					<Footer />

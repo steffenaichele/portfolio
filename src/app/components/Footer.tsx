@@ -1,87 +1,39 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import Icon from "./Icon";
 import { useTranslations } from "next-intl";
 import LinkButton from "./LinkButton";
 import LanguageToggle from "./LanguageToggle";
+import NotificationStackFooter from "./NotificationStackFooter";
+
+const cardClass =
+	"bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle shadow-xl";
 
 const Footer = () => {
 	const t = useTranslations("layout.footer");
 	const tNav = useTranslations("layout.nav");
-	const reduceMotion = useReducedMotion();
-	const footerRef = useRef<HTMLElement>(null);
-
-	// Pull the footer up by its own height so it overlaps the bottom of the
-	// pinned <main> (see layout.tsx) instead of pushing it out of its sticky
-	// position. The footer then scrolls up over the ProjectSection.
-	useEffect(() => {
-		const el = footerRef.current;
-		if (!el) return;
-		const setHeight = () =>
-			document.documentElement.style.setProperty(
-				"--footer-height",
-				`${el.offsetHeight}px`,
-			);
-		setHeight();
-		const observer = new ResizeObserver(setHeight);
-		observer.observe(el);
-		return () => {
-			observer.disconnect();
-			document.documentElement.style.removeProperty("--footer-height");
-		};
-	}, []);
-
-	const segment = {
-		initial: { opacity: 0, y: reduceMotion ? 0 : 24 },
-		whileInView: { opacity: 1, y: 0 },
-		viewport: { once: true, amount: 0.4 } as const,
-	};
 
 	return (
-		<footer
-			ref={footerRef}
-			className="relative z-20 w-full px-2 pb-2 -mt-[var(--footer-height,0px)]">
-			<div className="flex flex-col gap-12 p-8 bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle">
-				<motion.div
-					initial={segment.initial}
-					whileInView={segment.whileInView}
-					viewport={segment.viewport}
-					transition={{ duration: 0.4, ease: "easeOut", delay: 0 }}
-					className="flex flex-col">
-					<h2 className="text-2xl text-(--color-footer-text-primary)">
+		<footer aria-label="Footer">
+			<NotificationStackFooter>
+				{/* Card 1 (oben im Stack): Identität */}
+				<div className={`flex flex-col px-6 py-4 ${cardClass}`}>
+					<h2 className="text-xl font-medium text-(--color-footer-text-primary)">
 						Steffen Aichele
 					</h2>
-					<p className="text-sm text-(--color-footer-text-secondary)">
-						{t('subtitle')}
+					<p className="text-md text-(--color-footer-text-secondary)">
+						{t("subtitle")}
 					</p>
-				</motion.div>
+				</div>
 
-				{/* <div className="flex gap-4 justify-between items-center">
-					<h3 className="text-lg text-(--color-footer-text-primary)">
-						Get in Touch
-					</h3>
-					<Button
-						content="iconRight"
-						variant="primary"
-						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
-						Holler at me
-						<Icon icon={Mail} />
-					</Button>
-				</div> */}
-
-				<motion.nav
+				{/* Card 2: Navigation */}
+				<nav
 					aria-label="Footer-Navigation"
-					initial={segment.initial}
-					whileInView={segment.whileInView}
-					viewport={segment.viewport}
-					transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-					className="flex gap-4">
+					className={`flex gap-4 px-6 py-4 ${cardClass}`}>
 					<div className="flex flex-col flex-1 gap-2">
-						<p className="text-sm uppercase text-(--color-footer-text-tertiary)">
-							{t('pages_heading')}
+						<p className="text-sm font-medium uppercase text-(--color-footer-text-tertiary)">
+							{t("pages_heading")}
 						</p>
 						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 							<li>
@@ -94,14 +46,14 @@ const Footer = () => {
 							</li>
 							<li>
 								<LinkButton href="/imprint">
-									{t('imprint')}
+									{t("imprint")}
 								</LinkButton>
 							</li>
 						</ul>
 					</div>
 					<div className="flex flex-col flex-1 gap-2">
-						<p className="text-sm uppercase text-(--color-footer-text-tertiary)">
-							{t('links_heading')}
+						<p className="text-sm font-medium uppercase text-(--color-footer-text-tertiary)">
+							{t("links_heading")}
 						</p>
 						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
 							<li>
@@ -128,24 +80,21 @@ const Footer = () => {
 							</li>
 						</ul>
 					</div>
-				</motion.nav>
+				</nav>
 
-				<motion.div
-					initial={segment.initial}
-					whileInView={segment.whileInView}
-					viewport={segment.viewport}
-					transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-					className="flex flex-wrap items-center justify-between gap-4 text-[var(--color-footer-text-secondary)] text-xs">
-					<div className="flex flex-col gap-1">
-						<p>{t('copyright')}</p>
+				{/* Card 3 (unten im Stack): Copyright + Sprache */}
+				<div
+					className={`flex flex-wrap items-center justify-between px-6 py-4 ${cardClass}`}>
+					<div className="flex flex-col gap-1 text-[var(--color-footer-text-secondary)] text-xs">
+						<p>{t("copyright")}</p>
 						<p>
-							{t('built_with')}{" "}
+							{t("built_with")}{" "}
 							<span aria-hidden="true">✨</span>
 						</p>
 					</div>
 					<LanguageToggle />
-				</motion.div>
-			</div>
+				</div>
+			</NotificationStackFooter>
 		</footer>
 	);
 };
