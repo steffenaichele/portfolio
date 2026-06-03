@@ -22,11 +22,13 @@ export default function CVSection() {
 							aria-hidden
 							className="cv-pill rounded-[var(--radius-tab)]"
 						/>
-					{experience.map((entry) => (
+					{experience.map((entry, idx) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
 							variant="experience"
+							isFirst={idx === 0}
+							isLast={idx === experience.length - 1}
 						/>
 					))}
 				</ul>
@@ -40,11 +42,13 @@ export default function CVSection() {
 							aria-hidden
 							className="cv-pill rounded-[var(--radius-tab)]"
 						/>
-					{education.map((entry) => (
+					{education.map((entry, idx) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
 							entry={entry}
 							variant="education"
+							isFirst={idx === 0}
+							isLast={idx === education.length - 1}
 						/>
 					))}
 				</ul>

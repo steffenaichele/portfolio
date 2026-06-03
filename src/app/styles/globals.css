@@ -94,10 +94,8 @@
 	--color-button-cta-bg-hover: var(--color-neutral-800);
 	--color-button-cta-bg-active: var(--color-neutral-900);
 
-	--color-badge-exp-bg: var(--color-emerald-50);
-	--color-badge-exp-text: var(--color-emerald-600);
-	--color-badge-edu-bg: var(--color-sky-50);
-	--color-badge-edu-text: var(--color-sky-600);
+	--color-cvitem-exp-bg: var(--color-emerald-50);
+	--color-cvitem-edu-bg: var(--color-sky-50);
 
 	--color-cvindicator-border: color-mix(in oklab, var(--color-black) 10%, transparent);
 	--color-cvindicator-line: var(--color-neutral-200);

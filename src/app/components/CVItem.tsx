@@ -13,6 +13,8 @@ const FADE_DURATION = 0.2;
 const STAGGER_DELAY = 0.075;
 // Verzögerung (s) zwischen Detail-Elementen beim Ausfaden (Schließen, minimal).
 const CLOSE_STAGGER = 0.05;
+// Pause (s) nach dem letzten Detail-Element, bevor Höhe schrumpft und Summary erscheint.
+const CLOSE_BUFFER = 0.12;
 // Geschwindigkeits-Multiplikator für den Summary-Fade-in beim Schließen.
 // 0.5 = halbe Geschwindigkeit → doppelte Dauer.
 const SUMMARY_CLOSE_FADE_SPEED = 0.5;
@@ -22,9 +24,14 @@ const HEIGHT_PER_ELEMENT = 0.05;
 // Höhe (px) des geschlossenen Items / der Summary-Zeile (single source).
 const SUMMARY_HEIGHT = 36;
 // Abstand (px) unterhalb des Buttons, nur im geöffneten Zustand.
-const BOTTOM_SPACING = 20;
+const BOTTOM_SPACING = 6;
 // Anzahl der Summary-Elemente (Org, Location, Datum) — steuert das Öffnen-Timing.
 const SUMMARY_COUNT = 3;
+
+const variantBgStyles = {
+	experience: "bg-[var(--color-cvitem-exp-bg)]",
+	education: "bg-[var(--color-cvitem-edu-bg)]",
+};
 
 const variantStyles = {
 	experience: "text-[var(--color-text-exp)]",
@@ -34,9 +41,11 @@ const variantStyles = {
 interface CVItemProps {
 	entry: CVEntry;
 	variant: "experience" | "education";
+	isFirst?: boolean;
+	isLast?: boolean;
 }
 
-export function CVItem({ entry, variant }: CVItemProps) {
+export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [showSurfaceBg, setShowSurfaceBg] = useState(false);
 	const reduceMotion = useReducedMotion();
@@ -49,6 +58,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 		!!entry.technologies?.length;
 
 	const color = variantStyles[variant];
+	const bgColor = variantBgStyles[variant];
 
 	const handleClick = () => {
 		if (!hasExpandable) return;
@@ -65,21 +75,23 @@ export function CVItem({ entry, variant }: CVItemProps) {
 	const offset = reduceMotion ? 0 : SHIFT_DISTANCE;
 	const stagger = reduceMotion ? 0 : STAGGER_DELAY;
 	const closeStagger = reduceMotion ? 0 : CLOSE_STAGGER;
+	const closeBuffer = reduceMotion ? 0 : CLOSE_BUFFER;
 	const heightDuration = reduceMotion
 		? 0
 		: HEIGHT_PER_ELEMENT * animatedCount;
 	// Öffnen: Details warten, bis das letzte Summary-Element fertig ausgefadet ist.
 	const summaryExitTime = (SUMMARY_COUNT - 1) * stagger + FADE_DURATION;
 	// Schließen: Phase 1 (Details ausfaden) dauert so lange, bis das letzte Detail-Element
-	// fertig ist — danach startet die Summary (Phase 3).
-	const detailsExitTime =
-		Math.max(animatedCount - 1, 0) * closeStagger + FADE_DURATION / 2;
+	// fertig ist. Mit revertierten Stagger ist i=-1 (Org/Location) das letzte Element
+	// → animatedCount * closeStagger (nicht animatedCount-1).
+	const detailsExitTime = animatedCount * closeStagger + FADE_DURATION / 2;
 	// Schließen: Phase 2 (Höhe schrumpfen) dauert genau so lange wie Phase 1.
 	const closeHeightDuration = reduceMotion ? 0 : detailsExitTime;
 	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
 	const surfaceBgCloseMs = reduceMotion
 		? 0
-		: ((detailsExitTime +
+		: ((closeBuffer +
+				detailsExitTime +
 				(SUMMARY_COUNT - 1) * stagger +
 				FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED) /
 				2) *
@@ -122,7 +134,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 			y: [0, -offset],
 			transition: {
 				duration: FADE_DURATION / 2,
-				delay: i * closeStagger,
+				delay: (animatedCount - 1 - i) * closeStagger,
 			},
 		}),
 	};
@@ -139,7 +151,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 			y: [offset, 0],
 			transition: {
 				duration: FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED,
-				delay: detailsExitTime + i * stagger,
+				delay: detailsExitTime + closeBuffer + i * stagger,
 			},
 		}),
 	};
@@ -153,6 +165,18 @@ export function CVItem({ entry, variant }: CVItemProps) {
 
 	return (
 		<>
+			{!isFirst && (
+				<motion.div
+					aria-hidden
+					initial={false}
+					animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
+					transition={{
+						duration: isOpen ? heightDuration : closeHeightDuration,
+						ease: "easeOut",
+					}}
+					className="overflow-hidden"
+				/>
+			)}
 			<li
 				className={`cv-item relative rounded-[var(--radius-tab)] transition-colors duration-150 ${
 					hasExpandable
@@ -180,6 +204,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 							duration: isOpen
 								? heightDuration
 								: closeHeightDuration,
+							delay: isOpen ? 0 : closeBuffer,
 							ease: "easeOut", // ← Easing der Höhen-Animation hier ändern
 						}}
 						className="relative overflow-hidden">
@@ -241,7 +266,18 @@ export function CVItem({ entry, variant }: CVItemProps) {
 							animate={isOpen ? "open" : "closed"}
 							aria-hidden={!isOpen}
 							inert={!isOpen || undefined}
-							className="flex flex-col gap-6">
+							className="flex flex-col gap-6 py-4">
+							<motion.div
+								custom={-1}
+								variants={detailsChild}
+								className="flex flex-col">
+								<p className="text-md font-medium text-[var(--color-text-primary)]">
+									{entry.organization}
+								</p>
+								<p className="text-sm font-medium text-[var(--color-text-secondary)]">
+									{entry.location}
+								</p>
+							</motion.div>
 							{otherRoles.length > 0 && (
 								<motion.div className="flex flex-col gap-6 ">
 									{otherRoles.map((role, idx) => (
@@ -249,12 +285,12 @@ export function CVItem({ entry, variant }: CVItemProps) {
 											key={`${role.title}-${role.startYear}-${role.startMonth}`}
 											custom={idx}
 											variants={detailsChild}
-											className="flex flex-wrap items-center gap-x-2 gap-y-1">
-											<h2 className="text-2xl text-[var(--color-text-primary)]">
+											className="flex flex-col gap-0.5">
+											<h2 className="text-lg font-medium text-[var(--color-text-primary)]">
 												{role.title}
 											</h2>
 											<div
-												className={`w-min h-6 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-sm font-medium text-nowrap tabular-nums ${color}`}>
+												className={`w-min h-5 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-xs font-medium text-nowrap tabular-nums ${color} ${bgColor}`}>
 												<span>
 													{role.startMonth}{" "}
 													{role.startYear} –{" "}
@@ -275,7 +311,7 @@ export function CVItem({ entry, variant }: CVItemProps) {
 											key={point}
 											custom={descBase + idx}
 											variants={detailsChild}
-											className="text-md text-[var(--color-text-secondary)]">
+											className="text-sm font-medium text-[var(--color-text-secondary)]">
 											{point}
 										</motion.li>
 									))}
@@ -298,16 +334,18 @@ export function CVItem({ entry, variant }: CVItemProps) {
 					</motion.div>
 				</button>
 			</li>
-			<motion.div
-				aria-hidden
-				initial={false}
-				animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
-				transition={{
-					duration: isOpen ? heightDuration : closeHeightDuration,
-					ease: "easeOut",
-				}}
-				className="overflow-hidden"
-			/>
+			{!isLast && (
+				<motion.div
+					aria-hidden
+					initial={false}
+					animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
+					transition={{
+						duration: isOpen ? heightDuration : closeHeightDuration,
+						ease: "easeOut",
+					}}
+					className="overflow-hidden"
+				/>
+			)}
 		</>
 	);
 }

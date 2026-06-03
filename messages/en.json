@@ -174,7 +174,7 @@
 				"location": "Stuttgart",
 				"roles": [
 					{
-						"title": "Working Student — Design & Engineering",
+						"title": "Working Student Design & Engineering",
 						"startMonth": "Sep",
 						"startYear": 2023,
 						"endMonth": "Jun",
@@ -182,7 +182,7 @@
 						"duration": "9 months"
 					},
 					{
-						"title": "Senior Intern — Design & Engineering",
+						"title": "Senior Intern Design & Engineering",
 						"startMonth": "Apr",
 						"startYear": 2023,
 						"endMonth": "Sep",
@@ -190,7 +190,7 @@
 						"duration": "5 months"
 					},
 					{
-						"title": "Intern — Design & Engineering",
+						"title": "Intern Design & Engineering",
 						"startMonth": "Mar",
 						"startYear": 2023,
 						"endMonth": "Apr",
@@ -200,12 +200,12 @@
 				],
 				"description": [
 					"Digital product and interaction design studio focused on outstanding user interfaces.",
-					"Independently led a client project over several months in a team of 2–3: workshop planning and facilitation, user research, wireframing, usability testing, building a design system and presenting results to the client.",
-					"Built an internal wireframe UI library in Figma with 20–40 reusable components — used team-wide to accelerate the wireframing process.",
+					"Independently led a client project over several months in a team of 3: workshop planning and facilitation, user research, wireframing, usability testing, building a design system and presenting results to the client.",
+					"Built an internal wireframe UI library in Figma with 30+ reusable components — used team-wide to accelerate the wireframing process.",
 					"Brand development, process optimization and evaluation of new tools and technologies.",
 					"Active collaboration with designers and engineers in an interdisciplinary environment."
 				],
-				"descriptionShort": "Independently led client projects from research and wireframing through usability testing to building a design system. Created an internal Figma UI library with 20–40 reusable components.",
+				"descriptionShort": "Independently led client projects from research and wireframing through usability testing to building a design system. Created an internal Figma UI library with 30+ reusable components.",
 				"technologies": [
 					"Figma",
 					"Design Systems",
