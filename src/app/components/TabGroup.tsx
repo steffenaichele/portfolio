@@ -19,7 +19,11 @@ export default function TabGroup({ tabs, className }: TabGroupProps) {
 
 	return (
 		<div className={clsx("flex flex-col gap-10", className)}>
-			<div role="tablist" className="flex flex-row gap-2 px-1">
+			<div role="tablist" className="tab-list flex flex-row">
+				<span
+					aria-hidden
+					className="tab-pill rounded-[var(--radius-tab)]"
+				/>
 				{tabs.map((tab, i) => (
 					<Tab
 						key={tab.label}

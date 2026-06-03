@@ -17,7 +17,11 @@ export default function CVSection() {
 		{
 			label: t("experience_heading"),
 			content: (
-				<ul className="flex flex-col gap-1">
+				<ul className="cv-list flex flex-col">
+						<span
+							aria-hidden
+							className="cv-pill rounded-[var(--radius-tab)]"
+						/>
 					{experience.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}
@@ -31,7 +35,11 @@ export default function CVSection() {
 		{
 			label: t("education_heading"),
 			content: (
-				<ul className="flex flex-col gap-1">
+				<ul className="cv-list flex flex-col">
+						<span
+							aria-hidden
+							className="cv-pill rounded-[var(--radius-tab)]"
+						/>
 					{education.map((entry) => (
 						<CVItem
 							key={`${entry.organization}-${entry.roles[0].startYear}`}

@@ -14,7 +14,7 @@ const Tab = ({ children, isActive = false, onClick }: TabProps) => {
 			aria-selected={isActive}
 			onClick={onClick}
 			className={clsx(
-				"h-7 px-2 rounded-[var(--radius-button-sm)] corner-squircle text-md text-nowrap bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] hover:text-[var(--color-text-secondary)] hover:shadow-[var(--shadow-soft)] active:bg-[var(--color-surface-bg-active)] transition-colors duration-150",
+				"tab relative h-7 px-3 rounded-[var(--radius-tab)] text-md font-medium text-nowrap hover:text-[var(--color-text-primary)] hover:cursor-pointer active:bg-[var(--color-tab-bg-active)] transition-colors duration-150",
 				isActive
 					? "text-[var(--color-text-secondary)]"
 					: "text-[var(--color-text-tertiary)]",
