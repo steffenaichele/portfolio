@@ -2,7 +2,7 @@
 
 import { useTranslations, useMessages } from "next-intl";
 
-import { CVItem } from "./CVItem";
+import { CVItem, SUMMARY_HEIGHT } from "./CVItem";
 import TabGroup from "./TabGroup";
 import type { CVEntry } from "../data/cv";
 
@@ -12,6 +12,11 @@ export default function CVSection() {
 		cv: { experience: CVEntry[]; education: CVEntry[] };
 	};
 	const { experience, education } = messages.cv;
+
+	// Feste Panel-Höhe = Tab mit den meisten Items (geschlossen), damit das
+	// Layout beim Wechsel nicht springt.
+	const panelMinHeight =
+		Math.max(experience.length, education.length) * SUMMARY_HEIGHT;
 
 	const tabs = [
 		{
@@ -60,7 +65,7 @@ export default function CVSection() {
 		<section className="flex flex-col gap-10 px-5">
 			<span className="w-full h-[1px] bg-[var(--color-divider)]"></span>
 			<div className="w-full">
-				<TabGroup tabs={tabs}/>
+				<TabGroup tabs={tabs} panelMinHeight={panelMinHeight} />
 			</div>
 		</section>
 	);

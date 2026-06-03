@@ -22,7 +22,7 @@ const SUMMARY_CLOSE_FADE_SPEED = 0.5;
 // (Öffnen/Schließen). Gesamtdauer = dieser Wert × Anzahl der Detail-Elemente.
 const HEIGHT_PER_ELEMENT = 0.05;
 // Höhe (px) des geschlossenen Items / der Summary-Zeile (single source).
-const SUMMARY_HEIGHT = 36;
+export const SUMMARY_HEIGHT = 36;
 // Abstand (px) unterhalb des Buttons, nur im geöffneten Zustand.
 const BOTTOM_SPACING = 6;
 // Anzahl der Summary-Elemente (Org, Location, Datum) — steuert das Öffnen-Timing.
@@ -47,6 +47,9 @@ interface CVItemProps {
 
 export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	// True nach erster Interaktion. Davor (auch nach Tab-Wechsel/Remount) bleibt
+	// das Item im statischen `rest`-Zustand — kein Keyframe → kein Mount-Flash.
+	const [hasToggled, setHasToggled] = useState(false);
 	const [showSurfaceBg, setShowSurfaceBg] = useState(false);
 	const reduceMotion = useReducedMotion();
 
@@ -62,8 +65,13 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 
 	const handleClick = () => {
 		if (!hasExpandable) return;
+		setHasToggled(true);
 		setIsOpen((prev) => !prev);
 	};
+
+	// Mount/Remount → "rest" (statisch, kein Keyframe). Erst nach erster
+	// Interaktion die richtungsabhängigen Open/Closed-Keyframe-Varianten.
+	const stateLabel = isOpen ? "open" : hasToggled ? "closed" : "rest";
 
 	// Gesamtanzahl einzelner Detail-Elemente, die beim Öffnen animieren
 	// (jede Rolle, jeder Description-Punkt und jeder Technologie-Tag zählt als ein Element).
@@ -137,6 +145,8 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 				delay: (animatedCount - 1 - i) * closeStagger,
 			},
 		}),
+		// Statischer Ruhe-Zustand (geschlossen): Details unsichtbar, ohne Keyframe.
+		rest: { opacity: 0, y: 0 },
 	};
 	// Summary: `custom` = Element-Index (Org, Location, Datum). Öffnen = nach oben
 	// ausfaden. Schließen = von unten einfaden, gestaffelt, nachdem Phase 1 fertig ist.
@@ -154,10 +164,12 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 				delay: detailsExitTime + closeBuffer + i * stagger,
 			},
 		}),
+		// Statischer Ruhe-Zustand (geschlossen): Summary sichtbar, ohne Keyframe.
+		rest: { opacity: 1, y: 0 },
 	};
 	// Leere Eltern-Varianten: machen den Container zum Varianten-Knoten, damit
-	// das `open`/`closed`-Label an die Kinder (über `custom`) weitergegeben wird.
-	const container = { open: {}, closed: {} };
+	// das `open`/`closed`/`rest`-Label an die Kinder (über `custom`) weitergegeben wird.
+	const container = { open: {}, closed: {}, rest: {} };
 
 	// Index-Offset pro Detail-Gruppe, damit alle Elemente fortlaufend gestaffelt werden.
 	const descBase = otherRoles.length;
@@ -214,7 +226,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 						<motion.div
 							variants={container}
 							initial={false}
-							animate={isOpen ? "open" : "closed"}
+							animate={stateLabel}
 							aria-hidden={isOpen}
 							inert={isOpen || undefined}
 							style={{ height: SUMMARY_HEIGHT }}
@@ -222,20 +234,23 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 							<motion.p
 								custom={0}
 								variants={summaryChild}
-								className="font-medium shrink-0 mr-1 text-[var(--color-text-primary)]">
+								initial={false}
+								className="font-medium min-w-0 truncate mr-1 text-[var(--color-text-primary)]">
 								{entry.organizationShort}
 								{","}
 							</motion.p>
 							<motion.p
 								custom={1}
 								variants={summaryChild}
-								className="flex-1 min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
+								initial={false}
+								className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
 								{entry.location}
 							</motion.p>
 							<motion.div
 								custom={2}
 								variants={summaryChild}
-								className={`shrink-0 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
+								initial={false}
+								className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
 								<p>{entry.totalStartYear}</p>
 								<p>–</p>
 								<p>{entry.totalEndYear}</p>
@@ -263,13 +278,14 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 						<motion.div
 							variants={container}
 							initial={false}
-							animate={isOpen ? "open" : "closed"}
+							animate={stateLabel}
 							aria-hidden={!isOpen}
 							inert={!isOpen || undefined}
 							className="flex flex-col gap-6 py-4">
 							<motion.div
 								custom={-1}
 								variants={detailsChild}
+								initial={false}
 								className="flex flex-col">
 								<p className="text-md font-medium text-[var(--color-text-primary)]">
 									{entry.organization}
@@ -285,6 +301,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 											key={`${role.title}-${role.startYear}-${role.startMonth}`}
 											custom={idx}
 											variants={detailsChild}
+											initial={false}
 											className="flex flex-col gap-0.5">
 											<h2 className="text-lg font-medium text-[var(--color-text-primary)]">
 												{role.title}
@@ -311,6 +328,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 											key={point}
 											custom={descBase + idx}
 											variants={detailsChild}
+											initial={false}
 											className="text-sm font-medium text-[var(--color-text-secondary)]">
 											{point}
 										</motion.li>
@@ -324,6 +342,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 											key={tech}
 											custom={techBase + idx}
 											variants={detailsChild}
+											initial={false}
 											className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-sm)]">
 											{tech}
 										</motion.span>
