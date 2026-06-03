@@ -20,7 +20,6 @@ const STAGGER_DELAY = 60;
 const navLinkHrefs = [
 	{ key: "home" as const, href: "/" },
 	{ key: "impressions" as const, href: "/impressions" },
-	{ key: "cv" as const, href: "/cv" },
 ];
 
 const countLinks = navLinkHrefs.length;
@@ -73,7 +72,7 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 				style={{
 					transition: `grid-template-rows ${duration}ms var(--ease-out)`,
 				}}
-				inert={!open}>
+				inert={!open || undefined}>
 				<ul
 					id="mobile-menu"
 					className="min-h-0 flex flex-col items-end gap-2 pt-8"
