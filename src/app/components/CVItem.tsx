@@ -12,12 +12,12 @@ const FADE_DURATION = 0.2;
 // Verzögerung (s) zwischen aufeinanderfolgenden gestaffelten Elementen.
 const STAGGER_DELAY = 0.075;
 // Verzögerung (s) zwischen Detail-Elementen beim Ausfaden (Schließen, minimal).
-const CLOSE_STAGGER = 0.05;
+const CLOSE_STAGGER = 0.1;
 // Pause (s) nach dem letzten Detail-Element, bevor Höhe schrumpft und Summary erscheint.
-const CLOSE_BUFFER = 0.12;
+const CLOSE_BUFFER = 0.175;
 // Geschwindigkeits-Multiplikator für den Summary-Fade-in beim Schließen.
 // 0.5 = halbe Geschwindigkeit → doppelte Dauer.
-const SUMMARY_CLOSE_FADE_SPEED = 0.5;
+const SUMMARY_CLOSE_FADE_SPEED = 0.75;
 // Dauer (s) pro animiertem Element für die Höhen-Animation des Containers
 // (Öffnen/Schließen). Gesamtdauer = dieser Wert × Anzahl der Detail-Elemente.
 const HEIGHT_PER_ELEMENT = 0.05;
@@ -89,10 +89,23 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 		: HEIGHT_PER_ELEMENT * animatedCount;
 	// Öffnen: Details warten, bis das letzte Summary-Element fertig ausgefadet ist.
 	const summaryExitTime = (SUMMARY_COUNT - 1) * stagger + FADE_DURATION;
-	// Schließen: Phase 1 (Details ausfaden) dauert so lange, bis das letzte Detail-Element
-	// fertig ist. Mit revertierten Stagger ist i=-1 (Org/Location) das letzte Element
-	// → animatedCount * closeStagger (nicht animatedCount-1).
-	const detailsExitTime = animatedCount * closeStagger + FADE_DURATION / 2;
+	// Schließen: Detail-Gruppen (statt einzelner Elemente) faden von unten nach
+	// oben gestaffelt aus. Reihenfolge zuerst → zuletzt: technologies, description,
+	// otherRoles, organisation+location. Nur vorhandene Gruppen zählen, damit der
+	// Stagger lückenlos bleibt.
+	const hasRoles = otherRoles.length > 0;
+	const hasDesc = !!entry.description?.length;
+	const hasTech = !!entry.technologies?.length;
+	const closeOrder = [
+		hasTech ? "tech" : null,
+		hasDesc ? "desc" : null,
+		hasRoles ? "roles" : null,
+		"org",
+	].filter(Boolean) as string[];
+	const groupCount = closeOrder.length;
+	const closeIndex = (name: string) => closeOrder.indexOf(name);
+	// Phase 1 (Gruppen ausfaden) endet, wenn die letzte Gruppe (org) fertig ist.
+	const detailsExitTime = (groupCount - 1) * closeStagger + FADE_DURATION / 2;
 	// Schließen: Phase 2 (Höhe schrumpfen) dauert genau so lange wie Phase 1.
 	const closeHeightDuration = reduceMotion ? 0 : detailsExitTime;
 	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
@@ -128,6 +141,8 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 
 	// Details: Öffnen = von unten einfaden (+offset → 0), gestaffelt, nach dem
 	// Summary-Exit. Schließen = nach oben ausfaden (0 → -offset), minimaler Stagger.
+	// Einzelne Detail-Elemente: faden NUR beim Öffnen gestaffelt ein. Beim Schließen
+	// bleiben sie statisch — das Ausfaden übernimmt jetzt die Eltern-Gruppe.
 	const detailsChild = {
 		open: (i: number) => ({
 			opacity: [0, 1],
@@ -137,15 +152,44 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 				delay: summaryExitTime + i * stagger,
 			},
 		}),
-		closed: (i: number) => ({
+		closed: { opacity: 1, y: 0 },
+		// Statischer Ruhe-Zustand (geschlossen): Details unsichtbar, ohne Keyframe.
+		rest: { opacity: 0, y: 0 },
+	};
+	// Detail-Gruppen (otherRoles, description, technologies): beim Öffnen sofort
+	// sichtbar (die Kinder faden einzeln ein), beim Schließen als Block ausfaden —
+	// nach oben (y: 0 → -offset) bei opacity 1 → 0, gestaffelt von unten nach oben.
+	const groupParent = {
+		open: { opacity: 1, y: 0, transition: { duration: 0 } },
+		closed: (c: { close: number }) => ({
 			opacity: [1, 0],
 			y: [0, -offset],
 			transition: {
 				duration: FADE_DURATION / 2,
-				delay: (animatedCount - 1 - i) * closeStagger,
+				delay: c.close * closeStagger,
 			},
 		}),
-		// Statischer Ruhe-Zustand (geschlossen): Details unsichtbar, ohne Keyframe.
+		rest: { opacity: 0, y: 0 },
+	};
+	// Organisation + Location ist eine Blatt-Gruppe (keine animierten Kinder) und
+	// animiert daher selbst: Öffnen wie ein Detail-Element, Schließen wie eine Gruppe.
+	const orgGroup = {
+		open: (c: { open: number }) => ({
+			opacity: [0, 1],
+			y: [offset, 0],
+			transition: {
+				duration: FADE_DURATION,
+				delay: summaryExitTime + c.open * stagger,
+			},
+		}),
+		closed: (c: { close: number }) => ({
+			opacity: [1, 0],
+			y: [0, -offset],
+			transition: {
+				duration: FADE_DURATION / 2,
+				delay: c.close * closeStagger,
+			},
+		}),
 		rest: { opacity: 0, y: 0 },
 	};
 	// Summary: `custom` = Element-Index (Org, Location, Datum). Öffnen = nach oben
@@ -283,8 +327,8 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 							inert={!isOpen || undefined}
 							className="flex flex-col gap-6 py-4">
 							<motion.div
-								custom={-1}
-								variants={detailsChild}
+								custom={{ open: -1, close: closeIndex("org") }}
+								variants={orgGroup}
 								initial={false}
 								className="flex flex-col">
 								<p className="text-md font-medium text-[var(--color-text-primary)]">
@@ -294,8 +338,12 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 									{entry.location}
 								</p>
 							</motion.div>
-							{otherRoles.length > 0 && (
-								<motion.div className="flex flex-col gap-6 ">
+							{hasRoles && (
+								<motion.div
+									variants={groupParent}
+									custom={{ close: closeIndex("roles") }}
+									initial={false}
+									className="flex flex-col gap-6 ">
 									{otherRoles.map((role, idx) => (
 										<motion.div
 											key={`${role.title}-${role.startYear}-${role.startMonth}`}
@@ -322,7 +370,11 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 								</motion.div>
 							)}
 							{!!entry.description?.length && (
-								<motion.ul className="flex flex-col gap-4">
+								<motion.ul
+									variants={groupParent}
+									custom={{ close: closeIndex("desc") }}
+									initial={false}
+									className="flex flex-col gap-4">
 									{entry.description.map((point, idx) => (
 										<motion.li
 											key={point}
@@ -336,7 +388,11 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 								</motion.ul>
 							)}
 							{!!entry.technologies?.length && (
-								<motion.div className="flex flex-wrap gap-1.5">
+								<motion.div
+									variants={groupParent}
+									custom={{ close: closeIndex("tech") }}
+									initial={false}
+									className="flex flex-wrap gap-1.5">
 									{entry.technologies.map((tech, idx) => (
 										<motion.span
 											key={tech}
