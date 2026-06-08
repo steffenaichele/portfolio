@@ -27,7 +27,7 @@ import { sileo } from "sileo";
  *   <Button type="submit" disabled>Submitting…</Button>
  */
 
-type Variant = "primary" | "cta";
+type Variant = "primary" | "cta" | "link";
 type Size = "md" | "sm";
 type ContentType = "text" | "icon" | "iconRight";
 
@@ -53,6 +53,10 @@ const variantClasses: Record<Variant, string> = {
 		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-[0.97] focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
 	cta:
 		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-[var(--shadow)] hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
+	// Spiegelt den CVItem-Look: dünne Underline (collapsed bei Hover) + Surface-
+	// Pill-Hintergrund auf Hover/Active. Kein Border, kein Shadow, kein Scale.
+	link:
+		"group text-(--color-text-primary) font-medium hover:bg-(--color-surface-bg-hover) active:bg-(--color-surface-bg-active) focus-visible:outline-1 focus-visible:outline-orange-300",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -90,9 +94,29 @@ const Button = ({
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"flex-none corner-squircle inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = clsx(baseClasses, sizeClasses[size], contentClasses[size][content], variantClasses[variant], classNameProp);
+	const isLink = variant === "link";
+
+	const className = clsx(
+		baseClasses,
+		// link folgt dem CVItem-Stil (plain rounded, kein Squircle) und ignoriert
+		// das size/content-Sizing der gefüllten Buttons.
+		isLink
+			? "corner-round rounded-(--radius-tab) px-3 py-1 text-md"
+			: clsx("corner-squircle", sizeClasses[size], contentClasses[size][content]),
+		variantClasses[variant],
+		classNameProp,
+	);
+
+	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
+	const body = isLink ? (
+		<span className="relative after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-(--color-link-underline) after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
+			{children}
+		</span>
+	) : (
+		children
+	);
 
 	if (href) {
 		return (
@@ -101,7 +125,7 @@ const Button = ({
 				onClick={onClick}
 				aria-label={ariaLabel}
 				className={className}>
-				{children}
+				{body}
 			</Link>
 		);
 	}
@@ -131,7 +155,7 @@ const Button = ({
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
 			className={className}>
-			{children}
+			{body}
 		</button>
 	);
 };

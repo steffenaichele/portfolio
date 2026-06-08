@@ -15,7 +15,7 @@ const Footer = () => {
 	const tNav = useTranslations("layout.nav");
 
 	return (
-		<footer aria-label="Footer">
+		<footer className="max-w-lg mx-auto" aria-label="Footer">
 			<NotificationStackFooter>
 				{/* Card 1 (oben im Stack): Identität */}
 				<div className={`flex flex-col px-6 py-4 ${cardClass}`}>
@@ -88,8 +88,7 @@ const Footer = () => {
 					<div className="flex flex-col gap-1 text-[var(--color-footer-text-secondary)] text-xs">
 						<p>{t("copyright")}</p>
 						<p>
-							{t("built_with")}{" "}
-							<span aria-hidden="true">✨</span>
+							{t("built_with")} <span aria-hidden="true">✨</span>
 						</p>
 					</div>
 					<LanguageToggle />

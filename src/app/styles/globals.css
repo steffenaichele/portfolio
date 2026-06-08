@@ -78,6 +78,8 @@
 	--color-logo-fill: var(--color-white);
 	--color-logo-stroke: var(--color-black);
 
+	--color-link-underline: var(--color-neutral-300);
+
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
 	--color-button-primary-stroke: color-mix(in oklab, var(--color-white) 55%, transparent);

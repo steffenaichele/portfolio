@@ -62,9 +62,9 @@ export default function CVSection() {
 	];
 
 	return (
-		<section className="flex flex-col gap-10 px-5">
+		<section className="flex flex-col gap-6 ">
 			<span className="w-full h-[1px] bg-[var(--color-divider)]"></span>
-			<div className="w-full">
+			<div className="w-auto -mx-3">
 				<TabGroup tabs={tabs} panelMinHeight={panelMinHeight} />
 			</div>
 		</section>

@@ -15,7 +15,7 @@ export default async function Home() {
 	const t = await getTranslations('home');
 	return (
 		<>
-			<section className="pt-60 px-8 text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-5">
+			<section className="pt-60 text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-5">
 				<h1 className="text-[var(--color-text-secondary)]">
 					{t("greeting")}{" "}
 					<span role="img" aria-label={t("emoji_label")}>
