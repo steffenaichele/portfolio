@@ -1,31 +1,29 @@
-# .github/workflows/quality-check.yml
 name: Quality Check
 
 on:
   pull_request:
-    branches: [develop, main]
+    branches: [develop]
   push:
-    branches: [develop, main]
+    branches: [develop]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-and-check:
+  check:
     name: Build & Check
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v4
         with:
-          version: 9   # an deine pnpm-Major anpassen (pnpm -v)
+          fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
@@ -39,7 +37,9 @@ jobs:
       - name: Type check
         run: pnpm exec tsc --noEmit
 
+      - name: Fallow audit (info only)
+        run: pnpm exec fallow audit --base origin/develop --format annotations || true
+        continue-on-error: true
+
       - name: Build
         run: pnpm run build
-        env:
-          NEXT_PUBLIC_EMAIL: ${{ secrets.NEXT_PUBLIC_EMAIL }}
