@@ -8,6 +8,7 @@ import { useEffect, useEffectEvent } from "react";
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import Button from "./Button";
+import ActionWrapper from "./ActionWrapper";
 import LanguageToggle from "./LanguageToggle";
 
 import { Menu, X, Mail } from "lucide-react";
@@ -53,16 +54,17 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 
 	return (
 		<nav className="flex-none flex flex-col items-end">
-			<Button
-				variant="primary"
-				size="md"
-				content="icon"
-				aria-label={open ? t("nav.menu_close") : t("nav.menu_open")}
-				aria-expanded={open}
-				aria-controls="mobile-menu"
-				onClick={() => onOpenChange(!open)}>
-				<Icon icon={menuIcon} />
-			</Button>
+			<ActionWrapper>
+				<Button
+					size="md"
+					content="icon"
+					aria-label={open ? t("nav.menu_close") : t("nav.menu_open")}
+					aria-expanded={open}
+					aria-controls="mobile-menu"
+					onClick={() => onOpenChange(!open)}>
+					<Icon icon={menuIcon} />
+				</Button>
+			</ActionWrapper>
 
 			<div
 				className={clsx(
@@ -87,12 +89,14 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 									? `${index * STAGGER_DELAY}ms`
 									: "0ms",
 							}}>
-							<Button
-								href={link.href}
-								size="md"
-								onClick={() => onOpenChange(false)}>
-								{t(`nav.${link.key}`)}
-							</Button>
+							<ActionWrapper>
+								<Button
+									href={link.href}
+									size="md"
+									onClick={() => onOpenChange(false)}>
+									{t(`nav.${link.key}`)}
+								</Button>
+							</ActionWrapper>
 						</li>
 					))}
 					<li
@@ -103,15 +107,16 @@ const MobileNavigation = ({ open, onOpenChange }: MobileNavigationProps) => {
 								? `${countLinks * STAGGER_DELAY}ms`
 								: "0ms",
 						}}>
-						<Button
-							variant="cta"
-							size="md"
-							content="iconRight"
-							copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
-							copySuccessMessage={t("copy_success")}>
-							{t("contact_button")}
-							<Icon icon={Mail} />
-						</Button>
+						<ActionWrapper>
+							<Button
+								size="md"
+								content="iconRight"
+								copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
+								copySuccessMessage={t("copy_success")}>
+								{t("contact_button")}
+								<Icon icon={Mail} />
+							</Button>
+						</ActionWrapper>
 					</li>
 					<li
 						className={itemClass}

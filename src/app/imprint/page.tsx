@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Mail } from "lucide-react";
 import Icon from "../components/Icon";
 import Button from "../components/Button";
+import ActionWrapper from "../components/ActionWrapper";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('impressum');
@@ -27,14 +28,15 @@ export default async function Imprint() {
 					<p>73529 Schwäbisch Gmünd</p>
 				</address>
 			</div>
-			<Button
-				variant="cta"
-				size="md"
-				content="iconRight"
-				copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
-				{t('contact_button')}
-				<Icon icon={Mail} />
-			</Button>
+			<ActionWrapper>
+				<Button
+					size="md"
+					content="iconRight"
+					copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
+					{t('contact_button')}
+					<Icon icon={Mail} />
+				</Button>
+			</ActionWrapper>
 		</section>
 	);
 }

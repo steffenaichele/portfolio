@@ -41,8 +41,6 @@
 	--radius-squircle-3xl: calc(var(--radius-3xl) * var(--radius-multiplier)); /* visually ~24px */
 	--radius-squircle-4xl: calc(var(--radius-4xl) * var(--radius-multiplier)); /* visually ~32px */
 
-	--radius-button-md: var(--radius-squircle-xl);
-	--radius-button-sm: var(--radius-squircle-lg);
 	--radius-surface: var(--radius-squircle-2xl);
 	--radius-tab: var(--radius-2xl);
 
@@ -61,13 +59,13 @@
 
 	--color-surface-bg: var(--color-neutral-100);
 	--color-surface-bg-hover: var(--color-neutral-100);
-	--color-surface-bg-active: var(--color-neutral-200);
 	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
 
-	--color-tab-bg: var(--color-transparent);
-	--color-tab-bg-hover: var(--color-neutral-100);
-	--color-tab-bg-active: var(--color-neutral-200);
-
+	/* Universelle Pillen-Farben (ActionWrapper): Hover + Active für alle
+	   klickbaren Elemente. Hover aliast die Surface-Hover-Farbe (eine Quelle),
+	   Active eine Stufe dunkler. Kontext-Overrides via Scope (siehe footer). */
+	--color-pill-hover: var(--color-surface-bg-hover);
+	--color-pill-active: var(--color-neutral-200);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
@@ -85,16 +83,6 @@
 	--color-button-primary-stroke: color-mix(in oklab, var(--color-white) 55%, transparent);
 	--color-button-primary-bg: var(--color-neutral-100);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
-	--color-button-primary-bg-active: var(--color-neutral-300);
-
-	--color-button-cta-label: var(--color-white);
-	--color-button-cta-label-hover: var(--color-neutral-200);
-	--color-button-cta-label-active: var(--color-neutral-400);
-	--color-button-cta-icon: var(--color-neutral-300);
-	--color-button-cta-stroke: color-mix(in oklab, var(--color-white) 35%, transparent);
-	--color-button-cta-bg: var(--color-neutral-950);
-	--color-button-cta-bg-hover: var(--color-neutral-800);
-	--color-button-cta-bg-active: var(--color-neutral-900);
 
 	--color-cvitem-exp-bg: var(--color-emerald-50);
 	--color-cvitem-edu-bg: var(--color-sky-50);
@@ -109,6 +97,10 @@
 	--color-footer-text-primary: var(--color-neutral-100);
 	--color-footer-text-secondary: var(--color-neutral-400);
 	--color-footer-text-tertiary: var(--color-neutral-500);
+	/* Hover-/Active-Pille auf dunklem Footer-Grund: subtiler heller Overlay
+	   statt der hellen Default-Pille, die hier unsichtbar wäre. */
+	--color-footer-pill-hover: color-mix(in oklab, var(--color-white) 12%, transparent);
+	--color-footer-pill-active: color-mix(in oklab, var(--color-white) 18%, transparent);
 
 	/* Shadows */
 	--shadow:
@@ -217,84 +209,15 @@
 		}
 	}
 
-	/* Tabs: sliding hover pill via CSS anchor positioning */
-	.tab-list {
-		position: relative;
-	}
+	/* Hover-Pille: komplett in der ActionWrapper-Komponente implementiert
+	   (Logik + Styling). Hier nur kontextabhängige Pillen-Farben. */
 
-	.tab:hover {
-		anchor-name: --hovered-tab;
-	}
-
-	.tab-pill {
-		position: absolute;
-		position-anchor: --hovered-tab;
-		inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
-		opacity: 0;
-		pointer-events: none;
-		background: var(--color-tab-bg-hover);
-		transition: inset 300ms var(--ease-out), opacity 150ms var(--ease-out);
-	}
-
-	.tab-list:has(.tab:hover) .tab-pill {
-		opacity: 1;
-	}
-
-	/* Fallback when anchor positioning is unsupported (Firefox/Safari) */
-	@supports not (anchor-name: --x) {
-		.tab-pill {
-			display: none;
-		}
-
-		.tab:hover {
-			background: var(--color-tab-bg-hover);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.tab-pill {
-			transition: opacity 150ms var(--ease-out);
-		}
-	}
-
-	/* CV list: sliding hover pill via CSS anchor positioning */
-	.cv-list {
-		position: relative;
-	}
-
-	.cv-item-interactive:hover {
-		anchor-name: --hovered-cv;
-	}
-
-	.cv-pill {
-		position: absolute;
-		position-anchor: --hovered-cv;
-		inset: anchor(top) anchor(right) anchor(bottom) anchor(left);
-		opacity: 0;
-		pointer-events: none;
-		background: var(--color-surface-bg-hover);
-		transition: inset 300ms var(--ease-out), opacity 150ms var(--ease-out);
-	}
-
-	.cv-list:has(.cv-item-interactive:hover) .cv-pill {
-		opacity: 1;
-	}
-
-	/* Fallback when anchor positioning is unsupported (Firefox/Safari) */
-	@supports not (anchor-name: --x) {
-		.cv-pill {
-			display: none;
-		}
-
-		.cv-item-interactive:hover {
-			background: var(--color-surface-bg-hover);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.cv-pill {
-			transition: opacity 150ms var(--ease-out);
-		}
+	/* Im Footer (dunkler Grund) nutzt die Pille die Footer-Varianten der
+	   universellen Pillen-Tokens. Greift automatisch für jeden ActionWrapper
+	   im <footer>. */
+	footer .action-wrapper {
+		--color-pill-hover: var(--color-footer-pill-hover);
+		--color-pill-active: var(--color-footer-pill-active);
 	}
 
 	.layout-grid {

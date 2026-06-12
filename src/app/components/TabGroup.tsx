@@ -3,6 +3,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import ActionWrapper from "./ActionWrapper";
 import Tab from "./Tab";
 
 interface TabItem {
@@ -49,11 +50,7 @@ export default function TabGroup({
 
 	return (
 		<div className={clsx("flex flex-col gap-10", className)}>
-			<div role="tablist" className="tab-list flex flex-row">
-				<span
-					aria-hidden
-					className="tab-pill rounded-[var(--radius-tab)]"
-				/>
+			<ActionWrapper role="tablist" className="flex flex-row">
 				{tabs.map((tab, i) => (
 					<Tab
 						key={tab.label}
@@ -62,7 +59,7 @@ export default function TabGroup({
 						{tab.label}
 					</Tab>
 				))}
-			</div>
+			</ActionWrapper>
 			<div
 				role="tabpanel"
 				className="relative overflow-x-clip"

@@ -120,6 +120,10 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 
 	useEffect(() => {
 		if (isOpen) {
+			// Öffnen: Surface-Bg sofort an. Gegenstück zum verzögerten Aus
+			// (Timer unten) — beide Hälften gehören in denselben Effect, daher
+			// ist der synchrone setState hier gewollt, nicht vermeidbar.
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setShowSurfaceBg(true);
 			return;
 		}
@@ -233,12 +237,13 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 					className="overflow-hidden"
 				/>
 			)}
+			{/* Keine Rundung im Default-State (Pointer-Hit-Testing an den Ecken,
+			    Pille kommt vom ActionWrapper in CVSection). Rundung nur im
+			    geöffneten Zustand, wenn der Surface-Hintergrund sichtbar ist. */}
 			<li
-				className={`cv-item group relative rounded-[var(--radius-tab)] transition-colors duration-150 ${
-					hasExpandable
-						? "cv-item-interactive cursor-pointer active:bg-[var(--color-surface-bg-active)]"
-						: "cursor-default"
-				}${showSurfaceBg ? " is-open bg-[var(--color-surface-bg)]" : ""}`}>
+				className={`group relative transition-colors duration-150 ${
+					hasExpandable ? "cursor-pointer" : "cursor-default"
+				}${showSurfaceBg ? " rounded-[var(--radius-tab)] bg-[var(--color-surface-bg)]" : ""}`}>
 				<button
 					onClick={handleClick}
 					aria-expanded={isOpen}

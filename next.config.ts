@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import type { RuleSetRule } from "webpack";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
@@ -13,7 +14,9 @@ const nextConfig: NextConfig = {
 		},
 	},
 	webpack(config) {
-		const excludeSvgFromRules = (rules: any[]) => {
+		const excludeSvgFromRules = (
+			rules: (RuleSetRule | false | "" | 0 | null | undefined)[],
+		) => {
 			for (const rule of rules) {
 				if (!rule) {
 					continue;
@@ -36,7 +39,7 @@ const nextConfig: NextConfig = {
 		};
 
 		if (config.module?.rules) {
-			excludeSvgFromRules(config.module.rules as any[]);
+			excludeSvgFromRules(config.module.rules);
 
 			config.module.rules.push(
 				{
