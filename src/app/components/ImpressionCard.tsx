@@ -6,6 +6,7 @@ import { ArrowRight, X } from "lucide-react";
 import { useTranslations, useMessages } from "next-intl";
 
 import Button from "./Button";
+import ActionWrapper from "./ActionWrapper";
 import Icon from "./Icon";
 import type { Impression, Project } from "../data/content";
 
@@ -135,13 +136,15 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						</p>
 					</div>
 					{impression.link && (
-						<Button
-							href={impression.link}
-							size="sm"
-							content="icon"
-							aria-label={t("open_label", { label })}>
-							<Icon icon={ArrowRight} />
-						</Button>
+						<ActionWrapper>
+							<Button
+								href={impression.link}
+								size="sm"
+								content="icon"
+								aria-label={t("open_label", { label })}>
+								<Icon icon={ArrowRight} />
+							</Button>
+						</ActionWrapper>
 					)}
 				</div>
 
@@ -184,14 +187,15 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						aria-label={label}
 						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow)] overflow-hidden">
 						{/* Close button */}
-						<Button
-							variant="primary"
-							size="sm"
-							content="icon"
-							aria-label={t("modal_close")}
-							onClick={closeModal}>
-							<Icon icon={X} />
-						</Button>
+						<ActionWrapper>
+							<Button
+								size="sm"
+								content="icon"
+								aria-label={t("modal_close")}
+								onClick={closeModal}>
+								<Icon icon={X} />
+							</Button>
+						</ActionWrapper>
 
 						{/* Image */}
 						<div
@@ -216,14 +220,16 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								</p>
 							</div>
 							{impression.link && (
-								<Button
-									href={impression.link}
-									size="sm"
-									content="icon"
-									aria-label={t("external_label", { label })}>
-									{t("open_button")}
-									<Icon icon={ArrowRight} />
-								</Button>
+								<ActionWrapper>
+									<Button
+										href={impression.link}
+										size="sm"
+										content="icon"
+										aria-label={t("external_label", { label })}>
+										{t("open_button")}
+										<Icon icon={ArrowRight} />
+									</Button>
+								</ActionWrapper>
 							)}
 						</div>
 					</div>

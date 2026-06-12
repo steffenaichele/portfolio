@@ -14,27 +14,29 @@ import { sileo } from "sileo";
  *
  * Props:
  *   children  (required)  — button label / content
- *   variant   (optional)  — "primary", default "primary"
+ *   isLink    (optional)  — Link-Look statt gefülltem Button, default false
  *   content   (optional)  — "text" | "iconOnly" | "iconRight", default "text"
  *   onClick   (optional)  — click handler
+ *   external  (optional)  — öffnet href in neuem Tab + rel + sr-only Hinweis
  *   disabled  (optional)  — disables the button, default false
  *   type      (optional)  — "button" | "submit" | "reset", default "button"
  *
  * Examples:
  *   <Button>Save</Button>
  *   <Button content="iconRight"><span>Download</span><Download /></Button>
- *   <Button onClick={() => console.log("clicked")}>More</Button>
+ *   <Button isLink href="/imprint">Impressum</Button>
+ *   <Button isLink href="https://github.com/…" external>GitHub</Button>
  *   <Button type="submit" disabled>Submitting…</Button>
  */
 
-type Variant = "primary" | "cta" | "link";
 type Size = "md" | "sm";
 type ContentType = "text" | "icon" | "iconRight";
 
 interface ButtonProps {
-	variant?: Variant;
 	size?: Size;
 	content?: ContentType;
+	isLink?: boolean;
+	external?: boolean;
 	children: ReactNode;
 	href?: string;
 	onClick?: () => void;
@@ -48,20 +50,26 @@ interface ButtonProps {
 	"aria-controls"?: string;
 }
 
-const variantClasses: Record<Variant, string> = {
-	primary:
-		"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-(--color-button-primary-bg-hover) active:bg-(--color-button-primary-bg-active) active:scale-[0.97] focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)",
-	cta:
-		"bg-(--color-button-cta-bg) border-(--color-button-cta-stroke) text-(--color-button-cta-label) shadow-[var(--shadow)] hover:bg-(--color-button-cta-bg-hover) hover:text-(--color-button-cta-label-hover) active:bg-(--color-button-cta-bg-active) active:scale-[0.97] active:text-(--color-button-cta-label-active) focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-cta-icon)",
-	// Spiegelt den CVItem-Look: dünne Underline (collapsed bei Hover) + Surface-
-	// Pill-Hintergrund auf Hover/Active. Kein Border, kein Shadow, kein Scale.
-	link:
-		"group text-(--color-text-primary) font-medium hover:bg-(--color-surface-bg-hover) active:bg-(--color-surface-bg-active) focus-visible:outline-1 focus-visible:outline-orange-300",
-};
+// Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
+// Hover-Pille der umgebenden ActionWrapper dahinter sichtbar wird. Kein eigener
+// active-State — den trägt die Pille (sonst würde die fehlende Rundung sichtbar).
+const primaryClasses =
+	"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-transparent focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)";
 
+// isLink: Spiegelt den CVItem-Look — kein Hintergrund, dünne Underline unter
+// dem Label (collapsed bei Hover). Hover-Hintergrund liefert die Pille der
+// umgebenden ActionWrapper. Kein Border, kein Shadow, kein Scale.
+// Textfarbe wird vom Elternelement geerbt (Body = text-primary, Footer = hell),
+// damit der Link sich an den jeweiligen Grund anpasst.
+const linkClasses =
+	"group font-medium focus-visible:outline-1 focus-visible:outline-orange-300";
+
+// Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
+// an den Ecken — die Pille des ActionWrapper würde dort flackern. Die Rundung
+// trägt allein die Pille.
 const sizeClasses: Record<Size, string> = {
-	md: "h-9 text-lg rounded-(--radius-button-md)",
-	sm: "h-6 text-sm text-medium rounded-(--radius-button-sm)",
+	md: "h-9 text-lg",
+	sm: "h-6 text-sm text-medium",
 };
 
 const contentClasses: Record<Size, Record<ContentType, string>> = {
@@ -78,9 +86,10 @@ const contentClasses: Record<Size, Record<ContentType, string>> = {
 };
 
 const Button = ({
-	variant = "primary",
 	size = "md",
 	content = "text",
+	isLink = false,
+	external = false,
 	children,
 	href,
 	onClick,
@@ -96,22 +105,20 @@ const Button = ({
 	const baseClasses =
 		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const isLink = variant === "link";
-
 	const className = clsx(
 		baseClasses,
-		// link folgt dem CVItem-Stil (plain rounded, kein Squircle) und ignoriert
-		// das size/content-Sizing der gefüllten Buttons.
+		// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing
+		// der gefüllten Buttons.
 		isLink
-			? "corner-round rounded-(--radius-tab) px-3 py-1 text-md"
-			: clsx("corner-squircle", sizeClasses[size], contentClasses[size][content]),
-		variantClasses[variant],
+			? clsx("px-3 py-1 text-md", linkClasses)
+			: clsx(sizeClasses[size], contentClasses[size][content], primaryClasses),
 		classNameProp,
 	);
 
 	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
+	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
 	const body = isLink ? (
-		<span className="relative after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-(--color-link-underline) after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
+		<span className="relative inline-flex items-center gap-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-(--color-link-underline) after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
 			{children}
 		</span>
 	) : (
@@ -124,8 +131,13 @@ const Button = ({
 				href={href}
 				onClick={onClick}
 				aria-label={ariaLabel}
+				target={external ? "_blank" : undefined}
+				rel={external ? "noopener noreferrer" : undefined}
 				className={className}>
 				{body}
+				{external && (
+					<span className="sr-only"> (Opens in new window)</span>
+				)}
 			</Link>
 		);
 	}
