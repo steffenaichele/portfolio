@@ -25,8 +25,8 @@ const HEIGHT_PER_ELEMENT = 0.05;
 export const SUMMARY_HEIGHT = 36;
 // Abstand (px) unterhalb des Buttons, nur im geöffneten Zustand.
 const BOTTOM_SPACING = 6;
-// Anzahl der Summary-Elemente (Org, Location, Datum) — steuert das Öffnen-Timing.
-const SUMMARY_COUNT = 3;
+// Anzahl der Summary-Elemente (Org+Location, Datum) — steuert das Öffnen-Timing.
+const SUMMARY_COUNT = 2;
 
 const variantBgStyles = {
 	experience: "bg-[var(--color-cvitem-exp-bg)]",
@@ -120,6 +120,10 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 
 	useEffect(() => {
 		if (isOpen) {
+			// Öffnen: Surface-Bg sofort an. Gegenstück zum verzögerten Aus
+			// (Timer unten) — beide Hälften gehören in denselben Effect, daher
+			// ist der synchrone setState hier gewollt, nicht vermeidbar.
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setShowSurfaceBg(true);
 			return;
 		}
@@ -233,12 +237,13 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 					className="overflow-hidden"
 				/>
 			)}
+			{/* Keine Rundung im Default-State (Pointer-Hit-Testing an den Ecken,
+			    Pille kommt vom ActionWrapper in CVSection). Rundung nur im
+			    geöffneten Zustand, wenn der Surface-Hintergrund sichtbar ist. */}
 			<li
-				className={`cv-item relative rounded-[var(--radius-tab)] transition-colors duration-150 ${
-					hasExpandable
-						? "cv-item-interactive cursor-pointer active:bg-[var(--color-surface-bg-active)]"
-						: "cursor-default"
-				}${showSurfaceBg ? " is-open bg-[var(--color-surface-bg)]" : ""}`}>
+				className={`group relative transition-colors duration-150 ${
+					hasExpandable ? "cursor-pointer" : "cursor-default"
+				}${showSurfaceBg ? " rounded-[var(--radius-tab)] bg-[var(--color-surface-bg)]" : ""}`}>
 				<button
 					onClick={handleClick}
 					aria-expanded={isOpen}
@@ -275,23 +280,25 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 							inert={isOpen || undefined}
 							style={{ height: SUMMARY_HEIGHT }}
 							className="absolute inset-x-0 top-0 flex items-center text-md">
-							<motion.p
+							{/* Org + Location als eine Einheit: durchgehende Underline
+							    (::after, h-px→0 bei Hover) signalisiert Bedienbarkeit. Als motion.div
+							    faden beide gemeinsam, damit die Linie mit dem Text
+							    verschwindet (kein zurückbleibender Border). */}
+							<motion.div
 								custom={0}
 								variants={summaryChild}
 								initial={false}
-								className="font-medium min-w-0 truncate mr-1 text-[var(--color-text-primary)]">
-								{entry.organizationShort}
-								{","}
-							</motion.p>
-							<motion.p
-								custom={1}
-								variants={summaryChild}
-								initial={false}
-								className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
-								{entry.location}
-							</motion.p>
+								className="relative flex min-w-0 items-center after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--color-link-underline)] after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
+								<p className="font-medium min-w-0 truncate mr-1 text-[var(--color-text-primary)]">
+									{entry.organizationShort}
+									{","}
+								</p>
+								<p className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
+									{entry.location}
+								</p>
+							</motion.div>
 							<motion.div
-								custom={2}
+								custom={1}
 								variants={summaryChild}
 								initial={false}
 								className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>

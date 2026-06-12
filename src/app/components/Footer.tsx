@@ -3,7 +3,8 @@
 import { ArrowUpRight } from "lucide-react";
 import Icon from "./Icon";
 import { useTranslations } from "next-intl";
-import LinkButton from "./LinkButton";
+import Button from "./Button";
+import ActionWrapper from "./ActionWrapper";
 import LanguageToggle from "./LanguageToggle";
 import NotificationStackFooter from "./NotificationStackFooter";
 
@@ -15,7 +16,7 @@ const Footer = () => {
 	const tNav = useTranslations("layout.nav");
 
 	return (
-		<footer aria-label="Footer">
+		<footer className="max-w-lg mx-auto" aria-label="Footer">
 			<NotificationStackFooter>
 				{/* Card 1 (oben im Stack): Identität */}
 				<div className={`flex flex-col px-6 py-4 ${cardClass}`}>
@@ -35,50 +36,56 @@ const Footer = () => {
 						<p className="text-sm font-medium uppercase text-(--color-footer-text-tertiary)">
 							{t("pages_heading")}
 						</p>
-						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
-							<li>
-								<LinkButton href="/">{tNav("home")}</LinkButton>
-							</li>
-							<li>
-								<LinkButton href="/impressions">
-									{tNav("impressions")}
-								</LinkButton>
-							</li>
-							<li>
-								<LinkButton href="/imprint">
-									{t("imprint")}
-								</LinkButton>
-							</li>
-						</ul>
+						<ActionWrapper>
+							<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
+								<li>
+									<Button isLink href="/">
+										{tNav("home")}
+									</Button>
+								</li>
+								<li>
+									<Button isLink href="/impressions">
+										{tNav("impressions")}
+									</Button>
+								</li>
+								<li>
+									<Button isLink href="/imprint">
+										{t("imprint")}
+									</Button>
+								</li>
+							</ul>
+						</ActionWrapper>
 					</div>
 					<div className="flex flex-col flex-1 gap-2">
 						<p className="text-sm font-medium uppercase text-(--color-footer-text-tertiary)">
 							{t("links_heading")}
 						</p>
-						<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
-							<li>
-								<LinkButton
-									href="https://www.linkedin.com/in/steffenaichele"
-									external
-									hasIcon>
-									LinkedIn
-									<span className="text-(--color-footer-text-secondary)">
-										<Icon icon={ArrowUpRight} />
-									</span>
-								</LinkButton>
-							</li>
-							<li>
-								<LinkButton
-									href="https://github.com/steffenaichele"
-									external
-									hasIcon>
-									GitHub
-									<span className="text-(--color-footer-text-secondary)">
-										<Icon icon={ArrowUpRight} />
-									</span>
-								</LinkButton>
-							</li>
-						</ul>
+						<ActionWrapper>
+							<ul className="flex flex-col gap-1 text-(--color-footer-text-primary)">
+								<li>
+									<Button
+										isLink
+										href="https://www.linkedin.com/in/steffenaichele"
+										external>
+										LinkedIn
+										<span className="text-(--color-footer-text-secondary)">
+											<Icon icon={ArrowUpRight} />
+										</span>
+									</Button>
+								</li>
+								<li>
+									<Button
+										isLink
+										href="https://github.com/steffenaichele"
+										external>
+										GitHub
+										<span className="text-(--color-footer-text-secondary)">
+											<Icon icon={ArrowUpRight} />
+										</span>
+									</Button>
+								</li>
+							</ul>
+						</ActionWrapper>
 					</div>
 				</nav>
 
@@ -88,8 +95,7 @@ const Footer = () => {
 					<div className="flex flex-col gap-1 text-[var(--color-footer-text-secondary)] text-xs">
 						<p>{t("copyright")}</p>
 						<p>
-							{t("built_with")}{" "}
-							<span aria-hidden="true">✨</span>
+							{t("built_with")} <span aria-hidden="true">✨</span>
 						</p>
 					</div>
 					<LanguageToggle />

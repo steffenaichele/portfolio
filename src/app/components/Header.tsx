@@ -13,7 +13,7 @@ const Header = () => {
 
 	return (
 		<header
-			className="fixed w-full pt-[max(4rem,env(safe-area-inset-top))] pb-4 z-50 rounded-xl"
+			className="fixed top-0 inset-x-auto max-w-lg pt-[max(4rem,env(safe-area-inset-top))] pb-4 z-50 rounded-xl"
 			aria-label="Site header">
 			<BlurEffect
 				className="absolute inset-0 h-full pointer-events-none"
@@ -23,7 +23,7 @@ const Header = () => {
 			<div className="relative flex flex-row justify-between items-start px-8 min-h-11 z-10">
 				<Link
 					href="/"
-					aria-label={t('header.logo_label')}
+					aria-label={t("header.logo_label")}
 					className="h-11 flex items-center">
 					<Logo />
 				</Link>
