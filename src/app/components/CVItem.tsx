@@ -120,6 +120,10 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 
 	useEffect(() => {
 		if (isOpen) {
+			// Öffnen: Surface-Bg sofort an. Gegenstück zum verzögerten Aus
+			// (Timer unten) — beide Hälften gehören in denselben Effect, daher
+			// ist der synchrone setState hier gewollt, nicht vermeidbar.
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setShowSurfaceBg(true);
 			return;
 		}

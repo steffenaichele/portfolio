@@ -29,6 +29,7 @@
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19",
+    "@types/webpack": "^5.28.5",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
     "fallow": "^2.92.1",
