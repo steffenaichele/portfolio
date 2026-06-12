@@ -9,7 +9,6 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import PixelTrail from "./components/PixelTrail";
 
 const ppNeueMontreal = localFont({
 	src: [

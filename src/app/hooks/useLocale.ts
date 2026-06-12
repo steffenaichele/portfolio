@@ -31,6 +31,8 @@ export function useLocale() {
 				router.refresh();
 			}
 		}
+		// Run once on mount: detect browser locale only on first visit.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	function setLocale(next: Locale) {

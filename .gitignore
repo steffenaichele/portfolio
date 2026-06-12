@@ -43,3 +43,6 @@ next-env.d.ts
 .env*.local
 .DS_Store
 .fallow/
+
+# claude code worktrees
+.claude/worktrees/
