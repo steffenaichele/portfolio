@@ -20,7 +20,7 @@ const STAGGER_DELAY = 60;
 
 const navLinkHrefs = [
 	{ key: "home" as const, href: "/" },
-	{ key: "impressions" as const, href: "/impressions" },
+	{ key: "work" as const, href: "/work" },
 ];
 
 const countLinks = navLinkHrefs.length;

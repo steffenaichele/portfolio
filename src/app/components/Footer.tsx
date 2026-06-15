@@ -44,8 +44,8 @@ const Footer = () => {
 									</Button>
 								</li>
 								<li>
-									<Button isLink href="/impressions">
-										{tNav("impressions")}
+									<Button isLink href="/work">
+										{tNav("work")}
 									</Button>
 								</li>
 								<li>
