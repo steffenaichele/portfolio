@@ -51,6 +51,10 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	// das Item im statischen `rest`-Zustand — kein Keyframe → kein Mount-Flash.
 	const [hasToggled, setHasToggled] = useState(false);
 	const [showSurfaceBg, setShowSurfaceBg] = useState(false);
+	// True solange das Item offen ist UND während der Schließ-Animation. Steuert
+	// `data-pill-suppress`, damit der ActionWrapper die Pille erst wieder zulässt,
+	// wenn die Schließ-Animation komplett durch ist (sonst Flackern).
+	const [pillSuppressed, setPillSuppressed] = useState(false);
 	const reduceMotion = useReducedMotion();
 
 	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, "-").toLowerCase()}`;
@@ -108,15 +112,17 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const detailsExitTime = (groupCount - 1) * closeStagger + FADE_DURATION / 2;
 	// Schließen: Phase 2 (Höhe schrumpfen) dauert genau so lange wie Phase 1.
 	const closeHeightDuration = reduceMotion ? 0 : detailsExitTime;
-	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
-	const surfaceBgCloseMs = reduceMotion
+	// Gesamtdauer (ms) der Schließ-Animation: endet, wenn die Summary-Zeile
+	// vollständig wieder eingefadet ist (letztes Element der Sequenz).
+	const fullCloseMs = reduceMotion
 		? 0
-		: ((closeBuffer +
+		: (closeBuffer +
 				detailsExitTime +
 				(SUMMARY_COUNT - 1) * stagger +
-				FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED) /
-				2) *
+				FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED) *
 			1000;
+	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
+	const surfaceBgCloseMs = fullCloseMs / 2;
 
 	useEffect(() => {
 		if (isOpen) {
@@ -137,6 +143,22 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 		);
 		return () => clearTimeout(timeout);
 	}, [isOpen, surfaceBgCloseMs]);
+
+	// Pille unterdrücken: sofort beim Öffnen, beim Schließen erst nach Ablauf der
+	// vollen Schließ-Animation wieder freigeben.
+	useEffect(() => {
+		if (isOpen) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setPillSuppressed(true);
+			return;
+		}
+		if (fullCloseMs === 0) {
+			setPillSuppressed(false);
+			return;
+		}
+		const timeout = setTimeout(() => setPillSuppressed(false), fullCloseMs);
+		return () => clearTimeout(timeout);
+	}, [isOpen, fullCloseMs]);
 
 	// Beide Content-Blöcke bleiben dauerhaft gemountet (kein Mount/Unmount =
 	// kein Layout-Sprung). Zustände `open`/`closed` werden über `animate`
@@ -248,6 +270,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 					onClick={handleClick}
 					aria-expanded={isOpen}
 					aria-controls={detailsId}
+					data-pill-suppress={pillSuppressed || undefined}
 					disabled={!hasExpandable}
 					className="block w-full p-0 text-left px-3">
 					{/* ╔══════════════════════════════════════════════════════════════╗
