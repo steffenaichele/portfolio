@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import ProjectsSection from "./components/ProjectsSection";
 import CVSection from "./components/CVSection";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,7 +30,6 @@ export default async function Home() {
 				</p>
 			</section>
 			<CVSection />
-			<ProjectsSection />
 		</>
 	);
 }
