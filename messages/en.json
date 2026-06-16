@@ -6,11 +6,10 @@
 		"nav": {
 			"home": "Home",
 			"work": "Work",
-			"menu_open": "Open menu",
-			"menu_close": "Close menu",
-			"nav_label": "Mobile Navigation",
+			"nav_label": "Navigation",
 			"switch_to_en": "Switch to English",
-			"switch_to_de": "Switch to German"
+			"switch_to_de": "Switch to German",
+			"language_label": "Select language"
 		},
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
@@ -21,7 +20,6 @@
 			"built_with": "Built with Next.js & Tailwind CSS"
 		},
 		"contact_button": "Contact",
-		"copy_success": "Copied to clipboard!",
 		"skip_to_main": "Skip to main content"
 	},
 	"home": {

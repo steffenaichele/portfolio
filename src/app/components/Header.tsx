@@ -1,26 +1,33 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import MobileNavigation from "./MobileNavigation";
 import Logo from "./Logo";
+import ToggleButton from "./ToggleButton";
 import BlurEffect from "react-progressive-blur";
 
+const navLinks = [
+	{ key: "home", href: "/" },
+	{ key: "work", href: "/work" },
+] as const;
+
 const Header = () => {
-	const [navOpen, setNavOpen] = useState(false);
-	const t = useTranslations('layout');
+	const t = useTranslations("layout");
+	const tNav = useTranslations("layout.nav");
+	const pathname = usePathname();
+	const activeKey = pathname === "/work" ? "work" : "home";
 
 	return (
 		<header
-			className="fixed top-0 inset-x-auto max-w-lg pt-[max(4rem,env(safe-area-inset-top))] pb-4 z-50 rounded-xl"
+			className="fixed w-full top-0 left-0 pt-[max(4rem,env(safe-area-inset-top))] pb-4 z-50 rounded-xl"
 			aria-label="Site header">
 			<BlurEffect
 				className="absolute inset-0 h-full pointer-events-none"
 				position="top"
-				intensity={navOpen ? 100 : 50}
+				intensity={50}
 			/>
-			<div className="relative flex flex-row justify-between items-start px-8 min-h-11 z-10">
+			<div className="relative max-w-lg mx-auto flex flex-row justify-between items-center min-h-11 z-10">
 				<Link
 					href="/"
 					aria-label={t("header.logo_label")}
@@ -28,7 +35,16 @@ const Header = () => {
 					<Logo />
 				</Link>
 
-				<MobileNavigation open={navOpen} onOpenChange={setNavOpen} />
+				<nav aria-label={tNav("nav_label")}>
+					<ToggleButton
+						activeKey={activeKey}
+						options={navLinks.map((link) => ({
+							key: link.key,
+							label: tNav(link.key),
+							href: link.href,
+						}))}
+					/>
+				</nav>
 			</div>
 		</header>
 	);

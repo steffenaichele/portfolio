@@ -61,20 +61,21 @@
 	/* 16px - matches Tailwind text-base */
 
 	/* Colors */
-	--color-bg: var(--color-white);
+
+	--color-neutral-150: oklch(0.946 0 0);
+
+	--color-bg: var(--color-neutral-50);
 	--color-primary: var(--color-neutral-100);
 
 	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
 
-	--color-surface-bg: var(--color-neutral-100);
-	--color-surface-bg-hover: var(--color-neutral-100);
-	--color-surface-stroke: color-mix(in oklab, var(--color-white) 10%, transparent);
-
-	/* Universelle Pillen-Farben (ActionWrapper): Hover + Active für alle
-	   klickbaren Elemente. Hover aliast die Surface-Hover-Farbe (eine Quelle),
-	   Active eine Stufe dunkler. Kontext-Overrides via Scope (siehe footer). */
-	--color-pill-hover: var(--color-neutral-200);
-	--color-pill-active: var(--color-neutral-300);
+	--color-interactive-wrapper: var(--color-bg);
+	--color-interactive-wrapper-hover: var(--color-neutral-150);
+	--shadow-interactive-wrapper-inner: box-shadow: inset 0 0 4px color-mix(in oklab, var(--color-black) 10%, transparent);
+	
+	--color-interactive-pill: var(--color-white);
+	--color-interactive-pill-active: var(--color-neutral-300);
+	--color-interactive-pill-selected: var(--color-neutral-200);
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
@@ -102,14 +103,6 @@
 	--color-text-cvitem-exp: var(--color-emerald-600);
 	--color-text-cvitem-edu: var(--color-sky-700);
 
-	--color-footer-bg: var(--color-black);
-	--color-footer-text-primary: var(--color-neutral-100);
-	--color-footer-text-secondary: var(--color-neutral-400);
-	--color-footer-text-tertiary: var(--color-neutral-500);
-	/* Hover-/Active-Pille auf dunklem Footer-Grund: subtiler heller Overlay
-	   statt der hellen Default-Pille, die hier unsichtbar wäre. */
-	--color-footer-pill-hover: color-mix(in oklab, var(--color-white) 12%, transparent);
-	--color-footer-pill-active: color-mix(in oklab, var(--color-white) 18%, transparent);
 
 	/* Shadows */
 	--shadow:
@@ -127,8 +120,6 @@
 		0px 6px 6px -3px rgba(0, 0, 0, 0.04),
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
-
-
 
 
 	/* Layout */
@@ -216,17 +207,6 @@
 		.project-card:hover {
 			transform: translateY(-4px);
 		}
-	}
-
-	/* Hover-Pille: komplett in der ActionWrapper-Komponente implementiert
-	   (Logik + Styling). Hier nur kontextabhängige Pillen-Farben. */
-
-	/* Im Footer (dunkler Grund) nutzt die Pille die Footer-Varianten der
-	   universellen Pillen-Tokens. Greift automatisch für jeden ActionWrapper
-	   im <footer>. */
-	footer .action-wrapper {
-		--color-pill-hover: var(--color-footer-pill-hover);
-		--color-pill-active: var(--color-footer-pill-active);
 	}
 
 	.layout-grid {

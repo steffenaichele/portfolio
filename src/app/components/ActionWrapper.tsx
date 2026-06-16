@@ -320,15 +320,15 @@ const ActionWrapper = ({
 			// Pill-Kontrakt strukturell: gerundete Clickables würden das
 			// Pointer-Hit-Testing an den Ecken clippen (Pille flackert).
 			className={clsx(
-				"action-wrapper relative -m-1 p-1 overflow-hidden rounded-3xl [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none",
+				"relative w-fit -m-1 p-1 overflow-hidden rounded-3xl bg-[var(--color-interactive-wrapper)] hover:bg-[var(--color-interactive-wrapper-hover)] inner-shadow-none hover:inset-shadow-[var(--shadow-interactive-wrapper-inner)] [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none",
 				className,
 			)}>
 			<span
 				ref={pillRef}
 				aria-hidden
-				className="absolute left-0 top-0 size-0 opacity-0 pointer-events-none rounded-2xl"
+				className="absolute left-0 top-0 size-0 opacity-0 pointer-events-none rounded-2xl shadow-[var(--shadow)] will-change-opacity will-change-transform"
 				style={{
-					background: "var(--color-pill-hover)",
+					background: "var(--color-interactive-pill)",
 					transition: FULL_TRANSITION,
 				}}
 			/>

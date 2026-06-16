@@ -44,5 +44,4 @@ next-env.d.ts
 .DS_Store
 .fallow/
 
-# claude code worktrees
-.claude/wor
+# claude code worktr
