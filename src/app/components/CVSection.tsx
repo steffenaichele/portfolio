@@ -85,7 +85,7 @@ export default function CVSection() {
 	);
 
 	return (
-		<section className="flex flex-col gap-6 ">
+		<section className="max-w-lg mx-auto bg-[var(--color-segment-bg)] flex flex-col gap-6 ">
 			<span className="w-auto h-[1px] mx-4 bg-[var(--color-divider)]"></span>
 			<div className="w-full flex flex-col gap-10">
 				<ActionWrapper role="tablist" className="flex flex-row">

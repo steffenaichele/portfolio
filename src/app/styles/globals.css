@@ -34,7 +34,8 @@
 
 	--color-neutral-150: oklch(0.946 0 0);
 
-	--color-bg: var(--color-neutral-50);
+	--color-main-bg: var(--color-neutral-200);
+	--color-segment-bg: var(--color-white);
 	--color-primary: var(--color-neutral-100);
 
 	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);

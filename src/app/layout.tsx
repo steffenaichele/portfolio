@@ -125,7 +125,7 @@ export default async function RootLayout({
 			lang={locale}
 			data-scroll-behavior="smooth"
 			className={`w-full px-4 flex ${ppNeueMontreal.variable}`}>
-			<body className="bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
+			<body className="bg-[var(--color-main-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
 				{/* <PixelTrail /> */}
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<a
@@ -136,7 +136,7 @@ export default async function RootLayout({
 					<Header />
 					<main
 						id="main-content"
-						className="max-w-lg mx-auto flex flex-col gap-20 pb-24 z-5">
+						className="flex flex-col gap-20 pb-24 z-5">
 						{children}
 					</main>
 					<Footer />
