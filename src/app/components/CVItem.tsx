@@ -38,6 +38,27 @@ const variantStyles = {
 	education: "text-[var(--color-text-edu)]",
 };
 
+// Flag, das beim Aktivieren sofort `true` wird und beim Deaktivieren erst nach
+// `delayMs` wieder `false` (Trailing) — für Zustände, die während der Schließ-
+// Animation noch nachlaufen müssen (Surface-Hintergrund, Pillen-Suppression).
+function useTrailingFlag(active: boolean, delayMs: number): boolean {
+	const [flag, setFlag] = useState(false);
+	useEffect(() => {
+		if (active) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
+			setFlag(true);
+			return;
+		}
+		if (delayMs === 0) {
+			setFlag(false);
+			return;
+		}
+		const timeout = setTimeout(() => setFlag(false), delayMs);
+		return () => clearTimeout(timeout);
+	}, [active, delayMs]);
+	return flag;
+}
+
 interface CVItemProps {
 	entry: CVEntry;
 	variant: "experience" | "education";
@@ -50,11 +71,6 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	// True nach erster Interaktion. Davor (auch nach Tab-Wechsel/Remount) bleibt
 	// das Item im statischen `rest`-Zustand — kein Keyframe → kein Mount-Flash.
 	const [hasToggled, setHasToggled] = useState(false);
-	const [showSurfaceBg, setShowSurfaceBg] = useState(false);
-	// True solange das Item offen ist UND während der Schließ-Animation. Steuert
-	// `data-pill-suppress`, damit der ActionWrapper die Pille erst wieder zulässt,
-	// wenn die Schließ-Animation komplett durch ist (sonst Flackern).
-	const [pillSuppressed, setPillSuppressed] = useState(false);
 	const reduceMotion = useReducedMotion();
 
 	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, "-").toLowerCase()}`;
@@ -124,41 +140,13 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
 	const surfaceBgCloseMs = fullCloseMs / 2;
 
-	useEffect(() => {
-		if (isOpen) {
-			// Öffnen: Surface-Bg sofort an. Gegenstück zum verzögerten Aus
-			// (Timer unten) — beide Hälften gehören in denselben Effect, daher
-			// ist der synchrone setState hier gewollt, nicht vermeidbar.
-			// eslint-disable-next-line react-hooks/set-state-in-effect
-			setShowSurfaceBg(true);
-			return;
-		}
-		if (surfaceBgCloseMs === 0) {
-			setShowSurfaceBg(false);
-			return;
-		}
-		const timeout = setTimeout(
-			() => setShowSurfaceBg(false),
-			surfaceBgCloseMs,
-		);
-		return () => clearTimeout(timeout);
-	}, [isOpen, surfaceBgCloseMs]);
-
-	// Pille unterdrücken: sofort beim Öffnen, beim Schließen erst nach Ablauf der
-	// vollen Schließ-Animation wieder freigeben.
-	useEffect(() => {
-		if (isOpen) {
-			// eslint-disable-next-line react-hooks/set-state-in-effect
-			setPillSuppressed(true);
-			return;
-		}
-		if (fullCloseMs === 0) {
-			setPillSuppressed(false);
-			return;
-		}
-		const timeout = setTimeout(() => setPillSuppressed(false), fullCloseMs);
-		return () => clearTimeout(timeout);
-	}, [isOpen, fullCloseMs]);
+	// Surface-Hintergrund: beim Öffnen sofort an, beim Schließen erst zur Hälfte
+	// der Schließ-Animation wieder aus.
+	const showSurfaceBg = useTrailingFlag(isOpen, surfaceBgCloseMs);
+	// `data-pill-suppress`: hält die Hover-Pille zurück, bis die Schließ-Animation
+	// komplett durch ist (sonst Flackern) — beim Öffnen sofort, beim Schließen
+	// nach der vollen Dauer wieder frei.
+	const pillSuppressed = useTrailingFlag(isOpen, fullCloseMs);
 
 	// Beide Content-Blöcke bleiben dauerhaft gemountet (kein Mount/Unmount =
 	// kein Layout-Sprung). Zustände `open`/`closed` werden über `animate`
@@ -245,27 +233,28 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const descBase = otherRoles.length;
 	const techBase = otherRoles.length + (entry.description?.length ?? 0);
 
+	// Abstands-Spacer ober-/unterhalb des Items, der nur im offenen Zustand auf
+	// BOTTOM_SPACING aufklappt. Identisch oben (außer erstem) und unten (außer letztem).
+	const spacer = (
+		<motion.div
+			aria-hidden
+			initial={false}
+			animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
+			transition={{
+				duration: isOpen ? heightDuration : closeHeightDuration,
+				ease: "easeOut",
+			}}
+			className="overflow-hidden"
+		/>
+	);
+
 	return (
 		<>
-			{!isFirst && (
-				<motion.div
-					aria-hidden
-					initial={false}
-					animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
-					transition={{
-						duration: isOpen ? heightDuration : closeHeightDuration,
-						ease: "easeOut",
-					}}
-					className="overflow-hidden"
-				/>
-			)}
-			{/* Keine Rundung im Default-State (Pointer-Hit-Testing an den Ecken,
-			    Pille kommt vom ActionWrapper in CVSection). Rundung nur im
-			    geöffneten Zustand, wenn der Surface-Hintergrund sichtbar ist. */}
+			{!isFirst && spacer}
 			<li
 				className={`group relative transition-colors duration-150 ${
 					hasExpandable ? "cursor-pointer" : "cursor-default"
-				}${showSurfaceBg ? " rounded-[var(--radius-tab)] bg-[var(--color-surface-bg)]" : ""}`}>
+				}${showSurfaceBg ? " rounded-xl bg-[var(--color-interactive-element-bg-active)]" : ""}`}>
 				<button
 					onClick={handleClick}
 					aria-expanded={isOpen}
@@ -312,7 +301,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 								variants={summaryChild}
 								initial={false}
 								className="relative flex min-w-0 items-center after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--color-link-underline)] after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
-								<p className="font-medium min-w-0 truncate mr-1 text-[var(--color-text-primary)]">
+								<p className="font-medium min-w-0 truncate mr-1.5 text-[var(--color-text-primary)]">
 									{entry.organizationShort}
 									{","}
 								</p>
@@ -326,7 +315,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 								initial={false}
 								className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
 								<p>{entry.totalStartYear}</p>
-								<p>–</p>
+								<p> – </p>
 								<p>{entry.totalEndYear}</p>
 							</motion.div>
 						</motion.div>
@@ -439,18 +428,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 					</motion.div>
 				</button>
 			</li>
-			{!isLast && (
-				<motion.div
-					aria-hidden
-					initial={false}
-					animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
-					transition={{
-						duration: isOpen ? heightDuration : closeHeightDuration,
-						ease: "easeOut",
-					}}
-					className="overflow-hidden"
-				/>
-			)}
+			{!isLast && spacer}
 		</>
 	);
 }

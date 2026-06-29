@@ -45,7 +45,10 @@ interface ButtonProps {
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 	className?: string;
+	ghost?: boolean;
+	role?: string;
 	"aria-label"?: string;
+	"aria-selected"?: boolean;
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
 }
@@ -63,6 +66,14 @@ const primaryClasses =
 // damit der Link sich an den jeweiligen Grund anpasst.
 const linkClasses =
 	"group font-medium focus-visible:outline-1 focus-visible:outline-orange-300";
+
+// ghost: transparenter Button für Tab-artige Schalter (z.B. CV-Tabs). Eigene
+// feste Tab-Maße statt size/content, damit die Optik dem früheren Tab entspricht.
+// Active/Inactive-Textfarbe kommt per className vom Aufrufer; der Farb-Fade läuft
+// über die color-Transition in baseClasses. Hover-Hintergrund liefert die Pille
+// des umgebenden ActionWrapper.
+const ghostClasses =
+	"h-9 px-3 text-md font-medium text-nowrap hover:text-(--color-text-primary) focus-visible:outline-1 focus-visible:outline-orange-300";
 
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
 // an den Ecken — die Pille des ActionWrapper würde dort flackern. Die Rundung
@@ -89,6 +100,7 @@ const Button = ({
 	size = "md",
 	content = "text",
 	isLink = false,
+	ghost = false,
 	external = false,
 	children,
 	href,
@@ -98,20 +110,28 @@ const Button = ({
 	className: classNameProp,
 	disabled,
 	type = "button",
+	role,
 	"aria-label": ariaLabel,
+	"aria-selected": ariaSelected,
 	"aria-expanded": ariaExpanded,
 	"aria-controls": ariaControls,
 }: ButtonProps) => {
 	const baseClasses =
-		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
 	const className = clsx(
 		baseClasses,
 		// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing
-		// der gefüllten Buttons.
+		// der gefüllten Buttons; ghost trägt eigene feste Tab-Maße.
 		isLink
 			? clsx("px-3 py-1 text-md", linkClasses)
-			: clsx(sizeClasses[size], contentClasses[size][content], primaryClasses),
+			: ghost
+				? ghostClasses
+				: clsx(
+						sizeClasses[size],
+						contentClasses[size][content],
+						primaryClasses,
+					),
 		classNameProp,
 	);
 
@@ -163,7 +183,9 @@ const Button = ({
 			type={type}
 			onClick={handleCopyToClipboard}
 			disabled={disabled}
+			role={role}
 			aria-label={ariaLabel}
+			aria-selected={ariaSelected}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
 			className={className}>

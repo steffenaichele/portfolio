@@ -146,7 +146,7 @@ export default function ToggleButton({
 				aria-hidden
 				className="absolute left-0 top-0 size-0 opacity-0 pointer-events-none rounded-2xl"
 				style={{
-					background: "var(--color-pill-selected)",
+					background: "var(--color-interactive-pill-selected)",
 					transition: TRANSITION,
 				}}
 			/>

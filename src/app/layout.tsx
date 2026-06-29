@@ -125,7 +125,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`w-full overscroll-x-none px-4 flex ${ppNeueMontreal.variable}`}>
+			className={`w-full px-4 flex ${ppNeueMontreal.variable}`}>
 			<body className="bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
 				{/* <PixelTrail /> */}
 				<NextIntlClientProvider locale={locale} messages={messages}>
