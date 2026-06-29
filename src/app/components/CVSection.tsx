@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
-import clsx from "clsx";
 
 import ActionWrapper from "./ActionWrapper";
 import Button from "./Button";
@@ -76,11 +75,11 @@ export default function CVSection() {
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
-			className={clsx(
+			className={
 				active === category
 					? "text-(--color-text-secondary)"
-					: "text-(--color-text-tertiary)",
-			)}>
+					: "text-(--color-text-tertiary)"
+			}>
 			{label}
 		</Button>
 	);
@@ -96,12 +95,11 @@ export default function CVSection() {
 				<div
 					id={PANEL_ID}
 					role="tabpanel"
-					className={clsx(
-						"relative overflow-x-clip rounded-2xl transition-colors duration-200 ease-out",
+					className={`relative overflow-x-clip rounded-2xl transition-colors duration-200 ease-out ${
 						switching
 							? "bg-[var(--color-interactive-wrapper-bg-hover)]"
-							: "bg-transparent",
-					)}
+							: "bg-transparent"
+					}`}
 					style={{ minHeight: panelMinHeight }}>
 					{ORDER.map((category, i) => {
 						const isActive = active === category;
@@ -112,17 +110,19 @@ export default function CVSection() {
 								key={category}
 								aria-hidden={!isActive}
 								inert={!isActive || undefined}
-								className={clsx(
-									"transition-[opacity,transform] duration-800 ease-out will-change-transform",
+								className={`transition-[opacity,transform] duration-800 ease-out will-change-transform ${
 									isActive
 										? "relative opacity-100 translate-x-0"
-										: clsx(
-												"absolute inset-0 opacity-0 pointer-events-none motion-reduce:translate-x-0",
-												dir < 0 ? "-translate-x-6" : "translate-x-6",
-											),
-								)}>
+										: `absolute inset-0 opacity-0 pointer-events-none motion-reduce:translate-x-0 ${
+												dir < 0
+													? "-translate-x-6"
+													: "translate-x-6"
+											}`
+								}`}>
 								{cvList(
-									category === "experience" ? experience : education,
+									category === "experience"
+										? experience
+										: education,
 									category,
 								)}
 							</div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
-import clsx from "clsx";
 
 /**
  * ActionWrapper — einheitlicher Wrapper für klickbare Elemente (Buttons,
@@ -255,10 +254,7 @@ const ActionWrapper = ({
 			onPointerDown={handlePointerDown}
 			onPointerUp={handlePointerUp}
 			onPointerCancel={handlePointerUp}
-			className={clsx(
-				"relative w-fit p-2 overflow-hidden rounded-3xl bg-[var(--color-interactive-wrapper-bg)] hover:bg-[var(--color-interactive-wrapper-bg-hover)] transition-colors duration-400 inner-shadow-none hover:inset-shadow-[var(--shadow-interactive-wrapper-inner)] [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none",
-				className,
-			)}>
+			className={`relative w-fit p-2 overflow-hidden rounded-3xl bg-[var(--color-interactive-wrapper-bg)] hover:bg-[var(--color-interactive-wrapper-bg-hover)] transition-colors duration-400 inner-shadow-none hover:inset-shadow-[var(--shadow-interactive-wrapper-inner)] [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none ${className ?? ""}`}>
 			<span
 				ref={pillRef}
 				aria-hidden

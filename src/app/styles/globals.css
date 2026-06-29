@@ -1,16 +1,8 @@
 @import "tailwindcss";
-@plugin "@toolwind/corner-shape";
 
 @layer base {
 	:root {
 		color-scheme: light;
-	}
-
-	/* Fallback for browsers without corner-shape support: use half the squircle radius */
-	@supports not (corner-shape: squircle) {
-		:root {
-			--radius-multiplier: 1;
-		}
 	}
 }
 
@@ -29,28 +21,6 @@
 	--radius-3xl: 24px;
 	--radius-4xl: 32px;
 	--radius-full: 9999px;
-
-	--radius-multiplier: 2;
-
-	--radius-squircle-xs: calc(var(--radius-xs) * var(--radius-multiplier));
-	/* visually ~2px */
-	--radius-squircle-sm: calc(var(--radius-sm) * var(--radius-multiplier));
-	/* visually ~4px */
-	--radius-squircle-md: calc(var(--radius-md) * var(--radius-multiplier));
-	/* visually ~6px */
-	--radius-squircle-lg: calc(var(--radius-lg) * var(--radius-multiplier));
-	/* visually ~8px */
-	--radius-squircle-xl: calc(var(--radius-xl) * var(--radius-multiplier));
-	/* visually ~12px */
-	--radius-squircle-2xl: calc(var(--radius-2xl) * var(--radius-multiplier));
-	/* visually ~16px */
-	--radius-squircle-3xl: calc(var(--radius-3xl) * var(--radius-multiplier));
-	/* visually ~24px */
-	--radius-squircle-4xl: calc(var(--radius-4xl) * var(--radius-multiplier));
-	/* visually ~32px */
-
-	--radius-surface: var(--radius-squircle-2xl);
-	--radius-tab: var(--radius-2xl);
 
 	/* Easing Curves */
 	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -134,12 +104,6 @@
 	--dot-size: 1px;
 	--dot-space: 48px;
 	--dot-color: var(--color-neutral-400);
-
-	/* Toast (Sileo) */
-	--sileo-width: 280px;
-	--sileo-height: 44px;
-	--sileo-duration: 400ms;
-	--sileo-state-success: oklch(0.6 0.15 142);
 }
 
 /* transitions-dev — universal install */
@@ -491,17 +455,6 @@
 			transition: none !important;
 		}
 	}
-}
-
-/* Toast (Sileo) overrides */
-[data-sileo-viewport] {
-	font-family: var(--font-sans);
-}
-
-[data-sileo-title] {
-	font-size: var(--size-font-md);
-	font-weight: 500;
-	text-transform: none;
 }
 
 /* @media (prefers-color-scheme: dark) {

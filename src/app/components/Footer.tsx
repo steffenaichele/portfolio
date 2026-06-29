@@ -9,7 +9,7 @@ import LanguageToggle from "./LanguageToggle";
 import NotificationStackFooter from "./NotificationStackFooter";
 
 const cardClass =
-	"bg-(--color-footer-bg) rounded-[var(--radius-surface)] corner-squircle shadow-xl";
+	"bg-(--color-footer-bg) rounded-[var(--radius-surface)] shadow-xl";
 
 const Footer = () => {
 	const t = useTranslations("layout.footer");

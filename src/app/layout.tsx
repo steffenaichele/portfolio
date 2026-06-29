@@ -3,7 +3,6 @@ import "./styles/globals.css";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "sileo";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
@@ -144,7 +143,6 @@ export default async function RootLayout({
 				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />
-				<Toaster position="bottom-center" />
 			</body>
 		</html>
 	);
