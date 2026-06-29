@@ -69,12 +69,14 @@
 
 	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
 
-	--color-interactive-wrapper: var(--color-bg);
-	--color-interactive-wrapper-hover: var(--color-neutral-150);
-	--shadow-interactive-wrapper-inner: box-shadow: inset 0 0 4px color-mix(in oklab, var(--color-black) 10%, transparent);
+	--color-interactive-wrapper-bg: var(--color-bg);
+	--color-interactive-wrapper-bg-hover: var(--color-neutral-150);
+	--shadow-interactive-wrapper-inner: inset 0 0 4px color-mix(in oklab, var(--color-black) 10%, transparent);
+
+	--color-interactive-element-bg-active: var(--color-neutral-50);
 	
 	--color-interactive-pill: var(--color-white);
-	--color-interactive-pill-active: var(--color-neutral-300);
+	--color-interactive-pill-active: var(--color-neutral-200);
 	--color-interactive-pill-selected: var(--color-neutral-200);
 
 	--color-text-primary: var(--color-neutral-950);

@@ -7,10 +7,10 @@ import clsx from "clsx";
  * ActionWrapper — einheitlicher Wrapper für klickbare Elemente (Buttons,
  * Links, Tabs, CV-Items). Einzige Quelle für den Pill-Hover-Effekt der Seite.
  *
- * Erzeugt eine richtungsabhängige Hover-Pille: Sie erscheint aus der Richtung,
- * in der der Cursor eintritt (stufenlos, jeder Winkel), und verschwindet zur
- * Austrittsrichtung. Zwischen mehreren Elementen im selben Wrapper gleitet die
- * Pille (geteilte Geometrie).
+ * Erzeugt eine Hover-Pille: Sie blendet hinter dem überfahrenen Element ein
+ * (Opacity 0 → 1, ohne Richtungs-Slide) und beim Verlassen wieder aus.
+ * Zwischen mehreren Elementen im selben Wrapper gleitet die Pille
+ * (geteilte Geometrie).
  *
  * Jedes <a>/<button> im Wrapper wird automatisch zum Hover-Ziel — außer
  * disabled/aria-disabled. Kinder sollten im Ruhezustand transparent und OHNE
@@ -21,11 +21,11 @@ import clsx from "clsx";
  *   children   (required)  — klickbare Elemente
  *   className  (optional)  — Klassen für den Wrapper (z.B. Layout/Flex)
  *
- * Pillen-Farben: universelle Tokens --color-pill-hover / --color-pill-active.
- * Die Pille trägt auch den Active-State (gedrückt = active-Farbe) — die
- * Elemente selbst haben keinen eigenen active:bg mehr, sonst würde deren
- * fehlende Rundung sichtbar. Kontext-Overrides der Tokens per CSS-Scope
- * (siehe `footer .action-wrapper` in globals.css).
+ * Pillen-Farben: universelle Tokens --color-interactive-pill /
+ * --color-interactive-pill-active. Die Pille trägt auch den Active-State
+ * (gedrückt = active-Farbe) — die Elemente selbst haben keinen eigenen
+ * active:bg mehr, sonst würde deren fehlende Rundung sichtbar. Die Tokens
+ * lassen sich per CSS-Scope kontextabhängig überschreiben.
  *
  * Beispiel:
  *   <ActionWrapper className="flex flex-row gap-1">
@@ -33,10 +33,6 @@ import clsx from "clsx";
  *     <Button isLink href="/imprint">Impressum</Button>
  *   </ActionWrapper>
  */
-
-// Versatz (% der Elementgröße), mit dem die Pille beim Erscheinen/Verschwinden
-// startet/endet. 100 → Pille kommt exakt von der angrenzenden Kante.
-const offsetDistance = 100;
 
 // Nur Compositor-Properties animieren (transform/opacity/background-color).
 // Geometrie (left/top/width/height) wird per FLIP sofort gesetzt; die Pille
@@ -46,6 +42,10 @@ const FULL_TRANSITION =
 // Reduced motion: kein Gleiten/Schieben, nur Ein-/Ausblenden + Farbwechsel.
 const REDUCED_TRANSITION =
 	"opacity 150ms var(--ease-out), background-color 150ms var(--ease-out)";
+
+// Pillenfarbe im Ruhe-/Hover-Zustand bzw. beim Drücken (Active).
+const PILL_BG = "var(--color-interactive-pill)";
+const PILL_BG_ACTIVE = "var(--color-interactive-pill-active)";
 
 // MediaQueryList einmal anlegen (lazy, Browser-only) statt pro Pointer-Event —
 // das Objekt hält .matches selbst aktuell.
@@ -74,31 +74,12 @@ const ActionWrapper = ({
 	// Aktuell gedrücktes Element (für Scale-Down-Reset beim Loslassen).
 	const pressedRef = useRef<HTMLElement | null>(null);
 
-	// Eintritts-/Austrittsrichtung als stufenloser Versatz-Transform. Eintrittspunkt
-	// zentriert und per Max-Komponente normalisiert: die dominante (Eintritts-)Achse
-	// landet exakt auf ±offsetDistance%, die Quer-Achse skaliert linear mit der
-	// Eintrittsposition (jeder Winkel, nicht nur die 4 Kardinalrichtungen). minDist
-	// (0–0.5) erkennt wie bisher, ob der Cursor bereits im Inneren liegt (kein echter
-	// Eintritt von außen).
-	const offsetOf = (
-		e: React.PointerEvent,
-		r: DOMRect,
-	): { offset: string; minDist: number } => {
-		const nx = (e.clientX - r.left) / r.width - 0.5;
-		const ny = (e.clientY - r.top) / r.height - 0.5;
-		const m = Math.max(Math.abs(nx), Math.abs(ny));
-		const d = m || 1; // Division-Guard im Element-Zentrum (m = 0)
-		const ox = (nx / d) * offsetDistance;
-		const oy = (ny / d) * offsetDistance;
-		return { offset: `translate(${ox}%, ${oy}%)`, minDist: 0.5 - m };
-	};
-
 	// Pille deckungsgleich über das Element legen (relativ zum Wrapper).
-	// Rect kann vom Aufrufer durchgereicht werden, um Doppellesungen zu sparen.
-	const place = (el: HTMLElement, r = el.getBoundingClientRect()) => {
+	const place = (el: HTMLElement) => {
 		const pill = pillRef.current;
 		const wrap = wrapperRef.current;
 		if (!pill || !wrap) return;
+		const r = el.getBoundingClientRect();
 		const w = wrap.getBoundingClientRect();
 		pill.style.left = `${r.left - w.left}px`;
 		pill.style.top = `${r.top - w.top}px`;
@@ -106,38 +87,22 @@ const ActionWrapper = ({
 		pill.style.height = `${r.height}px`;
 	};
 
-	// Erscheinen: Pille sofort an die Kante setzen, dann in die Mitte animieren.
-	// fadeOnly=true wenn Cursor bereits im Inneren liegt (z.B. nach Schließen eines
-	// CV-Items) — dann nur Opacity, kein Richtungs-Slide (sonst Flackern).
-	const show = (
-		el: HTMLElement,
-		offset: string,
-		rect?: DOMRect,
-		fadeOnly = false,
-	) => {
+	// Erscheinen: Pille deckungsgleich hinter das Element legen und einblenden
+	// (Opacity 0 → 1, kein Richtungs-Slide). Reflow zwischen "none" und der
+	// Transition nötig, damit der Browser opacity:0 committet — sonst batcht er
+	// alles und springt ohne Fade.
+	const show = (el: HTMLElement) => {
 		const pill = pillRef.current;
 		if (!pill) return;
 		currentRef.current = el;
-		if (prefersReduced() || fadeOnly) {
-			// Snap position + opacity zu 0, dann Opacity-only animieren.
-			// Reflow zwischen "none" und REDUCED_TRANSITION nötig, damit der
-			// Browser den Startwert committet — sonst batchet er alles und springt.
-			pill.style.transition = "none";
-			place(el, rect);
-			pill.style.transform = "translate(0, 0)";
-			pill.style.opacity = "0";
-			pill.getBoundingClientRect();
-			pill.style.transition = REDUCED_TRANSITION;
-			pill.style.opacity = "1";
-			return;
-		}
 		pill.style.transition = "none";
-		place(el, rect);
-		pill.style.transform = offset;
-		pill.style.opacity = "0";
-		pill.getBoundingClientRect(); // Reflow erzwingen, damit Startwerte greifen
-		pill.style.transition = FULL_TRANSITION;
+		place(el);
 		pill.style.transform = "translate(0, 0)";
+		pill.style.opacity = "0";
+		pill.getBoundingClientRect();
+		pill.style.transition = prefersReduced()
+			? REDUCED_TRANSITION
+			: FULL_TRANSITION;
 		pill.style.opacity = "1";
 	};
 
@@ -175,44 +140,28 @@ const ActionWrapper = ({
 		pill.style.transform = "translate(0, 0)";
 	};
 
-	// Verschwinden: zur Austrittskante schieben und ausblenden.
-	const hide = (e: React.PointerEvent) => {
-		const pill = pillRef.current;
-		const el = currentRef.current;
-		if (!pill || !el) return;
-		if (prefersReduced()) {
-			pill.style.transition = REDUCED_TRANSITION;
-			pill.style.transform = "translate(0, 0)";
-		} else {
-			pill.style.transition = FULL_TRANSITION;
-			pill.style.transform = offsetOf(e, el.getBoundingClientRect()).offset;
-		}
-		pill.style.opacity = "0";
-		// Gedrückt rausgezogen → Active-Farbe und Scale zurücksetzen.
-		pill.style.background = "var(--color-pill-hover)";
+	// Gedrücktes Element entspannen (Scale-Down zurücksetzen).
+	const releasePressed = () => {
 		if (pressedRef.current) {
 			pressedRef.current.style.transform = "";
 			pressedRef.current = null;
 		}
-		currentRef.current = null;
 	};
 
-	// Pille ohne Richtungs-Slide ausblenden — genutzt, wenn das bedeckte Element
-	// unbedienbar wird (z.B. CV-Item öffnet unter ruhendem Cursor und setzt
-	// data-pill-suppress). Dann feuert kein Pointer-Event, also keine Austritts-
-	// richtung: nur an Ort und Stelle ausfaden.
-	const fadeOut = () => {
+	// Verschwinden: an Ort und Stelle ausblenden (kein Richtungs-Slide). Genutzt
+	// bei pointerout und vom MutationObserver, wenn das bedeckte Element unbedienbar
+	// wird (CV-Item öffnet unter ruhendem Cursor, setzt data-pill-suppress) — dann
+	// feuert kein Pointer-Event, also nur ausfaden + Active-Farbe/Scale zurücksetzen.
+	const hide = () => {
 		const pill = pillRef.current;
 		if (!pill || !currentRef.current) return;
 		pill.style.transition = prefersReduced()
 			? REDUCED_TRANSITION
 			: FULL_TRANSITION;
+		pill.style.transform = "translate(0, 0)";
 		pill.style.opacity = "0";
-		pill.style.background = "var(--color-pill-hover)";
-		if (pressedRef.current) {
-			pressedRef.current.style.transform = "";
-			pressedRef.current = null;
-		}
+		pill.style.background = PILL_BG;
+		releasePressed();
 		currentRef.current = null;
 	};
 
@@ -238,13 +187,7 @@ const ActionWrapper = ({
 		if (currentRef.current) {
 			slide(el);
 		} else {
-			// Rect einmal lesen, für Richtungs-Erkennung und Platzierung teilen.
-			const rect = el.getBoundingClientRect();
-			const { offset, minDist } = offsetOf(e, rect);
-			// Cursor bereits im Inneren (minDist > 0.15) → kein Richtungs-Slide,
-			// nur Opacity-Fade. Passiert z.B. wenn ein CV-Item unter dem Cursor
-			// schließt und die Pille nach Ablauf der Suppress-Zeit erscheint.
-			show(el, offset, rect, minDist > 0.15);
+			show(el);
 		}
 	};
 
@@ -254,7 +197,7 @@ const ActionWrapper = ({
 		// Wechsel auf anderes klickbares Element → gleitet (handlePointerOver),
 		// kein Verstecken. Nur ausblenden, wenn Ziel kein Clickable ist.
 		if (clickableIn(e.relatedTarget)) return;
-		hide(e);
+		hide();
 	};
 
 	// Active-State liegt auf der Pille: Drücken färbt sie und skaliert leicht
@@ -264,7 +207,7 @@ const ActionWrapper = ({
 		const pill = pillRef.current;
 		const el = clickableIn(e.target);
 		if (!pill || !el) return;
-		pill.style.background = "var(--color-pill-active)";
+		pill.style.background = PILL_BG_ACTIVE;
 		pill.style.transform = "scale(0.97)";
 		// Gedrücktes Element selbst mitskalieren (sitzt über der Pille).
 		el.style.transition = "transform 150ms var(--ease-out)";
@@ -273,15 +216,11 @@ const ActionWrapper = ({
 	};
 
 	const handlePointerUp = () => {
-		const el = pressedRef.current;
-		if (el) {
-			el.style.transform = "";
-			pressedRef.current = null;
-		}
+		releasePressed();
 		const pill = pillRef.current;
 		// Nur zurücksetzen, wenn die Pille überhaupt aktiv auf einem Element liegt.
 		if (!pill || !currentRef.current) return;
-		pill.style.background = "var(--color-pill-hover)";
+		pill.style.background = PILL_BG;
 		pill.style.transform = "translate(0, 0)";
 	};
 
@@ -295,7 +234,7 @@ const ActionWrapper = ({
 		if (!wrap) return;
 		const obs = new MutationObserver(() => {
 			const el = currentRef.current;
-			if (el && !clickableIn(el)) fadeOut();
+			if (el && !clickableIn(el)) hide();
 		});
 		obs.observe(wrap, {
 			subtree: true,
@@ -303,7 +242,8 @@ const ActionWrapper = ({
 			attributeFilter: ["data-pill-suppress", "disabled", "aria-disabled"],
 		});
 		return () => obs.disconnect();
-		// clickableIn/fadeOut lesen nur Refs/DOM (kein reaktiver State) → stabil.
+		// clickableIn/hide lesen nur Refs/DOM (kein reaktiver State) → stabil.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -315,20 +255,16 @@ const ActionWrapper = ({
 			onPointerDown={handlePointerDown}
 			onPointerUp={handlePointerUp}
 			onPointerCancel={handlePointerUp}
-			// Kinder positioniert (relative), damit sie über der absolut
-			// positionierten Pille gerendert werden. rounded-none erzwingt den
-			// Pill-Kontrakt strukturell: gerundete Clickables würden das
-			// Pointer-Hit-Testing an den Ecken clippen (Pille flackert).
 			className={clsx(
-				"relative w-fit -m-1 p-1 overflow-hidden rounded-3xl bg-[var(--color-interactive-wrapper)] hover:bg-[var(--color-interactive-wrapper-hover)] inner-shadow-none hover:inset-shadow-[var(--shadow-interactive-wrapper-inner)] [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none",
+				"relative w-fit p-2 overflow-hidden rounded-3xl bg-[var(--color-interactive-wrapper-bg)] hover:bg-[var(--color-interactive-wrapper-bg-hover)] transition-colors duration-400 inner-shadow-none hover:inset-shadow-[var(--shadow-interactive-wrapper-inner)] [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none",
 				className,
 			)}>
 			<span
 				ref={pillRef}
 				aria-hidden
-				className="absolute left-0 top-0 size-0 opacity-0 pointer-events-none rounded-2xl shadow-[var(--shadow)] will-change-opacity will-change-transform"
+				className="absolute size-0 opacity-0 pointer-events-none rounded-2xl shadow-[var(--shadow)] duration-400 will-change-opacity will-change-transform"
 				style={{
-					background: "var(--color-interactive-pill)",
+					background: PILL_BG,
 					transition: FULL_TRANSITION,
 				}}
 			/>
