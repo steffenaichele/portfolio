@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import CVSection from "./components/CVSection";
+import ImpressionCard from "./components/ImpressionCard";
+import MainView from "./components/MainView";
+import { impressions, getProjectForImpression } from "./data/content";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
@@ -12,9 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
 	const t = await getTranslations('home');
-	return (
-		<>
-			<section className="max-w-lg mx-auto bg-[var(--color-segment-bg)] pt-60 px-4 text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-5">
+
+	const home = (
+		<div
+			data-stagger-group
+			className="contents flex flex-col gap-1">
+			<section className="bg-[var(--color-segment-bg)] py-14 px-7 rounded-lg text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-6">
 				<h1 className="text-[var(--color-text-secondary)]">
 					{t("greeting")}{" "}
 					<span role="img" aria-label={t("emoji_label")}>
@@ -26,6 +32,20 @@ export default async function Home() {
 				<p>{t("text3")}</p>
 			</section>
 			<CVSection />
-		</>
+		</div>
 	);
+
+	const work = (
+		<div data-stagger-group className="flex flex-wrap">
+			{impressions.map((impression) => (
+				<ImpressionCard
+					key={impression.id}
+					impression={impression}
+					project={getProjectForImpression(impression)}
+				/>
+			))}
+		</div>
+	);
+
+	return <MainView home={home} work={work} />;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, Ref, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 /**
@@ -40,11 +40,13 @@ interface ButtonProps {
 	type?: "button" | "submit" | "reset";
 	className?: string;
 	ghost?: boolean;
+	ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
 	role?: string;
 	"aria-label"?: string;
 	"aria-selected"?: boolean;
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
+	"aria-haspopup"?: React.AriaAttributes["aria-haspopup"];
 }
 
 // Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
@@ -104,11 +106,13 @@ const Button = ({
 	className: classNameProp,
 	disabled,
 	type = "button",
+	ref,
 	role,
 	"aria-label": ariaLabel,
 	"aria-selected": ariaSelected,
 	"aria-expanded": ariaExpanded,
 	"aria-controls": ariaControls,
+	"aria-haspopup": ariaHasPopup,
 }: ButtonProps) => {
 	// Inline-Feedback beim Clipboard-Kopieren: Label wechselt kurz auf die
 	// Success-Message und springt nach einem Timeout zurück.
@@ -148,6 +152,7 @@ const Button = ({
 	if (href) {
 		return (
 			<Link
+				ref={ref as Ref<HTMLAnchorElement>}
 				href={href}
 				onClick={onClick}
 				aria-label={ariaLabel}
@@ -178,6 +183,7 @@ const Button = ({
 
 	return (
 		<button
+			ref={ref as Ref<HTMLButtonElement>}
 			type={type}
 			onClick={handleCopyToClipboard}
 			disabled={disabled}
@@ -186,6 +192,7 @@ const Button = ({
 			aria-selected={ariaSelected}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
+			aria-haspopup={ariaHasPopup}
 			className={className}>
 			{copied ? copySuccessMessage : body}
 		</button>

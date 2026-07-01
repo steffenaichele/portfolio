@@ -122,7 +122,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		<>
 			{/* Card */}
 			<div
-				className={`relative ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] rounded-[var(--radius-surface)] shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101 overflow-hidden`}>
+				className={`relative ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101 overflow-hidden`}>
 				<div className="h-10 flex px-4 pt-4 pb-0">
 					<div className="grow h-6 px-2 flex flex-wrap items-center gap-x-1 gap-y-0.5">
 						<p className="text-sm text-[var(--color-text-secondary)]">
@@ -185,7 +185,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						role="dialog"
 						aria-modal="true"
 						aria-label={label}
-						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] rounded-[var(--radius-surface)] shadow-[var(--shadow)] overflow-hidden">
+						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] shadow-[var(--shadow)] overflow-hidden">
 						{/* Close button */}
 						<ActionWrapper>
 							<Button

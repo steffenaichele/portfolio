@@ -60,7 +60,7 @@ const Slideshow = ({ slides, interval = 8000, ariaLabel = "Slideshow" }: Slidesh
 			ref={containerRef}
 			role="region"
 			aria-label={ariaLabel}
-			className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke rounded-(--radius-surface) border shadow-[var(--shadow-soft)]">
+			className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke border shadow-[var(--shadow-soft)]">
 			<span className="sr-only" aria-live="polite" aria-atomic="true">
 				{slides[current].alt}
 			</span>

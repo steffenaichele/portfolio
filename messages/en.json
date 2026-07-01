@@ -13,11 +13,9 @@
 		},
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
-			"pages_heading": "Pages",
-			"links_heading": "Links",
-			"imprint": "Imprint",
 			"copyright": "© 2026 Steffen Aichele – All rights reserved.",
-			"built_with": "Built with Next.js & Tailwind CSS"
+			"built_with": "Built with Next.js & Tailwind CSS",
+			"email": "Copy email"
 		},
 		"contact_button": "Contact",
 		"skip_to_main": "Skip to main content"
@@ -449,10 +447,8 @@
 		"page_title": "About Me"
 	},
 	"impressum": {
-		"meta_title": "Imprint – Steffen Aichele",
-		"meta_description": "Legal notice and contact details of Steffen Aichele.",
 		"page_title": "Imprint",
 		"legal_notice": "Legal notice pursuant to § 5 TMG",
-		"contact_button": "Contact"
+		"close": "Close imprint"
 	}
 }

@@ -8,6 +8,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ViewProvider from "./components/ViewProvider";
 
 const ppNeueMontreal = localFont({
 	src: [
@@ -77,7 +78,7 @@ const ppNeueMontreal = localFont({
 });
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://steffenaichele.com"),
+	metadataBase: new URL("https://steffenaichele.xyz"),
 	title: {
 		default: "Steffen Aichele",
 		template: "%s · Steffen Aichele",
@@ -88,7 +89,7 @@ export const metadata: Metadata = {
 		type: "website",
 		locale: "de_DE",
 		alternateLocale: "en_US",
-		url: "https://steffenaichele.com",
+		url: "https://steffenaichele.xyz",
 		siteName: "Steffen Aichele",
 		title: "Steffen Aichele",
 		description:
@@ -124,22 +125,20 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`w-full px-4 flex ${ppNeueMontreal.variable}`}>
-			<body className="bg-[var(--color-main-bg)] text-[var(--color-text-primary)] font-sans antialiased w-full">
+			className={`bg-[var(--color-bg)] overflow-x-hidden w-full ${ppNeueMontreal.variable}`}>
+			<body className="relative w-full max-w-xl min-h-dvh data-[view=work]:max-w-full mx-auto text-[var(--color-text-primary)] font-sans antialiased [transition:max-width_2000ms_var(--ease-out)] motion-reduce:transition-none">
 				{/* <PixelTrail /> */}
 				<NextIntlClientProvider locale={locale} messages={messages}>
-					<a
-						href="#main-content"
-						className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label) focus:rounded-(--radius-tab) ">
-						{t("skip_to_main")}
-					</a>
-					<Header />
-					<main
-						id="main-content"
-						className="flex flex-col gap-20 pb-24 z-5">
-						{children}
-					</main>
-					<Footer />
+					<ViewProvider>
+						<a
+							href="#main-content"
+							className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label)">
+							{t("skip_to_main")}
+						</a>
+						<Header />
+						<main id="main-content">{children}</main>
+						<Footer />
+					</ViewProvider>
 				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />
