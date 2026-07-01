@@ -2,7 +2,6 @@
 
 import { useEffect, useReducer, useRef } from "react";
 import Image from "next/image";
-import clsx from "clsx";
 
 interface Slide {
 	src: string;
@@ -61,7 +60,7 @@ const Slideshow = ({ slides, interval = 8000, ariaLabel = "Slideshow" }: Slidesh
 			ref={containerRef}
 			role="region"
 			aria-label={ariaLabel}
-			className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke rounded-(--radius-surface) corner-squircle border shadow-[var(--shadow-soft)]">
+			className="relative w-full aspect-square overflow-hidden bg-(--color-surface-bg) border-surface-stroke border shadow-[var(--shadow-soft)]">
 			<span className="sr-only" aria-live="polite" aria-atomic="true">
 				{slides[current].alt}
 			</span>
@@ -70,10 +69,9 @@ const Slideshow = ({ slides, interval = 8000, ariaLabel = "Slideshow" }: Slidesh
 				alt={slides[current].alt}
 				width={800}
 				height={800}
-				className={clsx(
-					"w-full h-full object-cover transition-opacity duration-300",
+				className={`w-full h-full object-cover transition-opacity duration-300 ${
 					visible ? "opacity-100" : "opacity-0"
-				)}
+				}`}
 			/>
 		</div>
 	);

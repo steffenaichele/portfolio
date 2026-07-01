@@ -1,16 +1,8 @@
 @import "tailwindcss";
-@plugin "@toolwind/corner-shape";
 
 @layer base {
 	:root {
 		color-scheme: light;
-	}
-
-	/* Fallback for browsers without corner-shape support: use half the squircle radius */
-	@supports not (corner-shape: squircle) {
-		:root {
-			--radius-multiplier: 1;
-		}
 	}
 }
 
@@ -30,28 +22,6 @@
 	--radius-4xl: 32px;
 	--radius-full: 9999px;
 
-	--radius-multiplier: 2;
-
-	--radius-squircle-xs: calc(var(--radius-xs) * var(--radius-multiplier));
-	/* visually ~2px */
-	--radius-squircle-sm: calc(var(--radius-sm) * var(--radius-multiplier));
-	/* visually ~4px */
-	--radius-squircle-md: calc(var(--radius-md) * var(--radius-multiplier));
-	/* visually ~6px */
-	--radius-squircle-lg: calc(var(--radius-lg) * var(--radius-multiplier));
-	/* visually ~8px */
-	--radius-squircle-xl: calc(var(--radius-xl) * var(--radius-multiplier));
-	/* visually ~12px */
-	--radius-squircle-2xl: calc(var(--radius-2xl) * var(--radius-multiplier));
-	/* visually ~16px */
-	--radius-squircle-3xl: calc(var(--radius-3xl) * var(--radius-multiplier));
-	/* visually ~24px */
-	--radius-squircle-4xl: calc(var(--radius-4xl) * var(--radius-multiplier));
-	/* visually ~32px */
-
-	--radius-surface: var(--radius-squircle-2xl);
-	--radius-tab: var(--radius-2xl);
-
 	/* Easing Curves */
 	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -64,18 +34,12 @@
 
 	--color-neutral-150: oklch(0.946 0 0);
 
-	--color-bg: var(--color-neutral-50);
+	--color-bg: var(--color-neutral-100);
 	--color-primary: var(--color-neutral-100);
-
-	--color-divider: color-mix(in oklab, var(--color-black) 10%, transparent);
-
-	--color-interactive-wrapper-bg: var(--color-bg);
-	--color-interactive-wrapper-bg-hover: var(--color-neutral-150);
-	--shadow-interactive-wrapper-inner: inset 0 0 4px color-mix(in oklab, var(--color-black) 10%, transparent);
 
 	--color-interactive-element-bg-active: var(--color-neutral-50);
 	
-	--color-interactive-pill: var(--color-white);
+	--color-interactive-pill: olor-mix(in oklab, var(--color-black) 10%, transparent);
 	--color-interactive-pill-active: var(--color-neutral-200);
 	--color-interactive-pill-selected: var(--color-neutral-200);
 
@@ -123,23 +87,82 @@
 		0px 12px 12px -6px rgba(0, 0, 0, 0.04),
 		0px 24px 24px -12px rgba(0, 0, 0, 0.04);
 
+}
 
-	/* Layout */
-	--padding: 16px;
-	--whitespace: 16px;
-	--columns: 4;
-	--gap: 20px;
-
-	/* Background Pattern */
-	--dot-size: 1px;
-	--dot-space: 48px;
-	--dot-color: var(--color-neutral-400);
-
-	/* Toast (Sileo) */
-	--sileo-width: 280px;
-	--sileo-height: 44px;
-	--sileo-duration: 400ms;
-	--sileo-state-success: oklch(0.6 0.15 142);
+/* Orchestrierte Page-Transition: gestaffeltes Exit/Enter der main-Items,
+   koordiniert mit der body max-width Animation. Phasen kommen von
+   ViewProvider.tsx via body[data-phase]. Dauer/Stagger synchron mit DUR/STAGGER dort. */
+:root {
+	--pt-dur: 150ms;
+	--pt-stagger: 75ms;
+	--pt-shift: 24px;
+}
+@keyframes pt-exit {
+	to {
+		opacity: 0;
+		transform: translateY(calc(-1 * var(--pt-shift)));
+	}
+}
+@keyframes pt-enter {
+	from {
+		opacity: 0;
+		transform: translateY(var(--pt-shift));
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+body[data-phase="exit"] main [data-stagger-group] > * {
+	animation: pt-exit var(--pt-dur) var(--ease-in-out) forwards;
+}
+body[data-phase="hold"] main [data-stagger-group] > * {
+	opacity: 0;
+}
+body[data-phase="enter"] main [data-stagger-group] > * {
+	animation: pt-enter var(--pt-dur) var(--ease-out) backwards;
+}
+/* Stagger-Delays (Exit + Enter). Cap = 12 Items; alles darüber startet ohne
+   zusätzliche Verzögerung gemeinsam. Bei mehr Items hier ergänzen. */
+body[data-phase] main [data-stagger-group] > *:nth-child(2) {
+	animation-delay: calc(1 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(3) {
+	animation-delay: calc(2 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(4) {
+	animation-delay: calc(3 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(5) {
+	animation-delay: calc(4 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(6) {
+	animation-delay: calc(5 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(7) {
+	animation-delay: calc(6 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(8) {
+	animation-delay: calc(7 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(9) {
+	animation-delay: calc(8 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(10) {
+	animation-delay: calc(9 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(11) {
+	animation-delay: calc(10 * var(--pt-stagger));
+}
+body[data-phase] main [data-stagger-group] > *:nth-child(12) {
+	animation-delay: calc(11 * var(--pt-stagger));
+}
+@media (prefers-reduced-motion: reduce) {
+	body[data-phase] main [data-stagger-group] > * {
+		animation: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
 }
 
 /* transitions-dev — universal install */
@@ -211,37 +234,12 @@
 		}
 	}
 
-	.layout-grid {
-		display: grid;
-		grid-template-columns: repeat(var(--columns), 1fr);
-		column-gap: var(--gap);
-		row-gap: 32px;
-	}
-
-	.bg-pattern {
-		background-image:
-			radial-gradient(ellipse at center,
-				transparent 25%,
-				var(--color-bg-elevated) 100%),
-			radial-gradient(circle,
-				var(--dot-color) var(--dot-size),
-				transparent var(--dot-size));
-		background-size:
-			100% 100%,
-			var(--dot-space) var(--dot-space);
-	}
-
 	@media (width >=80rem) {
 		:root {
 			--padding: 32px;
 			--whitespace: 76px;
 			--columns: 12;
 			--gap: 32px;
-		}
-
-		.layout-grid {
-			grid-template-columns: repeat(var(--columns), 1fr);
-			column-gap: var(--gap);
 		}
 	}
 
@@ -491,17 +489,6 @@
 			transition: none !important;
 		}
 	}
-}
-
-/* Toast (Sileo) overrides */
-[data-sileo-viewport] {
-	font-family: var(--font-sans);
-}
-
-[data-sileo-title] {
-	font-size: var(--size-font-md);
-	font-weight: 500;
-	text-transform: none;
 }
 
 /* @media (prefers-color-scheme: dark) {

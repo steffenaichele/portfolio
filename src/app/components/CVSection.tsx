@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
-import clsx from "clsx";
 
 import ActionWrapper from "./ActionWrapper";
 import Button from "./Button";
@@ -76,59 +75,53 @@ export default function CVSection() {
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
-			className={clsx(
+			className={
 				active === category
 					? "text-(--color-text-secondary)"
-					: "text-(--color-text-tertiary)",
-			)}>
+					: "text-(--color-text-tertiary)"
+			}>
 			{label}
 		</Button>
 	);
 
 	return (
-		<section className="flex flex-col gap-6 ">
-			<span className="w-auto h-[1px] mx-4 bg-[var(--color-divider)]"></span>
-			<div className="w-full flex flex-col gap-10">
-				<ActionWrapper role="tablist" className="flex flex-row">
-					{tab("experience", t("experience_heading"))}
-					{tab("education", t("education_heading"))}
-				</ActionWrapper>
-				<div
-					id={PANEL_ID}
-					role="tabpanel"
-					className={clsx(
-						"relative overflow-x-clip rounded-2xl transition-colors duration-200 ease-out",
-						switching
-							? "bg-[var(--color-interactive-wrapper-bg-hover)]"
-							: "bg-transparent",
-					)}
-					style={{ minHeight: panelMinHeight }}>
-					{ORDER.map((category, i) => {
-						const isActive = active === category;
-						// -1 = links vom aktiven Tab, +1 = rechts.
-						const dir = Math.sign(i - activeIndex);
-						return (
-							<div
-								key={category}
-								aria-hidden={!isActive}
-								inert={!isActive || undefined}
-								className={clsx(
-									"transition-[opacity,transform] duration-800 ease-out will-change-transform",
-									isActive
-										? "relative opacity-100 translate-x-0"
-										: clsx(
-												"absolute inset-0 opacity-0 pointer-events-none motion-reduce:translate-x-0",
-												dir < 0 ? "-translate-x-6" : "translate-x-6",
-											),
-								)}>
-								{cvList(
-									category === "experience" ? experience : education,
-									category,
-								)}
-							</div>
-						);
-					})}
-				</div>
+		<section className="bg-[var(--color-segment-bg)] px-4 pt-6 pb-10 flex flex-col gap-4 rounded-lg">
+			<ActionWrapper role="tablist" className="flex flex-row">
+				{tab("experience", t("experience_heading"))}
+				{tab("education", t("education_heading"))}
+			</ActionWrapper>
+			<div
+				id={PANEL_ID}
+				role="tabpanel"
+				className={`relative rounded-2xl  duration-200 ease-out`}
+				style={{ minHeight: panelMinHeight }}>
+				{ORDER.map((category, i) => {
+					const isActive = active === category;
+					// -1 = links vom aktiven Tab, +1 = rechts.
+					const dir = Math.sign(i - activeIndex);
+					return (
+						<div
+							key={category}
+							aria-hidden={!isActive}
+							inert={!isActive || undefined}
+							className={`transition-[opacity,transform] duration-800 ease-out will-change-transform ${
+								isActive
+									? "relative opacity-100 translate-x-0"
+									: `absolute inset-0 opacity-0 pointer-events-none motion-reduce:translate-x-0 ${
+											dir < 0
+												? "-translate-x-6"
+												: "translate-x-6"
+										}`
+							}`}>
+							{cvList(
+								category === "experience"
+									? experience
+									: education,
+								category,
+							)}
+						</div>
+					);
+				})}
 			</div>
 		</section>
 	);

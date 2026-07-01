@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 import Link from "next/link";
-import clsx from "clsx";
 
 /**
  * ToggleButton — Segmented-Control mit einer einzigen, persistenten Pille, die
@@ -128,19 +127,19 @@ export default function ToggleButton({
 
 	// Aktives Segment = text-primary, übrige tertiär (heben sich bei Hover).
 	const segmentClass = (active: boolean) =>
-		clsx(
-			"relative inline-flex items-center justify-center font-medium select-none cursor-pointer transition-colors duration-150 [transition-timing-function:var(--ease-out)] focus-visible:outline-1 focus-visible:outline-orange-300",
-			sizeClasses[size],
+		`relative inline-flex items-center justify-center font-medium select-none cursor-pointer transition-colors duration-150 [transition-timing-function:var(--ease-out)] focus-visible:outline-1 focus-visible:outline-orange-300 ${
+			sizeClasses[size]
+		} ${
 			active
 				? "text-(--color-text-primary)"
-				: "text-(--color-text-tertiary) hover:text-(--color-text-secondary)",
-		);
+				: "text-(--color-text-tertiary) hover:text-(--color-text-secondary)"
+		}`;
 
 	return (
 		<div
 			ref={wrapperRef}
 			aria-label={ariaLabel}
-			className={clsx("relative inline-flex flex-row", className)}>
+			className={`relative inline-flex flex-row ${className ?? ""}`}>
 			<span
 				ref={pillRef}
 				aria-hidden

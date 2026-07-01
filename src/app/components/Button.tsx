@@ -1,13 +1,7 @@
 "use client";
 
-// clsx merges class strings conditionally.
-// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
-// Strings, arrays, and objects are all valid — falsy values are ignored.
-
-import { ReactNode } from "react";
+import { ReactNode, Ref, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import clsx from "clsx";
-import { sileo } from "sileo";
 
 /**
  * Button — a styled button element.
@@ -46,11 +40,13 @@ interface ButtonProps {
 	type?: "button" | "submit" | "reset";
 	className?: string;
 	ghost?: boolean;
+	ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
 	role?: string;
 	"aria-label"?: string;
 	"aria-selected"?: boolean;
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
+	"aria-haspopup"?: React.AriaAttributes["aria-haspopup"];
 }
 
 // Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
@@ -110,30 +106,38 @@ const Button = ({
 	className: classNameProp,
 	disabled,
 	type = "button",
+	ref,
 	role,
 	"aria-label": ariaLabel,
 	"aria-selected": ariaSelected,
 	"aria-expanded": ariaExpanded,
 	"aria-controls": ariaControls,
+	"aria-haspopup": ariaHasPopup,
 }: ButtonProps) => {
+	// Inline-Feedback beim Clipboard-Kopieren: Label wechselt kurz auf die
+	// Success-Message und springt nach einem Timeout zurück.
+	const [copied, setCopied] = useState(false);
+	const copyResetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	useEffect(
+		() => () => {
+			if (copyResetTimer.current) clearTimeout(copyResetTimer.current);
+		},
+		[],
+	);
+
 	const baseClasses =
 		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
 
-	const className = clsx(
-		baseClasses,
-		// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing
-		// der gefüllten Buttons; ghost trägt eigene feste Tab-Maße.
-		isLink
-			? clsx("px-3 py-1 text-md", linkClasses)
-			: ghost
-				? ghostClasses
-				: clsx(
-						sizeClasses[size],
-						contentClasses[size][content],
-						primaryClasses,
-					),
-		classNameProp,
-	);
+	// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing der
+	// gefüllten Buttons; ghost trägt eigene feste Tab-Maße.
+	const variantClasses = isLink
+		? `px-3 py-1 text-md ${linkClasses}`
+		: ghost
+			? ghostClasses
+			: `${sizeClasses[size]} ${contentClasses[size][content]} ${primaryClasses}`;
+
+	const className = `${baseClasses} ${variantClasses} ${classNameProp ?? ""}`;
 
 	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
 	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
@@ -148,6 +152,7 @@ const Button = ({
 	if (href) {
 		return (
 			<Link
+				ref={ref as Ref<HTMLAnchorElement>}
 				href={href}
 				onClick={onClick}
 				aria-label={ariaLabel}
@@ -163,16 +168,14 @@ const Button = ({
 	}
 
 	const handleCopyToClipboard = async () => {
-		if (copyToClipboard) {
-			if (!navigator.clipboard) {
-				sileo.error({ title: "Failed to copy to clipboard." });
-			} else {
-				try {
-					await navigator.clipboard.writeText(copyToClipboard);
-					sileo.success({ title: copySuccessMessage });
-				} catch {
-					sileo.error({ title: "Failed to copy to clipboard." });
-				}
+		if (copyToClipboard && navigator.clipboard) {
+			try {
+				await navigator.clipboard.writeText(copyToClipboard);
+				setCopied(true);
+				if (copyResetTimer.current) clearTimeout(copyResetTimer.current);
+				copyResetTimer.current = setTimeout(() => setCopied(false), 2000);
+			} catch {
+				// Kopieren fehlgeschlagen — kein Feedback.
 			}
 		}
 		onClick?.();
@@ -180,6 +183,7 @@ const Button = ({
 
 	return (
 		<button
+			ref={ref as Ref<HTMLButtonElement>}
 			type={type}
 			onClick={handleCopyToClipboard}
 			disabled={disabled}
@@ -188,8 +192,9 @@ const Button = ({
 			aria-selected={ariaSelected}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
+			aria-haspopup={ariaHasPopup}
 			className={className}>
-			{body}
+			{copied ? copySuccessMessage : body}
 		</button>
 	);
 };

@@ -261,7 +261,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 					aria-controls={detailsId}
 					data-pill-suppress={pillSuppressed || undefined}
 					disabled={!hasExpandable}
-					className="block w-full p-0 text-left px-3">
+					className="block w-full p-0 text-left px-4">
 					{/* ╔══════════════════════════════════════════════════════════════╗
 				    ║ HÖHEN-ANIMATION (Container auf-/zuklappen)                     ║
 				    ║ • Easing  → `ease` unten (gilt für Öffnen UND Schließen)       ║
