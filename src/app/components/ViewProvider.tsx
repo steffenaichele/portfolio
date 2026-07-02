@@ -7,7 +7,6 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { usePathname, useRouter } from "next/navigation";
 
 // Tab-State + orchestrierte, UNTERBRECHBARE Transition auf EINER Seite (kein Routing).
 // Sequenz beim View-Wechsel:
@@ -59,8 +58,6 @@ export default function ViewProvider({
 }: {
 	children: React.ReactNode;
 }) {
-	const router = useRouter();
-	const pathname = usePathname();
 	const [view, setView] = useState<View>("home");
 	const [phase, setPhase] = useState<Phase>("idle");
 	// Live-Ziel + ob beim nächsten Swap die Breite wechselt (für hold).
@@ -75,13 +72,6 @@ export default function ViewProvider({
 	const requestView = (target: View) => {
 		// Schon dort bzw. läuft bereits dorthin (Invariante: idle => targetRef === view).
 		if (target === targetRef.current) return;
-		// Nicht auf der Hauptseite (z.B. /imprint): zurück nach "/" und direkt setzen.
-		if (pathname !== "/") {
-			targetRef.current = target;
-			setView(target);
-			router.push("/");
-			return;
-		}
 		if (prefersReduced()) {
 			targetRef.current = target;
 			setView(target);
@@ -112,6 +102,9 @@ export default function ViewProvider({
 		if (phase !== "hold") return;
 		if (!widthChangesRef.current) {
 			setPhaseAttr("enter");
+			// Phasen-Maschine: bewusstes synchrones Weiterschalten (kein externer
+			// Zustand), analog zum Muster in CVItem.
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setPhase("enter");
 			return;
 		}

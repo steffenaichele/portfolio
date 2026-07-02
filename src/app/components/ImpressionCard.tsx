@@ -3,25 +3,22 @@
 import { useState, useRef, useEffect, useEffectEvent } from "react";
 import Image from "next/image";
 import { ArrowRight, X } from "lucide-react";
-import { useTranslations, useMessages } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import Button from "./Button";
 import ActionWrapper from "./ActionWrapper";
 import Icon from "./Icon";
-import type { Impression, Project } from "../data/content";
+import type { Impression } from "../data/content";
 
 interface ImpressionCardProps {
 	impression: Impression;
-	project?: Project;
 }
 
 const ImpressionCard = ({ impression }: ImpressionCardProps) => {
-	const t = useTranslations('impressions');
-	const messages = useMessages() as { impressions?: { items?: Record<string, { label: string; context: string; alt: string }> } };
-	const itemMessages = messages.impressions?.items?.[impression.id];
-	const label = itemMessages?.label ?? impression.label;
-	const context = itemMessages?.context ?? impression.context;
-	const alt = itemMessages?.alt ?? impression.alt;
+	const t = useTranslations("impressions");
+	const label = t(`items.${impression.id}.label`);
+	const context = t(`items.${impression.id}.context`);
+	const alt = t(`items.${impression.id}.alt`);
 	const [mounted, setMounted] = useState(false);
 	const modalRef = useRef<HTMLDivElement>(null);
 	const backdropRef = useRef<HTMLButtonElement>(null);

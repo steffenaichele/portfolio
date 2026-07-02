@@ -54,40 +54,7 @@
 				"label": "Festival Onboarding",
 				"context": "HfG Schwäbisch Gmünd",
 				"alt": "Dashboard"
-			},
-			"03": {
-				"label": "Dashboard",
-				"context": "Freelance",
-				"alt": "Dashboard"
-			},
-			"04": {
-				"label": "Branding",
-				"context": "HfG Schwäbisch Gmünd",
-				"alt": "Branding"
-			},
-			"05": {
-				"label": "Landing Page",
-				"context": "Freelance",
-				"alt": "Landing Page"
 			}
-		}
-	},
-	"projects": {
-		"meta_title": "Projects – Steffen Aichele",
-		"meta_description": "Selected projects by Steffen Aichele – UX/UI Design and Web Development.",
-		"page_title": "Projects",
-		"not_found_title": "Project not found – Steffen Aichele",
-		"inkcal": {
-			"title": "Tattoo Artist Calendar",
-			"description": "React web app for managing appointments, clients and designs for tattoo artists."
-		},
-		"museum-exhibit": {
-			"title": "Interactive Museum Exhibit",
-			"description": "React/Electron app replacing a legacy Flash application."
-		},
-		"gewohnheiten": {
-			"title": "Digital Habit Development Aid",
-			"description": "React/Electron app replacing a legacy Flash application."
 		}
 	},
 	"cv": {
@@ -440,11 +407,6 @@
 				"totalEndYear": 2016
 			}
 		]
-	},
-	"about_me": {
-		"meta_title": "About Me – Steffen Aichele",
-		"meta_description": "More about Steffen Aichele – UX/UI Designer and Full Stack Developer from Schwäbisch Gmünd.",
-		"page_title": "About Me"
 	},
 	"impressum": {
 		"page_title": "Imprint",

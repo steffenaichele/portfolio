@@ -18,7 +18,7 @@ import Link from "next/link";
  *   size       (optional)  — "md" (Nav) | "sm" (Sprache), default "md"
  */
 
-export interface ToggleOption {
+interface ToggleOption {
 	key: string;
 	label: ReactNode;
 	href?: string;
