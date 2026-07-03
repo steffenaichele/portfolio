@@ -76,7 +76,7 @@ const ghostClasses =
 // trägt allein die Pille.
 const sizeClasses: Record<Size, string> = {
 	md: "h-9 text-lg",
-	sm: "h-6 text-sm text-medium",
+	sm: "h-6 text-sm font-medium",
 };
 
 const contentClasses: Record<Size, Record<ContentType, string>> = {

@@ -10,67 +10,18 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ViewProvider from "./components/ViewProvider";
 
+// Nur tatsächlich genutzte Schnitte laden (400 regulär, 500 für font-medium).
 const ppNeueMontreal = localFont({
 	src: [
-		{
-			path: "../fonts/PPNeueMontreal-Hairline.woff2",
-			weight: "100",
-			style: "normal",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-HairlineItalic.woff2",
-			weight: "100",
-			style: "italic",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-Light.woff2",
-			weight: "300",
-			style: "normal",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-LightItalic.woff2",
-			weight: "300",
-			style: "italic",
-		},
 		{
 			path: "../fonts/PPNeueMontreal-Book.woff2",
 			weight: "400",
 			style: "normal",
 		},
 		{
-			path: "../fonts/PPNeueMontreal-BookItalic.woff2",
-			weight: "400",
-			style: "italic",
-		},
-		{
 			path: "../fonts/PPNeueMontreal-Medium.woff2",
 			weight: "500",
 			style: "normal",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-MediumItalic.woff2",
-			weight: "500",
-			style: "italic",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-Semibold.woff2",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-SemiboldItalic.woff2",
-			weight: "600",
-			style: "italic",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-Black.woff2",
-			weight: "900",
-			style: "normal",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-BlackItalic.woff2",
-			weight: "900",
-			style: "italic",
 		},
 	],
 	variable: "--ppNeueMontreal",
@@ -94,14 +45,6 @@ export const metadata: Metadata = {
 		title: "Steffen Aichele",
 		description:
 			"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
-		images: [
-			{
-				url: "/og-image.png",
-				width: 1200,
-				height: 630,
-				alt: "Steffen Aichele – UX/UI Designer und Full Stack Developer",
-			},
-		],
 	},
 	twitter: {
 		card: "summary_large_image",
@@ -127,7 +70,6 @@ export default async function RootLayout({
 			data-scroll-behavior="smooth"
 			className={`bg-[var(--color-bg)] overflow-x-hidden w-full ${ppNeueMontreal.variable}`}>
 			<body className="relative w-full max-w-xl min-h-dvh data-[view=work]:max-w-full mx-auto text-[var(--color-text-primary)] font-sans antialiased [transition:max-width_2000ms_var(--ease-out)] motion-reduce:transition-none">
-				{/* <PixelTrail /> */}
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ViewProvider>
 						<a

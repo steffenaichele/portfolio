@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import CVSection from "./components/CVSection";
 import ImpressionCard from "./components/ImpressionCard";
 import MainView from "./components/MainView";
-import { impressions, getProjectForImpression } from "./data/content";
+import { impressions } from "./data/content";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
@@ -38,11 +38,7 @@ export default async function Home() {
 	const work = (
 		<div data-stagger-group className="flex flex-wrap">
 			{impressions.map((impression) => (
-				<ImpressionCard
-					key={impression.id}
-					impression={impression}
-					project={getProjectForImpression(impression)}
-				/>
+				<ImpressionCard key={impression.id} impression={impression} />
 			))}
 		</div>
 	);

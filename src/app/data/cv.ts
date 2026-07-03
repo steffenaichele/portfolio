@@ -21,12 +21,3 @@ export type CVEntry = {
 	totalEndMonth: string;
 	totalEndYear: number;
 };
-
-export function getYearRange(entry: CVEntry) {
-	const startYears = entry.roles.map((r) => r.startYear);
-	const endYears = entry.roles.map((r) => r.endYear);
-	return {
-		startYear: Math.min(...startYears),
-		endYear: Math.max(...endYears),
-	};
-}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
 import ActionWrapper from "./ActionWrapper";
@@ -13,9 +13,6 @@ type Category = "experience" | "education";
 const PANEL_ID = "cv-panel";
 // Reihenfolge der Tabs = Slide-Richtung: links/rechts vom aktiven Index.
 const ORDER: Category[] = ["experience", "education"];
-// Dauer (ms) des Slide/Opacity-Wechsels. Synchron mit der CSS-Transition unten
-// und dem Timer, der den Panel-Hintergrund wieder ausblendet.
-const SWITCH_MS = 200;
 
 export default function CVSection() {
 	const t = useTranslations("cv");
@@ -24,25 +21,12 @@ export default function CVSection() {
 	};
 	const { experience, education } = messages.cv;
 	const [active, setActive] = useState<Category>("experience");
-	// True während des Slide-Wechsels: blendet den Panel-Hintergrund kurz ein.
-	const [switching, setSwitching] = useState(false);
-	const switchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const activeIndex = ORDER.indexOf(active);
 
 	const select = (category: Category) => {
 		if (category === active) return;
 		setActive(category);
-		setSwitching(true);
-		if (switchTimer.current) clearTimeout(switchTimer.current);
-		switchTimer.current = setTimeout(() => setSwitching(false), SWITCH_MS);
 	};
-
-	useEffect(
-		() => () => {
-			if (switchTimer.current) clearTimeout(switchTimer.current);
-		},
-		[],
-	);
 
 	// Feste Panel-Höhe = Tab mit den meisten Items (geschlossen), damit das
 	// Layout beim Wechsel nicht springt.
