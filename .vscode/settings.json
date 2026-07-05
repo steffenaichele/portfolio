@@ -5,5 +5,15 @@
 	},
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
+	},
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "expanded",
+			"extensionName": ".css",
+			"savePath": "/.sass-output"
+		}
+	],
+	"files.exclude": {
+		".sass-output": true
 	}
 }
