@@ -51,14 +51,6 @@
 			transition: none;
 		}
 	}
-
-	// Marker-Klasse "group" kommt von der umgebenden AccordionItem-Karte
-	// (aktuell noch Tailwind-Klasse in AccordionItem.tsx, dort parallel
-	// migriert — nach Abschluss beider Migrationen prüfen, ob "group" als
-	// globale Marker-Klasse erhalten bleibt).
-	:global(.group):hover &::after {
-		height: 0;
-	}
 }
 
 .orgShort {
