@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import AccordionItem from "./AccordionItem";
 import { useAccordion } from "./Accordion";
 import type { CVEntry } from "../data/cv";
+import { prefersReduced } from "../hooks/usePrefersReducedMotion";
+import { EASING_UI } from "../lib/motion";
 import styles from "./CVItem.module.scss";
 
 // CVItem — gesamter Inhalt eines CV-Accordion-Eintrags samt Animation. Die
@@ -62,7 +64,7 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 	// True nach erster Interaktion. Davor (auch nach Tab-Wechsel/Remount) bleibt
 	// das Item im statischen `rest`-Zustand — kein Keyframe → kein Mount-Flash.
 	const [hasToggled, setHasToggled] = useState(false);
-	const reduceMotion = useReducedMotion();
+	const reduceMotion = prefersReduced();
 
 	const detailsId = `cv-details-${entry.organization.replace(/\s+/g, "-").toLowerCase()}`;
 	const otherRoles = entry.roles.slice(1);
@@ -219,7 +221,7 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 					transition={{
 						duration: isOpen ? heightDuration : closeHeightDuration,
 						delay: isOpen ? 0 : closeBuffer,
-						ease: "easeOut",
+						ease: EASING_UI,
 					}}
 					className={styles.heightWrap}>
 					{/* ───────── Summary-Zeile (geschlossener Zustand) ─────────

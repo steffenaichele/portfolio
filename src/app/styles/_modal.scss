@@ -2,12 +2,12 @@
 // Shared global partial rather than split per-component: both consumers toggle
 // the same is-open/is-closing class-name string literals directly in JS, so
 // keeping one shared definition avoids two copies drifting apart.
+// Dauer/Easing kommen aus den globalen Motion-Tokens (_tokens.scss):
+// Open = --duration-move, Close = --duration-state, Kurve = --easing-modal.
+// Nur die modal-spezifischen Scale-Werte bleiben hier lokal.
 :root {
-	--modal-open-dur: 250ms;
-	--modal-close-dur: 150ms;
 	--modal-scale: 0.96;
 	--modal-scale-close: 0.96;
-	--modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .t-modal {
@@ -16,8 +16,8 @@
 	opacity: 0;
 	pointer-events: none;
 	transition:
-		transform var(--modal-open-dur) var(--modal-ease),
-		opacity var(--modal-open-dur) var(--modal-ease);
+		transform var(--duration-move) var(--easing-modal),
+		opacity var(--duration-move) var(--easing-modal);
 	will-change: transform, opacity;
 
 	&.is-open {
@@ -31,14 +31,14 @@
 		opacity: 0;
 		pointer-events: none;
 		transition:
-			transform var(--modal-close-dur) var(--modal-ease),
-			opacity var(--modal-close-dur) var(--modal-ease);
+			transform var(--duration-state) var(--easing-modal),
+			opacity var(--duration-state) var(--easing-modal);
 	}
 }
 
 .t-modal-backdrop {
 	opacity: 0;
-	transition: opacity var(--modal-open-dur) var(--modal-ease);
+	transition: opacity var(--duration-move) var(--easing-modal);
 
 	&.is-open {
 		opacity: 1;
@@ -46,7 +46,7 @@
 
 	&.is-closing {
 		opacity: 0;
-		transition: opacity var(--modal-close-dur) var(--modal-ease);
+		transition: opacity var(--duration-state) var(--easing-modal);
 	}
 }
 

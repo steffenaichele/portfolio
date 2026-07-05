@@ -2,6 +2,7 @@
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
 import { prefersReduced } from "../hooks/usePrefersReducedMotion";
+import { computeFlipTransform, readInlineBounds } from "../lib/motion";
 import styles from "./ActionWrapper.module.scss";
 
 /**
@@ -39,10 +40,10 @@ import styles from "./ActionWrapper.module.scss";
 // Geometrie (left/top/width/height) wird per FLIP sofort gesetzt; die Pille
 // erscheint am alten Ort via inverser Transform und animiert zur Zielposition.
 const FULL_TRANSITION =
-	"transform 300ms var(--ease-out), opacity 150ms var(--ease-out), background-color 150ms var(--ease-out)";
+	"transform var(--duration-move) var(--easing-ui), opacity var(--duration-state) var(--easing-ui), background-color var(--duration-state) var(--easing-ui)";
 // Reduced motion: kein Gleiten/Schieben, nur Ein-/Ausblenden + Farbwechsel.
 const REDUCED_TRANSITION =
-	"opacity 150ms var(--ease-out), background-color 150ms var(--ease-out)";
+	"opacity var(--duration-state) var(--easing-ui), background-color var(--duration-state) var(--easing-ui)";
 
 // Pillenfarbe im Ruhe-/Hover-Zustand bzw. beim Drücken (Active).
 const PILL_BG = "var(--color-interactive-pill)";
@@ -107,24 +108,14 @@ const ActionWrapper = ({
 			place(el);
 			return;
 		}
-		// Alte Geometrie aus Inline-Styles lesen (bereits platziert).
-		const oldLeft = parseFloat(pill.style.left) || 0;
-		const oldTop = parseFloat(pill.style.top) || 0;
-		const oldWidth = parseFloat(pill.style.width) || 0;
-		const oldHeight = parseFloat(pill.style.height) || 0;
-		// Neue Geometrie setzen (kein Übergang).
+		// Alte Geometrie aus Inline-Styles lesen (bereits platziert), dann neue
+		// Geometrie ohne Übergang setzen.
+		const previousBounds = readInlineBounds(pill);
 		pill.style.transition = "none";
 		place(el);
-		const newLeft = parseFloat(pill.style.left);
-		const newTop = parseFloat(pill.style.top);
-		const newWidth = parseFloat(pill.style.width);
-		const newHeight = parseFloat(pill.style.height);
+		const targetBounds = readInlineBounds(pill);
 		// Inverse Transform: Pille visuell am alten Ort erscheinen lassen.
-		const tx = oldLeft + oldWidth / 2 - (newLeft + newWidth / 2);
-		const ty = oldTop + oldHeight / 2 - (newTop + newHeight / 2);
-		const sx = newWidth ? oldWidth / newWidth : 1;
-		const sy = newHeight ? oldHeight / newHeight : 1;
-		pill.style.transform = `translate(${tx}px, ${ty}px) scaleX(${sx}) scaleY(${sy})`;
+		pill.style.transform = computeFlipTransform(previousBounds, targetBounds);
 		pill.getBoundingClientRect(); // Reflow erzwingen
 		pill.style.transition = FULL_TRANSITION;
 		pill.style.transform = "translate(0, 0)";
@@ -200,7 +191,7 @@ const ActionWrapper = ({
 		pill.style.background = PILL_BG_ACTIVE;
 		pill.style.transform = "scale(0.97)";
 		// Gedrücktes Element selbst mitskalieren (sitzt über der Pille).
-		el.style.transition = "transform 150ms var(--ease-out)";
+		el.style.transition = "transform var(--duration-state) var(--easing-ui)";
 		el.style.transform = "scale(0.97)";
 		pressedRef.current = el;
 	};
