@@ -2,55 +2,5 @@
 
 /* Tokens, page-transition engine, and modal state machine now live in
    globals.scss + _tokens/_page-transitions/_modal (see src/app/styles/).
-   This file is temporary scaffolding for components not yet migrated off
-   Tailwind utility classes — only .accordion-item remains below, pending
-   AccordionItem's own migration into AccordionItem.module.scss. */
-@layer components {
-	/* Accordion-Karte: Optik der CVItem-Einträge. Höhe/Inhalt animiert das
-	   Child (motion, variabel); die Karten-Chrome (Rundung, Gap, Bg) läuft hier
-	   mit fester Dauer, entkoppelt von der content-abhängigen Höhen-Animation. */
-	.accordion-item {
-		background: var(--color-accordion-item-bg);
-		transition:
-			border-radius 0.3s var(--ease-in-out),
-			background-color 0.3s var(--ease-out),
-			margin 0.3s var(--ease-out);
-	}
-
-	.accordion-item:not([data-open]):hover {
-		background: var(--color-accordion-item-bg-hover);
-	}
-
-	/* Block-Rundung: nur an den Außenkanten des Blocks — erstes/letztes Item,
-	   und die Kanten zu einem offenen Nachbarn (dort entsteht der Gap). */
-	.accordion-item:first-child {
-		border-top-left-radius: var(--radius-2xl);
-		border-top-right-radius: var(--radius-2xl);
-	}
-
-	.accordion-item:last-child {
-		border-bottom-left-radius: var(--radius-2xl);
-		border-bottom-right-radius: var(--radius-2xl);
-	}
-
-	.accordion-item[data-open] {
-		border-radius: var(--radius-2xl);
-		margin-block: 0.5rem;
-	}
-
-	.accordion-item:has(+ [data-open]) {
-		border-bottom-left-radius: var(--radius-2xl);
-		border-bottom-right-radius: var(--radius-2xl);
-	}
-
-	[data-open] + .accordion-item {
-		border-top-left-radius: var(--radius-2xl);
-		border-top-right-radius: var(--radius-2xl);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.accordion-item {
-			transition: none !important;
-		}
-	}
-}
+   This file is now purely Tailwind utility scaffolding for components not
+   yet migrated to CSS Modules/SCSS. */

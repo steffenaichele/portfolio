@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState } from "react";
+import styles from "./Accordion.module.scss";
 
 /**
  * Accordion — hält den Open-State aller Items (Multi-open: jedes Item toggelt
@@ -49,7 +50,7 @@ export default function Accordion({ children, className }: AccordionProps) {
 
 	return (
 		<AccordionContext.Provider value={{ openIds, toggle }}>
-			<ul className={`flex flex-col ${className ?? ""}`}>{children}</ul>
+			<ul className={`${styles.list} ${className ?? ""}`}>{children}</ul>
 		</AccordionContext.Provider>
 	);
 }
