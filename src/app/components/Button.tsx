@@ -2,6 +2,7 @@
 
 import { ReactNode, Ref, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import styles from "./Button.module.scss";
 
 /**
  * Button — a styled button element.
@@ -49,46 +50,24 @@ interface ButtonProps {
 	"aria-haspopup"?: React.AriaAttributes["aria-haspopup"];
 }
 
-// Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
-// Hover-Pille der umgebenden ActionWrapper dahinter sichtbar wird. Kein eigener
-// active-State — den trägt die Pille (sonst würde die fehlende Rundung sichtbar).
-const primaryClasses =
-	"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-transparent focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)";
-
-// isLink: Spiegelt den CVItem-Look — kein Hintergrund, dünne Underline unter
-// dem Label (collapsed bei Hover). Hover-Hintergrund liefert die Pille der
-// umgebenden ActionWrapper. Kein Border, kein Shadow, kein Scale.
-// Textfarbe wird vom Elternelement geerbt (Body = text-primary, Footer = hell),
-// damit der Link sich an den jeweiligen Grund anpasst.
-const linkClasses =
-	"group font-medium focus-visible:outline-1 focus-visible:outline-orange-300";
-
-// ghost: transparenter Button für Tab-artige Schalter (z.B. CV-Tabs). Eigene
-// feste Tab-Maße statt size/content, damit die Optik dem früheren Tab entspricht.
-// Active/Inactive-Textfarbe kommt per className vom Aufrufer; der Farb-Fade läuft
-// über die color-Transition in baseClasses. Hover-Hintergrund liefert die Pille
-// des umgebenden ActionWrapper.
-const ghostClasses =
-	"h-9 px-3 text-md font-medium text-nowrap hover:text-(--color-text-primary) focus-visible:outline-1 focus-visible:outline-orange-300";
-
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
 // an den Ecken — die Pille des ActionWrapper würde dort flackern. Die Rundung
 // trägt allein die Pille.
 const sizeClasses: Record<Size, string> = {
-	md: "h-9 text-lg",
-	sm: "h-6 text-sm font-medium",
+	md: styles.md,
+	sm: styles.sm,
 };
 
 const contentClasses: Record<Size, Record<ContentType, string>> = {
 	md: {
-		text: "px-4",
-		icon: "px-3",
-		iconRight: "pl-4 pr-3 gap-2",
+		text: styles.mdText,
+		icon: styles.mdIcon,
+		iconRight: styles.mdIconRight,
 	},
 	sm: {
-		text: "px-2.5",
-		icon: "px-1.5",
-		iconRight: "pl-2.5 pr-1.5 gap-1",
+		text: styles.smText,
+		icon: styles.smIcon,
+		iconRight: styles.smIconRight,
 	},
 };
 
@@ -126,25 +105,20 @@ const Button = ({
 		[],
 	);
 
-	const baseClasses =
-		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
-
 	// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing der
 	// gefüllten Buttons; ghost trägt eigene feste Tab-Maße.
 	const variantClasses = isLink
-		? `px-3 py-1 text-md ${linkClasses}`
+		? styles.link
 		: ghost
-			? ghostClasses
-			: `${sizeClasses[size]} ${contentClasses[size][content]} ${primaryClasses}`;
+			? styles.ghost
+			: `${sizeClasses[size]} ${contentClasses[size][content]} ${styles.primary}`;
 
-	const className = `${baseClasses} ${variantClasses} ${classNameProp ?? ""}`;
+	const className = `${styles.base} ${variantClasses} ${classNameProp ?? ""}`;
 
 	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
 	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
 	const body = isLink ? (
-		<span className="relative inline-flex items-center gap-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-(--color-link-underline) after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
-			{children}
-		</span>
+		<span className={styles.underline}>{children}</span>
 	) : (
 		children
 	);
@@ -161,7 +135,7 @@ const Button = ({
 				className={className}>
 				{body}
 				{external && (
-					<span className="sr-only"> (Opens in new window)</span>
+					<span className={styles.srOnly}> (Opens in new window)</span>
 				)}
 			</Link>
 		);
