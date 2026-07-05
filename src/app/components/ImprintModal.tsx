@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import Button from "./Button";
 import ActionWrapper from "./ActionWrapper";
 import Icon from "./Icon";
+import styles from "./ImprintModal.module.scss";
 
 // Impressum als Modal (keine eigene Route mehr). Modal-Mechanik gespiegelt von
 // ImpressionCard: t-modal/-backdrop-Klassen (globals.css), Escape, Body-Scroll-Lock,
@@ -130,7 +131,7 @@ const ImprintModal = () => {
 						tabIndex={-1}
 						aria-label={t("close")}
 						onClick={closeModal}
-						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60 cursor-default w-full h-full border-none"
+						className={`t-modal-backdrop ${styles.backdrop}`}
 					/>
 
 					{/* Panel */}
@@ -139,9 +140,9 @@ const ImprintModal = () => {
 						role="dialog"
 						aria-modal="true"
 						aria-label={t("page_title")}
-						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] shadow-[var(--shadow)] overflow-hidden">
+						className={`t-modal ${styles.panel}`}>
 						{/* Close button */}
-						<div className="flex justify-end p-3">
+						<div className={styles.closeRow}>
 							<ActionWrapper>
 								<Button
 									size="sm"
@@ -154,13 +155,11 @@ const ImprintModal = () => {
 						</div>
 
 						{/* Imprint content */}
-						<div className="flex flex-col gap-6 px-6 pb-8">
-							<h2 className="text-2xl text-[var(--color-text-primary)]">
-								{t("page_title")}
-							</h2>
-							<div className="text-[var(--color-text-tertiary)]">
-								<p className="mb-4">{t("legal_notice")}</p>
-								<address className="not-italic">
+						<div className={styles.content}>
+							<h2 className={styles.title}>{t("page_title")}</h2>
+							<div className={styles.body}>
+								<p className={styles.notice}>{t("legal_notice")}</p>
+								<address className={styles.address}>
 									<p>Steffen Aichele</p>
 									<p>Lönsstraße 4</p>
 									<p>73529 Schwäbisch Gmünd</p>
