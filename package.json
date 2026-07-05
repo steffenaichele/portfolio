@@ -12,6 +12,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^1.16.0",
+    "modern-normalize": "^3.0.1",
     "motion": "^12.40.0",
     "next": "^16.2.6",
     "next-intl": "^4.12.0",

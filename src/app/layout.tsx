@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import "modern-normalize/modern-normalize.css";
 import "./styles/globals.scss";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
