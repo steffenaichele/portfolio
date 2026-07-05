@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./styles/globals.css";
+import "./styles/globals.scss";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
