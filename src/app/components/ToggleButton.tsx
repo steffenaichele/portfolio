@@ -2,6 +2,8 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 import Link from "next/link";
+import { prefersReduced } from "../hooks/usePrefersReducedMotion";
+import styles from "./ToggleButton.module.scss";
 
 /**
  * ToggleButton — Segmented-Control mit einer einzigen, persistenten Pille, die
@@ -37,16 +39,9 @@ interface ToggleButtonProps {
 // Pille gleitet nur (Compositor-Transform); Geometrie wird per FLIP gesetzt.
 const TRANSITION = "transform 300ms var(--ease-out)";
 
-let reducedMotionQuery: MediaQueryList | undefined;
-const prefersReduced = () => {
-	if (typeof window === "undefined") return false;
-	reducedMotionQuery ??= window.matchMedia("(prefers-reduced-motion: reduce)");
-	return reducedMotionQuery.matches;
-};
-
 const sizeClasses: Record<"md" | "sm", string> = {
-	md: "h-9 px-4 text-lg",
-	sm: "h-7 px-2.5 text-sm",
+	md: styles.md,
+	sm: styles.sm,
 };
 
 export default function ToggleButton({
@@ -127,23 +122,17 @@ export default function ToggleButton({
 
 	// Aktives Segment = text-primary, übrige tertiär (heben sich bei Hover).
 	const segmentClass = (active: boolean) =>
-		`relative inline-flex items-center justify-center font-medium select-none cursor-pointer transition-colors duration-150 [transition-timing-function:var(--ease-out)] focus-visible:outline-1 focus-visible:outline-orange-300 ${
-			sizeClasses[size]
-		} ${
-			active
-				? "text-(--color-text-primary)"
-				: "text-(--color-text-tertiary) hover:text-(--color-text-secondary)"
-		}`;
+		`${styles.segment} ${sizeClasses[size]} ${active ? styles.active : styles.inactive}`;
 
 	return (
 		<div
 			ref={wrapperRef}
 			aria-label={ariaLabel}
-			className={`relative inline-flex flex-row ${className ?? ""}`}>
+			className={`${styles.wrapper} ${className ?? ""}`}>
 			<span
 				ref={pillRef}
 				aria-hidden
-				className="absolute left-0 top-0 size-0 opacity-0 pointer-events-none rounded-2xl"
+				className={styles.pill}
 				style={{
 					background: "var(--color-interactive-pill-selected)",
 					transition: TRANSITION,

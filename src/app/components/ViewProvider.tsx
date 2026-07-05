@@ -7,6 +7,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { prefersReduced } from "../hooks/usePrefersReducedMotion";
 
 // Tab-State + orchestrierte, UNTERBRECHBARE Transition auf EINER Seite (kein Routing).
 // Sequenz beim View-Wechsel:
@@ -21,7 +22,7 @@ import {
 type View = "home" | "work";
 type Phase = "idle" | "exit" | "hold" | "enter";
 
-// Synchron mit --pt-dur / --pt-stagger in globals.css.
+// Synchron mit --pt-dur / --pt-stagger in styles/_page-transitions.scss.
 const DUR = 150;
 const STAGGER = 75;
 const STAGGER_SELECTOR = "main [data-stagger-group] > *";
@@ -33,14 +34,6 @@ const itemCount = () =>
 
 const sequenceMs = (count: number) =>
 	DUR + STAGGER * Math.max(0, count - 1) + 20;
-
-// MediaQueryList einmal cachen (wie ToggleButton), nicht pro Klick neu erzeugen.
-let reducedMotionQuery: MediaQueryList | undefined;
-const prefersReduced = () => {
-	if (typeof window === "undefined") return false;
-	reducedMotionQuery ??= window.matchMedia("(prefers-reduced-motion: reduce)");
-	return reducedMotionQuery.matches;
-};
 
 const setPhaseAttr = (p: Phase) => {
 	if (p === "idle") delete document.body.dataset.phase;

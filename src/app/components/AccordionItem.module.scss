@@ -1,0 +1,48 @@
+// Accordion-Karte: Optik der CVItem-Einträge. Höhe/Inhalt animiert das
+// Child (motion, variabel); die Karten-Chrome (Rundung, Gap, Bg) läuft hier
+// mit fester Dauer, entkoppelt von der content-abhängigen Höhen-Animation.
+.item {
+	background: var(--color-accordion-item-bg);
+	box-shadow: var(--shadow);
+	transition:
+		border-radius 0.3s var(--ease-in-out),
+		background-color 0.3s var(--ease-out),
+		margin 0.3s var(--ease-out);
+}
+
+.item:not([data-open]):hover {
+	background: var(--color-accordion-item-bg-hover);
+}
+
+// Block-Rundung: nur an den Außenkanten des Blocks — erstes/letztes Item,
+// und die Kanten zu einem offenen Nachbarn (dort entsteht der Gap).
+.item:first-child {
+	border-top-left-radius: var(--radius-2xl);
+	border-top-right-radius: var(--radius-2xl);
+}
+
+.item:last-child {
+	border-bottom-left-radius: var(--radius-2xl);
+	border-bottom-right-radius: var(--radius-2xl);
+}
+
+.item[data-open] {
+	border-radius: var(--radius-2xl);
+	margin-block: 0.5rem;
+}
+
+.item:has(+ [data-open]) {
+	border-bottom-left-radius: var(--radius-2xl);
+	border-bottom-right-radius: var(--radius-2xl);
+}
+
+[data-open] + .item {
+	border-top-left-radius: var(--radius-2xl);
+	border-top-right-radius: var(--radius-2xl);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.item {
+		transition: none !important;
+	}
+}

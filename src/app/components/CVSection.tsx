@@ -7,6 +7,7 @@ import Accordion from "./Accordion";
 import Button from "./Button";
 import { CVItem, SUMMARY_HEIGHT } from "./CVItem";
 import type { CVEntry } from "../data/cv";
+import styles from "./CVSection.module.scss";
 
 type Category = "experience" | "education";
 
@@ -60,25 +61,23 @@ export default function CVSection() {
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
-			className={`rounded-2xl hover:bg-(--color-interactive-pill) active:bg-(--color-interactive-pill-active) ${
-				active === category
-					? "text-(--color-text-secondary)"
-					: "text-(--color-text-tertiary)"
+			className={`${styles.tab} ${
+				active === category ? styles.tabActive : styles.tabInactive
 			}`}>
 			{label}
 		</Button>
 	);
 
 	return (
-		<section className="px-4 pt-6 pb-10 flex flex-col gap-4 rounded-lg">
-			<div role="tablist" className="flex flex-row">
+		<section className={styles.section}>
+			<div role="tablist" className={styles.tablist}>
 				{tab("experience", t("experience_heading"))}
 				{tab("education", t("education_heading"))}
 			</div>
 			<div
 				id={PANEL_ID}
 				role="tabpanel"
-				className={`relative rounded-2xl  duration-200 ease-out`}
+				className={styles.panel}
 				style={{ minHeight: panelMinHeight }}>
 				{ORDER.map((category, i) => {
 					const isActive = active === category;
@@ -89,13 +88,13 @@ export default function CVSection() {
 							key={category}
 							aria-hidden={!isActive}
 							inert={!isActive || undefined}
-							className={`transition-[opacity,transform] duration-800 ease-out will-change-transform ${
+							className={`${styles.categoryPanel} ${
 								isActive
-									? "relative opacity-100 translate-x-0"
-									: `absolute inset-0 opacity-0 pointer-events-none motion-reduce:translate-x-0 ${
+									? styles.categoryActive
+									: `${styles.categoryInactive} ${
 											dir < 0
-												? "-translate-x-6"
-												: "translate-x-6"
+												? styles.categoryInactiveLeft
+												: styles.categoryInactiveRight
 										}`
 							}`}>
 							{cvList(

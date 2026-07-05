@@ -9,6 +9,7 @@ import Button from "./Button";
 import ActionWrapper from "./ActionWrapper";
 import Icon from "./Icon";
 import type { Impression } from "../data/content";
+import styles from "./ImpressionCard.module.scss";
 
 interface ImpressionCardProps {
 	impression: Impression;
@@ -119,18 +120,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		<>
 			{/* Card */}
 			<div
-				className={`relative ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101 overflow-hidden`}>
-				<div className="h-10 flex px-4 pt-4 pb-0">
-					<div className="grow h-6 px-2 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-						<p className="text-sm text-[var(--color-text-secondary)]">
-							{label}
-						</p>
-						<p className="text-sm text-[var(--color-text-tertiary)]">
-							{" · "}
-						</p>
-						<p className="text-sm text-[var(--color-text-tertiary)]">
-							{context}
-						</p>
+				className={`${styles.card} ${impression.square ? styles.square : styles.wide}`}>
+				<div className={styles.header}>
+					<div className={styles.labelWrap}>
+						<p className={styles.label}>{label}</p>
+						<p className={styles.contextText}>{" · "}</p>
+						<p className={styles.contextText}>{context}</p>
 					</div>
 					{impression.link && (
 						<ActionWrapper>
@@ -151,12 +146,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					alt={alt}
 					fill
 					sizes="(max-width: 1024px) 50vw, 25vw"
-					className="mt-12 p-2 object-top object-contain transition-transform group-hover:scale-103"
+					className={styles.cardImage}
 				/>
 				<button
 					ref={triggerRef}
 					onClick={openModal}
-					className="absolute cursor-pointer inset-0 w-full h-full"
+					className={styles.trigger}
 					aria-label={t("zoom_label", { label })}
 					aria-expanded={mounted}
 					aria-haspopup="dialog"
@@ -173,7 +168,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						tabIndex={-1}
 						aria-label={t("modal_close")}
 						onClick={closeModal}
-						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60 cursor-default w-full h-full border-none"
+						className={`t-modal-backdrop ${styles.backdrop}`}
 					/>
 
 					{/* Panel */}
@@ -182,7 +177,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						role="dialog"
 						aria-modal="true"
 						aria-label={label}
-						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] shadow-[var(--shadow)] overflow-hidden">
+						className={`t-modal ${styles.modalPanel}`}>
 						{/* Close button */}
 						<ActionWrapper>
 							<Button
@@ -196,25 +191,21 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 
 						{/* Image */}
 						<div
-							className={`relative w-full ${impression.square ? "aspect-square" : "aspect-3/2"}`}>
+							className={`${styles.modalImageWrap} ${impression.square ? styles.aspectSquare : styles.aspectWide}`}>
 							<Image
 								src={`/impressions/${impression.src}`}
 								alt={alt}
 								fill
 								sizes="(max-width: 768px) 100vw, 448px"
-								className="object-contain"
+								className={styles.modalImage}
 							/>
 						</div>
 
 						{/* Info */}
-						<div className="flex flex-col gap-3 p-5">
-							<div className="flex flex-col gap-0.5">
-								<p className="text-md font-medium text-[var(--color-text-primary)]">
-									{label}
-								</p>
-								<p className="text-xs text-[var(--color-text-tertiary)]">
-									{context}
-								</p>
+						<div className={styles.modalInfo}>
+							<div className={styles.modalLabelWrap}>
+								<p className={styles.modalLabel}>{label}</p>
+								<p className={styles.modalContext}>{context}</p>
 							</div>
 							{impression.link && (
 								<ActionWrapper>

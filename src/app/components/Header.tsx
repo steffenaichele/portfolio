@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import ToggleButton from "./ToggleButton";
 import BlurEffect from "react-progressive-blur";
 import { useView } from "./ViewProvider";
+import styles from "./Header.module.scss";
 
 const navItems = [{ key: "home" }, { key: "work" }] as const;
 
@@ -14,20 +15,14 @@ const Header = () => {
 	const { view, requestView } = useView();
 
 	return (
-		<header
-			className="sticky w-full max-w-xl mx-auto top-0 px-7 pt-[max(8rem,env(safe-area-inset-top))] pb-14 z-50 rounded-lg"
-			aria-label="Site header">
-			<BlurEffect
-				className="absolute inset-0 h-full pointer-events-none"
-				position="top"
-				intensity={50}
-			/>
-			<div className="relative max-w-lg flex flex-row justify-between items-center min-h-11 z-10">
+		<header className={styles.header} aria-label="Site header">
+			<BlurEffect className={styles.blur} position="top" intensity={50} />
+			<div className={styles.inner}>
 				<button
 					type="button"
 					aria-label={t("header.logo_label")}
 					onClick={() => requestView("home")}
-					className="h-11 flex items-center cursor-pointer">
+					className={styles.logoButton}>
 					<Logo />
 				</button>
 
