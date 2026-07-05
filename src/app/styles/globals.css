@@ -31,17 +31,12 @@
 	/* 16px - matches Tailwind text-base */
 
 	/* Colors */
+	--color-neutral-150: oklch(94.61% 0.000 0);
 
-	--color-bg: var(--color-neutral-100);
+	--color-bg: var(--color-neutral-150);
 
-	--color-segment-bg: var(--color-white);
-	--color-surface-bg: var(--color-white);
-	--color-surface-bg-hover: var(--color-white);
-
-	--color-interactive-element-bg-active: var(--color-neutral-50);
-
-	--color-interactive-pill: color-mix(in oklab, var(--color-black) 10%, transparent);
-	--color-interactive-pill-active: var(--color-neutral-200);
+	--color-interactive-pill: color-mix(in oklab, var(--color-white) 40%, transparent);
+	--color-interactive-pill-active: var(--color-white);
 	--color-interactive-pill-selected: var(--color-neutral-200);
 
 	--color-text-primary: var(--color-neutral-950);
@@ -63,6 +58,9 @@
 
 	--color-cvitem-exp-bg: var(--color-emerald-50);
 	--color-cvitem-edu-bg: var(--color-sky-50);
+
+	--color-accordion-item-bg: var(--color-white);
+	--color-accordion-item-bg-hover: var(--color-neutral-50);
 
 	/* Shadows */
 	--shadow:
@@ -227,6 +225,54 @@ body[data-phase] main [data-stagger-group] > *:nth-child(12) {
 
 		.t-modal,
 		.t-modal-backdrop {
+			transition: none !important;
+		}
+	}
+
+	/* Accordion-Karte: Optik der CVItem-Einträge. Höhe/Inhalt animiert das
+	   Child (motion, variabel); die Karten-Chrome (Rundung, Gap, Bg) läuft hier
+	   mit fester Dauer, entkoppelt von der content-abhängigen Höhen-Animation. */
+	.accordion-item {
+		background: var(--color-accordion-item-bg);
+		transition:
+			border-radius 0.3s var(--ease-in-out),
+			background-color 0.3s var(--ease-out),
+			margin 0.3s var(--ease-out);
+	}
+
+	.accordion-item:not([data-open]):hover {
+		background: var(--color-accordion-item-bg-hover);
+	}
+
+	/* Block-Rundung: nur an den Außenkanten des Blocks — erstes/letztes Item,
+	   und die Kanten zu einem offenen Nachbarn (dort entsteht der Gap). */
+	.accordion-item:first-child {
+		border-top-left-radius: var(--radius-2xl);
+		border-top-right-radius: var(--radius-2xl);
+	}
+
+	.accordion-item:last-child {
+		border-bottom-left-radius: var(--radius-2xl);
+		border-bottom-right-radius: var(--radius-2xl);
+	}
+
+	.accordion-item[data-open] {
+		border-radius: var(--radius-2xl);
+		margin-block: 0.5rem;
+	}
+
+	.accordion-item:has(+ [data-open]) {
+		border-bottom-left-radius: var(--radius-2xl);
+		border-bottom-right-radius: var(--radius-2xl);
+	}
+
+	[data-open] + .accordion-item {
+		border-top-left-radius: var(--radius-2xl);
+		border-top-right-radius: var(--radius-2xl);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.accordion-item {
 			transition: none !important;
 		}
 	}

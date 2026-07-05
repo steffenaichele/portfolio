@@ -20,7 +20,7 @@ export default async function Home() {
 		<div
 			data-stagger-group
 			className="contents flex flex-col gap-1">
-			<section className="bg-[var(--color-segment-bg)] py-14 px-7 rounded-lg text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-6">
+			<section className="py-14 px-7 rounded-lg text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-6">
 				<h1 className="text-[var(--color-text-secondary)]">
 					{t("greeting")}{" "}
 					<span role="img" aria-label={t("emoji_label")}>

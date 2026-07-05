@@ -15,7 +15,7 @@ const Header = () => {
 
 	return (
 		<header
-			className="sticky w-full max-w-xl mx-auto top-0 bg-[var(--color-segment-bg)] px-7 pt-[max(8rem,env(safe-area-inset-top))] pb-14 z-50 rounded-lg"
+			className="sticky w-full max-w-xl mx-auto top-0 px-7 pt-[max(8rem,env(safe-area-inset-top))] pb-14 z-50 rounded-lg"
 			aria-label="Site header">
 			<BlurEffect
 				className="absolute inset-0 h-full pointer-events-none"

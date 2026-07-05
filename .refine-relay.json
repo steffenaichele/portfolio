@@ -1,0 +1,9 @@
+{
+  "pid": 88056,
+  "port": 7331,
+  "page": null,
+  "log": "/Users/steffen/Documents/Projects/portfolio26/portfolio26/.refine-relay.log",
+  "version": "0.3.23",
+  "agentCmd": "claude -p --dangerously-skip-permissions",
+  "startedAt": "2026-07-03T22:51:32.468Z"
+}
