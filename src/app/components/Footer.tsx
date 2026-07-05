@@ -15,7 +15,7 @@ const Footer = () => {
 	return (
 		<footer aria-label="Footer" className={styles.footer}>
 			<div className={styles.linksRow}>
-				<ActionWrapper className="flex flex-wrap">
+				<ActionWrapper className={styles.linksWrap}>
 					<Button
 						isLink
 						href="https://github.com/steffenaichele"

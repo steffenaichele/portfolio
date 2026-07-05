@@ -14,7 +14,7 @@
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
 			"copyright": "© 2026 Steffen Aichele – Alle Rechte vorbehalten.",
-			"built_with": "Built with Next.js & Tailwind CSS",
+			"built_with": "Built with Next.js & SCSS",
 			"email": "E-Mail kopieren"
 		},
 		"contact_button": "Kontakt",

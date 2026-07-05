@@ -4,6 +4,7 @@ import CVSection from "./components/CVSection";
 import ImpressionCard from "./components/ImpressionCard";
 import MainView from "./components/MainView";
 import { impressions } from "./data/content";
+import styles from "./page.module.scss";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
@@ -19,9 +20,9 @@ export default async function Home() {
 	const home = (
 		<div
 			data-stagger-group
-			className="contents flex flex-col gap-1">
-			<section className="py-14 px-7 rounded-lg text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-6">
-				<h1 className="text-[var(--color-text-secondary)]">
+			className={styles.homeGroup}>
+			<section className={styles.intro}>
+				<h1 className={styles.greeting}>
 					{t("greeting")}{" "}
 					<span role="img" aria-label={t("emoji_label")}>
 						✌🏻
@@ -36,7 +37,7 @@ export default async function Home() {
 	);
 
 	const work = (
-		<div data-stagger-group className="flex flex-wrap">
+		<div data-stagger-group className={styles.workGroup}>
 			{impressions.map((impression) => (
 				<ImpressionCard key={impression.id} impression={impression} />
 			))}

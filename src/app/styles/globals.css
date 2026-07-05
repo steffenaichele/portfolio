@@ -1,6 +1,0 @@
-@import "tailwindcss";
-
-/* Tokens, page-transition engine, and modal state machine now live in
-   globals.scss + _tokens/_page-transitions/_modal (see src/app/styles/).
-   This file is now purely Tailwind utility scaffolding for components not
-   yet migrated to CSS Modules/SCSS. */

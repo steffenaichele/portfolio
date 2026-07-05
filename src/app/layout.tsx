@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import "./styles/globals.css";
 import "./styles/globals.scss";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
@@ -10,6 +9,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ViewProvider from "./components/ViewProvider";
+import styles from "./layout.module.scss";
 
 // Nur tatsächlich genutzte Schnitte laden (400 regulär, 500 für font-medium).
 const ppNeueMontreal = localFont({
@@ -69,13 +69,11 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`bg-[var(--color-bg)] overflow-x-hidden w-full ${ppNeueMontreal.variable}`}>
-			<body className="relative w-full max-w-xl min-h-dvh data-[view=work]:max-w-full mx-auto text-[var(--color-text-primary)] font-sans antialiased [transition:max-width_2000ms_var(--ease-out)] motion-reduce:transition-none">
+			className={`${styles.html} ${ppNeueMontreal.variable}`}>
+			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ViewProvider>
-						<a
-							href="#main-content"
-							className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-(--color-button-primary-bg) focus:text-(--color-button-primary-label)">
+						<a href="#main-content" className={styles.skipLink}>
 							{t("skip_to_main")}
 						</a>
 						<Header />

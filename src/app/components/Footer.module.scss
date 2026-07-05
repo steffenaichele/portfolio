@@ -24,6 +24,11 @@
 	color: var(--color-text-secondary);
 }
 
+.linksWrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .bottomRow {
 	display: flex;
 	flex-wrap: wrap;
