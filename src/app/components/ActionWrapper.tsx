@@ -1,6 +1,8 @@
 "use client";
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
+import { prefersReduced } from "../hooks/usePrefersReducedMotion";
+import styles from "./ActionWrapper.module.scss";
 
 /**
  * ActionWrapper — einheitlicher Wrapper für klickbare Elemente (Buttons,
@@ -45,17 +47,6 @@ const REDUCED_TRANSITION =
 // Pillenfarbe im Ruhe-/Hover-Zustand bzw. beim Drücken (Active).
 const PILL_BG = "var(--color-interactive-pill)";
 const PILL_BG_ACTIVE = "var(--color-interactive-pill-active)";
-
-// MediaQueryList einmal anlegen (lazy, Browser-only) statt pro Pointer-Event —
-// das Objekt hält .matches selbst aktuell.
-let reducedMotionQuery: MediaQueryList | undefined;
-const prefersReduced = () => {
-	if (typeof window === "undefined") return false;
-	reducedMotionQuery ??= window.matchMedia(
-		"(prefers-reduced-motion: reduce)",
-	);
-	return reducedMotionQuery.matches;
-};
 
 interface ActionWrapperProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;
@@ -254,11 +245,11 @@ const ActionWrapper = ({
 			onPointerDown={handlePointerDown}
 			onPointerUp={handlePointerUp}
 			onPointerCancel={handlePointerUp}
-			className={`relative w-fit [&_a]:relative [&_button]:relative [&_a]:rounded-none [&_button]:rounded-none ${className ?? ""}`}>
+			className={`${styles.wrapper} ${className ?? ""}`}>
 			<span
 				ref={pillRef}
 				aria-hidden
-				className="absolute size-0 opacity-0 pointer-events-none rounded-2xl shadow-[var(--shadow)] duration-400 will-change-opacity will-change-transform"
+				className={styles.pill}
 				style={{
 					background: PILL_BG,
 					transition: FULL_TRANSITION,
