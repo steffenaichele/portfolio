@@ -4,7 +4,7 @@
 	background-color: var(--color-surface-bg);
 	box-shadow: var(--shadow-soft);
 	transform-origin: center;
-	transition: scale 300ms cubic-bezier(0, 0, 0.2, 1);
+	transition: scale var(--duration-move) var(--easing-ui);
 	overflow: hidden;
 
 	&:hover {
@@ -71,7 +71,7 @@
 	padding: 0.5rem;
 	object-position: top;
 	object-fit: contain;
-	transition: scale 150ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition: scale var(--duration-state) var(--easing-ui);
 }
 
 .card:hover .cardImage {

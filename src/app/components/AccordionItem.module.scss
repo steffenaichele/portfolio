@@ -5,9 +5,9 @@
 	background: var(--color-accordion-item-bg);
 	box-shadow: var(--shadow);
 	transition:
-		border-radius 0.3s var(--ease-in-out),
-		background-color 0.3s var(--ease-out),
-		margin 0.3s var(--ease-out);
+		border-radius var(--duration-move) var(--easing-emphasized),
+		background-color var(--duration-move) var(--easing-ui),
+		margin var(--duration-move) var(--easing-ui);
 }
 
 .item:not([data-open]):hover {

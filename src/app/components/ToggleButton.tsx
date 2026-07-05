@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useRef } from "react";
 import Link from "next/link";
 import { prefersReduced } from "../hooks/usePrefersReducedMotion";
+import { computeFlipTransform, readInlineBounds, type Bounds } from "../lib/motion";
 import styles from "./ToggleButton.module.scss";
 
 /**
@@ -37,7 +38,7 @@ interface ToggleButtonProps {
 }
 
 // Pille gleitet nur (Compositor-Transform); Geometrie wird per FLIP gesetzt.
-const TRANSITION = "transform 300ms var(--ease-out)";
+const TRANSITION = "transform var(--duration-move) var(--easing-ui)";
 
 const sizeClasses: Record<"md" | "sm", string> = {
 	md: styles.md,
@@ -70,33 +71,30 @@ export default function ToggleButton({
 			}
 			const w = wrap.getBoundingClientRect();
 			const r = el.getBoundingClientRect();
-			const newLeft = r.left - w.left;
-			const newTop = r.top - w.top;
-			const oldLeft = parseFloat(pill.style.left) || 0;
-			const oldTop = parseFloat(pill.style.top) || 0;
-			const oldWidth = parseFloat(pill.style.width) || 0;
-			const oldHeight = parseFloat(pill.style.height) || 0;
+			const previousBounds = readInlineBounds(pill);
+			const targetBounds: Bounds = {
+				left: r.left - w.left,
+				top: r.top - w.top,
+				width: r.width,
+				height: r.height,
+			};
 			const shown = pill.style.opacity === "1";
 
 			pill.style.transition = "none";
-			pill.style.left = `${newLeft}px`;
-			pill.style.top = `${newTop}px`;
-			pill.style.width = `${r.width}px`;
-			pill.style.height = `${r.height}px`;
+			pill.style.left = `${targetBounds.left}px`;
+			pill.style.top = `${targetBounds.top}px`;
+			pill.style.width = `${targetBounds.width}px`;
+			pill.style.height = `${targetBounds.height}px`;
 			pill.style.opacity = "1";
 
-			if (!animate || !shown || !oldWidth || prefersReduced()) {
+			if (!animate || !shown || !previousBounds.width || prefersReduced()) {
 				pill.getBoundingClientRect();
 				pill.style.transition = TRANSITION;
 				return;
 			}
 			// Inverse Transform: Pille visuell am alten Ort erscheinen lassen, dann
 			// zur Identität animieren (reiner Compositor-Pfad).
-			const tx = oldLeft + oldWidth / 2 - (newLeft + r.width / 2);
-			const ty = oldTop + oldHeight / 2 - (newTop + r.height / 2);
-			const sx = oldWidth / r.width;
-			const sy = oldHeight / r.height;
-			pill.style.transform = `translate(${tx}px, ${ty}px) scaleX(${sx}) scaleY(${sy})`;
+			pill.style.transform = computeFlipTransform(previousBounds, targetBounds);
 			pill.getBoundingClientRect(); // Reflow erzwingen
 			pill.style.transition = TRANSITION;
 			pill.style.transform = "translate(0, 0)";

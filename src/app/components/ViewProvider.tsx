@@ -22,18 +22,30 @@ import { prefersReduced } from "../hooks/usePrefersReducedMotion";
 type View = "home" | "work";
 type Phase = "idle" | "exit" | "hold" | "enter";
 
-// Synchron mit --pt-dur / --pt-stagger in styles/_page-transitions.scss.
-const DUR = 150;
-const STAGGER = 75;
 const STAGGER_SELECTOR = "main [data-stagger-group] > *";
+
+// Motion-Tokens aus dem DOM lesen — single source: styles/_tokens.scss (kein
+// Handabgleich mehr). Lazy, da zur Modulinitialisierung (SSR) kein document
+// existiert; parseFloat schneidet die "ms"-Einheit ab. Fallback = die in
+// _tokens.scss hinterlegten Defaults.
+const readMotionDurationMs = (tokenName: string, fallbackMs: number): number => {
+	if (typeof document === "undefined") return fallbackMs;
+	const rawValue = getComputedStyle(document.documentElement).getPropertyValue(
+		tokenName,
+	);
+	return parseFloat(rawValue) || fallbackMs;
+};
 
 const itemCount = () =>
 	typeof document === "undefined"
 		? 0
 		: document.querySelectorAll(STAGGER_SELECTOR).length;
 
-const sequenceMs = (count: number) =>
-	DUR + STAGGER * Math.max(0, count - 1) + 20;
+const sequenceMs = (count: number) => {
+	const stateDurationMs = readMotionDurationMs("--duration-state", 150);
+	const staggerStepMs = readMotionDurationMs("--stagger-step", 75);
+	return stateDurationMs + staggerStepMs * Math.max(0, count - 1) + 20;
+};
 
 const setPhaseAttr = (p: Phase) => {
 	if (p === "idle") delete document.body.dataset.phase;

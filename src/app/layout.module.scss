@@ -14,7 +14,7 @@
 	font-family: var(--font-sans);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	transition: max-width 2000ms var(--ease-out);
+	transition: max-width var(--duration-shell) var(--easing-ui);
 
 	&[data-view="work"] {
 		max-width: 100%;

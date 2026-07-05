@@ -24,10 +24,10 @@ const ImprintModal = () => {
 		const backdrop = backdropRef.current;
 		if (!modal) return;
 
-		const closeMs =
+		const closeDurationMs =
 			parseFloat(
 				getComputedStyle(document.documentElement).getPropertyValue(
-					"--modal-close-dur",
+					"--duration-state",
 				),
 			) || 150;
 
@@ -41,7 +41,7 @@ const ImprintModal = () => {
 			backdrop?.classList.remove("is-closing");
 			setMounted(false);
 			triggerRef.current?.focus();
-		}, closeMs);
+		}, closeDurationMs);
 	};
 
 	const openModal = () => {

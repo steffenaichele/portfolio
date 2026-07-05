@@ -35,14 +35,14 @@
 .panel {
 	position: relative;
 	border-radius: var(--radius-2xl);
-	transition-duration: 200ms;
-	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	transition-duration: var(--duration-state);
+	transition-timing-function: var(--easing-ui);
 }
 
 .categoryPanel {
 	transition-property: opacity, transform;
-	transition-duration: 800ms;
-	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	transition-duration: var(--duration-panel);
+	transition-timing-function: var(--easing-ui);
 	will-change: transform;
 }
 

@@ -1,28 +1,23 @@
 // Orchestrierte Page-Transition: gestaffeltes Exit/Enter der main-Items,
 // koordiniert mit der body max-width Animation. Phasen kommen von
-// ViewProvider.tsx via body[data-phase]. Dauer/Stagger synchron mit DUR/STAGGER dort.
+// ViewProvider.tsx via body[data-phase]. Dauer/Stagger/Easing kommen aus den
+// globalen Motion-Tokens (_tokens.scss): --duration-state, --stagger-step/-shift.
 // Cross-cutting (keyed off <body> attributes, matches whichever view panel is
 // mounted) — not owned by a single component, so it stays a global partial
 // rather than a CSS Module.
 $stagger-max-items: 24;
 
-:root {
-	--pt-dur: 150ms;
-	--pt-stagger: 75ms;
-	--pt-shift: 24px;
-}
-
 @keyframes pt-exit {
 	to {
 		opacity: 0;
-		transform: translateY(calc(-1 * var(--pt-shift)));
+		transform: translateY(calc(-1 * var(--stagger-shift)));
 	}
 }
 
 @keyframes pt-enter {
 	from {
 		opacity: 0;
-		transform: translateY(var(--pt-shift));
+		transform: translateY(var(--stagger-shift));
 	}
 	to {
 		opacity: 1;
@@ -31,7 +26,7 @@ $stagger-max-items: 24;
 }
 
 body[data-phase="exit"] main [data-stagger-group] > * {
-	animation: pt-exit var(--pt-dur) var(--ease-in-out) forwards;
+	animation: pt-exit var(--duration-state) var(--easing-emphasized) forwards;
 }
 
 body[data-phase="hold"] main [data-stagger-group] > * {
@@ -39,14 +34,14 @@ body[data-phase="hold"] main [data-stagger-group] > * {
 }
 
 body[data-phase="enter"] main [data-stagger-group] > * {
-	animation: pt-enter var(--pt-dur) var(--ease-out) backwards;
+	animation: pt-enter var(--duration-state) var(--easing-ui) backwards;
 }
 
 // Stagger delays (exit + enter), generated for $stagger-max-items items;
 // anything beyond that starts together without extra delay.
 @for $i from 2 through $stagger-max-items {
 	body[data-phase] main [data-stagger-group] > *:nth-child(#{$i}) {
-		animation-delay: calc(#{$i - 1} * var(--pt-stagger));
+		animation-delay: calc(#{$i - 1} * var(--stagger-step));
 	}
 }
 
