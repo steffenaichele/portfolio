@@ -1,8 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import AccordionItem from "./AccordionItem";
+import { useAccordion } from "./Accordion";
 import type { CVEntry } from "../data/cv";
+
+// CVItem — gesamter Inhalt eines CV-Accordion-Eintrags samt Animation. Die
+// Karten-Optik (Bg, Rundung, Gap) liefert die umgebende AccordionItem-Shell;
+// den Open-State liest CVItem selbst aus dem Accordion-Context (per `id`).
+// Choreografie in drei Phasen:
+//   Phase 1 (Klick):  Summary-Zeile (Org+Ort, dann Jahre) fadet gestaffelt
+//                     nach oben aus.
+//   Phase 2 (mit 1):  Container wächst von SUMMARY_HEIGHT auf auto.
+//   Phase 3 (nach 1): Detail-Elemente faden gestaffelt von unten ein.
+// Schließen = Umkehrung (Detail-Gruppen aus, Höhe schrumpft, Summary ein).
 
 // --- Animationsparameter ---
 // Distanz (px), um die sich Elemente beim Ein-/Ausfaden bewegen.
@@ -11,7 +23,7 @@ const SHIFT_DISTANCE = 4;
 const FADE_DURATION = 0.2;
 // Verzögerung (s) zwischen aufeinanderfolgenden gestaffelten Elementen.
 const STAGGER_DELAY = 0.075;
-// Verzögerung (s) zwischen Detail-Elementen beim Ausfaden (Schließen, minimal).
+// Verzögerung (s) zwischen Detail-Gruppen beim Ausfaden (Schließen, minimal).
 const CLOSE_STAGGER = 0.1;
 // Pause (s) nach dem letzten Detail-Element, bevor Höhe schrumpft und Summary erscheint.
 const CLOSE_BUFFER = 0.175;
@@ -23,8 +35,6 @@ const SUMMARY_CLOSE_FADE_SPEED = 0.75;
 const HEIGHT_PER_ELEMENT = 0.05;
 // Höhe (px) des geschlossenen Items / der Summary-Zeile (single source).
 export const SUMMARY_HEIGHT = 36;
-// Abstand (px) unterhalb des Buttons, nur im geöffneten Zustand.
-const BOTTOM_SPACING = 6;
 // Anzahl der Summary-Elemente (Org+Location, Datum) — steuert das Öffnen-Timing.
 const SUMMARY_COUNT = 2;
 
@@ -38,36 +48,16 @@ const variantStyles = {
 	education: "text-[var(--color-text-edu)]",
 };
 
-// Flag, das beim Aktivieren sofort `true` wird und beim Deaktivieren erst nach
-// `delayMs` wieder `false` (Trailing) — für Zustände, die während der Schließ-
-// Animation noch nachlaufen müssen (Surface-Hintergrund, Pillen-Suppression).
-function useTrailingFlag(active: boolean, delayMs: number): boolean {
-	const [flag, setFlag] = useState(false);
-	useEffect(() => {
-		if (active) {
-			// eslint-disable-next-line react-hooks/set-state-in-effect
-			setFlag(true);
-			return;
-		}
-		if (delayMs === 0) {
-			setFlag(false);
-			return;
-		}
-		const timeout = setTimeout(() => setFlag(false), delayMs);
-		return () => clearTimeout(timeout);
-	}, [active, delayMs]);
-	return flag;
-}
-
 interface CVItemProps {
 	entry: CVEntry;
 	variant: "experience" | "education";
-	isFirst?: boolean;
-	isLast?: boolean;
+	/** Key im Accordion-State (identisch zur id des umgebenden AccordionItem). */
+	id: string;
 }
 
-export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
-	const [isOpen, setIsOpen] = useState(false);
+export function CVItem({ entry, variant, id }: CVItemProps) {
+	const { openIds, toggle } = useAccordion();
+	const isOpen = openIds.has(id);
 	// True nach erster Interaktion. Davor (auch nach Tab-Wechsel/Remount) bleibt
 	// das Item im statischen `rest`-Zustand — kein Keyframe → kein Mount-Flash.
 	const [hasToggled, setHasToggled] = useState(false);
@@ -86,7 +76,7 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const handleClick = () => {
 		if (!hasExpandable) return;
 		setHasToggled(true);
-		setIsOpen((prev) => !prev);
+		toggle(id);
 	};
 
 	// Mount/Remount → "rest" (statisch, kein Keyframe). Erst nach erster
@@ -128,35 +118,10 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const detailsExitTime = (groupCount - 1) * closeStagger + FADE_DURATION / 2;
 	// Schließen: Phase 2 (Höhe schrumpfen) dauert genau so lange wie Phase 1.
 	const closeHeightDuration = reduceMotion ? 0 : detailsExitTime;
-	// Gesamtdauer (ms) der Schließ-Animation: endet, wenn die Summary-Zeile
-	// vollständig wieder eingefadet ist (letztes Element der Sequenz).
-	const fullCloseMs = reduceMotion
-		? 0
-		: (closeBuffer +
-				detailsExitTime +
-				(SUMMARY_COUNT - 1) * stagger +
-				FADE_DURATION / SUMMARY_CLOSE_FADE_SPEED) *
-			1000;
-	// Surface-Hintergrund beim Schließen bis zur Hälfte der Gesamt-Schließdauer.
-	const surfaceBgCloseMs = fullCloseMs / 2;
-
-	// Surface-Hintergrund: beim Öffnen sofort an, beim Schließen erst zur Hälfte
-	// der Schließ-Animation wieder aus.
-	const showSurfaceBg = useTrailingFlag(isOpen, surfaceBgCloseMs);
-	// `data-pill-suppress`: hält die Hover-Pille zurück, bis die Schließ-Animation
-	// komplett durch ist (sonst Flackern) — beim Öffnen sofort, beim Schließen
-	// nach der vollen Dauer wieder frei.
-	const pillSuppressed = useTrailingFlag(isOpen, fullCloseMs);
-
-	// Beide Content-Blöcke bleiben dauerhaft gemountet (kein Mount/Unmount =
-	// kein Layout-Sprung). Zustände `open`/`closed` werden über `animate`
-	// gesteuert. Keyframe-Arrays [start, end] erzwingen die Richtung unabhängig
-	// vom Ruhepunkt — so kann Enter von unten und Exit nach oben gehen.
 
 	// Details: Öffnen = von unten einfaden (+offset → 0), gestaffelt, nach dem
-	// Summary-Exit. Schließen = nach oben ausfaden (0 → -offset), minimaler Stagger.
-	// Einzelne Detail-Elemente: faden NUR beim Öffnen gestaffelt ein. Beim Schließen
-	// bleiben sie statisch — das Ausfaden übernimmt jetzt die Eltern-Gruppe.
+	// Summary-Exit. Einzelne Detail-Elemente faden NUR beim Öffnen gestaffelt ein.
+	// Beim Schließen bleiben sie statisch — das Ausfaden übernimmt die Eltern-Gruppe.
 	const detailsChild = {
 		open: (i: number) => ({
 			opacity: [0, 1],
@@ -167,7 +132,6 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 			},
 		}),
 		closed: { opacity: 1, y: 0 },
-		// Statischer Ruhe-Zustand (geschlossen): Details unsichtbar, ohne Keyframe.
 		rest: { opacity: 0, y: 0 },
 	};
 	// Detail-Gruppen (otherRoles, description, technologies): beim Öffnen sofort
@@ -222,7 +186,6 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 				delay: detailsExitTime + closeBuffer + i * stagger,
 			},
 		}),
-		// Statischer Ruhe-Zustand (geschlossen): Summary sichtbar, ohne Keyframe.
 		rest: { opacity: 1, y: 0 },
 	};
 	// Leere Eltern-Varianten: machen den Container zum Varianten-Knoten, damit
@@ -233,202 +196,154 @@ export function CVItem({ entry, variant, isFirst, isLast }: CVItemProps) {
 	const descBase = otherRoles.length;
 	const techBase = otherRoles.length + (entry.description?.length ?? 0);
 
-	// Abstands-Spacer ober-/unterhalb des Items, der nur im offenen Zustand auf
-	// BOTTOM_SPACING aufklappt. Identisch oben (außer erstem) und unten (außer letztem).
-	const spacer = (
-		<motion.div
-			aria-hidden
-			initial={false}
-			animate={{ height: isOpen ? BOTTOM_SPACING : 0 }}
-			transition={{
-				duration: isOpen ? heightDuration : closeHeightDuration,
-				ease: "easeOut",
-			}}
-			className="overflow-hidden"
-		/>
-	);
-
 	return (
-		<>
-			{!isFirst && spacer}
-			<li
-				className={`group relative transition-colors duration-150 ${
+		<AccordionItem isOpen={isOpen}>
+			<button
+				onClick={handleClick}
+				aria-expanded={isOpen}
+				aria-controls={detailsId}
+				disabled={!hasExpandable}
+				className={`block w-full p-0 text-left px-4 ${
 					hasExpandable ? "cursor-pointer" : "cursor-default"
-				}${showSurfaceBg ? " rounded-xl bg-[var(--color-interactive-element-bg-active)]" : ""}`}>
-				<button
-					onClick={handleClick}
-					aria-expanded={isOpen}
-					aria-controls={detailsId}
-					data-pill-suppress={pillSuppressed || undefined}
-					disabled={!hasExpandable}
-					className="block w-full p-0 text-left px-4">
-					{/* ╔══════════════════════════════════════════════════════════════╗
-				    ║ HÖHEN-ANIMATION (Container auf-/zuklappen)                     ║
-				    ║ • Easing  → `ease` unten (gilt für Öffnen UND Schließen)       ║
-				    ║ • Dauer Öffnen   → Konstante HEIGHT_PER_ELEMENT (oben)         ║
-				    ║   (heightDuration = HEIGHT_PER_ELEMENT × Anzahl Elemente)      ║
+				}`}>
+				{/* ╔══════════════════════════════════════════════════════════════╗
+				    ║ HÖHEN-ANIMATION (Phase 2 — Container auf-/zuklappen)           ║
+				    ║ • Dauer Öffnen   → heightDuration (= HEIGHT_PER_ELEMENT × N)   ║
 				    ║ • Dauer Schließen → closeHeightDuration (= Länge von Phase 1)  ║
 				    ╚══════════════════════════════════════════════════════════════╝ */}
+				<motion.div
+					id={detailsId}
+					initial={false}
+					animate={{ height: isOpen ? "auto" : SUMMARY_HEIGHT }}
+					transition={{
+						duration: isOpen ? heightDuration : closeHeightDuration,
+						delay: isOpen ? 0 : closeBuffer,
+						ease: "easeOut",
+					}}
+					className="relative overflow-hidden">
+					{/* ───────── Summary-Zeile (geschlossener Zustand) ─────────
+					    Bleibt `absolute` (Overlay) — sonst beeinflusst es die Flow-Höhe. */}
 					<motion.div
-						id={detailsId}
+						variants={container}
 						initial={false}
-						animate={{ height: isOpen ? "auto" : SUMMARY_HEIGHT }}
-						transition={{
-							duration: isOpen
-								? heightDuration
-								: closeHeightDuration,
-							delay: isOpen ? 0 : closeBuffer,
-							ease: "easeOut", // ← Easing der Höhen-Animation hier ändern
-						}}
-						className="relative overflow-hidden">
-						{/* ───────── STYLING: Summary-Zeile (geschlossener Zustand) ─────────
-					    Klassen der Texte/Layouts hier anpassen. Wichtig: bleibt
-					    `absolute` (Overlay) — sonst beeinflusst es die Flow-Höhe. */}
+						animate={stateLabel}
+						aria-hidden={isOpen}
+						inert={isOpen || undefined}
+						style={{ height: SUMMARY_HEIGHT }}
+						className="absolute inset-x-0 top-0 flex items-center text-md">
 						<motion.div
-							variants={container}
+							custom={0}
+							variants={summaryChild}
 							initial={false}
-							animate={stateLabel}
-							aria-hidden={isOpen}
-							inert={isOpen || undefined}
-							style={{ height: SUMMARY_HEIGHT }}
-							className="absolute inset-x-0 top-0 flex items-center text-md">
-							{/* Org + Location als eine Einheit: durchgehende Underline
-							    (::after, h-px→0 bei Hover) signalisiert Bedienbarkeit. Als motion.div
-							    faden beide gemeinsam, damit die Linie mit dem Text
-							    verschwindet (kein zurückbleibender Border). */}
-							<motion.div
-								custom={0}
-								variants={summaryChild}
-								initial={false}
-								className="relative flex min-w-0 items-center after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--color-link-underline)] after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
-								<p className="font-medium min-w-0 truncate mr-1.5 text-[var(--color-text-primary)]">
-									{entry.organizationShort}
-									{","}
-								</p>
-								<p className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
-									{entry.location}
-								</p>
-							</motion.div>
-							<motion.div
-								custom={1}
-								variants={summaryChild}
-								initial={false}
-								className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
-								<p>{entry.totalStartYear}</p>
-								<p> – </p>
-								<p>{entry.totalEndYear}</p>
-							</motion.div>
+							className="relative flex min-w-0 items-center after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--color-link-underline)] after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
+							<p className="font-medium min-w-0 truncate mr-1.5 text-[var(--color-text-primary)]">
+								{entry.organizationShort}
+								{","}
+							</p>
+							<p className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
+								{entry.location}
+							</p>
 						</motion.div>
-
-						{/* ───────── STYLING: Detail-Inhalt (offener Zustand) ─────────
-					    Klassen/Markup der Rollen, Beschreibung, Tags hier anpassen.
-
-					    DAMIT DIE ANIMATION HEIL BLEIBT, beim Bearbeiten beachten:
-					    1. Jedes ANIMIERTE Element muss `motion.*` sein und
-					       `variants={detailsChild}` + `custom={INDEX}` tragen.
-					    2. `custom` = fortlaufender Index über ALLE Detail-Elemente
-					       (Rollen → descBase+i → techBase+i). Beim Hinzufügen neuer
-					       Gruppen den Index-Offset (descBase/techBase oben) anpassen,
-					       sonst stimmt der Stagger nicht.
-					    3. Dieser Container muss `variants`, `initial={false}` und
-					       `animate={isOpen ? "open" : "closed"}` behalten — sonst wird
-					       das Label nicht an die Kinder weitergegeben.
-					    4. Nicht-animierte Zwischen-Wrapper (Gruppen) sind ok; sie
-					       reichen das Label durch.
-					    5. Container im normalen Flow lassen (kein `absolute`) — er
-					       bestimmt die `auto`-Höhe beim Öffnen.
-					    6. `inert`/`aria-hidden` an `!isOpen` gekoppelt lassen (A11y). */}
 						<motion.div
-							variants={container}
+							custom={1}
+							variants={summaryChild}
 							initial={false}
-							animate={stateLabel}
-							aria-hidden={!isOpen}
-							inert={!isOpen || undefined}
-							className="flex flex-col gap-6 py-4">
-							<motion.div
-								custom={{ open: -1, close: closeIndex("org") }}
-								variants={orgGroup}
-								initial={false}
-								className="flex flex-col">
-								<p className="text-md font-medium text-[var(--color-text-primary)]">
-									{entry.organization}
-								</p>
-								<p className="text-sm font-medium text-[var(--color-text-secondary)]">
-									{entry.location}
-								</p>
-							</motion.div>
-							{hasRoles && (
-								<motion.div
-									variants={groupParent}
-									custom={{ close: closeIndex("roles") }}
-									initial={false}
-									className="flex flex-col gap-6 ">
-									{otherRoles.map((role, idx) => (
-										<motion.div
-											key={`${role.title}-${role.startYear}-${role.startMonth}`}
-											custom={idx}
-											variants={detailsChild}
-											initial={false}
-											className="flex flex-col gap-0.5">
-											<h2 className="text-lg font-medium text-[var(--color-text-primary)]">
-												{role.title}
-											</h2>
-											<div
-												className={`w-min h-5 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-xs font-medium text-nowrap tabular-nums ${color} ${bgColor}`}>
-												<span>
-													{role.startMonth}{" "}
-													{role.startYear} –{" "}
-													{role.endMonth}{" "}
-													{role.endYear}
-												</span>
-												<span>·</span>
-												<span>{role.duration}</span>
-											</div>
-										</motion.div>
-									))}
-								</motion.div>
-							)}
-							{!!entry.description?.length && (
-								<motion.ul
-									variants={groupParent}
-									custom={{ close: closeIndex("desc") }}
-									initial={false}
-									className="flex flex-col gap-4">
-									{entry.description.map((point, idx) => (
-										<motion.li
-											key={point}
-											custom={descBase + idx}
-											variants={detailsChild}
-											initial={false}
-											className="text-sm font-medium text-[var(--color-text-secondary)]">
-											{point}
-										</motion.li>
-									))}
-								</motion.ul>
-							)}
-							{!!entry.technologies?.length && (
-								<motion.div
-									variants={groupParent}
-									custom={{ close: closeIndex("tech") }}
-									initial={false}
-									className="flex flex-wrap gap-1.5">
-									{entry.technologies.map((tech, idx) => (
-										<motion.span
-											key={tech}
-											custom={techBase + idx}
-											variants={detailsChild}
-											initial={false}
-											className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-sm)]">
-											{tech}
-										</motion.span>
-									))}
-								</motion.div>
-							)}
+							className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
+							<p>{entry.totalStartYear}</p>
+							<p> – </p>
+							<p>{entry.totalEndYear}</p>
 						</motion.div>
 					</motion.div>
-				</button>
-			</li>
-			{!isLast && spacer}
-		</>
+	
+					{/* ───────── Detail-Inhalt (offener Zustand) ───────── */}
+					<motion.div
+						variants={container}
+						initial={false}
+						animate={stateLabel}
+						aria-hidden={!isOpen}
+						inert={!isOpen || undefined}
+						className="flex flex-col gap-6 py-4">
+						<motion.div
+							custom={{ open: -1, close: closeIndex("org") }}
+							variants={orgGroup}
+							initial={false}
+							className="flex flex-col">
+							<p className="text-md font-medium text-[var(--color-text-primary)]">
+								{entry.organization}
+							</p>
+							<p className="text-sm font-medium text-[var(--color-text-secondary)]">
+								{entry.location}
+							</p>
+						</motion.div>
+						{hasRoles && (
+							<motion.div
+								variants={groupParent}
+								custom={{ close: closeIndex("roles") }}
+								initial={false}
+								className="flex flex-col gap-6 ">
+								{otherRoles.map((role, idx) => (
+									<motion.div
+										key={`${role.title}-${role.startYear}-${role.startMonth}`}
+										custom={idx}
+										variants={detailsChild}
+										initial={false}
+										className="flex flex-col gap-0.5">
+										<h2 className="text-lg font-medium text-[var(--color-text-primary)]">
+											{role.title}
+										</h2>
+										<div
+											className={`w-min h-5 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-xs font-medium text-nowrap tabular-nums ${color} ${bgColor}`}>
+											<span>
+												{role.startMonth}{" "}
+												{role.startYear} – {role.endMonth}{" "}
+												{role.endYear}
+											</span>
+											<span>·</span>
+											<span>{role.duration}</span>
+										</div>
+									</motion.div>
+								))}
+							</motion.div>
+						)}
+						{!!entry.description?.length && (
+							<motion.ul
+								variants={groupParent}
+								custom={{ close: closeIndex("desc") }}
+								initial={false}
+								className="flex flex-col gap-4">
+								{entry.description.map((point, idx) => (
+									<motion.li
+										key={point}
+										custom={descBase + idx}
+										variants={detailsChild}
+										initial={false}
+										className="text-sm font-medium text-[var(--color-text-secondary)]">
+										{point}
+									</motion.li>
+								))}
+							</motion.ul>
+						)}
+						{!!entry.technologies?.length && (
+							<motion.div
+								variants={groupParent}
+								custom={{ close: closeIndex("tech") }}
+								initial={false}
+								className="flex flex-wrap gap-1.5">
+								{entry.technologies.map((tech, idx) => (
+									<motion.span
+										key={tech}
+										custom={techBase + idx}
+										variants={detailsChild}
+										initial={false}
+										className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-sm)]">
+										{tech}
+									</motion.span>
+								))}
+							</motion.div>
+						)}
+					</motion.div>
+				</motion.div>
+			</button>
+		</AccordionItem>
 	);
 }

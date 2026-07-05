@@ -1,0 +1,6 @@
+refine relay listening on http://localhost:7331
+  timeline injectable at  http://localhost:7331/inject.js
+✓ agent wired (env): claude -p --dangerously-skip-permissions
+  LLM jobs answered by spawning: claude -p --dangerously-skip-permissions
+  ✗ job 56976740 — REFINE_AGENT_CMD timed out after 120000ms
+  ✗ job b566c084 — REFINE_AGENT_CMD timed out after 120000ms

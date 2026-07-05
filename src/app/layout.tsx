@@ -84,6 +84,13 @@ export default async function RootLayout({
 				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />
+				{process.env.NODE_ENV === "development" && (
+					<script
+						type="module"
+						async
+						src="http://localhost:7331/inject.js"
+					/>
+				)}
 			</body>
 		</html>
 	);
