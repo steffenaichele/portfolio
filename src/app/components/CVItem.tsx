@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import AccordionItem from "./AccordionItem";
 import { useAccordion } from "./Accordion";
 import type { CVEntry } from "../data/cv";
+import styles from "./CVItem.module.scss";
 
 // CVItem — gesamter Inhalt eines CV-Accordion-Eintrags samt Animation. Die
 // Karten-Optik (Bg, Rundung, Gap) liefert die umgebende AccordionItem-Shell;
@@ -39,13 +40,13 @@ export const SUMMARY_HEIGHT = 36;
 const SUMMARY_COUNT = 2;
 
 const variantBgStyles = {
-	experience: "bg-[var(--color-cvitem-exp-bg)]",
-	education: "bg-[var(--color-cvitem-edu-bg)]",
+	experience: styles.bgExp,
+	education: styles.bgEdu,
 };
 
 const variantStyles = {
-	experience: "text-[var(--color-text-exp)]",
-	education: "text-[var(--color-text-edu)]",
+	experience: styles.textExp,
+	education: styles.textEdu,
 };
 
 interface CVItemProps {
@@ -203,8 +204,8 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 				aria-expanded={isOpen}
 				aria-controls={detailsId}
 				disabled={!hasExpandable}
-				className={`block w-full p-0 text-left px-4 ${
-					hasExpandable ? "cursor-pointer" : "cursor-default"
+				className={`${styles.button} ${
+					hasExpandable ? styles.cursorPointer : styles.cursorDefault
 				}`}>
 				{/* ╔══════════════════════════════════════════════════════════════╗
 				    ║ HÖHEN-ANIMATION (Phase 2 — Container auf-/zuklappen)           ║
@@ -220,7 +221,7 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 						delay: isOpen ? 0 : closeBuffer,
 						ease: "easeOut",
 					}}
-					className="relative overflow-hidden">
+					className={styles.heightWrap}>
 					{/* ───────── Summary-Zeile (geschlossener Zustand) ─────────
 					    Bleibt `absolute` (Overlay) — sonst beeinflusst es die Flow-Höhe. */}
 					<motion.div
@@ -230,17 +231,17 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 						aria-hidden={isOpen}
 						inert={isOpen || undefined}
 						style={{ height: SUMMARY_HEIGHT }}
-						className="absolute inset-x-0 top-0 flex items-center text-md">
+						className={styles.summaryRow}>
 						<motion.div
 							custom={0}
 							variants={summaryChild}
 							initial={false}
-							className="relative flex min-w-0 items-center after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[var(--color-link-underline)] after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
-							<p className="font-medium min-w-0 truncate mr-1.5 text-[var(--color-text-primary)]">
+							className={styles.summaryOrgLoc}>
+							<p className={styles.orgShort}>
 								{entry.organizationShort}
 								{","}
 							</p>
-							<p className="min-w-0 truncate font-medium text-[var(--color-text-tertiary)]">
+							<p className={styles.summaryLocation}>
 								{entry.location}
 							</p>
 						</motion.div>
@@ -248,7 +249,7 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 							custom={1}
 							variants={summaryChild}
 							initial={false}
-							className={`shrink-0 ml-auto pl-2 flex items-center gap-0.5 tabular-nums font-medium ${color}`}>
+							className={`${styles.summaryYears} ${color}`}>
 							<p>{entry.totalStartYear}</p>
 							<p> – </p>
 							<p>{entry.totalEndYear}</p>
@@ -262,16 +263,16 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 						animate={stateLabel}
 						aria-hidden={!isOpen}
 						inert={!isOpen || undefined}
-						className="flex flex-col gap-6 py-4">
+						className={styles.detailContainer}>
 						<motion.div
 							custom={{ open: -1, close: closeIndex("org") }}
 							variants={orgGroup}
 							initial={false}
-							className="flex flex-col">
-							<p className="text-md font-medium text-[var(--color-text-primary)]">
+							className={styles.orgGroup}>
+							<p className={styles.orgName}>
 								{entry.organization}
 							</p>
-							<p className="text-sm font-medium text-[var(--color-text-secondary)]">
+							<p className={styles.orgLocation}>
 								{entry.location}
 							</p>
 						</motion.div>
@@ -280,19 +281,19 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 								variants={groupParent}
 								custom={{ close: closeIndex("roles") }}
 								initial={false}
-								className="flex flex-col gap-6 ">
+								className={styles.rolesGroup}>
 								{otherRoles.map((role, idx) => (
 									<motion.div
 										key={`${role.title}-${role.startYear}-${role.startMonth}`}
 										custom={idx}
 										variants={detailsChild}
 										initial={false}
-										className="flex flex-col gap-0.5">
-										<h2 className="text-lg font-medium text-[var(--color-text-primary)]">
+										className={styles.roleItem}>
+										<h2 className={styles.roleTitle}>
 											{role.title}
 										</h2>
 										<div
-											className={`w-min h-5 px-2 flex gap-2 items-center rounded-[var(--radius-sm)] text-xs font-medium text-nowrap tabular-nums ${color} ${bgColor}`}>
+											className={`${styles.roleDuration} ${color} ${bgColor}`}>
 											<span>
 												{role.startMonth}{" "}
 												{role.startYear} – {role.endMonth}{" "}
@@ -310,14 +311,14 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 								variants={groupParent}
 								custom={{ close: closeIndex("desc") }}
 								initial={false}
-								className="flex flex-col gap-4">
+								className={styles.descList}>
 								{entry.description.map((point, idx) => (
 									<motion.li
 										key={point}
 										custom={descBase + idx}
 										variants={detailsChild}
 										initial={false}
-										className="text-sm font-medium text-[var(--color-text-secondary)]">
+										className={styles.descItem}>
 										{point}
 									</motion.li>
 								))}
@@ -328,14 +329,14 @@ export function CVItem({ entry, variant, id }: CVItemProps) {
 								variants={groupParent}
 								custom={{ close: closeIndex("tech") }}
 								initial={false}
-								className="flex flex-wrap gap-1.5">
+								className={styles.techList}>
 								{entry.technologies.map((tech, idx) => (
 									<motion.span
 										key={tech}
 										custom={techBase + idx}
 										variants={detailsChild}
 										initial={false}
-										className="px-2 py-0.5 text-xs font-medium text-[var(--color-text-secondary)] bg-[var(--color-button-primary-bg-hover)] rounded-[var(--radius-sm)]">
+										className={styles.techTag}>
 										{tech}
 									</motion.span>
 								))}

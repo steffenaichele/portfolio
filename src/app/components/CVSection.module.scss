@@ -1,0 +1,76 @@
+.section {
+	padding: 1.5rem 1rem 2.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	border-radius: var(--radius-lg);
+}
+
+.tablist {
+	display: flex;
+	flex-direction: row;
+}
+
+// Tab = Ghost-Button mit eigenem Hover-Bg; Active-State über Textfarbe.
+.tab {
+	border-radius: var(--radius-2xl);
+
+	&:hover {
+		background-color: var(--color-interactive-pill);
+	}
+
+	&:active {
+		background-color: var(--color-interactive-pill-active);
+	}
+}
+
+.tabActive {
+	color: var(--color-text-secondary);
+}
+
+.tabInactive {
+	color: var(--color-text-tertiary);
+}
+
+.panel {
+	position: relative;
+	border-radius: var(--radius-2xl);
+	transition-duration: 200ms;
+	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.categoryPanel {
+	transition-property: opacity, transform;
+	transition-duration: 800ms;
+	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+	will-change: transform;
+}
+
+.categoryActive {
+	position: relative;
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.categoryInactive {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.categoryInactiveLeft {
+	transform: translateX(-1.5rem);
+
+	@media (prefers-reduced-motion: reduce) {
+		transform: translateX(0);
+	}
+}
+
+.categoryInactiveRight {
+	transform: translateX(1.5rem);
+
+	@media (prefers-reduced-motion: reduce) {
+		transform: translateX(0);
+	}
+}
