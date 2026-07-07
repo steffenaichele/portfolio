@@ -3,32 +3,43 @@
 // mit fester Dauer, entkoppelt von der content-abhängigen Höhen-Animation.
 .item {
 	background: var(--color-accordion-item-bg);
-	box-shadow: var(--shadow);
+	
 	transition:
 		border-radius var(--duration-move) var(--easing-emphasized),
 		background-color var(--duration-move) var(--easing-ui),
 		margin var(--duration-move) var(--easing-ui);
+
+	&:hover {
+		background: var(--color-accordion-item-bg-hover);
+	}
+
+	&:first-child {
+		border-top-left-radius: var(--radius-2xl);
+		border-top-right-radius: var(--radius-2xl);
+	}
+
+	&:last-child {
+		border-bottom-left-radius: var(--radius-2xl);
+	border-bottom-right-radius: var(--radius-2xl);
+	}
 }
 
 .item:not([data-open]):hover {
 	background: var(--color-accordion-item-bg-hover);
 }
 
-// Block-Rundung: nur an den Außenkanten des Blocks — erstes/letztes Item,
-// und die Kanten zu einem offenen Nachbarn (dort entsteht der Gap).
-.item:first-child {
-	border-top-left-radius: var(--radius-2xl);
-	border-top-right-radius: var(--radius-2xl);
-}
-
-.item:last-child {
-	border-bottom-left-radius: var(--radius-2xl);
-	border-bottom-right-radius: var(--radius-2xl);
-}
-
 .item[data-open] {
 	border-radius: var(--radius-2xl);
 	margin-block: 0.5rem;
+	box-shadow: var(--shadow);
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
 }
 
 .item:has(+ [data-open]) {

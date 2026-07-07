@@ -6,14 +6,11 @@
 	width: 100%;
 	padding: 0 1rem;
 	text-align: left;
-}
-
-.cursorPointer {
-	cursor: pointer;
-}
-
-.cursorDefault {
 	cursor: default;
+
+	&[data-expandable] {
+		cursor: pointer;
+	}
 }
 
 .heightWrap {
@@ -168,18 +165,24 @@
 }
 
 // ───────── Varianten (experience/education) ─────────
-.textExp {
-	color: var(--color-text-exp);
+.button[data-variant="experience"] {
+	.summaryYears {
+		color: var(--color-text-exp);
+	}
+
+	.roleDuration {
+		color: var(--color-text-exp);
+		background-color: var(--color-cvitem-exp-bg);
+	}
 }
 
-.textEdu {
-	color: var(--color-text-edu);
-}
+.button[data-variant="education"] {
+	.summaryYears {
+		color: var(--color-text-edu);
+	}
 
-.bgExp {
-	background-color: var(--color-cvitem-exp-bg);
-}
-
-.bgEdu {
-	background-color: var(--color-cvitem-edu-bg);
+	.roleDuration {
+		color: var(--color-text-edu);
+		background-color: var(--color-cvitem-edu-bg);
+	}
 }

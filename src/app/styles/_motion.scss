@@ -1,0 +1,17 @@
+:root {
+	// Dauern (nach Zweck benannt, nicht nach Tempo). Für neue Fälle den
+	// Zweck weiterführen: --duration-<zweck>.
+	--duration-state: 150ms; // Hover, Farbe, Background, Underline, Modal-Close, Panel-Resize, Page-Transition-Schritt
+	--duration-move: 300ms; // Pillen-Slide, Card-Scale, Modal-Open, Accordion-Morph
+	--duration-panel: 800ms; // CV-Kategorie-Wechsel (Cross-Fade Experience/Education)
+	--duration-shell: 2000ms; // body max-width Morph (home <-> work)
+
+	// Stagger (Page-Transition): --stagger-<aspekt>.
+	--stagger-step: 75ms; // Verzögerung zwischen aufeinanderfolgenden Items
+	--stagger-shift: 24px; // Ein-/Austritts-Distanz
+
+	// Easing (nach Zweck): --easing-<zweck>.
+	--easing-ui: cubic-bezier(0.23, 1, 0.32, 1); // Standard-UI (Pillen, Scale, Underline, Shell, Enter)
+	--easing-modal: cubic-bezier(0.22, 1, 0.36, 1); // Modal Open/Close
+	--easing-emphasized: cubic-bezier(0.77, 0, 0.175, 1); // ausgeprägte Morphs (Page-Exit, Accordion-Radius)
+}
