@@ -9,29 +9,29 @@
 	padding-bottom: 3.5rem;
 	z-index: 50;
 	border-radius: var(--radius-lg);
-}
 
-.blur {
-	position: absolute;
-	inset: 0;
-	height: 100%;
-	pointer-events: none;
-}
+	.blur {
+		position: absolute;
+		inset: 0;
+		height: 100%;
+		pointer-events: none;
+	}
 
-.inner {
-	position: relative;
-	max-width: 32rem;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	min-height: 2.75rem;
-	z-index: 10;
-}
+	.inner {
+		position: relative;
+		max-width: 32rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		min-height: 2.75rem;
+		z-index: 10;
 
-.logoButton {
-	height: 2.75rem;
-	display: flex;
-	align-items: center;
-	cursor: pointer;
+		.logoButton {
+			height: 2.75rem;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+		}
+	}
 }

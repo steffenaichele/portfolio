@@ -2,42 +2,42 @@
 	background-color: var(--color-bg);
 	overflow-x: hidden;
 	width: 100%;
-}
 
-.body {
-	position: relative;
-	width: 100%;
-	min-height: 100dvh;
-	color: var(--color-text-primary);
-	font-family: var(--font-sans);
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
+	.body {
+		position: relative;
+		width: 100%;
+		min-height: 100dvh;
+		color: var(--color-text-primary);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 
-.skipLink {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
+		.skipLink {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border-width: 0;
 
-	&:focus {
-		position: absolute;
-		width: auto;
-		height: auto;
-		margin: 0;
-		overflow: visible;
-		clip: auto;
-		white-space: normal;
-		top: 1rem;
-		left: 1rem;
-		z-index: 50;
-		padding: 0.5rem 1rem;
-		background-color: var(--color-button-primary-bg);
-		color: var(--color-button-primary-label);
+			&:focus {
+				position: absolute;
+				width: auto;
+				height: auto;
+				margin: 0;
+				overflow: visible;
+				clip: auto;
+				white-space: normal;
+				top: 1rem;
+				left: 1rem;
+				z-index: 50;
+				padding: 0.5rem 1rem;
+				background-color: var(--color-button-primary-bg);
+				color: var(--color-button-primary-label);
+			}
+		}
 	}
 }

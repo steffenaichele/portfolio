@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
 import Accordion from "./Accordion";
+import ActionWrapper from "./ActionWrapper";
 import Button from "./Button";
 import { CVItem, SUMMARY_HEIGHT } from "./CVItem";
 import type { CVEntry } from "../data/cv";
@@ -49,8 +50,8 @@ export default function CVSection() {
 		</Accordion>
 	);
 
-	// Tab = Ghost-Button mit eigenem Hover-Bg (keine ActionWrapper-Pille mehr;
-	// Rundung ist dadurch wieder erlaubt). Active-State allein über die Textfarbe.
+	// Tab = Ghost-Button; Hover/Active-Pille kommt vom ActionWrapper im
+	// tablist-Wrapper. Active-State (ausgewählter Tab) allein über die Textfarbe.
 	const tab = (category: Category, label: string) => (
 		<Button
 			ghost
@@ -58,19 +59,17 @@ export default function CVSection() {
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
-			className={`${styles.tab} ${
-				active === category ? styles.tabActive : styles.tabInactive
-			}`}>
+			className={active === category ? styles.tabActive : styles.tabInactive}>
 			{label}
 		</Button>
 	);
 
 	return (
 		<section className={styles.section}>
-			<div role="tablist" className={styles.tablist}>
+			<ActionWrapper role="tablist" className={styles.tablist}>
 				{tab("experience", t("experience_heading"))}
 				{tab("education", t("education_heading"))}
-			</div>
+			</ActionWrapper>
 			<div
 				id={PANEL_ID}
 				role="tabpanel"
