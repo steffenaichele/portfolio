@@ -49,10 +49,3 @@
 		transition: opacity var(--duration-state) var(--easing-modal);
 	}
 }
-
-@media (prefers-reduced-motion: reduce) {
-	.t-modal,
-	.t-modal-backdrop {
-		transition: none !important;
-	}
-}

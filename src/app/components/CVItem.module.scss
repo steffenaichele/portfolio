@@ -2,93 +2,123 @@
 // CVItem.tsx (motion/react) — hier nur die statischen Layout-/Typo-Styles.
 
 .button {
+	position: relative;
+	overflow: hidden;
+	background: var(--color-cvitem-bg);
 	display: block;
 	width: 100%;
-	padding: 0 1rem;
 	text-align: left;
-}
-
-.cursorPointer {
-	cursor: pointer;
-}
-
-.cursorDefault {
 	cursor: default;
-}
 
-.heightWrap {
-	position: relative;
-	overflow: hidden;
-}
-
-// ───────── Summary-Zeile (geschlossener Zustand) ─────────
-.summaryRow {
-	position: absolute;
-	inset-inline: 0;
-	top: 0;
-	display: flex;
-	align-items: center;
-	font-size: var(--text-md);
-}
-
-.summaryOrgLoc {
-	position: relative;
-	display: flex;
-	min-width: 0;
-	align-items: center;
-
-	&::after {
-		content: "";
-		pointer-events: none;
-		position: absolute;
-		inset-inline: 0;
-		bottom: 0;
-		height: 1px;
-		background-color: var(--color-link-underline);
-		transition: height var(--duration-state) var(--easing-ui);
-
-		@media (prefers-reduced-motion: reduce) {
-			transition: none;
+	[data-variant="experience"] & {
+		.timeWrapper {
+			color: var(--color-text-exp);
+			background-color: var(--color-cvitem-exp-badge-bg);
 		}
 	}
-}
 
-.orgShort {
-	font-weight: 500;
-	min-width: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	margin-right: 0.375rem;
-	color: var(--color-text-primary);
-}
+	[data-variant="education"] & {
+		.timeWrapper {
+			color: var(--color-text-edu);
+			background-color: var(--color-cvitem-edu-badge-bg);
+		}
+	}
 
-.summaryLocation {
-	min-width: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font-weight: 500;
-	color: var(--color-text-tertiary);
-}
+	&[data-expandable] {
+		cursor: pointer;
+	}
 
-.summaryYears {
-	flex-shrink: 0;
-	margin-left: auto;
-	padding-left: 0.5rem;
-	display: flex;
-	align-items: center;
-	gap: 0.125rem;
-	font-variant-numeric: tabular-nums;
-	font-weight: 500;
+	&:hover {
+		background: var(--color-cvitem-bg-hover);
+
+		.summaryRow {
+			.summaryOrgLoc {
+				&::after {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	&:active {
+		background: var(--color-cvitem-bg-active);
+	}
+
+	& > div {
+		padding: 0 1rem;
+		display: flex;
+	}
+
+	// ───────── Summary-Zeile (geschlossener Zustand) ─────────
+	.summaryRow {
+		width: 100%;
+		position: absolute;
+		inset-inline: 0;
+		top: 0;
+		justify-content: space-between;
+		align-items: center;
+
+		.summaryOrgLoc {
+			position: relative;
+			display: flex;
+			min-width: 0;
+			align-items: center;
+
+			.orgShort {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				margin-right: 0.375rem;
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-primary);
+			}
+
+			.summaryLocation {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+
+			&::after {
+				content: "";
+				pointer-events: none;
+				position: absolute;
+				left: 0;
+				bottom: -1px;
+				width: 0;
+				height: 1px;
+				background-color: var(--color-link-underline-hover);
+				transition: width 200ms ease-out;
+			}
+		}
+	}
+
+	.timeWrapper {
+		flex-shrink: 0;
+		padding: 2px 6px;
+		border-radius: var(--radius-lg);
+		display: flex;
+		align-items: center;
+		gap: 0.125rem;
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-sm);
+		font-variant-numeric: tabular-nums;
+		font-weight: 500;
+	}
 }
 
 // ───────── Detail-Inhalt (offener Zustand) ─────────
 .detailContainer {
-	display: flex;
+	width: 100%;
+	margin: 1rem 0 1.5rem 0;
 	flex-direction: column;
 	gap: 1.5rem;
-	padding-block: 1rem;
 }
 
 .orgGroup {
@@ -97,13 +127,11 @@
 }
 
 .orgName {
-	font-size: var(--text-md);
 	font-weight: 500;
 	color: var(--color-text-primary);
 }
 
 .orgLocation {
-	font-size: 0.875rem;
 	font-weight: 500;
 	color: var(--color-text-secondary);
 }
@@ -124,20 +152,6 @@
 	font-size: 1.125rem;
 	font-weight: 500;
 	color: var(--color-text-primary);
-}
-
-.roleDuration {
-	width: min-content;
-	height: 1.25rem;
-	padding-inline: 0.5rem;
-	display: flex;
-	gap: 0.5rem;
-	align-items: center;
-	border-radius: var(--radius-sm);
-	font-size: 0.75rem;
-	font-weight: 500;
-	text-wrap: nowrap;
-	font-variant-numeric: tabular-nums;
 }
 
 .descList {
@@ -165,21 +179,4 @@
 	color: var(--color-text-secondary);
 	background-color: var(--color-button-primary-bg-hover);
 	border-radius: var(--radius-sm);
-}
-
-// ───────── Varianten (experience/education) ─────────
-.textExp {
-	color: var(--color-text-exp);
-}
-
-.textEdu {
-	color: var(--color-text-edu);
-}
-
-.bgExp {
-	background-color: var(--color-cvitem-exp-bg);
-}
-
-.bgEdu {
-	background-color: var(--color-cvitem-edu-bg);
 }

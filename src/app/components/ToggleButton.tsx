@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 import Link from "next/link";
-import { prefersReduced } from "../hooks/usePrefersReducedMotion";
 import { computeFlipTransform, readInlineBounds, type Bounds } from "../lib/motion";
 import styles from "./ToggleButton.module.scss";
 
@@ -57,7 +56,7 @@ export default function ToggleButton({
 	const activeIndex = options.findIndex((o) => o.key === activeKey);
 
 	// Pille auf das aktive Segment legen. animate=true → FLIP-Gleiten von der
-	// alten Position; sonst Snap (Erstplatzierung, Resize, reduced motion).
+	// alten Position; sonst Snap (Erstplatzierung, Resize).
 	useEffect(() => {
 		const slide = (animate: boolean) => {
 			const pill = pillRef.current;
@@ -87,7 +86,7 @@ export default function ToggleButton({
 			pill.style.height = `${targetBounds.height}px`;
 			pill.style.opacity = "1";
 
-			if (!animate || !shown || !previousBounds.width || prefersReduced()) {
+			if (!animate || !shown || !previousBounds.width) {
 				pill.getBoundingClientRect();
 				pill.style.transition = TRANSITION;
 				return;

@@ -38,16 +38,13 @@ export default function CVSection() {
 	const idOf = (entry: CVEntry) =>
 		`${entry.organization}-${entry.roles[0].startYear}`;
 
-	// Beide Tabs rendern dieselbe Liste, nur Daten und Variante unterscheiden sich.
-	const cvList = (entries: CVEntry[], variant: Category) => (
+	// Beide Tabs rendern dieselbe Liste, nur die Daten unterscheiden sich.
+	// Die Variante wird nicht pro Item, sondern einmal am categoryPanel gesetzt
+	// (siehe data-variant unten) — CVItem.module.scss stylt darüber die Kinder.
+	const cvList = (entries: CVEntry[]) => (
 		<Accordion>
 			{entries.map((entry) => (
-				<CVItem
-					key={idOf(entry)}
-					id={idOf(entry)}
-					entry={entry}
-					variant={variant}
-				/>
+				<CVItem key={idOf(entry)} id={idOf(entry)} entry={entry} />
 			))}
 		</Accordion>
 	);
@@ -88,6 +85,7 @@ export default function CVSection() {
 							key={category}
 							aria-hidden={!isActive}
 							inert={!isActive || undefined}
+							data-variant={category}
 							className={`${styles.categoryPanel} ${
 								isActive
 									? styles.categoryActive
@@ -101,7 +99,6 @@ export default function CVSection() {
 								category === "experience"
 									? experience
 									: education,
-								category,
 							)}
 						</div>
 					);

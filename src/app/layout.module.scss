@@ -19,10 +19,6 @@
 	&[data-view="work"] {
 		max-width: 100%;
 	}
-
-	@media (prefers-reduced-motion: reduce) {
-		transition: none;
-	}
 }
 
 .skipLink {

@@ -42,7 +42,7 @@
 // damit der Link sich an den jeweiligen Grund anpasst.
 .link {
 	padding: 0.25rem 0.75rem;
-	font-size: var(--text-md);
+	font-size: 1rem;
 	font-weight: 500;
 
 	&:focus-visible {
@@ -58,7 +58,7 @@
 .ghost {
 	height: 2.25rem;
 	padding: 0 0.75rem;
-	font-size: var(--text-md);
+	font-size: 1rem;
 	font-weight: 500;
 	white-space: nowrap;
 
@@ -130,10 +130,6 @@
 		height: 1px;
 		background-color: var(--color-link-underline);
 		transition: height var(--duration-state) var(--easing-ui);
-
-		@media (prefers-reduced-motion: reduce) {
-			transition: none;
-		}
 	}
 }
 
