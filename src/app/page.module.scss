@@ -1,15 +1,14 @@
 .page{
 	width: 100%;
 	max-width: var(--max-width);
-	display: flex;
-	flex-direction: column;
 
 	.intro {
 		padding: 1rem;
-		border-radius: var(--radius-lg);
+		margin-bottom: 4rem;
 		font-size: var(--font-size-md);
 		line-height: var(--line-height-md);
 		color: var(--color-text-primary);
+		letter-spacing: var(--letter-spacing-md);
 		font-weight: 500;
 		display: flex;
 		flex-direction: column;
