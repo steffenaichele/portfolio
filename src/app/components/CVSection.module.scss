@@ -61,16 +61,8 @@
 
 .categoryInactiveLeft {
 	transform: translateX(-1.5rem);
-
-	@media (prefers-reduced-motion: reduce) {
-		transform: translateX(0);
-	}
 }
 
 .categoryInactiveRight {
 	transform: translateX(1.5rem);
-
-	@media (prefers-reduced-motion: reduce) {
-		transform: translateX(0);
-	}
 }

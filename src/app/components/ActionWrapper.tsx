@@ -1,7 +1,6 @@
 "use client";
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
-import { prefersReduced } from "../hooks/usePrefersReducedMotion";
 import { computeFlipTransform, readInlineBounds } from "../lib/motion";
 import styles from "./ActionWrapper.module.scss";
 
@@ -41,9 +40,6 @@ import styles from "./ActionWrapper.module.scss";
 // erscheint am alten Ort via inverser Transform und animiert zur Zielposition.
 const FULL_TRANSITION =
 	"transform var(--duration-move) var(--easing-ui), opacity var(--duration-state) var(--easing-ui), background-color var(--duration-state) var(--easing-ui)";
-// Reduced motion: kein Gleiten/Schieben, nur Ein-/Ausblenden + Farbwechsel.
-const REDUCED_TRANSITION =
-	"opacity var(--duration-state) var(--easing-ui), background-color var(--duration-state) var(--easing-ui)";
 
 // Pillenfarbe im Ruhe-/Hover-Zustand bzw. beim Drücken (Active).
 const PILL_BG = "var(--color-interactive-pill)";
@@ -91,9 +87,7 @@ const ActionWrapper = ({
 		pill.style.transform = "translate(0, 0)";
 		pill.style.opacity = "0";
 		pill.getBoundingClientRect();
-		pill.style.transition = prefersReduced()
-			? REDUCED_TRANSITION
-			: FULL_TRANSITION;
+		pill.style.transition = FULL_TRANSITION;
 		pill.style.opacity = "1";
 	};
 
@@ -103,11 +97,6 @@ const ActionWrapper = ({
 		const pill = pillRef.current;
 		if (!pill) return;
 		currentRef.current = el;
-		if (prefersReduced()) {
-			pill.style.transition = REDUCED_TRANSITION;
-			place(el);
-			return;
-		}
 		// Alte Geometrie aus Inline-Styles lesen (bereits platziert), dann neue
 		// Geometrie ohne Übergang setzen.
 		const previousBounds = readInlineBounds(pill);
@@ -136,9 +125,7 @@ const ActionWrapper = ({
 	const hide = () => {
 		const pill = pillRef.current;
 		if (!pill || !currentRef.current) return;
-		pill.style.transition = prefersReduced()
-			? REDUCED_TRANSITION
-			: FULL_TRANSITION;
+		pill.style.transition = FULL_TRANSITION;
 		pill.style.transform = "translate(0, 0)";
 		pill.style.opacity = "0";
 		pill.style.background = PILL_BG;

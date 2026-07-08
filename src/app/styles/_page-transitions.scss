@@ -44,11 +44,3 @@ body[data-phase="enter"] main [data-stagger-group] > * {
 		animation-delay: calc(#{$i - 1} * var(--stagger-step));
 	}
 }
-
-@media (prefers-reduced-motion: reduce) {
-	body[data-phase] main [data-stagger-group] > * {
-		animation: none !important;
-		opacity: 1 !important;
-		transform: none !important;
-	}
-}

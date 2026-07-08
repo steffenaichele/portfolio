@@ -16,7 +16,7 @@ import styles from "./layout.module.scss";
 const ppNeueMontreal = localFont({
 	src: [
 		{
-			path: "../fonts/PPNeueMontreal-Book.woff2",
+			path: "../fonts/PPNeueMontreal-Regular.woff2",
 			weight: "400",
 			style: "normal",
 		},

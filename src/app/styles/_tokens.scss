@@ -13,13 +13,14 @@
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
 	--color-text-tertiary: var(--color-neutral-400);
-	--color-text-exp: var(--color-emerald-400);
-	--color-text-edu: var(--color-sky-400);
+	--color-text-exp: var(--color-emerald-600);
+	--color-text-edu: var(--color-sky-600);
 
 	--color-logo-fill: var(--color-white);
 	--color-logo-stroke: var(--color-black);
 
-	--color-link-underline: var(--color-neutral-300);
+	--color-link-underline: var(--color-text-tertiary);
+	--color-link-underline-hover: var(--color-text-secondary);
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
@@ -27,14 +28,13 @@
 	--color-button-primary-bg: var(--color-neutral-100);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 
-	--color-cvitem-exp-bg: var(--color-emerald-50);
-	--color-cvitem-edu-bg: var(--color-sky-50);
+	--color-cvitem-bg: var(--color-neutral-50);
+	--color-cvitem-bg-hover: var(--color-neutral-100);
+	--color-cvitem-bg-active: var(--color-neutral-200);
+	
+	--color-cvitem-exp-badge-bg: var(--color-emerald-100);
+	--color-cvitem-edu-badge-bg: var(--color-sky-100);
 
-	--color-accordion-item-bg: var(--color-neutral-50);
-	--color-accordion-item-bg-hover: var(--color-neutral-100);
-
-	// Restores tokens referenced by ImpressionCard/ImprintModal/Footer that
-	// were missing from the old @theme block (silently resolved to transparent).
 	--color-surface-bg: var(--color-white);
 	--color-surface-bg-hover: var(--color-neutral-50);
 	--color-segment-bg: var(--color-surface-bg);

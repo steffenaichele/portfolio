@@ -7,7 +7,6 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { prefersReduced } from "../hooks/usePrefersReducedMotion";
 
 // Tab-State + orchestrierte, UNTERBRECHBARE Transition auf EINER Seite (kein Routing).
 // Sequenz beim View-Wechsel:
@@ -77,11 +76,6 @@ export default function ViewProvider({
 	const requestView = (target: View) => {
 		// Schon dort bzw. läuft bereits dorthin (Invariante: idle => targetRef === view).
 		if (target === targetRef.current) return;
-		if (prefersReduced()) {
-			targetRef.current = target;
-			setView(target);
-			return;
-		}
 		// Sequenz (neu) starten: aktuelles Panel raus.
 		targetRef.current = target;
 		setPhaseAttr("exit");

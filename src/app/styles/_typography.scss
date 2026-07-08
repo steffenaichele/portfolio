@@ -1,4 +1,32 @@
 :root {
 	--font-sans: var(--ppNeueMontreal), sans-serif;
-	--text-md: 1rem; // 16px
+
+	--font-mono: var(--ppNeueMontrealMono), monospace;
+
+	--font-size-xs: 0.75rem;
+	--line-height-xs: 130%;
+
+	--font-size-sm: 0.875rem;
+	--line-height-sm: 140%;
+
+	--font-size-md: 1rem;
+	--line-height-md: 150%;
+
+	--font-size-lg: 1.125rem;
+	--line-height-lg: 160%;
+
+	--font-size-xl: 1.25rem;
+	--line-height-xl: 140%;
+
+	--font-size-2xl: 1.5rem;
+	--line-height-2xl: 130%;
+
+	--font-size-3xl: 1.875rem;
+	--line-height-3xl: 120%;
+
+	--font-size-4xl: 2.25rem;
+	--line-height-4xl: 110%;
+
+	--font-size-5xl: 3rem;
+	--line-height-5xl: 100%;
 }

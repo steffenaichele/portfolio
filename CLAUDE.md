@@ -80,13 +80,12 @@ messages/
 
 ### Theme (Tailwind 4 `@theme` in globals.css)
 - Semantic color tokens: `--color-bg`, `--color-segment-bg`, `--color-surface-bg`, `--color-text-primary/secondary/tertiary`, `--color-interactive-pill*`, button/CV tokens.
-- `--text-md` (1rem) custom font-size token; otherwise default Tailwind scale.
 - Easing: `--ease-out`, `--ease-in-out`. Shadows: `--shadow`, `--shadow-soft`.
 
 ### Interaction Patterns
 - **Hover pill** (`ActionWrapper`): single shared pill glides between clickable children via FLIP; children must stay transparent and unrounded (pill carries radius + active state). `data-pill-suppress` hides the pill during CV-item animations.
 - **Selection pill** (`ToggleButton`): persistent pill marks the active segment, slides on change.
-- Animate only compositor properties (`transform`, `opacity`, `background-color`); geometry set instantly + inverse transform (FLIP). Respect `prefers-reduced-motion` everywhere.
+- Animate only compositor properties (`transform`, `opacity`, `background-color`); geometry set instantly + inverse transform (FLIP).
 
 ### Typography
 - **PP Neue Montreal** (self-hosted). Only Book (400) and Medium (500) are loaded — add weights in `layout.tsx` only when actually used.
@@ -112,7 +111,6 @@ WCAG 2.1 AA:
 - `aria-expanded`/`aria-controls` on expandable UI (CVItem), `aria-selected` on tabs
 - `aria-label` on icon-only buttons; alt text on all images
 - Visible focus states (orange-300 outline); skip-to-main link in layout
-- `prefers-reduced-motion` disables/reduces every animation path
 
 ## Important Notes
 

@@ -2,35 +2,46 @@
 // Child (motion, variabel); die Karten-Chrome (Rundung, Gap, Bg) läuft hier
 // mit fester Dauer, entkoppelt von der content-abhängigen Höhen-Animation.
 .item {
-	background: var(--color-accordion-item-bg);
-	
+	overflow: hidden;
 	transition:
-		border-radius var(--duration-move) var(--easing-emphasized),
+		width var(--duration-move) var(--easing-ui),
+		border-radius var(--duration-state) var(--easing-emphasized),
 		background-color var(--duration-move) var(--easing-ui),
+		box-shadow var(--duration-move) var(--easing-ui),
+		transform var(--duration-move) var(--easing-ui),
 		margin var(--duration-move) var(--easing-ui);
 
 	&:hover {
 		background: var(--color-accordion-item-bg-hover);
 	}
-
-	&:first-child {
-		border-top-left-radius: var(--radius-2xl);
-		border-top-right-radius: var(--radius-2xl);
-	}
-
-	&:last-child {
-		border-bottom-left-radius: var(--radius-2xl);
-	border-bottom-right-radius: var(--radius-2xl);
-	}
 }
 
-.item:not([data-open]):hover {
-	background: var(--color-accordion-item-bg-hover);
+// jedes geschlossene Item: durchgehender Ring als Gruppen-Rand
+.item:not([data-open]) {
+	box-shadow: var(--shadow-ring);
+}
+
+// Gruppen-Start (Listenanfang oder direkt nach offenem/gedrücktem Item): obere Rundung
+.item:not([data-open]):first-child,
+[data-open] + .item:not([data-open]),
+.item:has(:active) + .item:not([data-open]) {
+	border-top-left-radius: var(--radius-2xl);
+	border-top-right-radius: var(--radius-2xl);
+}
+
+// Gruppen-Ende (Listenende oder direkt vor offenem/gedrücktem Item): untere Rundung + volle Elevation
+.item:not([data-open]):last-child,
+.item:not([data-open]):has(+ [data-open]),
+.item:not([data-open]):has(+ .item :active) {
+	border-bottom-left-radius: var(--radius-2xl);
+	border-bottom-right-radius: var(--radius-2xl);
+	box-shadow: var(--shadow);
 }
 
 .item[data-open] {
+	width: calc(100% + 2rem);
 	border-radius: var(--radius-2xl);
-	margin-block: 0.5rem;
+	margin: 0.5rem -1rem;
 	box-shadow: var(--shadow);
 
 	&:first-child {
@@ -42,18 +53,28 @@
 	}
 }
 
-.item:has(+ [data-open]) {
-	border-bottom-left-radius: var(--radius-2xl);
-	border-bottom-right-radius: var(--radius-2xl);
-}
+// Pressed-State: Item skaliert von der Mitte auf 0.97 und nimmt vorab
+// Rundung + Schatten des offenen Zustands an. Nur expandierbare Items
+// reagieren — nicht-expandierbare Buttons sind `disabled` und matchen kein :active.
+.item:has(:active) {
+	margin: 0.25rem 0;
+	transform: scale(0.97);
+	border-radius: var(--radius-2xl);
+	box-shadow: var(--shadow);
 
-[data-open] + .item {
-	border-top-left-radius: var(--radius-2xl);
-	border-top-right-radius: var(--radius-2xl);
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.item {
-		transition: none !important;
+	&:first-child {
+		margin-top: 0;
 	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+// Offenes Item: kein zusätzliches Skalieren beim erneuten Drücken (schon voll
+// gestyled). `:has()` statt `&:active`, da :active-Bubbling auf Ancestor-<li>
+// browserabhängig ist (u.a. iOS Safari ohne Touch-Listener unzuverlässig).
+.item[data-open]:has(:active) {
+	transform: scale(0.99);
+	margin: 0.5rem -1rem;
 }
