@@ -7,18 +7,11 @@
 .body {
 	position: relative;
 	width: 100%;
-	max-width: 36rem;
 	min-height: 100dvh;
-	margin-inline: auto;
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	transition: max-width var(--duration-shell) var(--easing-ui);
-
-	&[data-view="work"] {
-		max-width: 100%;
-	}
 }
 
 .skipLink {

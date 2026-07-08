@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import CVSection from "./components/CVSection";
-import ImpressionCard from "./components/ImpressionCard";
-import MainView from "./components/MainView";
-import { impressions } from "./data/content";
 import styles from "./page.module.scss";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,10 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
 	const t = await getTranslations('home');
 
-	const home = (
-		<div
-			data-stagger-group
-			className={styles.homeGroup}>
+	return (
+		<main className={styles.page} id="main-content">
 			<section className={styles.intro}>
 				<h1 className={styles.greeting}>
 					{t("greeting")}{" "}
@@ -33,16 +28,6 @@ export default async function Home() {
 				<p>{t("text3")}</p>
 			</section>
 			<CVSection />
-		</div>
+		</main>
 	);
-
-	const work = (
-		<div data-stagger-group className={styles.workGroup}>
-			{impressions.map((impression) => (
-				<ImpressionCard key={impression.id} impression={impression} />
-			))}
-		</div>
-	);
-
-	return <MainView home={home} work={work} />;
 }

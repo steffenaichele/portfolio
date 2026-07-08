@@ -4,11 +4,19 @@
 @use "typography";
 @use "shadow";
 @use "tokens";
-@use "page-transitions";
 @use "modal";
 
 :root {
+	--max-width: 520px;
+
 	color-scheme: light;
+
+	body {
+		padding: 0 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 
 *,

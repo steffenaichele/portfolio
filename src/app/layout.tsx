@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import "./styles/preflight.css";
 import "./styles/globals.scss";
 import localFont from "next/font/local";
@@ -9,10 +9,8 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ViewProvider from "./components/ViewProvider";
 import styles from "./layout.module.scss";
 
-// Nur tatsächlich genutzte Schnitte laden (400 regulär, 500 für font-medium).
 const ppNeueMontreal = localFont({
 	src: [
 		{
@@ -69,14 +67,12 @@ export default async function RootLayout({
 			className={`${styles.html} ${ppNeueMontreal.variable}`}>
 			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
-					<ViewProvider>
-						<a href="#main-content" className={styles.skipLink}>
-							{t("skip_to_main")}
-						</a>
-						<Header />
-						<main id="main-content">{children}</main>
-						<Footer />
-					</ViewProvider>
+					<a href="#main-content" className={styles.skipLink}>
+						{t("skip_to_main")}
+					</a>
+					<Header />
+					{children}
+					<Footer />
 				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />
