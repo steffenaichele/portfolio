@@ -122,6 +122,5 @@ WCAG 2.1 AA:
 
 ## Documentation References
 
-- `.github/WORKFLOW_RULES.md` — Git workflow and branch protection
 - `.claude/PRE-PR-CHECKS.md` — quality check documentation
 - `.github/workflows/` — CI workflows

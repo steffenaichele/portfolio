@@ -13,7 +13,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^1.16.0",
     "motion": "^12.40.0",
-    "next": "^16.2.6",
+    "next": "^16.2.10",
     "next-intl": "^4.12.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -26,7 +26,7 @@
     "@types/react-dom": "^19",
     "@types/webpack": "^5.28.5",
     "eslint": "^9",
-    "eslint-config-next": "16.1.4",
+    "eslint-config-next": "16.2.10",
     "fallow": "^2.92.1",
     "sass": "^1.101.0",
     "typescript": "^5"
