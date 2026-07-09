@@ -128,11 +128,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						<p className={styles.contextText}>{context}</p>
 					</div>
 					{impression.link && (
-						<ActionWrapper>
+						<ActionWrapper variant="primary">
 							<Button
 								href={impression.link}
 								size="sm"
 								content="icon"
+								data-pill-rest
 								aria-label={t("open_label", { label })}>
 								<Icon icon={ArrowRight} />
 							</Button>
@@ -179,10 +180,11 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						aria-label={label}
 						className={`t-modal ${styles.modalPanel}`}>
 						{/* Close button */}
-						<ActionWrapper>
+						<ActionWrapper variant="primary">
 							<Button
 								size="sm"
 								content="icon"
+								data-pill-rest
 								aria-label={t("modal_close")}
 								onClick={closeModal}>
 								<Icon icon={X} />
@@ -208,11 +210,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								<p className={styles.modalContext}>{context}</p>
 							</div>
 							{impression.link && (
-								<ActionWrapper>
+								<ActionWrapper variant="primary">
 									<Button
 										href={impression.link}
 										size="sm"
 										content="icon"
+										data-pill-rest
 										aria-label={t("external_label", { label })}>
 										{t("open_button")}
 										<Icon icon={ArrowRight} />

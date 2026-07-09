@@ -17,7 +17,7 @@ const Footer = () => {
 			<div className={styles.linksRow}>
 				<ActionWrapper className={styles.linksWrap}>
 					<Button
-						isLink
+						underline
 						href="https://github.com/steffenaichele"
 						external>
 						GitHub
@@ -26,7 +26,7 @@ const Footer = () => {
 						</span>
 					</Button>
 					<Button
-						isLink
+						underline
 						href="https://www.linkedin.com/in/steffenaichele"
 						external>
 						LinkedIn
@@ -36,9 +36,10 @@ const Footer = () => {
 					</Button>
 					<ImprintModal />
 				</ActionWrapper>
-				<ActionWrapper>
+				<ActionWrapper variant="primary">
 					<Button
 						content="iconRight"
+						data-pill-rest
 						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
 						{t("email")}
 						<Icon icon={Mail} />

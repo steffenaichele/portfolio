@@ -54,7 +54,6 @@ export default function CVSection() {
 	// tablist-Wrapper. Active-State (ausgewählter Tab) allein über die Textfarbe.
 	const tab = (category: Category, label: string) => (
 		<Button
-			ghost
 			role="tab"
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}

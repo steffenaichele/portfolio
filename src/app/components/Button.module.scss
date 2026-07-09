@@ -1,30 +1,19 @@
+// Nackter Button: kein eigener Hintergrund/Rundung/Shadow/Active — die Pille des
+// umgebenden ActionWrapper trägt Füllung (variant), Rundung und Hover/Active.
+// Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing an
+// den Ecken, die Pille würde dort flackern.
 .base {
 	flex: none;
 	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	font-weight: 500;
 	transition:
-		background-color var(--duration-state) var(--easing-ui),
 		color var(--duration-state) var(--easing-ui),
-		transform var(--duration-state) var(--easing-ui),
-		box-shadow var(--duration-state) var(--easing-ui);
+		transform var(--duration-state) var(--easing-ui);
 	cursor: pointer;
 	user-select: none;
-}
-
-// Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
-// Hover-Pille der umgebenden ActionWrapper dahinter sichtbar wird. Kein eigener
-// active-State — den trägt die Pille (sonst würde die fehlende Rundung sichtbar).
-.primary {
-	background-color: var(--color-button-primary-bg);
-	border: 1px solid var(--color-button-primary-stroke);
-	color: var(--color-button-primary-label);
-	box-shadow: var(--shadow);
-
-	&:hover {
-		background-color: transparent;
-	}
 
 	&:focus-visible {
 		outline: 1px solid var(--color-orange-300);
@@ -35,19 +24,12 @@
 	}
 }
 
-// isLink: Spiegelt den CVItem-Look — kein Hintergrund, dünne Underline unter
-// dem Label (collapsed bei Hover). Hover-Hintergrund liefert die Pille der
-// umgebenden ActionWrapper. Kein Border, kein Shadow, kein Scale.
-// Textfarbe wird vom Elternelement geerbt (Body = text-primary, Footer = hell),
-// damit der Link sich an den jeweiligen Grund anpasst.
+// underline (Link-Look): kompakte Maße, dünne Underline unter dem Label (collapsed
+// bei Hover). Kein size/content-Sizing. Textfarbe wird geerbt (Body = text-primary,
+// Footer = hell), damit der Link sich an den jeweiligen Grund anpasst.
 .link {
 	padding: 0.25rem 0.75rem;
 	font-size: 1rem;
-	font-weight: 500;
-
-	&:focus-visible {
-		outline: 1px solid var(--color-orange-300);
-	}
 
 	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
 	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
@@ -74,30 +56,6 @@
 	}
 }
 
-// ghost: transparenter Button für Tab-artige Schalter (z.B. CV-Tabs). Eigene
-// feste Tab-Maße statt size/content, damit die Optik dem früheren Tab entspricht.
-// Active/Inactive-Textfarbe kommt per className vom Aufrufer; der Farb-Fade läuft
-// über die color-Transition in .base. Hover-Hintergrund liefert die Pille
-// des umgebenden ActionWrapper.
-.ghost {
-	height: 2.25rem;
-	padding: 0 0.75rem;
-	font-size: 1rem;
-	font-weight: 500;
-	white-space: nowrap;
-
-	&:hover {
-		color: var(--color-text-primary);
-	}
-
-	&:focus-visible {
-		outline: 1px solid var(--color-orange-300);
-	}
-}
-
-// Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
-// an den Ecken — die Pille des ActionWrapper würde dort flackern. Die Rundung
-// trägt allein die Pille.
 .md {
 	height: 2.25rem;
 	font-size: 1.125rem;
@@ -106,7 +64,6 @@
 .sm {
 	height: 1.5rem;
 	font-size: 0.875rem;
-	font-weight: 500;
 }
 
 .mdText {

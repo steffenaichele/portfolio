@@ -26,7 +26,7 @@ export default function LanguageToggle() {
 				return (
 					<Button
 						key={key}
-						ghost
+						size="sm"
 						onClick={() => setLocale(key)}
 						aria-label={t(key === "en" ? "switch_to_en" : "switch_to_de")}
 						aria-pressed={active}

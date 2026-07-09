@@ -115,7 +115,7 @@ const ImprintModal = () => {
 		<>
 			<Button
 				ref={triggerRef}
-				isLink
+				underline
 				onClick={openModal}
 				aria-haspopup="dialog"
 				aria-expanded={mounted}>
@@ -143,10 +143,11 @@ const ImprintModal = () => {
 						className={`t-modal ${styles.panel}`}>
 						{/* Close button */}
 						<div className={styles.closeRow}>
-							<ActionWrapper>
+							<ActionWrapper variant="primary">
 								<Button
 									size="sm"
 									content="icon"
+									data-pill-rest
 									aria-label={t("close")}
 									onClick={closeModal}>
 									<Icon icon={X} />

@@ -38,13 +38,10 @@ const Header = () => {
 							return (
 								<Button
 									key={link.key}
-									ghost
 									href={link.href}
 									data-pill-rest={active}
 									aria-current={active ? "page" : undefined}
-									className={`${styles.navItem} ${
-										active ? styles.navActive : styles.navInactive
-									}`}>
+									className={active ? styles.navActive : styles.navInactive}>
 									{tNav(link.key)}
 								</Button>
 							);
