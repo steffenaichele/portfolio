@@ -1,0 +1,20 @@
+// Sprachumschalter als ActionWrapper (variant secondary): ghost-Buttons, die
+// Auswahl-Pille (wenig Kontrast) ruht auf der aktiven Locale (data-pill-rest).
+.toggle {
+	display: inline-flex;
+}
+
+// Segment-Maße überschreiben die ghost-Defaults auf die frühere sm-Größe.
+.item {
+	height: 1.75rem;
+	padding: 0 0.625rem;
+	font-size: 0.875rem;
+}
+
+.active {
+	color: var(--color-text-primary);
+}
+
+.inactive {
+	color: var(--color-text-tertiary);
+}

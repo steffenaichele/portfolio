@@ -45,9 +45,13 @@ interface ButtonProps {
 	role?: string;
 	"aria-label"?: string;
 	"aria-selected"?: boolean;
+	"aria-pressed"?: boolean;
+	"aria-current"?: React.AriaAttributes["aria-current"];
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
 	"aria-haspopup"?: React.AriaAttributes["aria-haspopup"];
+	// Markiert dieses Kind als Ruhe-Ziel der ActionWrapper-Pille (Toggle/Selektion).
+	"data-pill-rest"?: boolean;
 }
 
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
@@ -89,9 +93,12 @@ const Button = ({
 	role,
 	"aria-label": ariaLabel,
 	"aria-selected": ariaSelected,
+	"aria-pressed": ariaPressed,
+	"aria-current": ariaCurrent,
 	"aria-expanded": ariaExpanded,
 	"aria-controls": ariaControls,
 	"aria-haspopup": ariaHasPopup,
+	"data-pill-rest": dataPillRest,
 }: ButtonProps) => {
 	// Inline-Feedback beim Clipboard-Kopieren: Label wechselt kurz auf die
 	// Success-Message und springt nach einem Timeout zurück.
@@ -130,6 +137,8 @@ const Button = ({
 				href={href}
 				onClick={onClick}
 				aria-label={ariaLabel}
+				aria-current={ariaCurrent}
+				data-pill-rest={dataPillRest ? "true" : undefined}
 				target={external ? "_blank" : undefined}
 				rel={external ? "noopener noreferrer" : undefined}
 				className={className}>
@@ -164,9 +173,12 @@ const Button = ({
 			role={role}
 			aria-label={ariaLabel}
 			aria-selected={ariaSelected}
+			aria-pressed={ariaPressed}
+			aria-current={ariaCurrent}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
 			aria-haspopup={ariaHasPopup}
+			data-pill-rest={dataPillRest ? "true" : undefined}
 			className={className}>
 			{copied ? copySuccessMessage : body}
 		</button>

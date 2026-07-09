@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Logo from "./Logo";
-import ToggleButton from "./ToggleButton";
+import ActionWrapper from "./ActionWrapper";
+import Button from "./Button";
 import BlurEffect from "react-progressive-blur";
 import styles from "./Header.module.scss";
 
@@ -31,14 +32,24 @@ const Header = () => {
 				</Link>
 
 				<nav aria-label={tNav("nav_label")}>
-					<ToggleButton
-						activeKey={activeKey}
-						options={navLinks.map((link) => ({
-							key: link.key,
-							label: tNav(link.key),
-							href: link.href,
-						}))}
-					/>
+					<ActionWrapper variant="primary" className={styles.nav}>
+						{navLinks.map((link) => {
+							const active = activeKey === link.key;
+							return (
+								<Button
+									key={link.key}
+									ghost
+									href={link.href}
+									data-pill-rest={active}
+									aria-current={active ? "page" : undefined}
+									className={`${styles.navItem} ${
+										active ? styles.navActive : styles.navInactive
+									}`}>
+									{tNav(link.key)}
+								</Button>
+							);
+						})}
+					</ActionWrapper>
 				</nav>
 			</div>
 		</header>

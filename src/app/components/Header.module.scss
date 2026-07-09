@@ -35,3 +35,24 @@
 		}
 	}
 }
+
+// Navigation als ActionWrapper (variant primary): Segmente sind ghost-Buttons,
+// die Auswahl-Pille ruht auf dem aktiven Item (data-pill-rest).
+.nav {
+	display: inline-flex;
+}
+
+// Nav-Segment-Maße überschreiben die ghost-Defaults auf die frühere Nav-Größe.
+.navItem {
+	height: 2.25rem;
+	padding: 0 1rem;
+	font-size: 1.125rem;
+}
+
+.navActive {
+	color: var(--color-text-primary);
+}
+
+.navInactive {
+	color: var(--color-text-tertiary);
+}

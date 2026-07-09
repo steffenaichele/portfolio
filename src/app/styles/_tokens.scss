@@ -1,14 +1,20 @@
 // Semantic color tokens as real CSS custom properties (not compile-time
 // Sass vars) — components consume them the same way they always have
 // (var(--x)), and JS (getComputedStyle reads in
-// ActionWrapper/ToggleButton/modals) keeps working unchanged.
+// ActionWrapper/modals) keeps working unchanged.
 // Primitives live in _colors.scss; this file maps them to purpose.
 :root {
 	--color-bg: var(--color-neutral-150);
 
-	--color-interactive-pill: color-mix(in oklab, var(--color-white) 40%, transparent);
+	// Pillen-Tokens für den vereinten ActionWrapper: Zustands-Tokens gelten über
+	// alle Varianten, Ruhe-Tokens (rest-*) bestimmen den Kontrast der ruhenden
+	// Pille je Wrapper-Variante (primary/secondary/tertiary). Werte sind
+	// Startpunkte — Kontraste werden im Figma-Design ausgearbeitet.
+	--color-interactive-pill-hover: color-mix(in oklab, var(--color-white) 40%, transparent);
 	--color-interactive-pill-active: var(--color-white);
-	--color-interactive-pill-selected: var(--color-neutral-200);
+	--color-interactive-pill-rest-primary: var(--color-neutral-200);
+	--color-interactive-pill-rest-secondary: color-mix(in oklab, var(--color-white) 20%, transparent);
+	--color-interactive-pill-rest-tertiary: transparent;
 
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
