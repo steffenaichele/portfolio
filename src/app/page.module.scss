@@ -1,25 +1,23 @@
-.homeGroup {
-	display: contents;
-	flex-direction: column;
-	gap: 0.25rem;
+.page{
+	width: 100%;
+	max-width: var(--max-width);
+
+	.intro {
+		padding: 1rem;
+		margin-bottom: 4rem;
+		font-size: var(--font-size-md);
+		line-height: var(--line-height-md);
+		color: var(--color-text-primary);
+		letter-spacing: var(--letter-spacing-md);
+		font-weight: 500;
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	
+		.greeting{
+			color: var(--color-text-tertiary);
+		}
+	}
 }
 
-.intro {
-	padding: 3.5rem 1.75rem;
-	border-radius: var(--radius-lg);
-	font-size: 1rem;
-	font-weight: 500;
-	color: var(--color-text-primary);
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-}
 
-.greeting {
-	color: var(--color-text-secondary);
-}
-
-.workGroup {
-	display: flex;
-	flex-wrap: wrap;
-}

@@ -1,6 +1,7 @@
 .wrapper {
 	position: relative;
 	width: fit-content;
+	padding: 0.125rem;
 
 	// Kinder ohne eigene Rundung: border-radius clippt das Pointer-Hit-Testing
 	// an den Ecken, die Hover-Pille würde dort flackern. Die Rundung trägt
@@ -10,15 +11,15 @@
 		position: relative;
 		border-radius: 0;
 	}
-}
 
-.pill {
-	position: absolute;
-	width: 0;
-	height: 0;
-	opacity: 0;
-	pointer-events: none;
-	border-radius: var(--radius-2xl);
-	box-shadow: var(--shadow);
-	will-change: transform;
+	.pill {
+		position: absolute;
+		width: 0;
+		height: 0;
+		opacity: 0;
+		pointer-events: none;
+		border-radius: var(--radius-2xl);
+		box-shadow: var(--shadow);
+		will-change: transform;
+	}
 }

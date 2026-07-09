@@ -111,72 +111,72 @@
 		font-variant-numeric: tabular-nums;
 		font-weight: 500;
 	}
-}
 
-// ───────── Detail-Inhalt (offener Zustand) ─────────
-.detailContainer {
-	width: 100%;
-	margin: 1rem 0 1.5rem 0;
-	flex-direction: column;
-	gap: 1.5rem;
-}
+	// ───────── Detail-Inhalt (offener Zustand) ─────────
+	.detailContainer {
+		width: 100%;
+		margin: 1rem 0 1.5rem 0;
+		flex-direction: column;
+		gap: 1.5rem;
 
-.orgGroup {
-	display: flex;
-	flex-direction: column;
-}
+		.orgGroup {
+			display: flex;
+			flex-direction: column;
 
-.orgName {
-	font-weight: 500;
-	color: var(--color-text-primary);
-}
+			.orgName {
+				font-weight: 500;
+				color: var(--color-text-primary);
+			}
 
-.orgLocation {
-	font-weight: 500;
-	color: var(--color-text-secondary);
-}
+			.orgLocation {
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+		}
 
-.rolesGroup {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-}
+		.rolesGroup {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
 
-.roleItem {
-	display: flex;
-	flex-direction: column;
-	gap: 0.125rem;
-}
+			.roleItem {
+				display: flex;
+				flex-direction: column;
+				gap: 0.125rem;
 
-.roleTitle {
-	font-size: 1.125rem;
-	font-weight: 500;
-	color: var(--color-text-primary);
-}
+				.roleTitle {
+					font-size: 1.125rem;
+					font-weight: 500;
+					color: var(--color-text-primary);
+				}
+			}
+		}
 
-.descList {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
+		.descList {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
 
-.descItem {
-	font-size: 0.875rem;
-	font-weight: 500;
-	color: var(--color-text-secondary);
-}
+			.descItem {
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+		}
 
-.techList {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.375rem;
-}
+		.techList {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.375rem;
 
-.techTag {
-	padding: 0.125rem 0.5rem;
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: var(--color-text-secondary);
-	background-color: var(--color-button-primary-bg-hover);
-	border-radius: var(--radius-sm);
+			.techTag {
+				padding: 0.125rem 0.5rem;
+				font-size: 0.75rem;
+				font-weight: 500;
+				color: var(--color-text-secondary);
+				background-color: var(--color-button-primary-bg-hover);
+				border-radius: var(--radius-sm);
+			}
+		}
+	}
 }

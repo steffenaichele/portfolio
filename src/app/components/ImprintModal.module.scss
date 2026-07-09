@@ -20,35 +20,35 @@
 	background-color: var(--color-surface-bg);
 	box-shadow: var(--shadow);
 	overflow: hidden;
-}
 
-.closeRow {
-	display: flex;
-	justify-content: flex-end;
-	padding: 0.75rem;
-}
+	.closeRow {
+		display: flex;
+		justify-content: flex-end;
+		padding: 0.75rem;
+	}
 
-.content {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-	padding: 0 1.5rem 2rem;
-}
+	.content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		padding: 0 1.5rem 2rem;
 
-.title {
-	font-size: 1.5rem;
-	line-height: 2rem;
-	color: var(--color-text-primary);
-}
+		.title {
+			font-size: 1.5rem;
+			line-height: 2rem;
+			color: var(--color-text-primary);
+		}
 
-.body {
-	color: var(--color-text-tertiary);
-}
+		.body {
+			color: var(--color-text-tertiary);
 
-.notice {
-	margin-bottom: 1rem;
-}
+			.notice {
+				margin-bottom: 1rem;
+			}
 
-.address {
-	font-style: normal;
+			.address {
+				font-style: normal;
+			}
+		}
+	}
 }

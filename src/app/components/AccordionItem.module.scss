@@ -77,4 +77,12 @@
 .item[data-open]:has(:active) {
 	transform: scale(0.99);
 	margin: 0.5rem -1rem;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
 }
