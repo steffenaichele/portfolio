@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useLocale } from "../hooks/useLocale";
 import type { Locale } from "@/i18n/config";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Button from "./Button";
 import styles from "./LanguageToggle.module.scss";
 
@@ -17,7 +17,7 @@ export default function LanguageToggle() {
 	const { locale, setLocale } = useLocale();
 
 	return (
-		<ActionWrapper
+		<InteractionWrapper
 			variant="secondary"
 			aria-label={t("language_label")}
 			className={styles.toggle}>
@@ -34,10 +34,10 @@ export default function LanguageToggle() {
 						className={`${styles.item} ${
 							active ? styles.active : styles.inactive
 						}`}>
-						{label}
+						<span>{label}</span>
 					</Button>
 				);
 			})}
-		</ActionWrapper>
+		</InteractionWrapper>
 	);
 }

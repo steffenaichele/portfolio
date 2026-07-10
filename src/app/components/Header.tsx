@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Logo from "./Logo";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Button from "./Button";
 import BlurEffect from "react-progressive-blur";
 import styles from "./Header.module.scss";
@@ -32,7 +32,7 @@ const Header = () => {
 				</Link>
 
 				<nav aria-label={tNav("nav_label")}>
-					<ActionWrapper variant="primary" className={styles.nav}>
+					<InteractionWrapper variant="primary" className={styles.nav}>
 						{navLinks.map((link) => {
 							const active = activeKey === link.key;
 							return (
@@ -42,11 +42,11 @@ const Header = () => {
 									data-pill-rest={active}
 									aria-current={active ? "page" : undefined}
 									className={active ? styles.navActive : styles.navInactive}>
-									{tNav(link.key)}
+									<span>{tNav(link.key)}</span>
 								</Button>
 							);
 						})}
-					</ActionWrapper>
+					</InteractionWrapper>
 				</nav>
 			</div>
 		</header>

@@ -9,6 +9,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { ToastProvider } from "./components/ToastNotification";
 import styles from "./layout.module.scss";
 
 const ppNeueMontreal = localFont({
@@ -67,12 +68,14 @@ export default async function RootLayout({
 			className={`${styles.html} ${ppNeueMontreal.variable}`}>
 			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
-					<a href="#main-content" className={styles.skipLink}>
-						{t("skip_to_main")}
-					</a>
-					<Header />
-					{children}
-					<Footer />
+					<ToastProvider>
+						<a href="#main-content" className={styles.skipLink}>
+							{t("skip_to_main")}
+						</a>
+						<Header />
+						{children}
+						<Footer />
+					</ToastProvider>
 				</NextIntlClientProvider>
 				<Analytics />
 				<SpeedInsights />

@@ -6,7 +6,7 @@ import { ArrowRight, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import Button from "./Button";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Icon from "./Icon";
 import type { Impression } from "../data/content";
 import styles from "./ImpressionCard.module.scss";
@@ -128,7 +128,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						<p className={styles.contextText}>{context}</p>
 					</div>
 					{impression.link && (
-						<ActionWrapper variant="primary">
+						<InteractionWrapper variant="primary">
 							<Button
 								href={impression.link}
 								size="sm"
@@ -137,7 +137,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								aria-label={t("open_label", { label })}>
 								<Icon icon={ArrowRight} />
 							</Button>
-						</ActionWrapper>
+						</InteractionWrapper>
 					)}
 				</div>
 
@@ -180,7 +180,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						aria-label={label}
 						className={`t-modal ${styles.modalPanel}`}>
 						{/* Close button */}
-						<ActionWrapper variant="primary">
+						<InteractionWrapper variant="primary">
 							<Button
 								size="sm"
 								content="icon"
@@ -189,7 +189,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								onClick={closeModal}>
 								<Icon icon={X} />
 							</Button>
-						</ActionWrapper>
+						</InteractionWrapper>
 
 						{/* Image */}
 						<div
@@ -210,17 +210,17 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 								<p className={styles.modalContext}>{context}</p>
 							</div>
 							{impression.link && (
-								<ActionWrapper variant="primary">
+								<InteractionWrapper variant="primary">
 									<Button
 										href={impression.link}
 										size="sm"
-										content="icon"
+										content="iconText"
 										data-pill-rest
 										aria-label={t("external_label", { label })}>
-										{t("open_button")}
+										<span>{t("open_button")}</span>
 										<Icon icon={ArrowRight} />
 									</Button>
-								</ActionWrapper>
+								</InteractionWrapper>
 							)}
 						</div>
 					</div>
