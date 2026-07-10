@@ -15,7 +15,9 @@
 			"subtitle": "UX/UI Designer & Web Developer",
 			"copyright": "© 2026 Steffen Aichele – Alle Rechte vorbehalten.",
 			"built_with": "Built with Next.js & SCSS",
-			"email": "E-Mail kopieren"
+			"email": "Kontakt",
+			"email_copied": "E-Mail-Adresse kopiert",
+			"email_copy_failed": "Kopieren fehlgeschlagen"
 		},
 		"contact_button": "Kontakt",
 		"skip_to_main": "Zum Hauptinhalt springen"

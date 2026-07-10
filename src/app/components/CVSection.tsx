@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
 import Accordion from "./Accordion";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Button from "./Button";
 import { CVItem, SUMMARY_HEIGHT } from "./CVItem";
 import type { CVEntry } from "../data/cv";
@@ -50,7 +50,7 @@ export default function CVSection() {
 		</Accordion>
 	);
 
-	// Tab = Ghost-Button; Hover/Active-Pille kommt vom ActionWrapper im
+	// Tab = Ghost-Button; Hover/Active-Pille kommt vom InteractionWrapper im
 	// tablist-Wrapper. Active-State (ausgewählter Tab) allein über die Textfarbe.
 	const tab = (category: Category, label: string) => (
 		<Button
@@ -59,16 +59,16 @@ export default function CVSection() {
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
 			className={active === category ? styles.tabActive : styles.tabInactive}>
-			{label}
+			<span>{label}</span>
 		</Button>
 	);
 
 	return (
 		<section className={styles.section}>
-			<ActionWrapper role="tablist" className={styles.tablist}>
+			<InteractionWrapper role="tablist" className={styles.tablist}>
 				{tab("experience", t("experience_heading"))}
 				{tab("education", t("education_heading"))}
-			</ActionWrapper>
+			</InteractionWrapper>
 			<div
 				id={PANEL_ID}
 				role="tabpanel"
