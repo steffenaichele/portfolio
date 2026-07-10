@@ -1,31 +1,10 @@
 .page {
 	width: 100%;
-	max-width: 64rem;
-	margin-inline: auto;
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
+	max-width: var(--max-width);
 
-	.head {
+	.feed {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
-		padding-inline: 0.75rem;
-
-		.title {
-			font-size: 2.25rem;
-			color: var(--color-text-primary);
-		}
-
-		.description {
-			font-size: 1.125rem;
-			color: var(--color-text-secondary);
-		}
-	}
-
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 0.75rem;
+		gap: 3.5rem;
 	}
 }

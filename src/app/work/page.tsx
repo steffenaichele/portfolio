@@ -12,20 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-export default async function WorkPage() {
-	const t = await getTranslations("impressions");
-
+export default function WorkPage() {
 	return (
-		<div className={styles.page}>
-			<header className={styles.head}>
-				<h1 className={styles.title}>{t("page_title")}</h1>
-				<p className={styles.description}>{t("page_description")}</p>
-			</header>
-			<div className={styles.grid}>
+		<main className={styles.page} id="main-content">
+			<div className={styles.feed}>
 				{impressions.map((impression) => (
 					<ImpressionCard key={impression.id} impression={impression} />
 				))}
 			</div>
-		</div>
+		</main>
 	);
 }
