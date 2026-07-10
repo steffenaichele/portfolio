@@ -46,7 +46,7 @@
 			inset-inline: 0;
 			bottom: 0;
 			height: 1px;
-			background-color: var(--color-link-underline);
+			background-color: var(--color-link-underline-default);
 			transition: height var(--duration-state) var(--easing-ui);
 		}
 	}
