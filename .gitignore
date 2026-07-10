@@ -43,3 +43,8 @@ next-env.d.ts
 .env*.local
 .DS_Store
 .fallow/
+
+# compiled from .scss sources (Live Sass Compiler output)
+/.sass-output
+
+# claude code worktr

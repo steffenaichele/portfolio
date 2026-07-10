@@ -3,25 +3,23 @@
 import { useState, useRef, useEffect, useEffectEvent } from "react";
 import Image from "next/image";
 import { ArrowRight, X } from "lucide-react";
-import { useTranslations, useMessages } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import Button from "./Button";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Icon from "./Icon";
-import type { Impression, Project } from "../data/content";
+import type { Impression } from "../data/content";
+import styles from "./ImpressionCard.module.scss";
 
 interface ImpressionCardProps {
 	impression: Impression;
-	project?: Project;
 }
 
 const ImpressionCard = ({ impression }: ImpressionCardProps) => {
-	const t = useTranslations('impressions');
-	const messages = useMessages() as { impressions?: { items?: Record<string, { label: string; context: string; alt: string }> } };
-	const itemMessages = messages.impressions?.items?.[impression.id];
-	const label = itemMessages?.label ?? impression.label;
-	const context = itemMessages?.context ?? impression.context;
-	const alt = itemMessages?.alt ?? impression.alt;
+	const t = useTranslations("impressions");
+	const label = t(`items.${impression.id}.label`);
+	const context = t(`items.${impression.id}.context`);
+	const alt = t(`items.${impression.id}.alt`);
 	const [mounted, setMounted] = useState(false);
 	const modalRef = useRef<HTMLDivElement>(null);
 	const backdropRef = useRef<HTMLButtonElement>(null);
@@ -32,10 +30,10 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		const backdrop = backdropRef.current;
 		if (!modal) return;
 
-		const closeMs =
+		const closeDurationMs =
 			parseFloat(
 				getComputedStyle(document.documentElement).getPropertyValue(
-					"--modal-close-dur",
+					"--duration-state",
 				),
 			) || 150;
 
@@ -49,7 +47,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 			backdrop?.classList.remove("is-closing");
 			setMounted(false);
 			triggerRef.current?.focus();
-		}, closeMs);
+		}, closeDurationMs);
 	};
 
 	const openModal = () => {
@@ -122,29 +120,24 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 		<>
 			{/* Card */}
 			<div
-				className={`relative ${impression.square ? "aspect-square col-span-4 md:col-span-1" : "aspect-3/2 col-span-4 md:col-span-2"} group cursor-pointer bg-[var(--color-surface-bg)] hover:bg-[var(--color-surface-bg-hover)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow-soft)] origin-center transition-transform duration-300 ease-out hover:scale-101 overflow-hidden`}>
-				<div className="h-10 flex px-4 pt-4 pb-0">
-					<div className="grow h-6 px-2 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-						<p className="text-sm text-[var(--color-text-secondary)]">
-							{label}
-						</p>
-						<p className="text-sm text-[var(--color-text-tertiary)]">
-							{" · "}
-						</p>
-						<p className="text-sm text-[var(--color-text-tertiary)]">
-							{context}
-						</p>
+				className={`${styles.card} ${impression.square ? styles.square : styles.wide}`}>
+				<div className={styles.header}>
+					<div className={styles.labelWrap}>
+						<p className={styles.label}>{label}</p>
+						<p className={styles.contextText}>{" · "}</p>
+						<p className={styles.contextText}>{context}</p>
 					</div>
 					{impression.link && (
-						<ActionWrapper>
+						<InteractionWrapper variant="primary">
 							<Button
 								href={impression.link}
 								size="sm"
 								content="icon"
+								data-pill-rest
 								aria-label={t("open_label", { label })}>
 								<Icon icon={ArrowRight} />
 							</Button>
-						</ActionWrapper>
+						</InteractionWrapper>
 					)}
 				</div>
 
@@ -154,12 +147,12 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 					alt={alt}
 					fill
 					sizes="(max-width: 1024px) 50vw, 25vw"
-					className="mt-12 p-2 object-top object-contain transition-transform group-hover:scale-103"
+					className={styles.cardImage}
 				/>
 				<button
 					ref={triggerRef}
 					onClick={openModal}
-					className="absolute cursor-pointer inset-0 w-full h-full"
+					className={styles.trigger}
 					aria-label={t("zoom_label", { label })}
 					aria-expanded={mounted}
 					aria-haspopup="dialog"
@@ -176,7 +169,7 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						tabIndex={-1}
 						aria-label={t("modal_close")}
 						onClick={closeModal}
-						className="t-modal-backdrop fixed inset-0 z-50 bg-black/60 cursor-default w-full h-full border-none"
+						className={`t-modal-backdrop ${styles.backdrop}`}
 					/>
 
 					{/* Panel */}
@@ -185,51 +178,49 @@ const ImpressionCard = ({ impression }: ImpressionCardProps) => {
 						role="dialog"
 						aria-modal="true"
 						aria-label={label}
-						className="t-modal fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-[var(--color-surface-bg)] rounded-[var(--radius-surface)] corner-squircle shadow-[var(--shadow)] overflow-hidden">
+						className={`t-modal ${styles.modalPanel}`}>
 						{/* Close button */}
-						<ActionWrapper>
+						<InteractionWrapper variant="primary">
 							<Button
 								size="sm"
 								content="icon"
+								data-pill-rest
 								aria-label={t("modal_close")}
 								onClick={closeModal}>
 								<Icon icon={X} />
 							</Button>
-						</ActionWrapper>
+						</InteractionWrapper>
 
 						{/* Image */}
 						<div
-							className={`relative w-full ${impression.square ? "aspect-square" : "aspect-3/2"}`}>
+							className={`${styles.modalImageWrap} ${impression.square ? styles.aspectSquare : styles.aspectWide}`}>
 							<Image
 								src={`/impressions/${impression.src}`}
 								alt={alt}
 								fill
 								sizes="(max-width: 768px) 100vw, 448px"
-								className="object-contain"
+								className={styles.modalImage}
 							/>
 						</div>
 
 						{/* Info */}
-						<div className="flex flex-col gap-3 p-5">
-							<div className="flex flex-col gap-0.5">
-								<p className="text-md font-medium text-[var(--color-text-primary)]">
-									{label}
-								</p>
-								<p className="text-xs text-[var(--color-text-tertiary)]">
-									{context}
-								</p>
+						<div className={styles.modalInfo}>
+							<div className={styles.modalLabelWrap}>
+								<p className={styles.modalLabel}>{label}</p>
+								<p className={styles.modalContext}>{context}</p>
 							</div>
 							{impression.link && (
-								<ActionWrapper>
+								<InteractionWrapper variant="primary">
 									<Button
 										href={impression.link}
 										size="sm"
-										content="icon"
+										content="iconText"
+										data-pill-rest
 										aria-label={t("external_label", { label })}>
-										{t("open_button")}
+										<span>{t("open_button")}</span>
 										<Icon icon={ArrowRight} />
 									</Button>
-								</ActionWrapper>
+								</InteractionWrapper>
 							)}
 						</div>
 					</div>

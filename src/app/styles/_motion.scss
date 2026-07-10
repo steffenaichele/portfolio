@@ -1,0 +1,12 @@
+:root {
+	// Dauern (nach Zweck benannt, nicht nach Tempo). Für neue Fälle den
+	// Zweck weiterführen: --duration-<zweck>.
+	--duration-state: 150ms; // Hover, Farbe, Background, Underline, Modal-Close, Panel-Resize
+	--duration-move: 300ms; // Pillen-Slide, Card-Scale, Modal-Open, Accordion-Morph
+	--duration-panel: 800ms; // CV-Kategorie-Wechsel (Cross-Fade Experience/Education)
+
+	// Easing (nach Zweck): --easing-<zweck>.
+	--easing-ui: cubic-bezier(0.23, 1, 0.32, 1); // Standard-UI (Pillen, Scale, Underline, Enter)
+	--easing-modal: cubic-bezier(0.22, 1, 0.36, 1); // Modal Open/Close
+	--easing-emphasized: cubic-bezier(0.77, 0, 0.175, 1); // ausgeprägte Morphs (Page-Exit, Accordion-Radius)
+}

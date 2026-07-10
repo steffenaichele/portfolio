@@ -1,0 +1,51 @@
+// transitions-dev — modal open/close (used by ImpressionCard + ImprintModal).
+// Shared global partial rather than split per-component: both consumers toggle
+// the same is-open/is-closing class-name string literals directly in JS, so
+// keeping one shared definition avoids two copies drifting apart.
+// Dauer/Easing kommen aus den globalen Motion-Tokens (_tokens.scss):
+// Open = --duration-move, Close = --duration-state, Kurve = --easing-modal.
+// Nur die modal-spezifischen Scale-Werte bleiben hier lokal.
+:root {
+	--modal-scale: 0.96;
+	--modal-scale-close: 0.96;
+}
+
+.t-modal {
+	transform-origin: center;
+	transform: scale(var(--modal-scale));
+	opacity: 0;
+	pointer-events: none;
+	transition:
+		transform var(--duration-move) var(--easing-modal),
+		opacity var(--duration-move) var(--easing-modal);
+	will-change: transform, opacity;
+
+	&.is-open {
+		transform: scale(1);
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	&.is-closing {
+		transform: scale(var(--modal-scale-close));
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			transform var(--duration-state) var(--easing-modal),
+			opacity var(--duration-state) var(--easing-modal);
+	}
+}
+
+.t-modal-backdrop {
+	opacity: 0;
+	transition: opacity var(--duration-move) var(--easing-modal);
+
+	&.is-open {
+		opacity: 1;
+	}
+
+	&.is-closing {
+		opacity: 0;
+		transition: opacity var(--duration-state) var(--easing-modal);
+	}
+}

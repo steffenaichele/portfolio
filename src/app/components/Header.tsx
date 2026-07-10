@@ -1,34 +1,53 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import MobileNavigation from "./MobileNavigation";
 import Logo from "./Logo";
+import InteractionWrapper from "./InteractionWrapper";
+import Button from "./Button";
 import BlurEffect from "react-progressive-blur";
+import styles from "./Header.module.scss";
+
+const navLinks = [
+	{ key: "home", href: "/" },
+	{ key: "work", href: "/work" },
+] as const;
 
 const Header = () => {
-	const [navOpen, setNavOpen] = useState(false);
-	const t = useTranslations('layout');
+	const t = useTranslations("layout");
+	const tNav = useTranslations("layout.nav");
+	const pathname = usePathname();
+	const activeKey = pathname === "/work" ? "work" : "home";
 
 	return (
-		<header
-			className="fixed top-0 inset-x-auto max-w-lg pt-[max(4rem,env(safe-area-inset-top))] pb-4 z-50 rounded-xl"
-			aria-label="Site header">
-			<BlurEffect
-				className="absolute inset-0 h-full pointer-events-none"
-				position="top"
-				intensity={navOpen ? 100 : 50}
-			/>
-			<div className="relative flex flex-row justify-between items-start px-8 min-h-11 z-10">
+		<header className={styles.header} aria-label="Site header">
+			<BlurEffect className={styles.blur} position="top" intensity={50} />
+			<div className={styles.inner}>
 				<Link
 					href="/"
 					aria-label={t("header.logo_label")}
-					className="h-11 flex items-center">
+					className={styles.logoButton}>
 					<Logo />
 				</Link>
 
-				<MobileNavigation open={navOpen} onOpenChange={setNavOpen} />
+				<nav aria-label={tNav("nav_label")}>
+					<InteractionWrapper variant="primary" className={styles.nav}>
+						{navLinks.map((link) => {
+							const active = activeKey === link.key;
+							return (
+								<Button
+									key={link.key}
+									href={link.href}
+									data-pill-rest={active}
+									aria-current={active ? "page" : undefined}
+									className={active ? styles.navActive : styles.navInactive}>
+									<span>{tNav(link.key)}</span>
+								</Button>
+							);
+						})}
+					</InteractionWrapper>
+				</nav>
 			</div>
 		</header>
 	);

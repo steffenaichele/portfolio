@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import ProjectsSection from "./components/ProjectsSection";
 import CVSection from "./components/CVSection";
+import styles from "./page.module.scss";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
@@ -13,25 +13,21 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
 	const t = await getTranslations('home');
+
 	return (
-		<>
-			<section className="pt-60 text-md font-medium text-[var(--color-text-primary)] flex flex-col gap-5">
-				<h1 className="text-[var(--color-text-secondary)]">
+		<main className={styles.page} id="main-content">
+			<section className={styles.intro}>
+				<h1 className={styles.greeting}>
 					{t("greeting")}{" "}
 					<span role="img" aria-label={t("emoji_label")}>
 						✌🏻
 					</span>
 				</h1>
-				<p>
-					{t("text1")}
-				</p>
-				<p >{t("text2")}</p>
-				<p >
-					{t("text3")}
-				</p>
+				<p>{t("text1")}</p>
+				<p>{t("text2")}</p>
+				<p>{t("text3")}</p>
 			</section>
 			<CVSection />
-			<ProjectsSection />
-		</>
+		</main>
 	);
 }

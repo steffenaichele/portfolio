@@ -5,29 +5,27 @@
 		},
 		"nav": {
 			"home": "Home",
-			"impressions": "Impressions",
-			"menu_open": "Open menu",
-			"menu_close": "Close menu",
-			"nav_label": "Mobile Navigation",
+			"work": "Work",
+			"nav_label": "Navigation",
 			"switch_to_en": "Switch to English",
-			"switch_to_de": "Switch to German"
+			"switch_to_de": "Switch to German",
+			"language_label": "Select language"
 		},
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
-			"pages_heading": "Pages",
-			"links_heading": "Links",
-			"imprint": "Imprint",
 			"copyright": "© 2026 Steffen Aichele – All rights reserved.",
-			"built_with": "Built with Next.js & Tailwind CSS"
+			"built_with": "Built with Next.js & SCSS",
+			"email": "Contact",
+			"email_copied": "Email address copied to clipbaord",
+			"email_copy_failed": "Copy failed"
 		},
 		"contact_button": "Contact",
-		"copy_success": "Copied to clipboard!",
 		"skip_to_main": "Skip to main content"
 	},
 	"home": {
 		"meta_title": "Steffen Aichele – UX/UI Designer & Web Developer",
 		"meta_description": "Portfolio of Steffen Aichele – UX/UI Designer and Web Developer from Schwäbisch Gmünd.",
-		"greeting": "Hi, I'm Steffen",
+		"greeting": "Hello there!",
 		"emoji_label": "Peace sign",
 		"text1": "I'm Steffen, a digital creative working at the seam of design and code.",
 		"text2": "After years working purely as a designer, I doubled down on my fascination for development and learned how to code.",
@@ -58,40 +56,7 @@
 				"label": "Festival Onboarding",
 				"context": "HfG Schwäbisch Gmünd",
 				"alt": "Dashboard"
-			},
-			"03": {
-				"label": "Dashboard",
-				"context": "Freelance",
-				"alt": "Dashboard"
-			},
-			"04": {
-				"label": "Branding",
-				"context": "HfG Schwäbisch Gmünd",
-				"alt": "Branding"
-			},
-			"05": {
-				"label": "Landing Page",
-				"context": "Freelance",
-				"alt": "Landing Page"
 			}
-		}
-	},
-	"projects": {
-		"meta_title": "Projects – Steffen Aichele",
-		"meta_description": "Selected projects by Steffen Aichele – UX/UI Design and Web Development.",
-		"page_title": "Projects",
-		"not_found_title": "Project not found – Steffen Aichele",
-		"inkcal": {
-			"title": "Tattoo Artist Calendar",
-			"description": "React web app for managing appointments, clients and designs for tattoo artists."
-		},
-		"museum-exhibit": {
-			"title": "Interactive Museum Exhibit",
-			"description": "React/Electron app replacing a legacy Flash application."
-		},
-		"gewohnheiten": {
-			"title": "Digital Habit Development Aid",
-			"description": "React/Electron app replacing a legacy Flash application."
 		}
 	},
 	"cv": {
@@ -445,16 +410,9 @@
 			}
 		]
 	},
-	"about_me": {
-		"meta_title": "About Me – Steffen Aichele",
-		"meta_description": "More about Steffen Aichele – UX/UI Designer and Full Stack Developer from Schwäbisch Gmünd.",
-		"page_title": "About Me"
-	},
 	"impressum": {
-		"meta_title": "Imprint – Steffen Aichele",
-		"meta_description": "Legal notice and contact details of Steffen Aichele.",
 		"page_title": "Imprint",
 		"legal_notice": "Legal notice pursuant to § 5 TMG",
-		"contact_button": "Contact"
+		"close": "Close imprint"
 	}
 }

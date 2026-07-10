@@ -1,0 +1,31 @@
+@use "colors";
+@use "radius";
+@use "motion";
+@use "typography";
+@use "shadow";
+@use "tokens";
+@use "modal";
+
+:root {
+	--max-width: 520px;
+
+	color-scheme: light;
+
+	body {
+		padding: 0 0.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+*,
+::before,
+::after {
+	font-feature-settings:
+		"liga" 1,
+		"kern" 1,
+		"calt" 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

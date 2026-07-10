@@ -1,41 +1,43 @@
 "use client";
 
-import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useLocale } from "../hooks/useLocale";
-import ActionWrapper from "./ActionWrapper";
+import type { Locale } from "@/i18n/config";
+import InteractionWrapper from "./InteractionWrapper";
+import Button from "./Button";
+import styles from "./LanguageToggle.module.scss";
+
+const languages: { key: Locale; label: string }[] = [
+	{ key: "en", label: "EN" },
+	{ key: "de", label: "DE" },
+];
 
 export default function LanguageToggle() {
-	const t = useTranslations('layout.nav');
+	const t = useTranslations("layout.nav");
 	const { locale, setLocale } = useLocale();
 
-	// Keine Rundung auf den Buttons (Pointer-Hit-Testing); Hover-Pille kommt
-	// vom ActionWrapper, etwas Padding gibt der Pille Fläche.
-	const buttonClass = (active: boolean) =>
-		clsx(
-			"px-1.5 py-0.5 text-base transition-colors focus-visible:outline-2 focus-visible:outline-orange-300 focus-visible:outline-offset-2",
-			active
-				? "text-[var(--color-text-primary)] font-medium"
-				: "text-[var(--color-text-tertiary)]",
-		);
-
 	return (
-		<ActionWrapper className="flex items-center gap-1">
-			<button
-				onClick={() => setLocale("en")}
-				aria-label={t('switch_to_en')}
-				aria-pressed={locale === "en"}
-				className={buttonClass(locale === "en")}>
-				EN
-			</button>
-			<span className="text-[var(--color-text-tertiary)]" aria-hidden>·</span>
-			<button
-				onClick={() => setLocale("de")}
-				aria-label={t('switch_to_de')}
-				aria-pressed={locale === "de"}
-				className={buttonClass(locale === "de")}>
-				DE
-			</button>
-		</ActionWrapper>
+		<InteractionWrapper
+			variant="secondary"
+			aria-label={t("language_label")}
+			className={styles.toggle}>
+			{languages.map(({ key, label }) => {
+				const active = locale === key;
+				return (
+					<Button
+						key={key}
+						size="sm"
+						onClick={() => setLocale(key)}
+						aria-label={t(key === "en" ? "switch_to_en" : "switch_to_de")}
+						aria-pressed={active}
+						data-pill-rest={active}
+						className={`${styles.item} ${
+							active ? styles.active : styles.inactive
+						}`}>
+						<span>{label}</span>
+					</Button>
+				);
+			})}
+		</InteractionWrapper>
 	);
 }

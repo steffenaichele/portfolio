@@ -5,23 +5,21 @@
 		},
 		"nav": {
 			"home": "Home",
-			"impressions": "Impressions",
-			"menu_open": "Menü öffnen",
-			"menu_close": "Menü schließen",
-			"nav_label": "Mobile Navigation",
+			"work": "Work",
+			"nav_label": "Navigation",
 			"switch_to_en": "Zu Englisch wechseln",
-			"switch_to_de": "Zu Deutsch wechseln"
+			"switch_to_de": "Zu Deutsch wechseln",
+			"language_label": "Sprache wählen"
 		},
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
-			"pages_heading": "Seiten",
-			"links_heading": "Links",
-			"imprint": "Impressum",
 			"copyright": "© 2026 Steffen Aichele – Alle Rechte vorbehalten.",
-			"built_with": "Built with Next.js & Tailwind CSS"
+			"built_with": "Built with Next.js & SCSS",
+			"email": "Kontakt",
+			"email_copied": "E-Mail-Adresse kopiert",
+			"email_copy_failed": "Kopieren fehlgeschlagen"
 		},
 		"contact_button": "Kontakt",
-		"copy_success": "In die Zwischenablage kopiert!",
 		"skip_to_main": "Zum Hauptinhalt springen"
 	},
 	"home": {
@@ -58,40 +56,7 @@
 				"label": "Festival Onboarding",
 				"context": "HfG Schwäbisch Gmünd",
 				"alt": "Dashboard"
-			},
-			"03": {
-				"label": "Dashboard",
-				"context": "Freelance",
-				"alt": "Dashboard"
-			},
-			"04": {
-				"label": "Branding",
-				"context": "HfG Schwäbisch Gmünd",
-				"alt": "Branding"
-			},
-			"05": {
-				"label": "Landingpage",
-				"context": "Freelance",
-				"alt": "Landingpage"
 			}
-		}
-	},
-	"projects": {
-		"meta_title": "Projekte – Steffen Aichele",
-		"meta_description": "Ausgewählte Projekte von Steffen Aichele – UX/UI Design und Web Development.",
-		"page_title": "Projekte",
-		"not_found_title": "Projekt nicht gefunden – Steffen Aichele",
-		"inkcal": {
-			"title": "Tattoo Artist Kalender",
-			"description": "React Webapp zur Verwaltung von Terminen, Kunden und Designs für Tattoo Artists."
-		},
-		"museum-exhibit": {
-			"title": "Interaktives Museum Exhibit",
-			"description": "React/Electron App als Ersatz für eine Legacy Flash-Anwendung."
-		},
-		"gewohnheiten": {
-			"title": "Digitale Gewohnheitsentwicklungshilfe",
-			"description": "React/Electron App als Ersatz für eine Legacy Flash-Anwendung."
 		}
 	},
 	"cv": {
@@ -445,16 +410,9 @@
 			}
 		]
 	},
-	"about_me": {
-		"meta_title": "Über mich – Steffen Aichele",
-		"meta_description": "Mehr über Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
-		"page_title": "About Me"
-	},
 	"impressum": {
-		"meta_title": "Impressum – Steffen Aichele",
-		"meta_description": "Impressum und Kontaktdaten von Steffen Aichele.",
 		"page_title": "Impressum",
 		"legal_notice": "Angaben gemäß § 5 TMG",
-		"contact_button": "Kontakt"
+		"close": "Impressum schließen"
 	}
 }

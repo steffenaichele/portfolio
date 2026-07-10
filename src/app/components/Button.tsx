@@ -1,158 +1,156 @@
 "use client";
 
-// clsx merges class strings conditionally.
-// Usage: clsx("base-class", condition && "conditional-class", { "object-class": condition })
-// Strings, arrays, and objects are all valid — falsy values are ignored.
-
-import { ReactNode } from "react";
+import { Children, cloneElement, isValidElement, ReactElement, ReactNode, Ref } from "react";
 import Link from "next/link";
-import clsx from "clsx";
-import { sileo } from "sileo";
+import Icon from "./Icon";
+import styles from "./Button.module.scss";
 
 /**
- * Button — a styled button element.
+ * Button — nacktes, klickbares Element. KEIN eigener Hintergrund/Rundung/Active:
+ * Füllung, Rundung und Active/Hover trägt die Pille des umgebenden InteractionWrapper.
+ * Ein "gefüllter" Button = InteractionWrapper variant="primary" mit data-pill-rest am
+ * Kind (Ruhe-Pille liegt permanent darunter).
+ *
+ * Kinder: ausschließlich ein textrahmendes Element (z.B. <span>) und/oder <Icon>.
+ * size + content bestimmen Höhe/Font-Größe/Padding/Gap; underline ist orthogonal
+ * dazu und legt ein ::before nur auf das Text-Element (nicht auf <Icon>).
  *
  * Props:
- *   children  (required)  — button label / content
- *   isLink    (optional)  — Link-Look statt gefülltem Button, default false
- *   content   (optional)  — "text" | "iconOnly" | "iconRight", default "text"
+ *   children  (required)  — <span>Text</span> und/oder <Icon>
+ *   size      (optional)  — "md" | "sm", default "md"
+ *   content   (optional)  — "text" | "icon" | "iconText", default "text"
+ *   underline (optional)  — dünne Underline auf dem Text-Kind (collapsed bei Hover)
  *   onClick   (optional)  — click handler
  *   external  (optional)  — öffnet href in neuem Tab + rel + sr-only Hinweis
+ *   copyToClipboard  (optional)  — Text, der bei Klick kopiert wird
+ *   onCopySuccess    (optional)  — Callback nach erfolgreichem Kopieren (z.B. Toast)
+ *   onCopyError      (optional)  — Callback bei fehlgeschlagenem Kopieren (z.B. Toast)
  *   disabled  (optional)  — disables the button, default false
  *   type      (optional)  — "button" | "submit" | "reset", default "button"
  *
  * Examples:
- *   <Button>Save</Button>
- *   <Button content="iconRight"><span>Download</span><Download /></Button>
- *   <Button isLink href="/imprint">Impressum</Button>
- *   <Button isLink href="https://github.com/…" external>GitHub</Button>
- *   <Button type="submit" disabled>Submitting…</Button>
+ *   <InteractionWrapper><Button content="iconText"><span>Download</span><Icon icon={Download} /></Button></InteractionWrapper>
+ *   <InteractionWrapper variant="primary"><Button data-pill-rest content="iconText"><span>Copy</span><Icon icon={Mail} /></Button></InteractionWrapper>
+ *   <Button underline href="/imprint"><span>Impressum</span></Button>
+ *   <Button underline href="https://github.com/…" external><span>GitHub</span><Icon icon={ArrowUpRight} /></Button>
  */
 
 type Size = "md" | "sm";
-type ContentType = "text" | "icon" | "iconRight";
+type ContentType = "text" | "icon" | "iconText";
 
 interface ButtonProps {
 	size?: Size;
 	content?: ContentType;
-	isLink?: boolean;
+	underline?: boolean;
 	external?: boolean;
 	children: ReactNode;
 	href?: string;
 	onClick?: () => void;
 	copyToClipboard?: string;
-	copySuccessMessage?: string;
+	onCopySuccess?: () => void;
+	onCopyError?: () => void;
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 	className?: string;
+	ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
+	role?: string;
 	"aria-label"?: string;
+	"aria-selected"?: boolean;
+	"aria-pressed"?: boolean;
+	"aria-current"?: React.AriaAttributes["aria-current"];
 	"aria-expanded"?: boolean;
 	"aria-controls"?: string;
+	"aria-haspopup"?: React.AriaAttributes["aria-haspopup"];
+	// Markiert dieses Kind als Ruhe-Ziel der InteractionWrapper-Pille (Toggle/Selektion).
+	"data-pill-rest"?: boolean;
 }
 
-// Gefüllter Standard-Button. Hover: Hintergrund wird transparent, damit die
-// Hover-Pille der umgebenden ActionWrapper dahinter sichtbar wird. Kein eigener
-// active-State — den trägt die Pille (sonst würde die fehlende Rundung sichtbar).
-const primaryClasses =
-	"bg-(--color-button-primary-bg) border-(--color-button-primary-stroke) border text-(--color-button-primary-label) shadow-[var(--shadow)] hover:bg-transparent focus-visible:outline-1 focus-visible:outline-orange-300 [&_svg]:text-(--color-button-primary-icon)";
-
-// isLink: Spiegelt den CVItem-Look — kein Hintergrund, dünne Underline unter
-// dem Label (collapsed bei Hover). Hover-Hintergrund liefert die Pille der
-// umgebenden ActionWrapper. Kein Border, kein Shadow, kein Scale.
-// Textfarbe wird vom Elternelement geerbt (Body = text-primary, Footer = hell),
-// damit der Link sich an den jeweiligen Grund anpasst.
-const linkClasses =
-	"group font-medium focus-visible:outline-1 focus-visible:outline-orange-300";
-
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing
-// an den Ecken — die Pille des ActionWrapper würde dort flackern. Die Rundung
-// trägt allein die Pille.
+// an den Ecken — die Pille des InteractionWrapper würde dort flackern. Die Rundung
+// trägt allein die Pille, size steuert nur Höhe/Font-Größe.
 const sizeClasses: Record<Size, string> = {
-	md: "h-9 text-lg",
-	sm: "h-6 text-sm text-medium",
+	md: styles.md,
+	sm: styles.sm,
 };
 
-const contentClasses: Record<Size, Record<ContentType, string>> = {
-	md: {
-		text: "px-4",
-		icon: "px-3",
-		iconRight: "pl-4 pr-3 gap-2",
-	},
-	sm: {
-		text: "px-2.5",
-		icon: "px-1.5",
-		iconRight: "pl-2.5 pr-1.5 gap-1",
-	},
+// content nestet in SCSS unter size (Padding unterscheidet sich je Größe) —
+// hier reicht die reine content-Klasse, sie trifft zusammen mit sizeClasses.
+const contentClasses: Record<ContentType, string> = {
+	text: styles.text,
+	icon: styles.icon,
+	iconText: styles.iconText,
 };
 
 const Button = ({
 	size = "md",
 	content = "text",
-	isLink = false,
+	underline = false,
 	external = false,
 	children,
 	href,
 	onClick,
 	copyToClipboard,
-	copySuccessMessage = "Copied to clipboard!",
+	onCopySuccess,
+	onCopyError,
 	className: classNameProp,
 	disabled,
 	type = "button",
+	ref,
+	role,
 	"aria-label": ariaLabel,
+	"aria-selected": ariaSelected,
+	"aria-pressed": ariaPressed,
+	"aria-current": ariaCurrent,
 	"aria-expanded": ariaExpanded,
 	"aria-controls": ariaControls,
+	"aria-haspopup": ariaHasPopup,
+	"data-pill-rest": dataPillRest,
 }: ButtonProps) => {
-	const baseClasses =
-		"flex-none inline-flex flex-row items-center justify-center transition-[background-color,transform,box-shadow] duration-150 [transition-timing-function:var(--ease-out)] cursor-pointer select-none";
+	const className = `${styles.base} ${sizeClasses[size]} ${contentClasses[content]} ${underline ? styles.underline : ""} ${classNameProp ?? ""}`;
 
-	const className = clsx(
-		baseClasses,
-		// isLink folgt dem CVItem-Stil und ignoriert das size/content-Sizing
-		// der gefüllten Buttons.
-		isLink
-			? clsx("px-3 py-1 text-md", linkClasses)
-			: clsx(sizeClasses[size], contentClasses[size][content], primaryClasses),
-		classNameProp,
-	);
-
-	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
-	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
-	const body = isLink ? (
-		<span className="relative inline-flex items-center gap-2 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-(--color-link-underline) after:transition-[height] after:duration-150 after:ease-out motion-reduce:after:transition-none group-hover:after:h-0">
-			{children}
-		</span>
-	) : (
-		children
-	);
+	// Text-Kind anpassen (Icon-Kind bleibt unverändert) — die Kind-Struktur
+	// (Text-Element + optional <Icon>) bleibt dadurch immer exakt [Text, Icon],
+	// sonst würde ein zusätzliches Geschwister-Element die :last-child/:not(svg)
+	// CSS-Selektoren für Padding und Underline auf das falsche Kind lenken.
+	const body = external
+		? Children.map(children, (child) => {
+				if (!isValidElement(child) || child.type === Icon) return child;
+				const textChild = child as ReactElement<{ children?: ReactNode }>;
+				return cloneElement(textChild, {
+					children: (
+						<>
+							{textChild.props.children}
+							<span className={styles.srOnly}> (Opens in new window)</span>
+						</>
+					),
+				});
+			})
+		: children;
 
 	if (href) {
 		return (
 			<Link
+				ref={ref as Ref<HTMLAnchorElement>}
 				href={href}
 				onClick={onClick}
 				aria-label={ariaLabel}
+				aria-current={ariaCurrent}
+				data-pill-rest={dataPillRest ? "true" : undefined}
 				target={external ? "_blank" : undefined}
 				rel={external ? "noopener noreferrer" : undefined}
 				className={className}>
 				{body}
-				{external && (
-					<span className="sr-only"> (Opens in new window)</span>
-				)}
 			</Link>
 		);
 	}
 
 	const handleCopyToClipboard = async () => {
-		if (copyToClipboard) {
-			if (!navigator.clipboard) {
-				sileo.error({ title: "Failed to copy to clipboard." });
-			} else {
-				try {
-					await navigator.clipboard.writeText(copyToClipboard);
-					sileo.success({ title: copySuccessMessage });
-				} catch {
-					sileo.error({ title: "Failed to copy to clipboard." });
-				}
+		if (copyToClipboard && navigator.clipboard) {
+			try {
+				await navigator.clipboard.writeText(copyToClipboard);
+				onCopySuccess?.();
+			} catch {
+				onCopyError?.();
 			}
 		}
 		onClick?.();
@@ -160,12 +158,19 @@ const Button = ({
 
 	return (
 		<button
+			ref={ref as Ref<HTMLButtonElement>}
 			type={type}
 			onClick={handleCopyToClipboard}
 			disabled={disabled}
+			role={role}
 			aria-label={ariaLabel}
+			aria-selected={ariaSelected}
+			aria-pressed={ariaPressed}
+			aria-current={ariaCurrent}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
+			aria-haspopup={ariaHasPopup}
+			data-pill-rest={dataPillRest ? "true" : undefined}
 			className={className}>
 			{body}
 		</button>

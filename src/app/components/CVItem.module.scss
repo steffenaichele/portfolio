@@ -1,0 +1,182 @@
+// Summary-/Detail-Optik für CVItem. Die Höhen-/Fade-Choreografie bleibt in
+// CVItem.tsx (motion/react) — hier nur die statischen Layout-/Typo-Styles.
+
+.button {
+	position: relative;
+	overflow: hidden;
+	background: var(--color-cvitem-bg);
+	display: block;
+	width: 100%;
+	text-align: left;
+	cursor: default;
+
+	[data-variant="experience"] & {
+		.timeWrapper {
+			color: var(--color-text-exp);
+			background-color: var(--color-cvitem-exp-badge-bg);
+		}
+	}
+
+	[data-variant="education"] & {
+		.timeWrapper {
+			color: var(--color-text-edu);
+			background-color: var(--color-cvitem-edu-badge-bg);
+		}
+	}
+
+	&[data-expandable] {
+		cursor: pointer;
+	}
+
+	&:hover {
+		background: var(--color-cvitem-bg-hover);
+
+		.summaryRow {
+			.summaryOrgLoc {
+				&::after {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	&:active {
+		background: var(--color-cvitem-bg-active);
+	}
+
+	& > div {
+		padding: 0 1rem;
+		display: flex;
+	}
+
+	// ───────── Summary-Zeile (geschlossener Zustand) ─────────
+	.summaryRow {
+		width: 100%;
+		position: absolute;
+		inset-inline: 0;
+		top: 0;
+		justify-content: space-between;
+		align-items: center;
+
+		.summaryOrgLoc {
+			position: relative;
+			display: flex;
+			min-width: 0;
+			align-items: center;
+
+			.orgShort {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				margin-right: 0.375rem;
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-primary);
+			}
+
+			.summaryLocation {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+
+			&::after {
+				content: "";
+				pointer-events: none;
+				position: absolute;
+				left: 0;
+				bottom: -1px;
+				width: 0;
+				height: 1px;
+				background-color: var(--color-link-underline-default);
+				transition: width 200ms ease-out;
+			}
+		}
+	}
+
+	.timeWrapper {
+		flex-shrink: 0;
+		padding: 2px 6px;
+		border-radius: var(--radius-lg);
+		display: flex;
+		align-items: center;
+		gap: 0.125rem;
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-sm);
+		font-variant-numeric: tabular-nums;
+		font-weight: 500;
+	}
+
+	// ───────── Detail-Inhalt (offener Zustand) ─────────
+	.detailContainer {
+		width: 100%;
+		margin: 1rem 0 1.5rem 0;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		.orgGroup {
+			display: flex;
+			flex-direction: column;
+
+			.orgName {
+				font-weight: 500;
+				color: var(--color-text-primary);
+			}
+
+			.orgLocation {
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+		}
+
+		.rolesGroup {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+
+			.roleItem {
+				display: flex;
+				flex-direction: column;
+				gap: 0.125rem;
+
+				.roleTitle {
+					font-size: 1.125rem;
+					font-weight: 500;
+					color: var(--color-text-primary);
+				}
+			}
+		}
+
+		.descList {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+
+			.descItem {
+				font-size: 0.875rem;
+				font-weight: 500;
+				color: var(--color-text-secondary);
+			}
+		}
+
+		.techList {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.375rem;
+
+			.techTag {
+				padding: 0.125rem 0.5rem;
+				font-size: 0.75rem;
+				font-weight: 500;
+				color: var(--color-text-secondary);
+				background-color: var(--color-button-primary-bg-hover);
+				border-radius: var(--radius-sm);
+			}
+		}
+	}
+}

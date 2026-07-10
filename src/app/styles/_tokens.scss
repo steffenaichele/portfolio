@@ -1,0 +1,53 @@
+// Semantic color tokens as real CSS custom properties (not compile-time
+// Sass vars) — components consume them the same way they always have
+// (var(--x)), and JS (getComputedStyle reads in
+// InteractionWrapper/modals) keeps working unchanged.
+// Primitives live in _colors.scss; this file maps them to purpose.
+:root {
+	--color-bg: var(--color-neutral-150);
+
+	// Pillen-Tokens für den vereinten InteractionWrapper: Zustands-Tokens gelten über
+	// alle Varianten, Ruhe-Tokens (rest-*) bestimmen den Kontrast der ruhenden
+	// Pille je Wrapper-Variante (primary/secondary/tertiary). Werte sind
+	// Startpunkte — Kontraste werden im Figma-Design ausgearbeitet.
+	--color-interactive-pill-hover: color-mix(in oklab, var(--color-white) 40%, transparent);
+	--color-interactive-pill-active: var(--color-white);
+	--color-interactive-pill-rest-primary: var(--color-neutral-200);
+	--color-interactive-pill-rest-secondary: color-mix(in oklab, var(--color-white) 20%, transparent);
+	--color-interactive-pill-rest-tertiary: transparent;
+
+	--color-text-primary: var(--color-neutral-950);
+	--color-text-secondary: var(--color-neutral-500);
+	--color-text-tertiary: var(--color-neutral-400);
+	--color-text-exp: var(--color-emerald-600);
+	--color-text-edu: var(--color-sky-600);
+
+	--color-logo-fill: var(--color-white);
+	--color-logo-stroke: var(--color-black);
+
+	--color-link-underline-default: var(--color-text-tertiary);
+	--color-link-underline-active: var(--color-text-secondary);
+
+	--color-button-primary-label: var(--color-text-primary);
+	--color-button-primary-icon: var(--color-text-secondary);
+	--color-button-primary-stroke: color-mix(in oklab, var(--color-white) 55%, transparent);
+	--color-button-primary-bg: var(--color-neutral-100);
+	--color-button-primary-bg-hover: var(--color-neutral-200);
+
+	--color-cvitem-bg: var(--color-neutral-50);
+	--color-cvitem-bg-hover: var(--color-neutral-100);
+	--color-cvitem-bg-active: var(--color-neutral-200);
+	
+	--color-cvitem-exp-badge-bg: var(--color-emerald-100);
+	--color-cvitem-edu-badge-bg: var(--color-sky-100);
+
+	--color-surface-bg: var(--color-white);
+	--color-surface-bg-hover: var(--color-neutral-50);
+	--color-segment-bg: var(--color-surface-bg);
+
+	--color-focus-ring: var(--color-orange-300);
+	--color-modal-backdrop: rgb(0 0 0 / 60%);
+
+	--color-toast-success-icon: var(--color-emerald-600);
+	--color-toast-error-icon: var(--color-orange-600);
+}
