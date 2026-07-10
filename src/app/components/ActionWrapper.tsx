@@ -5,34 +5,39 @@ import { computeFlipTransform, readInlineBounds } from "../lib/motion";
 import styles from "./ActionWrapper.module.scss";
 
 /**
- * ActionWrapper — einheitlicher Wrapper für klickbare Elemente (Buttons,
- * Links, Tabs, CV-Items). Einzige Quelle für den Pill-Hover-Effekt der Seite.
+ * ActionWrapper — einheitlicher Wrapper für ALLE klickbaren Elemente (Buttons,
+ * Links, Tabs, Toggles). Einzige Quelle für die Pille der Seite.
  *
- * Erzeugt eine Hover-Pille: Sie blendet hinter dem überfahrenen Element ein
- * (Opacity 0 → 1, ohne Richtungs-Slide) und beim Verlassen wieder aus.
- * Zwischen mehreren Elementen im selben Wrapper gleitet die Pille
- * (geteilte Geometrie).
+ * Eine einzige Pille bedient drei Fälle über zwei orthogonale Achsen:
  *
- * Jedes <a>/<button> im Wrapper wird automatisch zum Hover-Ziel — außer
- * disabled/aria-disabled. Kinder sollten im Ruhezustand transparent und OHNE
- * eigene Rundung sein: border-radius clippt das Pointer-Hit-Testing an den
- * Ecken, die Pille würde dort flackern. Die Rundung trägt allein die Pille.
+ *   variant  — Kontrast der RUHENDEN Pille:
+ *     "primary"   sichtbar, hoher Kontrast  (z.B. Haupt-Navigation)
+ *     "secondary" sichtbar, wenig Kontrast  (z.B. Sprachumschalter)
+ *     "tertiary"  unsichtbar (nur Hover)    (z.B. Footer-Links, CV-Tabs) [default]
  *
- * Props (zusätzlich zu div-Attributen wie role/style):
+ *   data-pill-rest="true" am Kind — RUHE-ZIEL: die Pille kehrt bei pointerout
+ *     dorthin zurück (Toggle/Selektion) statt zu verschwinden. Ohne Ruhe-Ziel
+ *     ist der Wrapper rein transient (Pille faded bei Verlassen aus).
+ *
+ * Lebenszyklus der Pille:
+ *   - Ruhe    → liegt auf dem data-pill-rest-Kind (Variant-Farbe), ODER versteckt
+ *   - Hover   → gleitet zum überfahrenen Kind (Hover-Farbe, nur Maus)
+ *   - Press   → Active-Farbe + scale(0.97) auf Pille und Kind
+ *   - pointerout → zurück zum Ruhe-Ziel, sonst ausblenden
+ *
+ * Die Ruhe-Platzierung läuft POINTER-UNABHÄNGIG (auch auf Touch) — sonst wäre
+ * auf dem Handy nicht sichtbar, welches Segment ausgewählt ist.
+ *
+ * Kinder sollten im Ruhezustand transparent und OHNE eigene Rundung sein:
+ * border-radius clippt das Pointer-Hit-Testing an den Ecken, die Pille würde
+ * dort flackern. Rundung + Hintergrund + Active-State trägt allein die Pille.
+ * Consumer setzt aria (aria-current/-selected/-pressed) UND data-pill-rest am
+ * selben Kind — der Wrapper liest nur DOM, hält keinen eigenen State.
+ *
+ * Props (zusätzlich zu div-Attributen wie role/aria-label/style):
+ *   variant    (optional)  — "primary" | "secondary" | "tertiary", default tertiary
  *   children   (required)  — klickbare Elemente
  *   className  (optional)  — Klassen für den Wrapper (z.B. Layout/Flex)
- *
- * Pillen-Farben: universelle Tokens --color-interactive-pill /
- * --color-interactive-pill-active. Die Pille trägt auch den Active-State
- * (gedrückt = active-Farbe) — die Elemente selbst haben keinen eigenen
- * active:bg mehr, sonst würde deren fehlende Rundung sichtbar. Die Tokens
- * lassen sich per CSS-Scope kontextabhängig überschreiben.
- *
- * Beispiel:
- *   <ActionWrapper className="flex flex-row gap-1">
- *     <Button isLink href="/">Home</Button>
- *     <Button isLink href="/imprint">Impressum</Button>
- *   </ActionWrapper>
  */
 
 // Nur Compositor-Properties animieren (transform/opacity/background-color).
@@ -41,25 +46,36 @@ import styles from "./ActionWrapper.module.scss";
 const FULL_TRANSITION =
 	"transform var(--duration-move) var(--easing-ui), opacity var(--duration-state) var(--easing-ui), background-color var(--duration-state) var(--easing-ui)";
 
-// Pillenfarbe im Ruhe-/Hover-Zustand bzw. beim Drücken (Active).
-const PILL_BG = "var(--color-interactive-pill)";
-const PILL_BG_ACTIVE = "var(--color-interactive-pill-active)";
+type Variant = "primary" | "secondary" | "tertiary";
+
+// Pillenfarbe im Hover- bzw. Press-Zustand (variantenübergreifend).
+const HOVER_BG = "var(--color-interactive-pill-hover)";
+const ACTIVE_BG = "var(--color-interactive-pill-active)";
+// Ruhefarbe je Variante (tertiary = transparent → effektiv unsichtbar).
+const REST_BG: Record<Variant, string> = {
+	primary: "var(--color-interactive-pill-rest-primary)",
+	secondary: "var(--color-interactive-pill-rest-secondary)",
+	tertiary: "var(--color-interactive-pill-rest-tertiary)",
+};
 
 interface ActionWrapperProps extends HTMLAttributes<HTMLDivElement> {
+	variant?: Variant;
 	children: ReactNode;
 }
 
 const ActionWrapper = ({
+	variant = "tertiary",
 	children,
 	className,
 	...rest
 }: ActionWrapperProps) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const pillRef = useRef<HTMLSpanElement>(null);
-	// Aktuell von der Pille bedecktes Element (null = Pille versteckt).
-	const currentRef = useRef<HTMLElement | null>(null);
-	// Aktuell gedrücktes Element (für Scale-Down-Reset beim Loslassen).
+	// Aktuell von der Maus überfahrenes Kind (null = kein Hover).
+	const hoverRef = useRef<HTMLElement | null>(null);
+	// Aktuell gedrücktes Kind (für Scale-Down-Reset beim Loslassen).
 	const pressedRef = useRef<HTMLElement | null>(null);
+	const restBg = REST_BG[variant];
 
 	// Pille deckungsgleich über das Element legen (relativ zum Wrapper).
 	const place = (el: HTMLElement) => {
@@ -74,69 +90,9 @@ const ActionWrapper = ({
 		pill.style.height = `${r.height}px`;
 	};
 
-	// Erscheinen: Pille deckungsgleich hinter das Element legen und einblenden
-	// (Opacity 0 → 1, kein Richtungs-Slide). Reflow zwischen "none" und der
-	// Transition nötig, damit der Browser opacity:0 committet — sonst batcht er
-	// alles und springt ohne Fade.
-	const show = (el: HTMLElement) => {
-		const pill = pillRef.current;
-		if (!pill) return;
-		currentRef.current = el;
-		pill.style.transition = "none";
-		place(el);
-		pill.style.transform = "translate(0, 0)";
-		pill.style.opacity = "0";
-		pill.getBoundingClientRect();
-		pill.style.transition = FULL_TRANSITION;
-		pill.style.opacity = "1";
-	};
-
-	// Wechsel zwischen Elementen: FLIP — Geometrie sofort setzen, inverse
-	// Transform anlegen, dann zu Identität animieren (nur Compositor-Pfad).
-	const slide = (el: HTMLElement) => {
-		const pill = pillRef.current;
-		if (!pill) return;
-		currentRef.current = el;
-		// Alte Geometrie aus Inline-Styles lesen (bereits platziert), dann neue
-		// Geometrie ohne Übergang setzen.
-		const previousBounds = readInlineBounds(pill);
-		pill.style.transition = "none";
-		place(el);
-		const targetBounds = readInlineBounds(pill);
-		// Inverse Transform: Pille visuell am alten Ort erscheinen lassen.
-		pill.style.transform = computeFlipTransform(previousBounds, targetBounds);
-		pill.getBoundingClientRect(); // Reflow erzwingen
-		pill.style.transition = FULL_TRANSITION;
-		pill.style.transform = "translate(0, 0)";
-	};
-
-	// Gedrücktes Element entspannen (Scale-Down zurücksetzen).
-	const releasePressed = () => {
-		if (pressedRef.current) {
-			pressedRef.current.style.transform = "";
-			pressedRef.current = null;
-		}
-	};
-
-	// Verschwinden: an Ort und Stelle ausblenden (kein Richtungs-Slide). Genutzt
-	// bei pointerout und vom MutationObserver, wenn das bedeckte Element unbedienbar
-	// wird (CV-Item öffnet unter ruhendem Cursor, setzt data-pill-suppress) — dann
-	// feuert kein Pointer-Event, also nur ausfaden + Active-Farbe/Scale zurücksetzen.
-	const hide = () => {
-		const pill = pillRef.current;
-		if (!pill || !currentRef.current) return;
-		pill.style.transition = FULL_TRANSITION;
-		pill.style.transform = "translate(0, 0)";
-		pill.style.opacity = "0";
-		pill.style.background = PILL_BG;
-		releasePressed();
-		currentRef.current = null;
-	};
-
-	// Klickbares Element im Wrapper finden; disabled zählt nicht (z.B.
-	// nicht-aufklappbare CV-Items). Aufgeklappte und gerade schließende Items
-	// setzen data-pill-suppress (eigener Surface-Hintergrund); die Pille wird erst
-	// nach Abschluss der Schließ-Animation wieder zugelassen — sonst Flackern.
+	// Klickbares Element im Wrapper finden; disabled/suppressed zählt nicht.
+	// Aufgeklappte/schließende Items setzen data-pill-suppress (eigener
+	// Surface-Hintergrund) — die Pille bleibt dann fern, sonst Flackern.
 	const clickableIn = (node: EventTarget | null): HTMLElement | null => {
 		const el = (node as HTMLElement | null)?.closest?.("a, button") as
 			| HTMLElement
@@ -148,34 +104,109 @@ const ActionWrapper = ({
 		return el;
 	};
 
+	// Ruhe-Ziel: das als data-pill-rest markierte Kind (falls klickbar).
+	const restTarget = (): HTMLElement | null => {
+		const el =
+			wrapperRef.current?.querySelector<HTMLElement>(
+				'[data-pill-rest="true"]',
+			) ?? null;
+		return el ? clickableIn(el) : null;
+	};
+
+	// Gedrücktes Element entspannen (Scale-Down zurücksetzen).
+	const releasePressed = () => {
+		if (pressedRef.current) {
+			pressedRef.current.style.transform = "";
+			pressedRef.current = null;
+		}
+	};
+
+	// Pille auf ein Element bewegen. Verhalten nach Sichtbarkeit + animate:
+	//   sichtbar + animate → FLIP-Gleiten vom alten Ort (Compositor-Pfad)
+	//   sichtbar + !animate → Snap (Erstplatzierung/Resize)
+	//   versteckt + animate → Einblenden am Ort (Opacity 0→1, kein Slide)
+	//   versteckt + !animate → sofort sichtbar (Mount ohne Fade, kein Flash)
+	const moveTo = (el: HTMLElement, bg: string, animate: boolean) => {
+		const pill = pillRef.current;
+		if (!pill) return;
+		const wasVisible = pill.style.opacity === "1";
+		const previousBounds = readInlineBounds(pill);
+		pill.style.transition = "none";
+		place(el);
+		pill.style.background = bg;
+		const targetBounds = readInlineBounds(pill);
+
+		if (wasVisible && previousBounds.width) {
+			if (animate) {
+				pill.style.opacity = "1";
+				pill.style.transform = computeFlipTransform(
+					previousBounds,
+					targetBounds,
+				);
+				pill.getBoundingClientRect(); // Reflow erzwingen
+				pill.style.transition = FULL_TRANSITION;
+				pill.style.transform = "translate(0, 0)";
+			} else {
+				pill.style.transform = "translate(0, 0)";
+				pill.style.opacity = "1";
+				pill.getBoundingClientRect();
+				pill.style.transition = FULL_TRANSITION;
+			}
+		} else {
+			pill.style.transform = "translate(0, 0)";
+			pill.style.opacity = animate ? "0" : "1";
+			pill.getBoundingClientRect(); // Reflow: opacity:0 committen für den Fade
+			pill.style.transition = FULL_TRANSITION;
+			if (animate) pill.style.opacity = "1";
+		}
+	};
+
+	// Pille ausblenden (kein Ruhe-Ziel). animate=false → sofort (Mount).
+	const hide = (animate: boolean) => {
+		const pill = pillRef.current;
+		if (!pill) return;
+		pill.style.transition = animate ? FULL_TRANSITION : "none";
+		pill.style.transform = "translate(0, 0)";
+		pill.style.opacity = "0";
+		pill.style.background = restBg;
+		releasePressed();
+	};
+
+	// Natürlichen Zustand herstellen: Hover-Ziel, sonst Ruhe-Ziel, sonst weg.
+	const settle = (animate: boolean) => {
+		const target = hoverRef.current ?? restTarget();
+		if (!target) {
+			hide(animate);
+			return;
+		}
+		moveTo(target, hoverRef.current ? HOVER_BG : restBg, animate);
+	};
+
 	const handlePointerOver = (e: React.PointerEvent) => {
 		if (e.pointerType !== "mouse") return;
 		const el = clickableIn(e.target);
-		if (!el || el === currentRef.current) return;
-		if (currentRef.current) {
-			slide(el);
-		} else {
-			show(el);
-		}
+		if (!el || el === hoverRef.current) return;
+		hoverRef.current = el;
+		moveTo(el, HOVER_BG, true);
 	};
 
 	const handlePointerOut = (e: React.PointerEvent) => {
 		if (e.pointerType !== "mouse") return;
 		if (!clickableIn(e.target)) return;
-		// Wechsel auf anderes klickbares Element → gleitet (handlePointerOver),
-		// kein Verstecken. Nur ausblenden, wenn Ziel kein Clickable ist.
+		// Wechsel auf anderes Kind → handlePointerOver übernimmt (kein Verstecken).
 		if (clickableIn(e.relatedTarget)) return;
-		hide();
+		hoverRef.current = null;
+		settle(true); // zurück zum Ruhe-Ziel oder ausblenden
 	};
 
-	// Active-State liegt auf der Pille: Drücken färbt sie und skaliert leicht
-	// ein (Emil-Prinzip: Buttons müssen auf Druck responsiv reagieren).
+	// Active-State auf der Pille: Drücken färbt sie und skaliert leicht ein
+	// (Emil-Prinzip: Buttons müssen auf Druck responsiv reagieren).
 	const handlePointerDown = (e: React.PointerEvent) => {
 		if (e.pointerType !== "mouse") return;
 		const pill = pillRef.current;
 		const el = clickableIn(e.target);
 		if (!pill || !el) return;
-		pill.style.background = PILL_BG_ACTIVE;
+		pill.style.background = ACTIVE_BG;
 		pill.style.transform = "scale(0.97)";
 		// Gedrücktes Element selbst mitskalieren (sitzt über der Pille).
 		el.style.transition = "transform var(--duration-state) var(--easing-ui)";
@@ -186,31 +217,59 @@ const ActionWrapper = ({
 	const handlePointerUp = () => {
 		releasePressed();
 		const pill = pillRef.current;
-		// Nur zurücksetzen, wenn die Pille überhaupt aktiv auf einem Element liegt.
-		if (!pill || !currentRef.current) return;
-		pill.style.background = PILL_BG;
+		if (!pill) return;
+		const target = hoverRef.current ?? restTarget();
+		pill.style.transition = FULL_TRANSITION;
 		pill.style.transform = "translate(0, 0)";
+		if (target) {
+			pill.style.background = hoverRef.current ? HOVER_BG : restBg;
+		} else {
+			pill.style.opacity = "0";
+		}
 	};
 
-	// Pille ist Pointer-Event-getrieben — ein still stehender Cursor erzeugt keinen
-	// pointerout. Wird das bedeckte Element jedoch unbedienbar (CV-Item öffnet und
-	// setzt data-pill-suppress, oder wird disabled), muss die Pille trotzdem weg.
-	// MutationObserver überwacht diese Attribute und blendet die Pille aus, sobald
-	// das aktuell bedeckte Element nicht mehr klickbar ist.
 	useEffect(() => {
 		const wrap = wrapperRef.current;
 		if (!wrap) return;
-		const obs = new MutationObserver(() => {
-			const el = currentRef.current;
-			if (el && !clickableIn(el)) hide();
+
+		// Ruhe-Pille beim Mount setzen — pointer-unabhängig (Snap, kein Fade).
+		settle(false);
+
+		// Ruhe-Ziel kann sich ändern (Toggle-Auswahl) oder ein bedecktes Kind
+		// unbedienbar werden (data-pill-suppress/disabled). Beides → neu setzen.
+		const mo = new MutationObserver(() => {
+			if (hoverRef.current && !clickableIn(hoverRef.current))
+				hoverRef.current = null;
+			settle(true);
 		});
-		obs.observe(wrap, {
+		mo.observe(wrap, {
 			subtree: true,
 			attributes: true,
-			attributeFilter: ["data-pill-suppress", "disabled", "aria-disabled"],
+			attributeFilter: [
+				"data-pill-rest",
+				"data-pill-suppress",
+				"disabled",
+				"aria-disabled",
+			],
 		});
-		return () => obs.disconnect();
-		// clickableIn/hide lesen nur Refs/DOM (kein reaktiver State) → stabil.
+
+		// Segmentbreiten ändern sich am responsiven Typo-Breakpoint → Ruhe-Pille
+		// neu platzieren (Snap). Erster (Initial-)Callback übersprungen.
+		let first = true;
+		const ro = new ResizeObserver(() => {
+			if (first) {
+				first = false;
+				return;
+			}
+			settle(false);
+		});
+		ro.observe(wrap);
+
+		return () => {
+			mo.disconnect();
+			ro.disconnect();
+		};
+		// Handler lesen nur Refs/DOM (kein reaktiver State) → stabil.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -229,7 +288,7 @@ const ActionWrapper = ({
 				aria-hidden
 				className={styles.pill}
 				style={{
-					background: PILL_BG,
+					background: restBg,
 					transition: FULL_TRANSITION,
 				}}
 			/>
