@@ -2,10 +2,10 @@
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
 import { computeFlipTransform, readInlineBounds } from "../lib/motion";
-import styles from "./ActionWrapper.module.scss";
+import styles from "./InteractionWrapper.module.scss";
 
 /**
- * ActionWrapper — einheitlicher Wrapper für ALLE klickbaren Elemente (Buttons,
+ * InteractionWrapper — einheitlicher Wrapper für ALLE klickbaren Elemente (Buttons,
  * Links, Tabs, Toggles). Einzige Quelle für die Pille der Seite.
  *
  * Eine einzige Pille bedient drei Fälle über zwei orthogonale Achsen:
@@ -58,17 +58,17 @@ const REST_BG: Record<Variant, string> = {
 	tertiary: "var(--color-interactive-pill-rest-tertiary)",
 };
 
-interface ActionWrapperProps extends HTMLAttributes<HTMLDivElement> {
+interface InteractionWrapperProps extends HTMLAttributes<HTMLDivElement> {
 	variant?: Variant;
 	children: ReactNode;
 }
 
-const ActionWrapper = ({
+const InteractionWrapper = ({
 	variant = "tertiary",
 	children,
 	className,
 	...rest
-}: ActionWrapperProps) => {
+}: InteractionWrapperProps) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const pillRef = useRef<HTMLSpanElement>(null);
 	// Aktuell von der Maus überfahrenes Kind (null = kein Hover).
@@ -202,11 +202,13 @@ const ActionWrapper = ({
 	// Active-State auf der Pille: Drücken färbt sie und skaliert leicht ein
 	// (Emil-Prinzip: Buttons müssen auf Druck responsiv reagieren).
 	const handlePointerDown = (e: React.PointerEvent) => {
-		if (e.pointerType !== "mouse") return;
 		const pill = pillRef.current;
 		const el = clickableIn(e.target);
 		if (!pill || !el) return;
-		pill.style.background = ACTIVE_BG;
+		// Touch hat keinen Hover-Pass — Pille sitzt evtl. woanders/versteckt.
+		// Snap (kein Slide) direkt auf das getippte Element vor dem Einfärben.
+		if (e.pointerType !== "mouse") moveTo(el, ACTIVE_BG, false);
+		else pill.style.background = ACTIVE_BG;
 		pill.style.transform = "scale(0.97)";
 		// Gedrücktes Element selbst mitskalieren (sitzt über der Pille).
 		el.style.transition = "transform var(--duration-state) var(--easing-ui)";
@@ -297,4 +299,4 @@ const ActionWrapper = ({
 	);
 };
 
-export default ActionWrapper;
+export default InteractionWrapper;
