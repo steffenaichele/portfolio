@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import Button from "./Button";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import Icon from "./Icon";
 import styles from "./ImprintModal.module.scss";
 
@@ -115,11 +115,12 @@ const ImprintModal = () => {
 		<>
 			<Button
 				ref={triggerRef}
+				size="sm"
 				underline
 				onClick={openModal}
 				aria-haspopup="dialog"
 				aria-expanded={mounted}>
-				{t("page_title")}
+				<span>{t("page_title")}</span>
 			</Button>
 
 			{mounted && (
@@ -143,7 +144,7 @@ const ImprintModal = () => {
 						className={`t-modal ${styles.panel}`}>
 						{/* Close button */}
 						<div className={styles.closeRow}>
-							<ActionWrapper variant="primary">
+							<InteractionWrapper variant="primary">
 								<Button
 									size="sm"
 									content="icon"
@@ -152,7 +153,7 @@ const ImprintModal = () => {
 									onClick={closeModal}>
 									<Icon icon={X} />
 								</Button>
-							</ActionWrapper>
+							</InteractionWrapper>
 						</div>
 
 						{/* Imprint content */}

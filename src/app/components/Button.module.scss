@@ -1,7 +1,7 @@
 // Nackter Button: kein eigener Hintergrund/Rundung/Shadow/Active — die Pille des
-// umgebenden ActionWrapper trägt Füllung (variant), Rundung und Hover/Active.
+// umgebenden InteractionWrapper trägt Füllung (variant), Rundung und Hover/Active.
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing an
-// den Ecken, die Pille würde dort flackern.
+// den Ecken, die Pille würde dort flackern. size steuert nur Höhe/Font-Größe.
 .base {
 	flex: none;
 	display: inline-flex;
@@ -20,78 +20,72 @@
 	}
 
 	svg {
-		color: var(--color-button-primary-icon);
-	}
-}
-
-// underline (Link-Look): kompakte Maße, dünne Underline unter dem Label (collapsed
-// bei Hover). Kein size/content-Sizing. Textfarbe wird geerbt (Body = text-primary,
-// Footer = hell), damit der Link sich an den jeweiligen Grund anpasst.
-.link {
-	padding: 0.25rem 0.75rem;
-	font-size: 1rem;
-
-	// Underline-Affordance wie im CVItem: dünne Linie, die bei Hover auf 0 schrumpft.
-	// inline-flex + gap: Text und optionales Icon (z.B. externer Link) bündig.
-	.underline {
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-
-		&::after {
-			content: "";
-			pointer-events: none;
-			position: absolute;
-			inset-inline: 0;
-			bottom: 0;
-			height: 1px;
-			background-color: var(--color-link-underline);
-			transition: height var(--duration-state) var(--easing-ui);
-		}
-	}
-
-	&:hover .underline::after {
-		height: 0;
+		color: var(--color-text-secondary);
 	}
 }
 
 .md {
-	height: 2.25rem;
-	font-size: 1.125rem;
+	height: 40px;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+
+	&.text {
+		padding: 0 16px;
+	}
+
+	&.icon {
+		padding: 12px;
+	}
+
+	&.iconText {
+		gap: 12px;
+		padding: 0 12px 0 12px;
+	}
 }
 
 .sm {
-	height: 1.5rem;
-	font-size: 0.875rem;
+	height: 32px;
+	font-size: var(--font-size-sm);
+	line-height: var(--line-height-sm);
+	letter-spacing: var(--letter-spacing-sm);
+
+	&.text {
+		padding: 0 12px;
+	}
+
+	&.icon {
+		padding: 8px;
+	}
+
+	&.iconText {
+		gap: 8px;
+		padding: 0 8px 0 12px;
+	}
 }
 
-.mdText {
-	padding: 0 1rem;
-}
+// Dünne Underline nur auf dem Text-Kind (nicht auf <Icon>/svg), collapsed bei
+// Hover — orthogonal zu size/content, die weiterhin Höhe/Padding/Gap stellen.
+.underline {
+	> :not(svg) {
+		position: relative;
 
-.mdIcon {
-	padding: 0 0.75rem;
-}
+		&::before {
+			content: "";
+			pointer-events: none;
+			position: absolute;
+			left: 0;
+			bottom: -1px;
+			width: 100%;
+			height: 1px;
+			background-color: var(--color-link-underline-default);
+			transition: height var(--duration-state) var(--easing-ui);
+		}
+	}
 
-.mdIconRight {
-	padding-left: 1rem;
-	padding-right: 0.75rem;
-	gap: 0.5rem;
-}
-
-.smText {
-	padding: 0 0.625rem;
-}
-
-.smIcon {
-	padding: 0 0.375rem;
-}
-
-.smIconRight {
-	padding-left: 0.625rem;
-	padding-right: 0.375rem;
-	gap: 0.25rem;
+	&:hover > :not(svg)::before {
+		height: 0;
+	}
 }
 
 // Tailwind's sr-only utility, inlined (visually hidden but accessible).

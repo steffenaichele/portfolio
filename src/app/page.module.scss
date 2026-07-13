@@ -1,10 +1,12 @@
 .page{
 	width: 100%;
 	max-width: var(--max-width);
+	display: flex;
+	flex-direction: column;
+	gap: 80px;
 
 	.intro {
-		padding: 1rem;
-		margin-bottom: 4rem;
+		padding: 0 1rem;
 		font-size: var(--font-size-md);
 		line-height: var(--line-height-md);
 		color: var(--color-text-primary);
@@ -16,8 +18,19 @@
 	
 		.greeting{
 			color: var(--color-text-tertiary);
+			margin-bottom: 0.5rem;
 		}
-	}
+
+		.workButtonWrapper {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			:last-child {
+				margin-left: -4px;
+			}
+		}
+	}	
 }
 
 

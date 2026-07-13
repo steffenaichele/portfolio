@@ -4,50 +4,59 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Icon from "./Icon";
 import Button from "./Button";
-import ActionWrapper from "./ActionWrapper";
+import InteractionWrapper from "./InteractionWrapper";
 import LanguageToggle from "./LanguageToggle";
 import ImprintModal from "./ImprintModal";
+import { useToast } from "./ToastNotification";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
 	const t = useTranslations("layout.footer");
+	const { showToast } = useToast();
 
 	return (
 		<footer aria-label="Footer" className={styles.footer}>
-			<div className={styles.linksRow}>
-				<ActionWrapper className={styles.linksWrap}>
+			<div className={styles.row}>
+				<InteractionWrapper>
+					<ImprintModal />
+				</InteractionWrapper>
+				<InteractionWrapper variant="primary">
 					<Button
+						size="sm"
+						content="iconText"
 						underline
-						href="https://github.com/steffenaichele"
-						external>
-						GitHub
-						<span className={styles.icon}>
-							<Icon icon={ArrowUpRight} />
-						</span>
+						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
+						onCopySuccess={() =>
+							showToast(t("email_copied"), "success")
+						}
+						onCopyError={() =>
+							showToast(t("email_copy_failed"), "error")
+						}>
+						<span>{t("email")}</span>
+						<Icon icon={Mail} />
 					</Button>
 					<Button
+						size="sm"
+						content="iconText"
 						underline
 						href="https://www.linkedin.com/in/steffenaichele"
 						external>
-						LinkedIn
-						<span className={styles.icon}>
-							<Icon icon={ArrowUpRight} />
-						</span>
+						<span>LinkedIn</span>
+						<Icon icon={ArrowUpRight} />
 					</Button>
-					<ImprintModal />
-				</ActionWrapper>
-				<ActionWrapper variant="primary">
 					<Button
-						content="iconRight"
-						data-pill-rest
-						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}>
-						{t("email")}
-						<Icon icon={Mail} />
+						size="sm"
+						content="iconText"
+						underline
+						href="https://github.com/steffenaichele"
+						external>
+						<span>GitHub</span>
+						<Icon icon={ArrowUpRight} />
 					</Button>
-				</ActionWrapper>
+				</InteractionWrapper>
 			</div>
 
-			<div className={styles.bottomRow}>
+			<div className={styles.row}>
 				<div className={styles.meta}>
 					<p>{t("copyright")}</p>
 					<p>
