@@ -47,15 +47,25 @@
 		"modal_close": "Modal schließen",
 		"open_button": "Öffnen",
 		"items": {
-			"01": {
+			"1_1": {
 				"label": "Open Call",
-				"context": "Future Forms",
 				"alt": "Open Call Seite von nextmuseum.io"
 			},
-			"02": {
+			"2_1": {
 				"label": "Festival Onboarding",
-				"context": "HfG Schwäbisch Gmünd",
 				"alt": "Dashboard"
+			}
+		}
+	},
+	"projects": {
+		"items": {
+			"1": {
+				"title": "Future Forms",
+				"timeframe": ""
+			},
+			"2": {
+				"title": "HfG Schwäbisch Gmünd",
+				"timeframe": ""
 			}
 		}
 	},

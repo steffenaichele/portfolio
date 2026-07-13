@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import ImpressionCard from "../components/ImpressionCard";
-import { impressions } from "../data/content";
+import NextmuseumOpenCall from "./items/NextmuseumOpenCall";
+import UpnextFestivalOnboarding from "./items/UpnextFestivalOnboarding";
 import styles from "./page.module.scss";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -12,13 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
+// Reihenfolge der Arbeiten wird hier deklarativ gesetzt. Jede Impression ist eine
+// eigene, individuell gestylte Komposition (work/items/*) — kein zentrales Datenmodell.
 export default function WorkPage() {
 	return (
 		<main className={styles.page} id="main-content">
 			<div className={styles.feed}>
-				{impressions.map((impression) => (
-					<ImpressionCard key={impression.id} impression={impression} />
-				))}
+				<NextmuseumOpenCall />
+				<UpnextFestivalOnboarding />
 			</div>
 		</main>
 	);
