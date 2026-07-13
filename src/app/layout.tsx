@@ -17,12 +17,12 @@ const ppNeueMontreal = localFont({
 		{
 			path: "../fonts/PPNeueMontreal-Regular.woff2",
 			weight: "400",
-			style: "normal",
+			style: "regular",
 		},
 		{
 			path: "../fonts/PPNeueMontreal-Medium.woff2",
 			weight: "500",
-			style: "normal",
+			style: "medium",
 		},
 	],
 	variable: "--ppNeueMontreal",

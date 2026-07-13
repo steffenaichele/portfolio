@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import CVSection from "./components/CVSection";
 import styles from "./page.module.scss";
 
+import Button from "./components/Button";
+
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
 	return {
@@ -26,6 +28,12 @@ export default async function Home() {
 				<p>{t("text1")}</p>
 				<p>{t("text2")}</p>
 				<p>{t("text3")}</p>
+				<div className={styles.workButtonWrapper}>
+					<p>{t.rich("text4")}</p>
+					<Button size="md" content="text" href="/work" underline>
+						<span>{t("work_button")}</span>
+					</Button>
+				</div>
 			</section>
 			<CVSection />
 		</main>

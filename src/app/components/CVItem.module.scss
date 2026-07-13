@@ -4,7 +4,7 @@
 .button {
 	position: relative;
 	overflow: hidden;
-	background: var(--color-cvitem-bg);
+	background: var(--color-cvitem-bg-default);
 	display: block;
 	width: 100%;
 	text-align: left;
@@ -45,44 +45,33 @@
 	}
 
 	& > div {
-		padding: 0 1rem;
+		width: 100%;
 		display: flex;
 	}
-
+	
 	// ───────── Summary-Zeile (geschlossener Zustand) ─────────
 	.summaryRow {
-		width: 100%;
+		padding: 12px 16px;
 		position: absolute;
-		inset-inline: 0;
 		top: 0;
 		justify-content: space-between;
 		align-items: center;
+		gap: 16px;
 
 		.summaryOrgLoc {
 			position: relative;
-			display: flex;
-			min-width: 0;
-			align-items: center;
-
-			.orgShort {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				margin-right: 0.375rem;
-				font-size: var(--font-size-md);
-				line-height: var(--line-height-md);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-size: var(--font-size-md);
+			line-height: var(--line-height-md);
+			letter-spacing: var(--letter-spacing-md);
+			font-weight: 500;
+			color: var(--color-text-secondary);
+			
+			strong {
 				font-weight: 500;
 				color: var(--color-text-primary);
-			}
-
-			.summaryLocation {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				font-size: var(--font-size-md);
-				line-height: var(--line-height-md);
-				font-weight: 500;
-				color: var(--color-text-secondary);
 			}
 
 			&::after {
@@ -101,11 +90,11 @@
 
 	.timeWrapper {
 		flex-shrink: 0;
-		padding: 2px 6px;
-		border-radius: var(--radius-lg);
+		padding: 4px 8px;
+		border-radius: 8px;
 		display: flex;
 		align-items: center;
-		gap: 0.125rem;
+		gap: 4px;
 		font-size: var(--font-size-sm);
 		line-height: var(--line-height-sm);
 		font-variant-numeric: tabular-nums;
@@ -114,8 +103,7 @@
 
 	// ───────── Detail-Inhalt (offener Zustand) ─────────
 	.detailContainer {
-		width: 100%;
-		margin: 1rem 0 1.5rem 0;
+		padding: 12px 16px;	
 		flex-direction: column;
 		gap: 1.5rem;
 

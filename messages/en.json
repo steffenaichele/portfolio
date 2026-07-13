@@ -30,8 +30,9 @@
 		"text1": "I'm Steffen, a digital creative working at the seam of design and code.",
 		"text2": "After years working purely as a designer, I doubled down on my fascination for development and learned how to code.",
 		"text3": "I catch the small things that make a design work and I can implement them directly, so nothing gets lost between Figma and production.",
+		"text4": "Take a look at ",
+		"work_button": "my work",
 		"projects_button": "View projects",
-		"cv_button": "View CV",
 		"slideshow_alt_1": "Project 1 preview",
 		"slideshow_alt_2": "Project 2 preview",
 		"slideshow_alt_3": "Project 3 preview"

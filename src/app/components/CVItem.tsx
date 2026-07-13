@@ -36,7 +36,7 @@ const SUMMARY_CLOSE_FADE_SPEED = 0.75;
 // (Öffnen/Schließen). Gesamtdauer = dieser Wert × Anzahl der Detail-Elemente.
 const HEIGHT_PER_ELEMENT = 0.05;
 // Höhe (px) des geschlossenen Items / der Summary-Zeile (single source).
-export const SUMMARY_HEIGHT = 56;
+export const SUMMARY_HEIGHT = 52;
 // Anzahl der Summary-Elemente (Org+Location, Datum) — steuert das Öffnen-Timing.
 const SUMMARY_COUNT = 2;
 
@@ -193,19 +193,17 @@ export function CVItem({ entry, id }: CVItemProps) {
 					inert={isOpen || undefined}
 					style={{ height: SUMMARY_HEIGHT }}
 					className={styles.summaryRow}>
-					<motion.div
+					<motion.p
 						custom={0}
 						variants={summaryChild}
 						initial={false}
 						className={styles.summaryOrgLoc}>
-						<p className={styles.orgShort}>
+						<strong>
 							{entry.organizationShort}
-							{","}
-						</p>
-						<p className={styles.summaryLocation}>
-							{entry.location}
-						</p>
-					</motion.div>
+							{", "}
+						</strong>
+						{entry.location}
+					</motion.p>
 					<motion.div
 						custom={1}
 						variants={summaryChild}
@@ -250,8 +248,7 @@ export function CVItem({ entry, id }: CVItemProps) {
 									<h2 className={styles.roleTitle}>
 										{role.title}
 									</h2>
-									<div
-										className={styles.timeWrapper}>
+									<div className={styles.timeWrapper}>
 										<p>
 											{role.startMonth} {role.startYear} –{" "}
 											{role.endMonth} {role.endYear}

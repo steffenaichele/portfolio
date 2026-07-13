@@ -18,7 +18,7 @@
 
 // jedes geschlossene Item: durchgehender Ring als Gruppen-Rand
 .item:not([data-open]) {
-	box-shadow: var(--shadow-ring);
+	box-shadow: var(--shadow-soft);
 }
 
 // Gruppen-Start (Listenanfang oder direkt nach offenem/gedrücktem Item): obere Rundung
@@ -35,13 +35,13 @@
 .item:not([data-open]):has(+ .item :active) {
 	border-bottom-left-radius: var(--radius-2xl);
 	border-bottom-right-radius: var(--radius-2xl);
-	box-shadow: var(--shadow);
+	box-shadow: var(--shadow-soft);
 }
 
 .item[data-open] {
 	width: calc(100% + 2rem);
 	border-radius: var(--radius-2xl);
-	margin: 0.5rem -1rem;
+	margin: 0.75rem -1rem;
 	box-shadow: var(--shadow);
 
 	&:first-child {

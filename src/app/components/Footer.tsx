@@ -24,6 +24,7 @@ const Footer = () => {
 					<Button
 						size="sm"
 						content="iconText"
+						underline
 						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
 						onCopySuccess={() =>
 							showToast(t("email_copied"), "success")
