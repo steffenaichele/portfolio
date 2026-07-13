@@ -1,0 +1,64 @@
+// Shell-Chrome der ImpressionCard. Bewusst GENERISCH: Karten-Oberfläche + Hover,
+// Zoom-Trigger, Backdrop und Panel-Rahmen. Inhaltsspezifisches (Bildgröße,
+// Label-Typografie, Panel-Innenlayout) stylt jede Komposition in ihrem eigenen
+// *.module.scss. Aspect-ratio/Grid kommt als className von der Komposition auf .card.
+//
+// Die Komposition markiert ihr Bild mit [data-zoom-image], damit der Hover-Zoom
+// unabhängig von CSS-Modul-Klassennamen greift.
+
+.card {
+	position: relative;
+	cursor: pointer;
+	background-color: var(--color-surface-bg);
+	box-shadow: var(--shadow-soft);
+	transform-origin: center;
+	transition: scale var(--duration-move) var(--easing-ui);
+	overflow: hidden;
+
+	&:hover {
+		background-color: var(--color-surface-bg-hover);
+		scale: 1.01;
+
+		[data-zoom-image] {
+			scale: 1.03;
+		}
+	}
+}
+
+.header {
+	height: 2.5rem;
+	display: flex;
+	padding: 1rem 1rem 0 1rem;
+}
+
+.trigger {
+	position: absolute;
+	cursor: pointer;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	background-color: var(--color-modal-backdrop);
+	cursor: default;
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.panel {
+	position: fixed;
+	z-index: 50;
+	top: 50%;
+	left: 50%;
+	translate: -50% -50%;
+	width: 100%;
+	max-width: 28rem;
+	background-color: var(--color-surface-bg);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+}

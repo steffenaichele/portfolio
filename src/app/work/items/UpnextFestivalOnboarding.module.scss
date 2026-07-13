@@ -1,0 +1,67 @@
+// Individuelles Styling der Impression 2_1 — quadratisches Format (1:1).
+
+.square {
+	aspect-ratio: 1 / 1;
+}
+
+.labelWrap {
+	flex-grow: 1;
+	height: 1.5rem;
+	padding-inline: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: 0.25rem;
+	row-gap: 0.125rem;
+
+	.label {
+		font-size: 0.875rem;
+		color: var(--color-text-secondary);
+	}
+
+	.context {
+		font-size: 0.875rem;
+		color: var(--color-text-tertiary);
+	}
+}
+
+.cardImage {
+	margin-top: 3rem;
+	padding: 0.5rem;
+	object-position: top;
+	object-fit: contain;
+	transition: scale var(--duration-state) var(--easing-ui);
+}
+
+.modalImageWrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+
+	.modalImage {
+		object-fit: contain;
+	}
+}
+
+.modalInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 1.25rem;
+
+	.modalLabelWrap {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+
+		.modalLabel {
+			font-weight: 500;
+			color: var(--color-text-primary);
+		}
+
+		.modalContext {
+			font-size: 0.75rem;
+			color: var(--color-text-tertiary);
+		}
+	}
+}
