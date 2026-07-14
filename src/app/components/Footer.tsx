@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Mail } from "lucide-react";
+import { RiArrowRightUpLine, RiMailLine } from "@remixicon/react";
 import { useTranslations } from "next-intl";
 import Icon from "./Icon";
 import Button from "./Button";
@@ -33,7 +33,7 @@ const Footer = () => {
 							showToast(t("email_copy_failed"), "error")
 						}>
 						<span>{t("email")}</span>
-						<Icon icon={Mail} />
+						<Icon icon={RiMailLine} />
 					</Button>
 					<Button
 						size="sm"
@@ -42,7 +42,7 @@ const Footer = () => {
 						href="https://www.linkedin.com/in/steffenaichele"
 						external>
 						<span>LinkedIn</span>
-						<Icon icon={ArrowUpRight} />
+						<Icon icon={RiArrowRightUpLine} />
 					</Button>
 					<Button
 						size="sm"
@@ -51,7 +51,7 @@ const Footer = () => {
 						href="https://github.com/steffenaichele"
 						external>
 						<span>GitHub</span>
-						<Icon icon={ArrowUpRight} />
+						<Icon icon={RiArrowRightUpLine} />
 					</Button>
 				</InteractionWrapper>
 			</div>

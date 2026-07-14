@@ -3,7 +3,7 @@
 import { createContext, useContext, type ReactNode, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { X } from "lucide-react";
+import { RiCloseLine } from "@remixicon/react";
 
 import Button from "../Button";
 import InteractionWrapper from "../InteractionWrapper";
@@ -139,7 +139,7 @@ const Zoom = ({ children }: { children: ReactNode }) => {
 						data-pill-rest
 						aria-label={closeLabel}
 						onClick={close}>
-						<Icon icon={X} />
+						<Icon icon={RiCloseLine} />
 					</Button>
 				</InteractionWrapper>
 				{children}

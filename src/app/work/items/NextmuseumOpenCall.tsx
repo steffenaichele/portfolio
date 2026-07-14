@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { RiArrowRightLine } from "@remixicon/react";
 import { useTranslations } from "next-intl";
 
 import ImpressionCard from "../../components/ImpressionCard/ImpressionCard";
@@ -38,7 +38,7 @@ const NextmuseumOpenCall = () => {
 							content="icon"
 							data-pill-rest
 							aria-label={t("open_label", { label })}>
-							<Icon icon={ArrowRight} />
+							<Icon icon={RiArrowRightLine} />
 						</Button>
 					</InteractionWrapper>
 				)}
@@ -81,7 +81,7 @@ const NextmuseumOpenCall = () => {
 								data-pill-rest
 								aria-label={t("external_label", { label })}>
 								<span>{t("open_button")}</span>
-								<Icon icon={ArrowRight} />
+								<Icon icon={RiArrowRightLine} />
 							</Button>
 						</InteractionWrapper>
 					)}

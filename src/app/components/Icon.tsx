@@ -1,11 +1,9 @@
-import { LucideIcon } from "lucide-react";
+import { RemixiconComponentType } from "@remixicon/react";
 
 interface IconProps {
-	icon: LucideIcon;
+	icon: RemixiconComponentType;
 }
 
-const Icon = ({ icon: LucideIcon }: IconProps) => (
-	<LucideIcon size={16} strokeWidth={1.5} />
-);
+const Icon = ({ icon: RemixIcon }: IconProps) => <RemixIcon size={16} />;
 
 export default Icon;

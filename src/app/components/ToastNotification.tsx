@@ -9,7 +9,7 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { CircleCheck, CircleX } from "lucide-react";
+import { RiCheckboxCircleLine, RiCloseCircleLine } from "@remixicon/react";
 import Icon from "./Icon";
 import styles from "./ToastNotification.module.scss";
 
@@ -53,9 +53,9 @@ const closeDurationMs = () =>
 		),
 	) || 150;
 
-const icons: Record<ToastVariant, typeof CircleCheck> = {
-	success: CircleCheck,
-	error: CircleX,
+const icons: Record<ToastVariant, typeof RiCheckboxCircleLine> = {
+	success: RiCheckboxCircleLine,
+	error: RiCloseCircleLine,
 };
 
 const ToastItem = ({

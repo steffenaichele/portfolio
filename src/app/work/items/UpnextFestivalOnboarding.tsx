@@ -7,7 +7,7 @@ import ImpressionCard from "../../components/ImpressionCard/ImpressionCard";
 import InteractionWrapper from "../../components/InteractionWrapper";
 import Button from "../../components/Button";
 import Icon from "../../components/Icon";
-import { ArrowRight } from "lucide-react";
+import { RiArrowRightLine } from "@remixicon/react";
 import { useProject } from "../../hooks/useProject";
 import styles from "./UpnextFestivalOnboarding.module.scss";
 
@@ -38,7 +38,7 @@ const UpnextFestivalOnboarding = () => {
 							content="icon"
 							data-pill-rest
 							aria-label={t("open_label", { label })}>
-							<Icon icon={ArrowRight} />
+							<Icon icon={RiArrowRightLine} />
 						</Button>
 					</InteractionWrapper>
 				)}
@@ -81,7 +81,7 @@ const UpnextFestivalOnboarding = () => {
 								data-pill-rest
 								aria-label={t("external_label", { label })}>
 								<span>{t("open_button")}</span>
-								<Icon icon={ArrowRight} />
+								<Icon icon={RiArrowRightLine} />
 							</Button>
 						</InteractionWrapper>
 					)}

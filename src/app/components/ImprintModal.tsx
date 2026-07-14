@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useEffectEvent } from "react";
-import { X } from "lucide-react";
+import { RiCloseLine } from "@remixicon/react";
 import { useTranslations } from "next-intl";
 
 import Button from "./Button";
@@ -151,7 +151,7 @@ const ImprintModal = () => {
 									data-pill-rest
 									aria-label={t("close")}
 									onClick={closeModal}>
-									<Icon icon={X} />
+									<Icon icon={RiCloseLine} />
 								</Button>
 							</InteractionWrapper>
 						</div>
