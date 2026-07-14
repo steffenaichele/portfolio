@@ -38,10 +38,14 @@
 		transition-timing-function: var(--easing-ui);
 
 		.categoryPanel {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
 			transition-property: opacity, transform;
 			transition-duration: var(--duration-panel);
 			transition-timing-function: var(--easing-ui);
 			will-change: transform;
+			padding: 0 1rem;
 
 			&.categoryActive {
 				position: relative;

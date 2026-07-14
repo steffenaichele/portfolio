@@ -1,14 +1,19 @@
-// Summary-/Detail-Optik für CVItem. Die Höhen-/Fade-Choreografie bleibt in
-// CVItem.tsx (motion/react) — hier nur die statischen Layout-/Typo-Styles.
+// CVItem — Karten-Chrome (Rundung, Gap, Bg, Gruppen-Rundung zwischen offenen/
+// geschlossenen Nachbarn) + Inhalts-Layout. Statisch, keine Animation.
 
-.button {
+.item {
 	position: relative;
-	overflow: hidden;
-	background: var(--color-cvitem-bg-default);
-	display: block;
-	width: 100%;
-	text-align: left;
-	cursor: default;
+	z-index: 0;
+	transition:
+		z-index 0s var(--duration-state),
+		height var(--duration-move) var(--easing-ui);
+
+	&:hover {
+		z-index: 1;
+		transition:
+			z-index 0s,
+			height var(--duration-move) var(--easing-ui);
+	}
 
 	[data-variant="experience"] & {
 		.timeWrapper {
@@ -24,147 +29,141 @@
 		}
 	}
 
-	&[data-expandable] {
-		cursor: pointer;
+	.toggle {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		background: var(--color-cvitem-bg-default);
+		border-radius: var(--radius-3xl);
+		width: 100%;
+		cursor: default;
+		transition:
+		width var(--duration-move) var(--easing-ui),
+		border-radius var(--duration-state) var(--easing-emphasized),
+		background-color var(--duration-move) var(--easing-ui),
+		box-shadow var(--duration-move) var(--easing-ui),
+		transform var(--duration-move) var(--easing-ui);
+
+		&:hover {
+			background: var(--color-cvitem-bg-hover);
+			box-shadow: var(--shadow-elevated);
+			transform: scale(1.03);
+		}
+
+		&:active {
+			background: var(--color-cvitem-bg-active);
+		}
+
+		&[data-expandable] {
+			cursor: pointer;
+		}
 	}
+}
 
-	&:hover {
-		background: var(--color-cvitem-bg-hover);
+// ───────── Content: einziges Toggle-Kind, trägt Padding/Gap + eigene Höhe
+// (offsetHeight = openHeight) — .toggle selbst bleibt absolut/geclippt. ─────────
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px 20px;
+}
 
-		.summaryRow {
-			.summaryOrgLoc {
-				&::after {
-					width: 100%;
-				}
-			}
+// ───────── Summary: Header + Roles (immer sichtbar) — eigene Höhe
+// (offsetHeight = closedHeight, ohne Padding). ─────────
+.summary {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+// ───────── Header: Organisation + Ort, optionaler Link zur Organisation ─────────
+.header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+
+	p {
+		position: relative;
+		width: fit-content;
+		font-size: var(--font-size-sm);
+		line-height: 100%;
+		letter-spacing: var(--letter-spacing-md);
+		font-weight: 400;
+		color: var(--color-text-tertiary);
+
+		strong {
+			font-weight: 400;
+			color: var(--color-text-secondary);
 		}
 	}
 
-	&:active {
-		background: var(--color-cvitem-bg-active);
+	.orgLinkWrapper {
+		flex-shrink: 0;
 	}
+}
 
-	& > div {
-		width: 100%;
+.rolesWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	.roleWrapper {
 		display: flex;
-	}
-	
-	// ───────── Summary-Zeile (geschlossener Zustand) ─────────
-	.summaryRow {
-		padding: 12px 16px;
-		position: absolute;
-		top: 0;
 		justify-content: space-between;
-		align-items: center;
-		gap: 16px;
-
-		.summaryOrgLoc {
-			position: relative;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
+		gap: 8px;
+	
+		.roleTitle {
 			font-size: var(--font-size-md);
-			line-height: var(--line-height-md);
+			line-height: 125%;
 			letter-spacing: var(--letter-spacing-md);
 			font-weight: 500;
-			color: var(--color-text-secondary);
-			
-			strong {
-				font-weight: 500;
-				color: var(--color-text-primary);
-			}
-
-			&::after {
-				content: "";
-				pointer-events: none;
-				position: absolute;
-				left: 0;
-				bottom: -1px;
-				width: 0;
-				height: 1px;
-				background-color: var(--color-link-underline-default);
-				transition: width 200ms ease-out;
-			}
+			color: var(--color-text-primary);
+			// margin-top: 1px;
+			text-align: left;
+			text-wrap: balance;
+		}
+		
+		.timeWrapper {
+			display: inline-block;
+			white-space: nowrap;
+			height: 20px;
+			padding: 2px 6px;
+			border-radius: 6px;
+			font-size: var(--font-size-sm);
+			line-height: 16px;
+			font-variant-numeric: tabular-nums;
+			font-weight: 500;
 		}
 	}
+}
 
-	.timeWrapper {
-		flex-shrink: 0;
-		padding: 4px 8px;
-		border-radius: 8px;
-		display: flex;
-		align-items: center;
-		gap: 4px;
-		font-size: var(--font-size-sm);
-		line-height: var(--line-height-sm);
-		font-variant-numeric: tabular-nums;
+
+
+.descList {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	.descItem {
+		font-size: 0.875rem;
 		font-weight: 500;
+		color: var(--color-text-secondary);
 	}
+}
 
-	// ───────── Detail-Inhalt (offener Zustand) ─────────
-	.detailContainer {
-		padding: 12px 16px;	
-		flex-direction: column;
-		gap: 1.5rem;
+.techList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
 
-		.orgGroup {
-			display: flex;
-			flex-direction: column;
-
-			.orgName {
-				font-weight: 500;
-				color: var(--color-text-primary);
-			}
-
-			.orgLocation {
-				font-weight: 500;
-				color: var(--color-text-secondary);
-			}
-		}
-
-		.rolesGroup {
-			display: flex;
-			flex-direction: column;
-			gap: 1.5rem;
-
-			.roleItem {
-				display: flex;
-				flex-direction: column;
-				gap: 0.125rem;
-
-				.roleTitle {
-					font-size: 1.125rem;
-					font-weight: 500;
-					color: var(--color-text-primary);
-				}
-			}
-		}
-
-		.descList {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-
-			.descItem {
-				font-size: 0.875rem;
-				font-weight: 500;
-				color: var(--color-text-secondary);
-			}
-		}
-
-		.techList {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.375rem;
-
-			.techTag {
-				padding: 0.125rem 0.5rem;
-				font-size: 0.75rem;
-				font-weight: 500;
-				color: var(--color-text-secondary);
-				background-color: var(--color-button-primary-bg-hover);
-				border-radius: var(--radius-sm);
-			}
-		}
+	.techTag {
+		padding: 0.125rem 0.5rem;
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--color-text-secondary);
+		background-color: var(--color-button-primary-bg-hover);
+		border-radius: var(--radius-sm);
 	}
 }

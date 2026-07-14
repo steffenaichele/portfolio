@@ -35,7 +35,7 @@ import styles from "./Button.module.scss";
  *   <Button underline href="https://github.com/…" external><span>GitHub</span><Icon icon={ArrowUpRight} /></Button>
  */
 
-type Size = "md" | "sm";
+type Size = "md" | "sm" | "xs";
 type ContentType = "text" | "icon" | "iconText";
 
 interface ButtonProps {
@@ -71,6 +71,7 @@ interface ButtonProps {
 const sizeClasses: Record<Size, string> = {
 	md: styles.md,
 	sm: styles.sm,
+	xs: styles.xs,
 };
 
 // content nestet in SCSS unter size (Padding unterscheidet sich je Größe) —

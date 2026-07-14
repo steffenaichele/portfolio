@@ -80,6 +80,7 @@
 		"cv_button": "CV ansehen",
 		"experience_sr_label": "Berufserfahrung",
 		"education_sr_label": "Ausbildung",
+		"visit_organization_label": "{organization} besuchen",
 		"skills": [
 			"JavaScript",
 			"TypeScript",
@@ -147,6 +148,7 @@
 				"organization": "Future Forms GmbH",
 				"organizationShort": "Future Forms",
 				"location": "Stuttgart",
+				"organizationLink": "https://futureforms.studio",
 				"roles": [
 					{
 						"title": "Werkstudent Design & Engineering",

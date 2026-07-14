@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
-import Accordion from "./Accordion";
 import InteractionWrapper from "./InteractionWrapper";
 import Button from "./Button";
-import { CVItem, SUMMARY_HEIGHT } from "./CVItem";
+import { CVItem, CLOSED_ITEM_HEIGHT_ESTIMATE } from "./CVItem";
 import type { CVEntry } from "../data/cv";
 import styles from "./CVSection.module.scss";
 
@@ -33,21 +32,39 @@ export default function CVSection() {
 	// Feste Panel-Höhe = Tab mit den meisten Items (geschlossen), damit das
 	// Layout beim Wechsel nicht springt.
 	const panelMinHeight =
-		Math.max(experience.length, education.length) * SUMMARY_HEIGHT;
+		Math.max(experience.length, education.length) * CLOSED_ITEM_HEIGHT_ESTIMATE;
 
-	// ID eines Eintrags im Accordion-State.
+	// ID eines Eintrags (React-Key + aria-controls-Basis in CVItem).
 	const idOf = (entry: CVEntry) =>
 		`${entry.organization}-${entry.roles[0].startYear}`;
 
 	// Beide Tabs rendern dieselbe Liste, nur die Daten unterscheiden sich.
 	// Die Variante wird nicht pro Item, sondern einmal am categoryPanel gesetzt
 	// (siehe data-variant unten) — CVItem.module.scss stylt darüber die Kinder.
-	const cvList = (entries: CVEntry[]) => (
-		<Accordion>
+	const cvList = (
+		entries: CVEntry[],
+		category: Category,
+		isActive: boolean,
+		dir: number,
+	) => (
+		<ul
+			key={category}
+			aria-hidden={!isActive}
+			inert={!isActive || undefined}
+			data-variant={category}
+			className={`${styles.categoryPanel} ${
+				isActive
+					? styles.categoryActive
+					: `${styles.categoryInactive} ${
+							dir < 0
+								? styles.categoryInactiveLeft
+								: styles.categoryInactiveRight
+						}`
+			}`}>
 			{entries.map((entry) => (
 				<CVItem key={idOf(entry)} id={idOf(entry)} entry={entry} />
 			))}
-		</Accordion>
+		</ul>
 	);
 
 	// Tab = Ghost-Button; Hover/Active-Pille kommt vom InteractionWrapper im
@@ -78,27 +95,11 @@ export default function CVSection() {
 					const isActive = active === category;
 					// -1 = links vom aktiven Tab, +1 = rechts.
 					const dir = Math.sign(i - activeIndex);
-					return (
-						<div
-							key={category}
-							aria-hidden={!isActive}
-							inert={!isActive || undefined}
-							data-variant={category}
-							className={`${styles.categoryPanel} ${
-								isActive
-									? styles.categoryActive
-									: `${styles.categoryInactive} ${
-											dir < 0
-												? styles.categoryInactiveLeft
-												: styles.categoryInactiveRight
-										}`
-							}`}>
-							{cvList(
-								category === "experience"
-									? experience
-									: education,
-							)}
-						</div>
+					return cvList(
+						category === "experience" ? experience : education,
+						category,
+						isActive,
+						dir,
 					);
 				})}
 			</div>
