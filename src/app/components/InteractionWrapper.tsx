@@ -1,7 +1,11 @@
 "use client";
 
 import { HTMLAttributes, ReactNode, useEffect, useRef } from "react";
-import { computeFlipTransform, readInlineBounds } from "../lib/motion";
+import {
+	computeFlipTransform,
+	prefersReducedMotion,
+	readInlineBounds,
+} from "../lib/motion";
 import styles from "./InteractionWrapper.module.scss";
 
 /**
@@ -137,7 +141,7 @@ const InteractionWrapper = ({
 		const targetBounds = readInlineBounds(pill);
 
 		if (wasVisible && previousBounds.width) {
-			if (animate) {
+			if (animate && !prefersReducedMotion()) {
 				pill.style.opacity = "1";
 				pill.style.transform = computeFlipTransform(
 					previousBounds,

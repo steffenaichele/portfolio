@@ -49,3 +49,14 @@
 		transition: opacity var(--duration-state) var(--easing-modal);
 	}
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.t-modal {
+		transition-property: opacity;
+
+		&.is-open,
+		&.is-closing {
+			transform: none;
+		}
+	}
+}

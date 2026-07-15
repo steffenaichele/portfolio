@@ -14,8 +14,16 @@ type Category = "experience" | "education";
 const PANEL_ID = "cv-panel";
 // Reihenfolge der Tabs = Slide-Richtung: links/rechts vom aktiven Index.
 const ORDER: Category[] = ["experience", "education"];
-// Muss mit --duration-panel in CVSection.module.scss übereinstimmen.
-const PANEL_SWAP_MS = 800;
+
+// Liest --duration-panel aus CVSection.module.scss statt es als JS-Konstante
+// zu duplizieren (gleiches Verfahren wie ImprintModal/ToastNotification bei
+// --duration-state).
+const panelSwapMs = () =>
+	parseFloat(
+		getComputedStyle(document.documentElement).getPropertyValue(
+			"--duration-panel",
+		),
+	) || 800;
 
 export default function CVSection() {
 	const t = useTranslations("cv");
@@ -38,7 +46,7 @@ export default function CVSection() {
 		if (swapTimeout.current) clearTimeout(swapTimeout.current);
 		swapTimeout.current = setTimeout(
 			() => setPanelChanging(false),
-			PANEL_SWAP_MS,
+			panelSwapMs(),
 		);
 	};
 

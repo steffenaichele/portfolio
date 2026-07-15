@@ -54,25 +54,31 @@
 			flex-direction: row;
 			padding: 0 4px;
 
-			&:hover {
-				.tabInactive {
-					color: var(--color-text-secondary);
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					.tabInactive {
+						color: var(--color-text-secondary);
+					}
 				}
 			}
 
 			.tabActive {
 				color: var(--color-text-secondary);
 
-				&:hover {
-					color: var(--color-text-primary);
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						color: var(--color-text-primary);
+					}
 				}
 			}
 
 			.tabInactive {
 				color: var(--color-text-tertiary);
 
-				&:hover {
-					color: var(--color-text-primary);
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						color: var(--color-text-primary);
+					}
 				}
 			}
 		}
@@ -89,7 +95,6 @@
 			animation-duration: var(--duration-panel);
 			animation-timing-function: var(--easing-ui);
 			animation-fill-mode: forwards;
-			will-change: transform, filter;
 			padding: 28px 20px;
 
 			&.categoryActive {
@@ -134,6 +139,24 @@
 			&.categoryExitRight {
 				animation-name: cvPanelExitRight;
 			}
+
+			// Reduced motion: sofortiger Zustandswechsel statt Shrink/Slide/Blur-Reise.
+			// animation-Override statt transform/filter-Override, da hier wieder
+			// Keyframes (nicht Transitions) den Wechsel treiben.
+			@media (prefers-reduced-motion: reduce) {
+				&.categoryEnterLeft,
+				&.categoryEnterRight,
+				&.categoryExitLeft,
+				&.categoryExitRight {
+					animation: none;
+				}
+			}
+		}
+
+		// Compositor-Hint nur während des Swaps (panelChanging), nicht permanent —
+		// beide Panels liegen sonst dauerhaft auf einem eigenen Layer.
+		&.panelChanging .categoryPanel {
+			will-change: transform, filter;
 		}
 	}
 }

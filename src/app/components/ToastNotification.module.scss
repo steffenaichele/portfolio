@@ -31,6 +31,11 @@
 		opacity var(--duration-move) var(--easing-modal);
 	will-change: transform, opacity;
 
+	@media (prefers-reduced-motion: reduce) {
+		transform: none;
+		transition-property: opacity;
+	}
+
 	&.open {
 		transform: translateY(0);
 		opacity: 1;
@@ -42,6 +47,10 @@
 		transition:
 			transform var(--duration-state) var(--easing-modal),
 			opacity var(--duration-state) var(--easing-modal);
+
+		@media (prefers-reduced-motion: reduce) {
+			transform: none;
+		}
 	}
 
 	svg {

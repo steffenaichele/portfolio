@@ -3,6 +3,15 @@
 // CSS auskommen müssen (motion/react-Bezier, FLIP-Mathe), teilen sich hier eine
 // einzige Quelle statt jeweils eigene Kopien.
 
+// CSS @media (prefers-reduced-motion) erreicht keine Inline-Styles — JS-Pfade
+// (Pillen-FLIP) müssen die Systemeinstellung selbst abfragen.
+export function prefersReducedMotion(): boolean {
+	return (
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches
+	);
+}
+
 // Spiegelt --easing-ui aus _tokens.scss als numerisches Bezier-Array — motion/
 // react akzeptiert keine CSS-cubic-bezier()-Strings, braucht die vier Zahlen.
 // Diese eine bewusste Duplizierung hält CVItem visuell in Linie mit dem Rest.
