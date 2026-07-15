@@ -78,7 +78,7 @@
 		"experience_heading": "Experience",
 		"education_heading": "Education",
 		"skills_heading": "Skills",
-		"cv_button": "View CV",
+		"cv_section_heading": "How did we get here?",
 		"experience_sr_label": "Experience",
 		"education_sr_label": "Education",
 		"visit_organization_label": "Visit {organization}",
@@ -110,12 +110,12 @@
 		],
 		"experience": [
 			{
-				"organization": "MuSeele e.V. / Klinikum Christophsbad",
+				"organization": "Freelance",
 				"organizationShort": "Freelance",
 				"location": "Göppingen",
 				"roles": [
 					{
-						"title": "Freelance Design Engineer",
+						"title": "UX/UI Designer & Fullstack Developer",
 						"startMonth": "Mar",
 						"startYear": 2025,
 						"endMonth": "Dec",
@@ -200,6 +200,7 @@
 				"organization": "halbautomaten Kommunikationsdesign GmbH",
 				"organizationShort": "halbautomaten",
 				"location": "Stuttgart",
+				"organizationLink": "https://www.halbautomaten.studio/",	
 				"roles": [
 					{
 						"title": "Communication Designer",
@@ -231,6 +232,7 @@
 				"organization": "amplify design GmbH",
 				"organizationShort": "amplify design",
 				"location": "Stuttgart",
+				"organizationLink": "https://amplifydesign.eu/",
 				"roles": [
 					{
 						"title": "Working Student — Digital Design",
@@ -280,6 +282,7 @@
 				"organization": "Paperdice Solutions GmbH",
 				"organizationShort": "Paperdice Solutions",
 				"location": "Stuttgart",
+				"organizationLink": "https://paperdice.de/",
 				"roles": [
 					{
 						"title": "Apprenticeship — Media Designer Digital & Print (Design and Technology)",
@@ -310,8 +313,9 @@
 		"education": [
 			{
 				"organization": "WBS Coding School",
-				"organizationShort": "Full-Stack Web & App Development",
+				"organizationShort": "WBS Coding School",
 				"location": "Berlin",
+				"organizationLink": "https://www.wbscodingschool.com/de/",
 				"roles": [
 					{
 						"title": "Full-Stack Web & App Development Bootcamp",
@@ -348,11 +352,12 @@
 			},
 			{
 				"organization": "Hochschule für Gestaltung",
-				"organizationShort": "Interaction Design (BA)",
+				"organizationShort": "Hochschule für Gestaltung",
 				"location": "Schwäbisch Gmünd",
+				"organizationLink": "https://www.hfg-gmuend.de/",
 				"roles": [
 					{
-						"title": "Bachelor of Arts in Interaction Design",
+						"title": "Interaction Design B.A.",
 						"startMonth": "Mar",
 						"startYear": 2021,
 						"endMonth": "Jul",
@@ -385,6 +390,7 @@
 				"organization": "Johannes-Gutenberg-Schule",
 				"organizationShort": "Johannes-Gutenberg-Schule",
 				"location": "Stuttgart",
+				"organizationLink": "https://www.jgs-stuttgart.de/",
 				"roles": [
 					{
 						"title": "Vocational School — Media Designer Digital & Print",
@@ -403,8 +409,9 @@
 			},
 			{
 				"organization": "Gewerbliche Schule Schwäbisch Gmünd",
-				"organizationShort": "Gewerbliche Schule GD",
+				"organizationShort": "Gewerbliche Schule",
 				"location": "Schwäbisch Gmünd",
+				"organizationLink": "https://www.gs-gmuend.de/aktuelles.html",
 				"roles": [
 					{
 						"title": "Abitur (German university entrance qualification) — Design and Media Technology",

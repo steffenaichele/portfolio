@@ -22,7 +22,6 @@ const Header = () => {
 
 	return (
 		<header className={styles.header} aria-label="Site header">
-			<BlurEffect className={styles.blur} position="top" intensity={50} />
 			<div className={styles.inner}>
 				<Link
 					href="/"

@@ -279,6 +279,7 @@ const InteractionWrapper = ({
 		<div
 			ref={wrapperRef}
 			{...rest}
+			data-interaction-wrapper=""
 			onPointerOver={handlePointerOver}
 			onPointerOut={handlePointerOut}
 			onPointerDown={handlePointerDown}

@@ -1,7 +1,6 @@
 .header {
-	position: sticky;
 	width: 100%;
-	max-width: 36rem;
+	max-width: var(--max-width);
 	margin-inline: auto;
 	top: 0;
 	padding-inline: 1.75rem;
@@ -10,12 +9,6 @@
 	z-index: 50;
 	border-radius: var(--radius-lg);
 
-	.blur {
-		position: absolute;
-		inset: 0;
-		height: 100%;
-		pointer-events: none;
-	}
 
 	.inner {
 		position: relative;

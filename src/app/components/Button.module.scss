@@ -2,12 +2,17 @@
 // umgebenden InteractionWrapper trägt Füllung (variant), Rundung und Hover/Active.
 // Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing an
 // den Ecken, die Pille würde dort flackern. size steuert nur Höhe/Font-Größe.
+//
+// Padding ist ebenfalls Sache des InteractionWrapper: nur innerhalb eines Wrappers
+// braucht der Button Innenabstand (die Pille liegt dann bündig darunter). Ohne
+// Wrapper (z.B. reine Text-/Underline-Links) bleibt der Button padding-los.
 .base {
 	flex: none;
 	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	padding: 0;
 	font-weight: 500;
 	transition:
 		color var(--duration-state) var(--easing-ui),
@@ -30,17 +35,22 @@
 	line-height: 100%;
 	letter-spacing: var(--letter-spacing-md);
 
-	&.text {
-		padding: 0 16px;
-	}
-
-	&.icon {
-		padding: 12px;
-	}
-
 	&.iconText {
 		gap: 12px;
-		padding: 0 12px 0 12px;
+	}
+
+	[data-interaction-wrapper] & {
+		&.text {
+			padding: 0 16px;
+		}
+
+		&.icon {
+			padding: 12px;
+		}
+
+		&.iconText {
+			padding: 0 12px 0 12px;
+		}
 	}
 }
 
@@ -50,43 +60,58 @@
 	line-height: 100%;
 	letter-spacing: var(--letter-spacing-sm);
 
-	&.text {
-		padding: 0 12px;
-	}
-
-	&.icon {
-		padding: 8px;
-	}
-
 	&.iconText {
 		gap: 8px;
-		padding: 0 8px 0 12px;
-	}
-}
-
-.xs {
-	height: 24px;
-	font-size: var(--font-size-xs);
-	line-height: 100%;
-	letter-spacing: var(--letter-spacing-xs);
-
-	&.text {
-		padding: 0 8px;
 	}
 
-	&.icon {
-		padding: 4px;
-	}
+	[data-interaction-wrapper] & {
+		&.text {
+			padding: 0 12px;
+		}
 
-	&.iconText {
-		gap: 4px;
-		padding: 0 4px 0 8px;
+		&.icon {
+			padding: 8px;
+		}
+
+		&.iconText {
+			padding: 0 8px 0 12px;
+		}
 	}
 }
 
 // Dünne Underline nur auf dem Text-Kind (nicht auf <Icon>/svg), collapsed bei
 // Hover — orthogonal zu size/content, die weiterhin Höhe/Padding/Gap stellen.
 .underline {
+	&:not([data-interaction-wrapper] &) > :not(svg) {
+		&::before {
+			content: "";
+			pointer-events: none;
+			position: absolute;
+			left: 0;
+			bottom: -4px;
+			width: 100%;
+			height: 1px;
+			background-color: var(--color-link-underline-default);
+		}
+
+		&::after {
+			content: "";
+			z-index: 10;
+			pointer-events: none;
+			position: absolute;
+			left: 0;
+			bottom: -4.5px;
+			width: 0;
+			height: 2px;
+			background-color: var(--color-link-underline-active);
+			transition: width var(--duration-state) var(--easing-ui);
+		}
+
+		&:hover::after {
+			width: 100%;
+		}
+	}
+
 	> :not(svg) {
 		position: relative;
 
@@ -95,7 +120,7 @@
 			pointer-events: none;
 			position: absolute;
 			left: 0;
-			bottom: -1px;
+			bottom: -4px;
 			width: 100%;
 			height: 1px;
 			background-color: var(--color-link-underline-default);

@@ -19,8 +19,8 @@
 	--color-text-primary: var(--color-neutral-950);
 	--color-text-secondary: var(--color-neutral-500);
 	--color-text-tertiary: var(--color-neutral-400);
-	--color-text-exp: var(--color-emerald-600);
-	--color-text-edu: var(--color-sky-600);
+	--color-text-exp: var(--color-emerald-500);
+	--color-text-edu: var(--color-sky-500);
 
 	--color-logo-fill: var(--color-white);
 	--color-logo-stroke: var(--color-black);
@@ -34,12 +34,13 @@
 	--color-button-primary-bg: var(--color-neutral-100);
 	--color-button-primary-bg-hover: var(--color-neutral-200);
 
-	--color-cvitem-bg-default: var(--color-neutral-100);
-	--color-cvitem-bg-hover: var(--color-neutral-200);
-	--color-cvitem-bg-active: var(--color-neutral-300);
+	--color-section-devider: var(--color-neutral-200);
+
+	--color-cvsection-bg-default: transparent;
+	--color-cvsection-bg-change: var(--color-neutral-100);
 	
-	--color-cvitem-exp-badge-bg: color-mix(in oklab, var(--color-emerald-100) 75%, var(--color-emerald-200));
-	--color-cvitem-edu-badge-bg: color-mix(in oklab, var(--color-sky-100) 75%, var(--color-sky-200));
+	--color-cvitem-exp-badge-bg: var(--color-emerald-100);
+	--color-cvitem-edu-badge-bg: var(--color-sky-100);
 
 	--color-surface-bg: var(--color-white);
 	--color-surface-bg-hover: var(--color-neutral-50);

@@ -109,12 +109,12 @@
 		],
 		"experience": [
 			{
-				"organization": "MuSeele e.V. / Klinikum Christophsbad",
+				"organization": "Freelance",
 				"organizationShort": "Freelance",
 				"location": "Göppingen",
 				"roles": [
 					{
-						"title": "Freelance Design Engineer",
+						"title": "UX/UI Designer & Fullstack Developer",
 						"startMonth": "Mar",
 						"startYear": 2025,
 						"endMonth": "Dez",
@@ -199,6 +199,7 @@
 				"organization": "halbautomaten Kommunikationsdesign GmbH",
 				"organizationShort": "halbautomaten",
 				"location": "Stuttgart",
+				"organizationLink": "https://www.halbautomaten.studio/",
 				"roles": [
 					{
 						"title": "Kommunikationsdesigner",
@@ -230,6 +231,7 @@
 				"organization": "amplify design GmbH",
 				"organizationShort": "amplify design",
 				"location": "Stuttgart",
+				"organizationLink": "https://amplifydesign.eu/",
 				"roles": [
 					{
 						"title": "Werkstudent Digital Design",
@@ -279,6 +281,7 @@
 				"organization": "Paperdice Solutions GmbH",
 				"organizationShort": "Paperdice Solutions",
 				"location": "Stuttgart",
+				"organizationLink": "https://paperdice.de/",
 				"roles": [
 					{
 						"title": "Ausbildung zum Mediengestalter Digital & Print (Gestaltung und Technik)",
@@ -311,6 +314,7 @@
 				"organization": "WBS Coding School",
 				"organizationShort": "WBS Coding School",
 				"location": "Berlin",
+				"organizationLink": "https://www.wbscodingschool.com/de/",
 				"roles": [
 					{
 						"title": "Full-Stack Web & App Development Bootcamp",
@@ -347,11 +351,12 @@
 			},
 			{
 				"organization": "Hochschule für Gestaltung",
-				"organizationShort": "HfG Schwäbisch Gmünd",
+				"organizationShort": "Hochschule für Gestaltung",
 				"location": "Schwäbisch Gmünd",
+				"organizationLink": "https://www.hfg-gmuend.de/",
 				"roles": [
 					{
-						"title": "Interaktionsgestaltung Bachelor of Arts",
+						"title": "Interaktionsgestaltung B.A.",
 						"startMonth": "Mar",
 						"startYear": 2021,
 						"endMonth": "Jul",
@@ -384,6 +389,7 @@
 				"organization": "Johannes-Gutenberg-Schule",
 				"organizationShort": "Johannes-Gutenberg-Schule",
 				"location": "Stuttgart",
+				"organizationLink": "https://www.jgs-stuttgart.de/",
 				"roles": [
 					{
 						"title": "Mediengestalter Digital & Print",
@@ -402,8 +408,9 @@
 			},
 			{
 				"organization": "Gewerbliche Schule Schwäbisch Gmünd",
-				"organizationShort": "Gewerbliche Schule GD",
+				"organizationShort": "Gewerbliche Schule",
 				"location": "Schwäbisch Gmünd",
+				"organizationLink": "https://www.gs-gmuend.de/aktuelles.html",
 				"roles": [
 					{
 						"title": "Allgemeine Hochschulreife (Gestaltungs- und Medientechnik)",
