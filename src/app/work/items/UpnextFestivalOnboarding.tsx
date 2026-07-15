@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import ImpressionCard from "../../components/ImpressionCard/ImpressionCard";
-import InteractionWrapper from "../../components/InteractionWrapper";
-import Button from "../../components/Button";
+import InteractionWrapper from "../../components/InteractionWrapper/InteractionWrapper";
+import Option from "../../components/Option/Option";
 import Icon from "../../components/Icon";
 import { RiArrowRightLine } from "@remixicon/react";
 import { useProject } from "../../hooks/useProject";
@@ -32,14 +32,14 @@ const UpnextFestivalOnboarding = () => {
 				</div>
 				{link && (
 					<InteractionWrapper variant="primary">
-						<Button
+						<Option
 							href={link}
 							size="sm"
 							content="icon"
 							data-pill-rest
 							aria-label={t("open_label", { label })}>
 							<Icon icon={RiArrowRightLine} />
-						</Button>
+						</Option>
 					</InteractionWrapper>
 				)}
 			</ImpressionCard.Header>
@@ -74,7 +74,7 @@ const UpnextFestivalOnboarding = () => {
 					</div>
 					{link && (
 						<InteractionWrapper variant="primary">
-							<Button
+							<Option
 								href={link}
 								size="sm"
 								content="iconText"
@@ -82,7 +82,7 @@ const UpnextFestivalOnboarding = () => {
 								aria-label={t("external_label", { label })}>
 								<span>{t("open_button")}</span>
 								<Icon icon={RiArrowRightLine} />
-							</Button>
+							</Option>
 						</InteractionWrapper>
 					)}
 				</div>

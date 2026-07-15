@@ -3,10 +3,10 @@
 import { useRef, useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
-import InteractionWrapper from "./InteractionWrapper";
-import Button from "./Button";
-import { CVItem } from "./CVItem";
-import type { CVEntry } from "../data/cv";
+import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
+import Option from "../Option/Option";
+import { CVItem } from "../CVItem/CVItem";
+import type { CVEntry } from "../../data/cv";
 import styles from "./CVSection.module.scss";
 
 type Category = "experience" | "education";
@@ -97,17 +97,17 @@ export default function CVSection() {
 		</ul>
 	);
 
-	// Tab = Ghost-Button; Hover/Active-Pille kommt vom InteractionWrapper im
+	// Tab = Ghost-Option; Hover/Active-Pille kommt vom InteractionWrapper im
 	// tablist-Wrapper. Active-State (ausgewählter Tab) allein über die Textfarbe.
 	const tab = (category: Category, label: string) => (
-		<Button
+		<Option
 			role="tab"
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
 			className={active === category ? styles.tabActive : styles.tabInactive}>
 			<span>{label}</span>
-		</Button>
+		</Option>
 	);
 
 	return (

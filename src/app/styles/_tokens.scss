@@ -28,6 +28,9 @@
 	--color-link-underline-default: var(--color-text-tertiary);
 	--color-link-underline-active: var(--color-text-secondary);
 
+	--color-interaction-wrapper-bg: color-mix(in oklch, var (--color-white) 20%, transparent);
+	--color-interaction-wrapper-stroke: color-mix(in oklch, var (--color-white) 30%, transparent);
+
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
 	--color-button-primary-stroke: color-mix(in oklab, var(--color-white) 55%, transparent);

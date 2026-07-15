@@ -5,7 +5,7 @@ import {
 	computeFlipTransform,
 	prefersReducedMotion,
 	readInlineBounds,
-} from "../lib/motion";
+} from "../../lib/motion";
 import styles from "./InteractionWrapper.module.scss";
 
 /**

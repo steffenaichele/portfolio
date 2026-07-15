@@ -1,11 +1,7 @@
-// Nackter Button: kein eigener Hintergrund/Rundung/Shadow/Active — die Pille des
-// umgebenden InteractionWrapper trägt Füllung (variant), Rundung und Hover/Active.
-// Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing an
-// den Ecken, die Pille würde dort flackern. size steuert nur Höhe/Font-Größe.
-//
-// Padding ist ebenfalls Sache des InteractionWrapper: nur innerhalb eines Wrappers
-// braucht der Button Innenabstand (die Pille liegt dann bündig darunter). Ohne
-// Wrapper (z.B. reine Text-/Underline-Links) bleibt der Button padding-los.
+// Nackter Button: kein eigener Hintergrund/Rundung/Shadow/Active/Padding — reine
+// Text-/Underline-Links ohne InteractionWrapper. size steuert nur Höhe/Font-Größe.
+// Padding gehört hier nie dazu (anders als bei Option, die immer innerhalb eines
+// InteractionWrapper lebt und dessen Pille bündig darunterliegt).
 .base {
 	flex: none;
 	display: inline-flex;
@@ -38,20 +34,6 @@
 	&.iconText {
 		gap: 12px;
 	}
-
-	[data-interaction-wrapper] & {
-		&.text {
-			padding: 0 16px;
-		}
-
-		&.icon {
-			padding: 12px;
-		}
-
-		&.iconText {
-			padding: 0 12px 0 12px;
-		}
-	}
 }
 
 .sm {
@@ -63,26 +45,15 @@
 	&.iconText {
 		gap: 8px;
 	}
-
-	[data-interaction-wrapper] & {
-		&.text {
-			padding: 0 12px;
-		}
-
-		&.icon {
-			padding: 8px;
-		}
-
-		&.iconText {
-			padding: 0 8px 0 12px;
-		}
-	}
 }
 
-// Dünne Underline nur auf dem Text-Kind (nicht auf <Icon>/svg), collapsed bei
-// Hover — orthogonal zu size/content, die weiterhin Höhe/Padding/Gap stellen.
+// Dünne Underline nur auf dem Text-Kind (nicht auf <Icon>/svg): ohne Wrapper
+// keine Pille als Hover-Feedback, daher übernimmt die Underline diese Rolle
+// selbst — eine zweite, kräftigere Linie faded bei Hover über die erste ein.
 .underline {
-	&:not([data-interaction-wrapper] &) > :not(svg) {
+	> :not(svg) {
+		position: relative;
+
 		&::before {
 			content: "";
 			pointer-events: none;
@@ -111,28 +82,6 @@
 			&:hover::after {
 				width: 100%;
 			}
-		}
-	}
-
-	> :not(svg) {
-		position: relative;
-
-		&::before {
-			content: "";
-			pointer-events: none;
-			position: absolute;
-			left: 0;
-			bottom: -4px;
-			width: 100%;
-			height: 1px;
-			background-color: var(--color-link-underline-default);
-			transition: height var(--duration-state) var(--easing-ui);
-		}
-	}
-
-	@media (hover: hover) and (pointer: fine) {
-		&:hover > :not(svg)::before {
-			height: 0;
 		}
 	}
 }

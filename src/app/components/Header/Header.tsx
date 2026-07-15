@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Logo from "./Logo";
-import InteractionWrapper from "./InteractionWrapper";
-import Button from "./Button";
+import Logo from "../Logo/Logo";
+import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
+import Option from "../Option/Option";
 import BlurEffect from "react-progressive-blur";
 import styles from "./Header.module.scss";
 
@@ -35,14 +35,14 @@ const Header = () => {
 						{navLinks.map((link) => {
 							const active = activeKey === link.key;
 							return (
-								<Button
+								<Option
 									key={link.key}
 									href={link.href}
 									data-pill-rest={active}
 									aria-current={active ? "page" : undefined}
 									className={active ? styles.navActive : styles.navInactive}>
 									<span>{tNav(link.key)}</span>
-								</Button>
+								</Option>
 							);
 						})}
 					</InteractionWrapper>

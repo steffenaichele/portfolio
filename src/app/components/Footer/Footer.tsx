@@ -2,12 +2,12 @@
 
 import { RiArrowRightUpLine, RiMailLine } from "@remixicon/react";
 import { useTranslations } from "next-intl";
-import Icon from "./Icon";
-import Button from "./Button";
-import InteractionWrapper from "./InteractionWrapper";
-import LanguageToggle from "./LanguageToggle";
-import ImprintModal from "./ImprintModal";
-import { useToast } from "./ToastNotification";
+import Icon from "../Icon";
+import Option from "../Option/Option";
+import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
+import LanguageToggle from "../LanguageToggle/LanguageToggle";
+import ImprintModal from "../ImprintModal/ImprintModal";
+import { useToast } from "../ToastNotification/ToastNotification";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
@@ -21,10 +21,9 @@ const Footer = () => {
 					<ImprintModal />
 				</InteractionWrapper>
 				<InteractionWrapper variant="primary">
-					<Button
+					<Option
 						size="sm"
 						content="iconText"
-						underline
 						copyToClipboard={process.env.NEXT_PUBLIC_EMAIL}
 						onCopySuccess={() =>
 							showToast(t("email_copied"), "success")
@@ -34,25 +33,23 @@ const Footer = () => {
 						}>
 						<span>{t("email")}</span>
 						<Icon icon={RiMailLine} />
-					</Button>
-					<Button
+					</Option>
+					<Option
 						size="sm"
 						content="iconText"
-						underline
 						href="https://www.linkedin.com/in/steffenaichele"
 						external>
 						<span>LinkedIn</span>
 						<Icon icon={RiArrowRightUpLine} />
-					</Button>
-					<Button
+					</Option>
+					<Option
 						size="sm"
 						content="iconText"
-						underline
 						href="https://github.com/steffenaichele"
 						external>
 						<span>GitHub</span>
 						<Icon icon={RiArrowRightUpLine} />
-					</Button>
+					</Option>
 				</InteractionWrapper>
 			</div>
 

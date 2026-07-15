@@ -5,8 +5,8 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { RiCloseLine } from "@remixicon/react";
 
-import Button from "../Button";
-import InteractionWrapper from "../InteractionWrapper";
+import Option from "../Option/Option";
+import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
 import Icon from "../Icon";
 import { useZoomModal } from "../../hooks/useZoomModal";
 import styles from "./ImpressionCard.module.scss";
@@ -133,14 +133,14 @@ const Zoom = ({ children }: { children: ReactNode }) => {
 				aria-label={dialogLabel}
 				className={`t-modal ${styles.panel}`}>
 				<InteractionWrapper variant="primary">
-					<Button
+					<Option
 						size="sm"
 						content="icon"
 						data-pill-rest
 						aria-label={closeLabel}
 						onClick={close}>
 						<Icon icon={RiCloseLine} />
-					</Button>
+					</Option>
 				</InteractionWrapper>
 				{children}
 			</div>

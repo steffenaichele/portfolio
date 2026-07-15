@@ -12,11 +12,6 @@ export function prefersReducedMotion(): boolean {
 	);
 }
 
-// Spiegelt --easing-ui aus _tokens.scss als numerisches Bezier-Array — motion/
-// react akzeptiert keine CSS-cubic-bezier()-Strings, braucht die vier Zahlen.
-// Diese eine bewusste Duplizierung hält CVItem visuell in Linie mit dem Rest.
-export const EASING_UI: [number, number, number, number] = [0.23, 1, 0.32, 1];
-
 // Geometrie eines Elements (relativ zum Wrapper), wie sie die Pillen-FLIPs in
 // Inline-Styles ablegen.
 export type Bounds = { left: number; top: number; width: number; height: number };

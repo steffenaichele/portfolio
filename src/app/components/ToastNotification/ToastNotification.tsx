@@ -10,7 +10,7 @@ import {
 	useState,
 } from "react";
 import { RiCheckboxCircleLine, RiCloseCircleLine } from "@remixicon/react";
-import Icon from "./Icon";
+import Icon from "../Icon";
 import styles from "./ToastNotification.module.scss";
 
 /**

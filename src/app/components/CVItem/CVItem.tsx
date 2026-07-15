@@ -1,7 +1,7 @@
 import { RiArrowRightUpLine } from "@remixicon/react";
-import Button from "./Button";
-import Icon from "./Icon";
-import type { CVEntry } from "../data/cv";
+import Button from "../Button/Button";
+import Icon from "../Icon";
+import type { CVEntry } from "../../data/cv";
 import styles from "./CVItem.module.scss";
 
 interface CVItemProps {

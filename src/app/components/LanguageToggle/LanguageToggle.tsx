@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useLocale } from "../hooks/useLocale";
+import { useLocale } from "../../hooks/useLocale";
 import type { Locale } from "@/i18n/config";
-import InteractionWrapper from "./InteractionWrapper";
-import Button from "./Button";
+import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
+import Option from "../Option/Option";
 import styles from "./LanguageToggle.module.scss";
 
 const languages: { key: Locale; label: string }[] = [
@@ -24,7 +24,7 @@ export default function LanguageToggle() {
 			{languages.map(({ key, label }) => {
 				const active = locale === key;
 				return (
-					<Button
+					<Option
 						key={key}
 						size="sm"
 						onClick={() => setLocale(key)}
@@ -35,7 +35,7 @@ export default function LanguageToggle() {
 							active ? styles.active : styles.inactive
 						}`}>
 						<span>{label}</span>
-					</Button>
+					</Option>
 				);
 			})}
 		</InteractionWrapper>

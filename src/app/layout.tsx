@@ -7,9 +7,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { ToastProvider } from "./components/ToastNotification";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
 
 const ppNeueMontreal = localFont({

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import CVSection from "./components/CVSection";
+import CVSection from "./components/CVSection/CVSection";
 import styles from "./page.module.scss";
 
-import Button from "./components/Button";
+import Button from "./components/Button/Button";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
