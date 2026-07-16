@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import ImpressionCard from "../../components/ImpressionCard/ImpressionCard";
-import InteractionWrapper from "../../components/InteractionWrapper";
-import Button from "../../components/Button";
+import InteractionWrapper from "../../components/InteractionWrapper/InteractionWrapper";
+import Option from "../../components/Option/Option";
 import Icon from "../../components/Icon";
-import { ArrowRight } from "lucide-react";
+import { RiArrowRightLine } from "@remixicon/react";
 import { useProject } from "../../hooks/useProject";
 import styles from "./UpnextFestivalOnboarding.module.scss";
 
@@ -32,14 +32,14 @@ const UpnextFestivalOnboarding = () => {
 				</div>
 				{link && (
 					<InteractionWrapper variant="primary">
-						<Button
+						<Option
 							href={link}
 							size="sm"
 							content="icon"
 							data-pill-rest
 							aria-label={t("open_label", { label })}>
-							<Icon icon={ArrowRight} />
-						</Button>
+							<Icon icon={RiArrowRightLine} />
+						</Option>
 					</InteractionWrapper>
 				)}
 			</ImpressionCard.Header>
@@ -74,15 +74,15 @@ const UpnextFestivalOnboarding = () => {
 					</div>
 					{link && (
 						<InteractionWrapper variant="primary">
-							<Button
+							<Option
 								href={link}
 								size="sm"
 								content="iconText"
 								data-pill-rest
 								aria-label={t("external_label", { label })}>
 								<span>{t("open_button")}</span>
-								<Icon icon={ArrowRight} />
-							</Button>
+								<Icon icon={RiArrowRightLine} />
+							</Option>
 						</InteractionWrapper>
 					)}
 				</div>

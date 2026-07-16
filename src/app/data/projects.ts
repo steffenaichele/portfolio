@@ -9,7 +9,7 @@ export type Project = {
 	link?: string;
 };
 
-export const projects: Project[] = [
+const projects: Project[] = [
 	{ id: "1", link: "https://nextmuseum.io/" },
 	{ id: "2" },
 ];

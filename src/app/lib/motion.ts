@@ -3,10 +3,14 @@
 // CSS auskommen müssen (motion/react-Bezier, FLIP-Mathe), teilen sich hier eine
 // einzige Quelle statt jeweils eigene Kopien.
 
-// Spiegelt --easing-ui aus _tokens.scss als numerisches Bezier-Array — motion/
-// react akzeptiert keine CSS-cubic-bezier()-Strings, braucht die vier Zahlen.
-// Diese eine bewusste Duplizierung hält CVItem visuell in Linie mit dem Rest.
-export const EASING_UI: [number, number, number, number] = [0.23, 1, 0.32, 1];
+// CSS @media (prefers-reduced-motion) erreicht keine Inline-Styles — JS-Pfade
+// (Pillen-FLIP) müssen die Systemeinstellung selbst abfragen.
+export function prefersReducedMotion(): boolean {
+	return (
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches
+	);
+}
 
 // Geometrie eines Elements (relativ zum Wrapper), wie sie die Pillen-FLIPs in
 // Inline-Styles ablegen.

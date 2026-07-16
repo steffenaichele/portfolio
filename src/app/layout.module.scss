@@ -7,10 +7,13 @@
 		position: relative;
 		width: 100%;
 		min-height: 100dvh;
+		padding: 0 16px;
 		color: var(--color-text-primary);
 		font-family: var(--font-sans);
+		text-wrap: balance;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+
 
 		.skipLink {
 			position: absolute;

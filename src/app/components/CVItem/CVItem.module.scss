@@ -1,0 +1,135 @@
+@use "../../styles/breakpoints" as bp;
+
+.item {
+	position: relative;
+	padding: 0 0 8px 0;
+
+	[data-variant="experience"] & {
+		.timeWrapper {
+			color: var(--color-text-exp);
+			background-color: var(--color-cvitem-exp-badge-bg);
+		}
+	}
+
+	[data-variant="education"] & {
+		.timeWrapper {
+			color: var(--color-text-edu);
+			background-color: var(--color-cvitem-edu-badge-bg);
+		}
+	}
+
+	.header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 16px;
+
+		:first-child {
+			color: var(--color-text-tertiary);
+			font-weight: 400;
+			min-width: 0;
+			flex-shrink: 1;
+
+			.orgFull,
+			.orgShort {
+				color: var(--color-text-secondary);
+				flex-shrink: 0;
+				white-space: nowrap;
+				margin-right: 4px;
+			}
+
+			.orgShort {
+				display: none;
+			}
+
+			@media (max-width: bp.$breakpoint-sm) {
+				.orgFull {
+					display: none;
+				}
+
+				.orgShort {
+					display: inline;
+				}
+			}
+		}
+
+		.orgRow {
+			display: flex;
+			min-width: 0;
+		}
+
+		.location {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			min-width: 0;
+		}
+
+		.organization {
+			font-size: var(--font-size-sm);
+			font-weight: 400;
+		}
+
+		.timeWrapper {
+			font-family: var(--font-mono);
+			padding: 4px 8px;
+			border-radius: 8px;
+			font-size: var(--font-size-xs);
+			letter-spacing: -5%;
+			line-height: 100%;
+			font-variant-numeric: tabular-nums;
+			font-weight: 500;
+			white-space: nowrap;
+			flex-shrink: 0;
+		}
+	}
+
+	.rolesWrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		.roleWrapper {
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			gap: 16px;
+
+			.roleTitle {
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-primary);
+				text-align: left;
+				text-wrap: balance;
+			}
+
+			.time {
+				font-family: var(--font-mono);
+				text-align: right;
+				white-space: nowrap;
+				font-size: var(--font-size-xs);
+				line-height: var(--line-height-xs);
+				letter-spacing: -5%;
+				font-weight: 400;
+				color: var(--color-text-secondary);
+
+				.yearShort {
+					display: none;
+				}
+
+				@media (max-width: bp.$breakpoint-xs) {
+					.yearFull {
+						display: none;
+					}
+
+					.yearShort {
+						display: inline;
+					}
+				}
+			}
+		}
+	}
+}

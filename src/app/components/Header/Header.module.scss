@@ -1,0 +1,39 @@
+.header {
+	width: 100%;
+	max-width: var(--max-width);
+	margin-inline: auto;
+	top: 0;
+	padding-inline: 1.75rem;
+	padding-top: max(8rem, env(safe-area-inset-top));
+	padding-bottom: 3.5rem;
+	z-index: 50;
+	border-radius: var(--radius-lg);
+
+
+	.inner {
+		position: relative;
+		max-width: 32rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		min-height: 2.75rem;
+		z-index: 10;
+
+		
+	}
+}
+
+// Navigation als InteractionWrapper (variant primary): Segmente sind nackte md-Buttons,
+// die Auswahl-Pille ruht auf dem aktiven Item (data-pill-rest).
+.nav {
+	display: inline-flex;
+}
+
+.navActive {
+	color: var(--color-text-primary);
+}
+
+.navInactive {
+	color: var(--color-text-tertiary);
+}

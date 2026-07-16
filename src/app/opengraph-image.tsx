@@ -9,9 +9,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OgImage() {
-	// TTF-Variante nur fürs OG-Image: satori (next/og) kann kein woff2 lesen.
+	// WOFF-Variante nur fürs OG-Image: satori (next/og) kann kein woff2 lesen.
 	const fontMedium = await readFile(
-		join(process.cwd(), "src/fonts/PPNeueMontreal-Medium.ttf"),
+		join(process.cwd(), "src/fonts/PPNeueMontreal-Medium.woff"),
 	);
 
 	return new ImageResponse(

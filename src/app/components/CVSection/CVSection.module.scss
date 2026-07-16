@@ -1,0 +1,275 @@
+.section {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-top: 48px;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 20px;
+		right: 20px;
+		height: 1px;
+		background-color: var(--color-section-devider);
+	}
+
+	.sectionHeader {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+
+		.heading {
+			font-family: var(--font-mono);
+			font-size: var(--font-size-sm);
+			line-height: 100%;
+			letter-spacing: -3%;
+			font-weight: 400;
+			color: var(--color-text-tertiary);
+			padding: 0 20px;
+			margin-bottom: 8px;
+		}
+	}
+
+	.panel {
+		--cv-panel-gap: 40px;
+		--cv-panel-scale: 0.97;
+		--cv-panel-blur: 0.5px;
+
+		border-radius: var(--radius-4xl);
+		position: relative;
+		display: grid;
+		background-color: var(--color-cvsection-bg-default);
+		box-shadow: none;
+		background-color: var(--color-cvsection-bg-change);
+		box-shadow: var(--shadow-soft-inset);
+
+		// categoryStack und controls teilen sich dieselbe Grid-Zelle:
+		// panel-Höhe richtet sich nach categoryStack, controls schwebt
+		// darüber statt eigene Höhe/Gap beizutragen.
+		.categoryStack {
+			grid-area: 1 / 1;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.controls {
+			grid-area: 1 / 1;
+			align-self: end;
+			justify-self: center;
+			position: sticky;
+			bottom: 24px;
+			margin-bottom: 24px;
+			display: flex;
+			flex-direction: row;
+			padding: 0 4px;
+
+			@media (hover: hover) and (pointer: fine) {
+				&:hover {
+					.tabInactive {
+						color: var(--color-text-secondary);
+					}
+				}
+			}
+
+			.tabActive {
+				color: var(--color-text-secondary);
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						color: var(--color-text-primary);
+					}
+				}
+			}
+
+			.tabInactive {
+				color: var(--color-text-tertiary);
+
+				@media (hover: hover) and (pointer: fine) {
+					&:hover {
+						color: var(--color-text-primary);
+					}
+				}
+			}
+		}
+
+		.categoryPanel {
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+			background-color: var(--color-bg);
+			border-radius: var(--radius-4xl);
+			transition-property: opacity;
+			transition-duration: var(--duration-panel);
+			transition-timing-function: var(--easing-ui);
+			animation-duration: var(--duration-panel);
+			animation-timing-function: var(--easing-ui);
+			animation-fill-mode: forwards;
+			padding: 24px 20px 80px 20px;
+
+			&.categoryActive {
+				position: relative;
+				transform: scale(1) translateX(0);
+				filter: blur(0);
+				box-shadow: none;
+			}
+
+			&.categoryInactive {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+
+				&.categoryInactiveLeft {
+					transform: scale(var(--cv-panel-scale))
+						translateX(calc(-100% - var(--cv-panel-gap)));
+					filter: blur(var(--cv-panel-blur));
+					box-shadow: var(--shadow-soft);
+				}
+
+				&.categoryInactiveRight {
+					transform: scale(var(--cv-panel-scale))
+						translateX(calc(100% + var(--cv-panel-gap)));
+					filter: blur(var(--cv-panel-blur));
+					box-shadow: var(--shadow-soft);
+				}
+			}
+
+			&.categoryEnterLeft {
+				animation-name: cvPanelEnterLeft;
+			}
+
+			&.categoryEnterRight {
+				animation-name: cvPanelEnterRight;
+			}
+
+			&.categoryExitLeft {
+				animation-name: cvPanelExitLeft;
+			}
+
+			&.categoryExitRight {
+				animation-name: cvPanelExitRight;
+			}
+
+			// Reduced motion: sofortiger Zustandswechsel statt Shrink/Slide/Blur-Reise.
+			// animation-Override statt transform/filter-Override, da hier wieder
+			// Keyframes (nicht Transitions) den Wechsel treiben.
+			@media (prefers-reduced-motion: reduce) {
+				&.categoryEnterLeft,
+				&.categoryEnterRight,
+				&.categoryExitLeft,
+				&.categoryExitRight {
+					animation: none;
+				}
+			}
+		}
+
+		// Compositor-Hint nur während des Swaps (panelChanging), nicht permanent —
+		// beide Panels liegen sonst dauerhaft auf einem eigenen Layer.
+		&.panelChanging .categoryPanel {
+			will-change: transform, filter;
+		}
+	}
+}
+
+// Exit: erst skalieren+blurren (0-20%), dann rausbewegen (20-100%).
+@keyframes cvPanelExitLeft {
+	0% {
+		transform: scale(1) translateX(0);
+		filter: blur(0);
+		box-shadow: none;
+	}
+
+	20% {
+		transform: scale(var(--cv-panel-scale)) translateX(0);
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	100% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(-100% - var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+}
+
+@keyframes cvPanelExitRight {
+	0% {
+		transform: scale(1) translateX(0);
+		filter: blur(0);
+		box-shadow: none;
+	}
+
+	20% {
+		transform: scale(var(--cv-panel-scale)) translateX(0);
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	100% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(100% + var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+}
+
+// Enter: hält Position bis 20% (synchron zum Exit-Shrink), bewegt 20-85%, settlet 85-100%.
+@keyframes cvPanelEnterLeft {
+	0% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(-100% - var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	20% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(-100% - var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	85% {
+		transform: scale(var(--cv-panel-scale)) translateX(0);
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	100% {
+		transform: scale(1) translateX(0);
+		filter: blur(0);
+		box-shadow: none;
+	}
+}
+
+@keyframes cvPanelEnterRight {
+	0% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(100% + var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	20% {
+		transform: scale(var(--cv-panel-scale))
+			translateX(calc(100% + var(--cv-panel-gap)));
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	85% {
+		transform: scale(var(--cv-panel-scale)) translateX(0);
+		filter: blur(var(--cv-panel-blur));
+		box-shadow: var(--shadow-soft);
+	}
+
+	100% {
+		transform: scale(1) translateX(0);
+		filter: blur(0);
+		box-shadow: none;
+	}
+}

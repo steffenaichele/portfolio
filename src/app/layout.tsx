@@ -7,25 +7,42 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { ToastProvider } from "./components/ToastNotification";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
 
 const ppNeueMontreal = localFont({
 	src: [
 		{
-			path: "../fonts/PPNeueMontreal-Regular.woff2",
+			path: "../fonts/PPNeueMontreal-Regular.woff",
 			weight: "400",
 			style: "regular",
 		},
 		{
-			path: "../fonts/PPNeueMontreal-Medium.woff2",
+			path: "../fonts/PPNeueMontreal-Medium.woff",
 			weight: "500",
 			style: "medium",
 		},
 	],
 	variable: "--ppNeueMontreal",
+	display: "swap",
+});
+
+const ppNeueMontrealMono = localFont({
+	src: [
+		{
+			path: "../fonts/PPNeueMontrealMono-Regular.woff2",
+			weight: "400",
+			style: "regular",
+		},
+		{
+			path: "../fonts/PPNeueMontrealMono-Medium.woff2",
+			weight: "500",
+			style: "medium",
+		},
+	],
+	variable: "--ppNeueMontrealMono",
 	display: "swap",
 });
 
@@ -65,7 +82,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`${styles.html} ${ppNeueMontreal.variable}`}>
+			className={`${styles.html} ${ppNeueMontreal.variable} ${ppNeueMontrealMono.variable}`}>
 			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ToastProvider>

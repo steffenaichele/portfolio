@@ -1,0 +1,67 @@
+// Fixed, zentriert am unteren Viewport-Rand, über allem (auch Modals: z-index
+// 60 > die 50 von Header/ImprintModal/ImpressionCard). pointer-events: none,
+// da Toasts rein informativ sind (kein Dismiss) und sonst Footer-Klicks unter
+// einem sichtbaren Toast blockieren würden.
+.viewport {
+	position: fixed;
+	inset-inline: 0;
+	bottom: 1.5rem;
+	z-index: 60;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	pointer-events: none;
+}
+
+.toast {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.625rem 1rem;
+	border-radius: var(--radius-lg);
+	background-color: var(--color-surface-bg);
+	box-shadow: var(--shadow-soft);
+	font-size: 0.875rem;
+	color: var(--color-text-primary);
+	transform: translateY(0.5rem);
+	opacity: 0;
+	transition:
+		transform var(--duration-move) var(--easing-modal),
+		opacity var(--duration-move) var(--easing-modal);
+	will-change: transform, opacity;
+
+	@media (prefers-reduced-motion: reduce) {
+		transform: none;
+		transition-property: opacity;
+	}
+
+	&.open {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	&.closing {
+		transform: translateY(0.5rem);
+		opacity: 0;
+		transition:
+			transform var(--duration-state) var(--easing-modal),
+			opacity var(--duration-state) var(--easing-modal);
+
+		@media (prefers-reduced-motion: reduce) {
+			transform: none;
+		}
+	}
+
+	svg {
+		flex: none;
+	}
+}
+
+.success svg {
+	color: var(--color-toast-success-icon);
+}
+
+.error svg {
+	color: var(--color-toast-error-icon);
+}

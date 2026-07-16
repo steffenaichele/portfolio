@@ -7,12 +7,12 @@
 @use "modal";
 
 :root {
-	--max-width: 520px;
+	--max-width: 560px;
 
 	color-scheme: light;
 
 	body {
-		padding: 0 0.5rem;
+		padding: 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

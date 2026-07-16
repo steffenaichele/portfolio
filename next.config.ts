@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
 			},
 		},
 	},
+	allowedDevOrigins: ["192.168.178.107"],
 	webpack(config) {
 		const excludeSvgFromRules = (
 			rules: (RuleSetRule | false | "" | 0 | null | undefined)[],

@@ -1,0 +1,89 @@
+// Nackte Option: kein eigener Hintergrund/Rundung/Shadow/Active — die Pille des
+// umgebenden InteractionWrapper trägt Füllung (variant), Rundung und Hover/Active.
+// Keine Rundung im Default-State: border-radius clippt das Pointer-Hit-Testing an
+// den Ecken, die Pille würde dort flackern. size steuert nur Höhe/Font-Größe.
+//
+// Padding gehört hier immer dazu (Option lebt ausschließlich innerhalb eines
+// InteractionWrapper, die Pille liegt bündig darunter) — anders als bei Button,
+// das ohne Wrapper padding-los bleibt.
+.base {
+	flex: none;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	font-weight: 500;
+	transition:
+		color var(--duration-state) var(--easing-ui),
+		transform var(--duration-state) var(--easing-ui);
+	cursor: pointer;
+	user-select: none;
+
+	&:focus-visible {
+		outline: 1px solid var(--color-orange-300);
+	}
+
+	svg {
+		color: var(--color-text-secondary);
+	}
+}
+
+.md {
+	height: 36px;
+	font-size: var(--font-size-md);
+	line-height: 100%;
+	letter-spacing: var(--letter-spacing-md);
+
+	&.iconText {
+		gap: 12px;
+	}
+
+	&.text {
+		padding: 0 16px;
+	}
+
+	&.icon {
+		padding: 12px;
+	}
+
+	&.iconText {
+		padding: 0 12px 0 12px;
+	}
+}
+
+.sm {
+	height: 28px;
+	font-size: var(--font-size-sm);
+	line-height: 100%;
+	letter-spacing: var(--letter-spacing-sm);
+
+	&.iconText {
+		gap: 8px;
+	}
+
+	&.text {
+		padding: 0 12px;
+	}
+
+	&.icon {
+		padding: 8px;
+	}
+
+	&.iconText {
+		padding: 0 8px 0 12px;
+	}
+}
+
+// Tailwind's sr-only utility, inlined (visually hidden but accessible).
+.srOnly {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}

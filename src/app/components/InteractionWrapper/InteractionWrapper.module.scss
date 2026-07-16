@@ -1,0 +1,21 @@
+.wrapper {
+	position: relative;
+	width: fit-content;
+	padding: 4px;
+	background: var(--color-interaction-wrapper-bg);
+	outline: 1px solid var(--color-interaction-wrapper-stroke);
+	border-radius: var(--radius-3xl);
+	backdrop-filter: blur(8px);
+	box-shadow: var(--shadow-controls);
+
+	.pill {
+		position: absolute;
+		width: 0;
+		height: 0;
+		opacity: 0;
+		pointer-events: none;
+		border-radius: var(--radius-3xl);
+		box-shadow: var(--shadow);
+		will-change: transform;
+	}
+}

@@ -15,12 +15,14 @@
 	transition: scale var(--duration-move) var(--easing-ui);
 	overflow: hidden;
 
-	&:hover {
-		background-color: var(--color-surface-bg-hover);
-		scale: 1.01;
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			background-color: var(--color-surface-bg-hover);
+			scale: 1.01;
 
-		[data-zoom-image] {
-			scale: 1.03;
+			[data-zoom-image] {
+				scale: 1.03;
+			}
 		}
 	}
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import CVSection from "./components/CVSection";
+import CVSection from "./components/CVSection/CVSection";
 import styles from "./page.module.scss";
 
-import Button from "./components/Button";
+import Button from "./components/Button/Button";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations('home');
@@ -18,21 +18,26 @@ export default async function Home() {
 
 	return (
 		<main className={styles.page} id="main-content">
-			<section className={styles.intro}>
-				<h1 className={styles.greeting}>
-					{t("greeting")}{" "}
-					<span role="img" aria-label={t("emoji_label")}>
-						✌🏻
-					</span>
-				</h1>
-				<p>{t("text1")}</p>
-				<p>{t("text2")}</p>
-				<p>{t("text3")}</p>
-				<div className={styles.workButtonWrapper}>
-					<p>{t.rich("text4")}</p>
-					<Button size="md" content="text" href="/work" underline>
-						<span>{t("work_button")}</span>
-					</Button>
+			<section className={styles.section}>
+				<div className={styles.sectionHeader}>
+					<h1 className={styles.heading}>
+						{t("greeting")}{" "}
+						<span role="img" aria-label={t("emoji_label")}>
+							✌🏻
+						</span>
+					</h1>
+				</div>
+
+				<div className={styles.intro}>
+					<p>{t("text1")}</p>
+					<p>{t("text2")}</p>
+					<p>{t("text3")}</p>
+					<div className={styles.workButtonWrapper}>
+						<p>{t.rich("text4")}</p>
+						<Button size="md" content="text" href="/work" underline>
+							<span>{t("work_button")}</span>
+						</Button>
+					</div>
 				</div>
 			</section>
 			<CVSection />

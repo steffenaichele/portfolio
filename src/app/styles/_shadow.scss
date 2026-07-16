@@ -1,19 +1,30 @@
 :root {
-	--shadow-ring: 0px 0px 0px 1px rgba(0, 0, 0, 0.05);
+	--shadow-ring: 0px 0px 0px 1px color-mix(in oklch, var(--color-black) 5%, transparent);
+
+	--shadow-controls:
+		0px 8px 40px 0px color-mix(in oklch, var(--color-black) 20%, transparent);
 
 	--shadow:
-		0px 0px 0px 1px rgba(0, 0, 0, 0.05),
-		0px 1px 1px 0px rgba(0, 0, 0, 0.05),
-		0px 2px 2px 0px rgba(0, 0, 0, 0.05),
-		0px 4px 4px 0px rgba(0, 0, 0, 0.05),
-		0px 8px 8px 0px rgba(0, 0, 0, 0.05),
-		0px 16px 16px 0px rgba(0, 0, 0, 0.05);
+		0px 0px 0px 1px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 1px 1px 0px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 2px 2px 0px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 4px 4px 0px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 8px 8px 0px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 16px 16px 0px color-mix(in oklch, var(--color-black) 5%, transparent);
 
 	--shadow-soft:
-		0px 0px 0px 1px rgba(0, 0, 0, 0.05),
-		0px 1px 1px -0.5px rgba(0, 0, 0, 0.05),
-		0px 3px 3px -1.5px rgba(0, 0, 0, 0.05),
-		0px 6px 6px -3px rgba(0, 0, 0, 0.05),
-		0px 12px 12px -6px rgba(0, 0, 0, 0.05),
-		0px 24px 24px -12px rgba(0, 0, 0, 0.05);
+		0px 0px 0px 1px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 1px 1px -0.5px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 3px 3px -1.5px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 6px 6px -3px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 12px 12px -6px color-mix(in oklch, var(--color-black) 5%, transparent),
+		0px 24px 24px -12px color-mix(in oklch, var(--color-black) 5%, transparent);
+
+	--shadow-soft-inset:
+		inset 0px 0px 0px 1px color-mix(in oklch, var(--color-black) 5%, transparent),
+		inset 0px 1px 1px -0.5px color-mix(in oklch, var(--color-black) 5%, transparent),
+		inset 0px 3px 3px -1.5px color-mix(in oklch, var(--color-black) 5%, transparent),
+		inset 0px 6px 6px -3px color-mix(in oklch, var(--color-black) 5%, transparent),
+		inset 0px 12px 12px -6px color-mix(in oklch, var(--color-black) 5%, transparent),
+		inset 0px 24px 24px -12px color-mix(in oklch, var(--color-black) 5%, transparent);
 }
