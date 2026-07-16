@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints" as bp;
+
 .item {
 	position: relative;
 	padding: 0 0 8px 0;
@@ -27,11 +29,42 @@
 		:first-child {
 			color: var(--color-text-tertiary);
 			font-weight: 400;
+			min-width: 0;
+			flex-shrink: 1;
 
-			strong {
+			.orgFull,
+			.orgShort {
 				color: var(--color-text-secondary);
-
+				flex-shrink: 0;
+				white-space: nowrap;
+				margin-right: 4px;
 			}
+
+			.orgShort {
+				display: none;
+			}
+
+			@media (max-width: bp.$breakpoint-sm) {
+				.orgFull {
+					display: none;
+				}
+
+				.orgShort {
+					display: inline;
+				}
+			}
+		}
+
+		.orgRow {
+			display: flex;
+			min-width: 0;
+		}
+
+		.location {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			min-width: 0;
 		}
 
 		.organization {
@@ -48,6 +81,8 @@
 			line-height: 100%;
 			font-variant-numeric: tabular-nums;
 			font-weight: 500;
+			white-space: nowrap;
+			flex-shrink: 0;
 		}
 	}
 
@@ -85,7 +120,7 @@
 					display: none;
 				}
 
-				@media (max-width: 419px) {
+				@media (max-width: bp.$breakpoint-xs) {
 					.yearFull {
 						display: none;
 					}
@@ -95,7 +130,6 @@
 					}
 				}
 			}
-
 		}
 	}
 }

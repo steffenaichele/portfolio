@@ -10,6 +10,7 @@ export type CVRole = {
 export type CVEntry = {
 	organization: string;
 	organizationShort: string;
+	organisationInitials?: string;
 	organizationLink?: string;
 	location: string;
 	roles: CVRole[];

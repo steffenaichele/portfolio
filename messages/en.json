@@ -314,6 +314,7 @@
 			{
 				"organization": "WBS Coding School",
 				"organizationShort": "WBS Coding School",
+				"organisationInitials": "WBS",
 				"location": "Berlin",
 				"organizationLink": "https://www.wbscodingschool.com/de/",
 				"roles": [
@@ -351,8 +352,9 @@
 				"totalEndYear": 2026
 			},
 			{
-				"organization": "Hochschule für Gestaltung",
+				"organization": "Hochschule für Gestaltung Schwäbisch Gmünd",
 				"organizationShort": "Hochschule für Gestaltung",
+				"organisationInitials": "HfG",
 				"location": "Schwäbisch Gmünd",
 				"organizationLink": "https://www.hfg-gmuend.de/",
 				"roles": [
@@ -389,6 +391,7 @@
 			{
 				"organization": "Johannes-Gutenberg-Schule",
 				"organizationShort": "Johannes-Gutenberg-Schule",
+				"organisationInitials": "JGS",
 				"location": "Stuttgart",
 				"organizationLink": "https://www.jgs-stuttgart.de/",
 				"roles": [
@@ -410,6 +413,7 @@
 			{
 				"organization": "Gewerbliche Schule Schwäbisch Gmünd",
 				"organizationShort": "Gewerbliche Schule",
+				"organisationInitials": "GSGD",
 				"location": "Schwäbisch Gmünd",
 				"organizationLink": "https://www.gs-gmuend.de/aktuelles.html",
 				"roles": [

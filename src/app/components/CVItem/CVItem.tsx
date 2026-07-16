@@ -8,13 +8,30 @@ interface CVItemProps {
 	entry: CVEntry;
 }
 
-// Unter 420px nur die letzten 2 Ziffern zeigen (siehe .yearFull/.yearShort
-// in CVItem.module.scss) — beide Varianten rendern, CSS blendet passend ein/aus.
+// Responsive Textkürzung (Breakpoints in styles/_breakpoints.scss): beide
+// Varianten rendern, CSS blendet passend ein/aus.
+// Unter $breakpoint-xs nur die letzten 2 Ziffern des Jahres zeigen.
 function Year({ year }: { year: number }) {
 	return (
 		<>
 			<span className={styles.yearFull}>{year}</span>
 			<span className={styles.yearShort}>{String(year).slice(-2)}</span>
+		</>
+	);
+}
+
+// Unter $breakpoint-sm organisationInitials statt organizationShort zeigen.
+function Organization({ entry }: { entry: CVEntry }) {
+	return (
+		<>
+			<span className={styles.orgFull}>
+				{entry.organizationShort}
+				{", "}
+			</span>
+			<span className={styles.orgShort}>
+				{entry.organisationInitials ?? entry.organizationShort}
+				{", "}
+			</span>
 		</>
 	);
 }
@@ -30,22 +47,16 @@ export function CVItem({ entry }: CVItemProps) {
 						underline
 						size="sm"
 						content="iconText">
-						<span>
-							<strong>
-								{entry.organizationShort}
-								{", "}
-							</strong>
-							{entry.location}
+						<span className={styles.orgRow}>
+							<Organization entry={entry} />
+							<span className={styles.location}>{entry.location}</span>
 						</span>
 						<Icon icon={RiArrowRightUpLine} />
 					</Button>
 				) : (
-					<p className={styles.organization}>
-						<strong>
-							{entry.organizationShort}
-							{", "}
-						</strong>
-						{entry.location}
+					<p className={`${styles.organization} ${styles.orgRow}`}>
+						<Organization entry={entry} />
+						<span className={styles.location}>{entry.location}</span>
 					</p>
 				)}
 				<p className={styles.timeWrapper}>{entry.totalDuration}</p>

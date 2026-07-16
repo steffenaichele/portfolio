@@ -30,8 +30,9 @@
 		"text1": "Ich bin Steffen, ein Digital Creative an der Schnittstelle von Design und Code.",
 		"text2": "Nach Jahren als reiner Designer bin ich meiner Faszination für Entwicklung gefolgt und habe das Programmieren gelernt.",
 		"text3": "Ich erkenne die kleinen Details, die ein Design ausmachen, und kann sie direkt umsetzen — so geht zwischen Figma und Produktion nichts verloren.",
+		"text4": "Wirf einen Blick auf ",
+		"work_button": "meine Arbeit",
 		"projects_button": "Projekte ansehen",
-		"cv_button": "CV ansehen",
 		"slideshow_alt_1": "Projekt 1 Vorschau",
 		"slideshow_alt_2": "Projekt 2 Vorschau",
 		"slideshow_alt_3": "Projekt 3 Vorschau"
@@ -77,7 +78,7 @@
 		"experience_heading": "Berufserfahrung",
 		"education_heading": "Ausbildung",
 		"skills_heading": "Skills",
-		"cv_button": "CV ansehen",
+		"cv_section_heading": "Wie kam es dazu?",
 		"experience_sr_label": "Berufserfahrung",
 		"education_sr_label": "Ausbildung",
 		"visit_organization_label": "{organization} besuchen",
@@ -313,6 +314,7 @@
 			{
 				"organization": "WBS Coding School",
 				"organizationShort": "WBS Coding School",
+				"organisationInitials": "WBS",
 				"location": "Berlin",
 				"organizationLink": "https://www.wbscodingschool.com/de/",
 				"roles": [
@@ -352,6 +354,7 @@
 			{
 				"organization": "Hochschule für Gestaltung",
 				"organizationShort": "Hochschule für Gestaltung",
+				"organisationInitials": "HfG",
 				"location": "Schwäbisch Gmünd",
 				"organizationLink": "https://www.hfg-gmuend.de/",
 				"roles": [
@@ -388,6 +391,7 @@
 			{
 				"organization": "Johannes-Gutenberg-Schule",
 				"organizationShort": "Johannes-Gutenberg-Schule",
+				"organisationInitials": "JGS",
 				"location": "Stuttgart",
 				"organizationLink": "https://www.jgs-stuttgart.de/",
 				"roles": [
@@ -409,6 +413,7 @@
 			{
 				"organization": "Gewerbliche Schule Schwäbisch Gmünd",
 				"organizationShort": "Gewerbliche Schule",
+				"organisationInitials": "GSGD",
 				"location": "Schwäbisch Gmünd",
 				"organizationLink": "https://www.gs-gmuend.de/aktuelles.html",
 				"roles": [

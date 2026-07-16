@@ -119,16 +119,18 @@ export default function CVSection() {
 				id={PANEL_ID}
 				role="tabpanel"
 				className={`${styles.panel} ${panelChanging ? styles.panelChanging : ""}`}>
-				{ORDER.map((category, i) => {
-					const isActive = active === category;
-					const side = i === 0 ? "left" : "right";
-					return cvList(
-						category === "experience" ? experience : education,
-						category,
-						isActive,
-						side,
-					);
-				})}
+				<div className={styles.categoryStack}>
+					{ORDER.map((category, i) => {
+						const isActive = active === category;
+						const side = i === 0 ? "left" : "right";
+						return cvList(
+							category === "experience" ? experience : education,
+							category,
+							isActive,
+							side,
+						);
+					})}
+				</div>
 				<InteractionWrapper role="tablist" className={styles.controls}>
 					{tab("experience", t("experience_heading"))}
 					{tab("education", t("education_heading"))}

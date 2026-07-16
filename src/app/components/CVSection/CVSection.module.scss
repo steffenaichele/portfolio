@@ -2,7 +2,7 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 4px;
 	padding-top: 48px;
 
 	&::before {
@@ -30,6 +30,7 @@
 			font-weight: 400;
 			color: var(--color-text-tertiary);
 			padding: 0 20px;
+			margin-bottom: 8px;
 		}
 	}
 
@@ -40,16 +41,28 @@
 
 		border-radius: var(--radius-4xl);
 		position: relative;
+		display: grid;
 		background-color: var(--color-cvsection-bg-default);
 		box-shadow: none;
 		background-color: var(--color-cvsection-bg-change);
 		box-shadow: var(--shadow-soft-inset);
-		overflow: hidden;
+
+		// categoryStack und controls teilen sich dieselbe Grid-Zelle:
+		// panel-Höhe richtet sich nach categoryStack, controls schwebt
+		// darüber statt eigene Höhe/Gap beizutragen.
+		.categoryStack {
+			grid-area: 1 / 1;
+			position: relative;
+			overflow: hidden;
+		}
 
 		.controls {
-			position: absolute;
-			top: 0;
-			left: 0;
+			grid-area: 1 / 1;
+			align-self: end;
+			justify-self: center;
+			position: sticky;
+			bottom: 24px;
+			margin-bottom: 24px;
 			display: flex;
 			flex-direction: row;
 			padding: 0 4px;
@@ -95,7 +108,7 @@
 			animation-duration: var(--duration-panel);
 			animation-timing-function: var(--easing-ui);
 			animation-fill-mode: forwards;
-			padding: 28px 20px;
+			padding: 24px 20px 80px 20px;
 
 			&.categoryActive {
 				position: relative;
