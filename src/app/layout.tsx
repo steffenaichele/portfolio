@@ -13,25 +13,20 @@ import Footer from "./components/Footer/Footer";
 import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
 
-const ppNeueMontreal = localFont({
+const ppMori = localFont({
 	src: [
 		{
-			path: "../fonts/PPNeueMontreal-Regular.woff",
+			path: "../fonts/PPMori-Regular.woff2",
 			weight: "400",
 			style: "regular",
 		},
 		{
-			path: "../fonts/PPNeueMontreal-Medium.woff",
-			weight: "500",
-			style: "medium",
-		},
-		{
-			path: "../fonts/PPNeueMontreal-Semibold.woff",
-			weight: "600",
-			style: "semibold",
+			path: "../fonts/PPMori-Extrabold.woff2",
+			weight: "800",
+			style: "extrabold",
 		},
 	],
-	variable: "--ppNeueMontreal",
+	variable: "--ppMori",
 	display: "swap",
 });
 
@@ -88,7 +83,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`${styles.html} ${ppNeueMontreal.variable} ${ppNeueMontrealMono.variable}`}>
+			className={`${styles.html} ${ppMori.variable} ${ppNeueMontrealMono.variable}`}>
 			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ToastProvider>

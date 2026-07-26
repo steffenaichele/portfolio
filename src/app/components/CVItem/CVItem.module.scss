@@ -38,7 +38,7 @@
 				color: var(--color-text-primary);
 				font-size: var(--font-size-md);
 				line-height: 100%;
-				font-weight: 500;
+				font-weight: 400;
 				min-width: 0;
 				flex-shrink: 0;
 				white-space: nowrap;
@@ -81,7 +81,7 @@
 			letter-spacing: -5%;
 			line-height: 100%;
 			font-variant-numeric: tabular-nums;
-			font-weight: 500;
+			font-weight: 400;
 			white-space: nowrap;
 			flex-shrink: 0;
 		}
@@ -123,7 +123,7 @@
 			.roleTitle {
 				font-size: var(--font-size-md);
 				line-height: var(--line-height-md);
-				font-weight: 500;
+				font-weight: 400;
 				color: var(--color-text-primary);
 				text-align: left;
 				text-wrap: balance;
