@@ -47,29 +47,7 @@
 		"zoom_label": "Zoom {label}",
 		"external_label": "Open {label} externally",
 		"modal_close": "Close modal",
-		"open_button": "Open",
-		"items": {
-			"1_1": {
-				"label": "Open Call",
-				"alt": "Open Call page on nextmuseum.io"
-			},
-			"2_1": {
-				"label": "Festival Onboarding",
-				"alt": "Dashboard"
-			}
-		}
-	},
-	"projects": {
-		"items": {
-			"1": {
-				"title": "Future Forms",
-				"timeframe": ""
-			},
-			"2": {
-				"title": "HfG Schwäbisch Gmünd",
-				"timeframe": ""
-			}
-		}
+		"open_button": "Open"
 	},
 	"cv": {
 		"meta_title": "CV – Steffen Aichele",
