@@ -61,11 +61,12 @@
 			align-self: end;
 			justify-self: center;
 			position: sticky;
-			bottom: 24px;
+			// Über der floating Nav (fixed bottom 1rem, 44px hoch) parken, sonst
+			// überlappen sich beide bottom-center-Elemente beim Scrollen.
+			bottom: 76px;
 			margin-bottom: 24px;
 			display: flex;
 			flex-direction: row;
-			padding: 0 4px;
 
 			@media (hover: hover) and (pointer: fine) {
 				&:hover {
@@ -99,7 +100,7 @@
 		.categoryPanel {
 			display: flex;
 			flex-direction: column;
-			gap: 40px;
+			gap: 80px;
 			background-color: var(--color-bg);
 			border-radius: var(--radius-4xl);
 			transition-property: opacity;

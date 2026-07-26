@@ -3,8 +3,7 @@
 import { useRef, useState } from "react";
 import { useTranslations, useMessages } from "next-intl";
 
-import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
-import Option from "../Option/Option";
+import SegmentedControl from "../SegmentedControl/SegmentedControl";
 import { CVItem } from "../CVItem/CVItem";
 import type { CVEntry } from "../../data/cv";
 import styles from "./CVSection.module.scss";
@@ -97,17 +96,18 @@ export default function CVSection() {
 		</ul>
 	);
 
-	// Tab = Ghost-Option; Hover/Active-Pille kommt vom InteractionWrapper im
-	// tablist-Wrapper. Active-State (ausgewählter Tab) allein über die Textfarbe.
+	// Tab = Segment im SegmentedControl: Auswahl-Pille ruht auf dem aktiven Tab
+	// und wandert nur bei Klick; Hover/Active trägt jedes Segment selbst.
 	const tab = (category: Category, label: string) => (
-		<Option
+		<SegmentedControl.Segment
 			role="tab"
+			active={active === category}
 			aria-selected={active === category}
 			aria-controls={PANEL_ID}
 			onClick={() => select(category)}
 			className={active === category ? styles.tabActive : styles.tabInactive}>
 			<span>{label}</span>
-		</Option>
+		</SegmentedControl.Segment>
 	);
 
 	return (
@@ -131,10 +131,13 @@ export default function CVSection() {
 						);
 					})}
 				</div>
-				<InteractionWrapper role="tablist" className={styles.controls}>
+				<SegmentedControl
+					role="tablist"
+					variant="primary"
+					className={styles.controls}>
 					{tab("experience", t("experience_heading"))}
 					{tab("education", t("education_heading"))}
-				</InteractionWrapper>
+				</SegmentedControl>
 			</div>
 		</section>
 	);

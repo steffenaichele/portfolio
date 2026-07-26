@@ -1,24 +1,26 @@
 "use client";
 
-import { ReactNode } from "react";
+import { AriaAttributes, ReactNode, Ref } from "react";
 import Link from "next/link";
 import { getExternalLinkProps, injectExternalSrOnly, Size, ContentType } from "../../lib/clickable";
 import styles from "./Button.module.scss";
 
 /**
- * Button — klickbares Element OHNE InteractionWrapper (reine Text-/Underline-Links,
- * z.B. Footer-Impressum-Link, Homepage-"Work"-Link). Trägt Underline selbst als
- * Hover-Feedback (crossfaded Linie), da hier keine Pille dafür da ist.
+ * Button — eigenständiges klickbares Element (ohne umgebende Gruppe).
+ *
+ * variant "plain" (default): reine Text-/Underline-Links, z.B. Footer-Impressum-
+ * Link, Homepage-"Work"-Link. Trägt Underline selbst als Hover-Feedback
+ * (crossfaded Linie).
+ * variant "filled": gefüllte Pille mit eigenem Hover/Active — für einzelne
+ * Action-Buttons (Modal-Close, externe Projekt-Links).
  *
  * Kinder: ausschließlich ein textrahmendes Element (z.B. <span>) und/oder <Icon>.
- * size + content bestimmen Höhe/Font-Größe/Gap; underline ist orthogonal dazu
- * und legt ein ::before/::after nur auf das Text-Element (nicht auf <Icon>).
- *
- * Für klickbare Elemente INNERHALB eines InteractionWrapper (Toggles, Tabs,
- * Nav, Icon-Buttons mit Pille) siehe Option.
+ * size + content bestimmen Höhe/Font-Größe/Gap/Padding; underline ist orthogonal
+ * (nur plain) und legt ein ::before/::after nur auf das Text-Element (nicht auf <Icon>).
  *
  * Props:
  *   children  (required)  — <span>Text</span> und/oder <Icon>
+ *   variant   (optional)  — "plain" | "filled" | "chopped", default "plain"
  *   size      (optional)  — "md" | "sm", default "md"
  *   content   (optional)  — "text" | "icon" | "iconText", default "text"
  *   underline (optional)  — dünne Underline auf dem Text-Kind (crossfaded bei Hover)
@@ -26,13 +28,15 @@ import styles from "./Button.module.scss";
  *   external  (optional)  — öffnet href in neuem Tab + rel + sr-only Hinweis
  *   disabled  (optional)  — disables the button, default false
  *   type      (optional)  — "button" | "submit" | "reset", default "button"
+ *   ref, role, aria-*     — durchgereicht an das gerenderte Element
  *
  * Examples:
  *   <Button underline href="/imprint"><span>Impressum</span></Button>
- *   <Button underline href="https://github.com/…" external><span>GitHub</span><Icon icon={ArrowUpRight} /></Button>
+ *   <Button variant="filled" size="sm" content="icon" aria-label="Schließen"><Icon icon={Close} /></Button>
  */
 
-interface ButtonProps {
+interface ButtonProps extends AriaAttributes {
+	variant?: "plain" | "filled" | "chopped";
 	size?: Size;
 	content?: ContentType;
 	underline?: boolean;
@@ -43,10 +47,12 @@ interface ButtonProps {
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 	className?: string;
-	"aria-label"?: string;
+	ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
+	role?: string;
 }
 
 const Button = ({
+	variant = "plain",
 	size = "md",
 	content = "text",
 	underline = false,
@@ -57,18 +63,22 @@ const Button = ({
 	className: classNameProp,
 	disabled,
 	type = "button",
-	"aria-label": ariaLabel,
+	ref,
+	role,
+	...ariaProps
 }: ButtonProps) => {
-	const className = `${styles.base} ${styles[size]} ${styles[content]} ${underline ? styles.underline : ""} ${classNameProp ?? ""}`;
+	const className = `${styles.base} ${variant === "plain" ? styles.plain : ""} ${variant === "filled" ? styles.filled : ""} ${variant === "chopped" ? styles.chopped : ""} ${styles[size]} ${styles[content]} ${underline ? styles.underline : ""} ${classNameProp ?? ""}`;
 
 	const body = external ? injectExternalSrOnly(children, styles.srOnly) : children;
 
 	if (href) {
 		return (
 			<Link
+				ref={ref as Ref<HTMLAnchorElement>}
 				href={href}
 				onClick={onClick}
-				aria-label={ariaLabel}
+				role={role}
+				{...ariaProps}
 				{...getExternalLinkProps(external)}
 				className={className}>
 				{body}
@@ -78,10 +88,12 @@ const Button = ({
 
 	return (
 		<button
+			ref={ref as Ref<HTMLButtonElement>}
 			type={type}
 			onClick={onClick}
 			disabled={disabled}
-			aria-label={ariaLabel}
+			role={role}
+			{...ariaProps}
 			className={className}>
 			{body}
 		</button>

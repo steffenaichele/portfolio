@@ -1,0 +1,91 @@
+.nav {
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: max(1rem, env(safe-area-inset-bottom));
+	z-index: 40;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px;
+	background: var(--color-control-bg);
+	outline: 1px solid var(--color-control-stroke);
+	border-radius: var(--radius-3xl);
+	backdrop-filter: blur(8px);
+	box-shadow: var(--shadow-controls);
+}
+
+// Item-Farben je Variante als lokale Custom Properties — .item liest generisch
+// --item-rest/-hover/-active statt pro Variante zu verzweigen. "rest" ist bei
+// Nav-Items die DAUERHAFTE Füllung (kein "selected"-Konzept wie bei
+// SegmentedControl — ghost bleibt daher bei rest: transparent).
+.primary {
+	--item-rest: var(--color-item-primary-rest);
+	--item-hover: var(--color-item-primary-hover);
+	--item-active: var(--color-item-primary-active);
+}
+
+.secondary {
+	--item-rest: var(--color-item-secondary-rest);
+	--item-hover: var(--color-item-secondary-hover);
+	--item-active: var(--color-item-secondary-active);
+}
+
+.ghost {
+	--item-rest: var(--color-item-ghost-rest);
+	--item-hover: var(--color-item-ghost-hover);
+	--item-active: var(--color-item-ghost-active);
+}
+
+.item {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 36px;
+	border-radius: var(--radius-3xl);
+	font-size: var(--font-size-md);
+	font-weight: 500;
+	line-height: 100%;
+	letter-spacing: var(--letter-spacing-md);
+	color: var(--color-text-primary);
+	background-color: var(--item-rest);
+	transition:
+		background-color var(--duration-state) var(--easing-ui),
+		transform var(--duration-state) var(--easing-ui);
+	cursor: pointer;
+	user-select: none;
+
+	svg {
+		color: var(--color-text-secondary);
+	}
+
+	&:focus-visible {
+		outline: 1px solid var(--color-orange-300);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			background-color: var(--item-hover);
+		}
+	}
+
+	&:active {
+		background-color: var(--item-active);
+		transform: scale(0.97);
+	}
+}
+
+.iconItem {
+	padding: 10px;
+}
+
+// Hervorgehobene Email-Copy-Option: dauerhaft gefüllte Pille (variant primary).
+.primary.item {
+	gap: 12px;
+	padding: 0 12px;
+	box-shadow: var(--shadow);
+}

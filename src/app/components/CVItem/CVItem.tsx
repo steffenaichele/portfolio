@@ -1,4 +1,4 @@
-import { RiArrowRightUpLine } from "@remixicon/react";
+import { RiExternalLinkLine } from "@remixicon/react";
 import Button from "../Button/Button";
 import Icon from "../Icon";
 import type { CVEntry } from "../../data/cv";
@@ -40,25 +40,27 @@ export function CVItem({ entry }: CVItemProps) {
 	return (
 		<li className={styles.item}>
 			<div className={styles.header}>
-				{entry.organizationLink ? (
-					<Button
-						href={entry.organizationLink}
-						external
-						underline
-						size="sm"
-						content="iconText">
-						<span className={styles.orgRow}>
-							<Organization entry={entry} />
-							<span className={styles.location}>{entry.location}</span>
-						</span>
-						<Icon icon={RiArrowRightUpLine} />
-					</Button>
-				) : (
-					<p className={`${styles.organization} ${styles.orgRow}`}>
+				<div className={styles.titleWrapper}>
+					<p className={`${styles.organization}`}>
 						<Organization entry={entry} />
-						<span className={styles.location}>{entry.location}</span>
+						<span className={styles.location}>
+							{entry.location}
+						</span>
 					</p>
-				)}
+					{entry.organizationLink ? (
+						<Button
+							href={entry.organizationLink}
+							external
+							underline
+							variant="plain"
+							size="sm"
+							content="icon">
+							<Icon icon={RiExternalLinkLine} />
+						</Button>
+					) : (
+						""
+					)}
+				</div>
 				<p className={styles.timeWrapper}>{entry.totalDuration}</p>
 			</div>
 			<div className={styles.rolesWrapper}>
@@ -66,11 +68,11 @@ export function CVItem({ entry }: CVItemProps) {
 					<div
 						key={`${role.title}-${role.startYear}-${role.startMonth}`}
 						className={styles.roleWrapper}>
-						<h2 className={styles.roleTitle}>{role.title}</h2>
 						<p className={styles.time}>
 							{role.startMonth} <Year year={role.startYear} /> –{" "}
 							{role.endMonth} <Year year={role.endYear} />
 						</p>
+						<h2 className={styles.roleTitle}>{role.title}</h2>
 					</div>
 				))}
 			</div>

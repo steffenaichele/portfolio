@@ -29,3 +29,15 @@ export const getExternalLinkProps = (external: boolean) => ({
 	target: external ? "_blank" : undefined,
 	rel: external ? "noopener noreferrer" : undefined,
 });
+
+// Text ins Clipboard kopieren; Rückgabe signalisiert Erfolg (Toast-Feedback
+// beim Aufrufer). Ohne Clipboard-API (unsichere Kontexte) → false.
+export const copyTextToClipboard = async (text: string): Promise<boolean> => {
+	if (!navigator.clipboard) return false;
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch {
+		return false;
+	}
+};

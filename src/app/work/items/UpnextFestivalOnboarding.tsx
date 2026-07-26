@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import ImpressionCard from "../../components/ImpressionCard/ImpressionCard";
-import InteractionWrapper from "../../components/InteractionWrapper/InteractionWrapper";
-import Option from "../../components/Option/Option";
+import Button from "../../components/Button/Button";
 import Icon from "../../components/Icon";
 import { RiArrowRightLine } from "@remixicon/react";
 import { useProject } from "../../hooks/useProject";
@@ -31,16 +30,15 @@ const UpnextFestivalOnboarding = () => {
 					{timeframe && <p className={styles.context}>{`· ${timeframe}`}</p>}
 				</div>
 				{link && (
-					<InteractionWrapper variant="primary">
-						<Option
-							href={link}
-							size="sm"
-							content="icon"
-							data-pill-rest
-							aria-label={t("open_label", { label })}>
-							<Icon icon={RiArrowRightLine} />
-						</Option>
-					</InteractionWrapper>
+					<Button
+						variant="filled"
+						size="sm"
+						content="icon"
+						href={link}
+						external
+						aria-label={t("open_label", { label })}>
+						<Icon icon={RiArrowRightLine} />
+					</Button>
 				)}
 			</ImpressionCard.Header>
 
@@ -73,17 +71,16 @@ const UpnextFestivalOnboarding = () => {
 						</p>
 					</div>
 					{link && (
-						<InteractionWrapper variant="primary">
-							<Option
-								href={link}
-								size="sm"
-								content="iconText"
-								data-pill-rest
-								aria-label={t("external_label", { label })}>
-								<span>{t("open_button")}</span>
-								<Icon icon={RiArrowRightLine} />
-							</Option>
-						</InteractionWrapper>
+						<Button
+							variant="filled"
+							size="sm"
+							content="iconText"
+							href={link}
+							external
+							aria-label={t("external_label", { label })}>
+							<span>{t("open_button")}</span>
+							<Icon icon={RiArrowRightLine} />
+						</Button>
 					)}
 				</div>
 			</ImpressionCard.Zoom>

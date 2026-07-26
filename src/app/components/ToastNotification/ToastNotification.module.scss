@@ -5,7 +5,9 @@
 .viewport {
 	position: fixed;
 	inset-inline: 0;
-	bottom: 1.5rem;
+	// Über der floating Nav (fixed bottom 1rem, 44px hoch): Toasts erscheinen
+	// darüber statt dahinter.
+	bottom: 5.5rem;
 	z-index: 60;
 	display: flex;
 	flex-direction: column;
