@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useTranslations, useMessages } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import SegmentedControl from "../SegmentedControl/SegmentedControl";
 import { CVItem } from "../CVItem/CVItem";
-import type { CVEntry } from "../../data/cv";
+import { education, experience, type CVEntry } from "../../data/cv";
 import styles from "./CVSection.module.scss";
 
 type Category = "experience" | "education";
@@ -26,10 +26,6 @@ const panelSwapMs = () =>
 
 export default function CVSection() {
 	const t = useTranslations("cv");
-	const messages = useMessages() as {
-		cv: { experience: CVEntry[]; education: CVEntry[] };
-	};
-	const { experience, education } = messages.cv;
 	const [active, setActive] = useState<Category>("experience");
 	// Erst ab dem ersten Wechsel Enter/Exit-Animation anhängen, sonst würde
 	// das initial aktive Panel beim Mount unnötig reinanimieren.
