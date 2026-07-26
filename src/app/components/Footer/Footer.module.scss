@@ -23,5 +23,11 @@
 			line-height: var(--line-height-xs);
 			letter-spacing: var(--letter-spacing-xs);
 		}
+
+		.actions {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
 	}
 }

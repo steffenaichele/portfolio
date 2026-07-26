@@ -1,0 +1,85 @@
+.wrapper {
+	position: relative;
+	width: fit-content;
+	padding: 4px;
+	background: var(--color-control-bg);
+	outline: 1px solid var(--color-control-stroke);
+	border-radius: var(--radius-3xl);
+	backdrop-filter: blur(8px);
+	box-shadow: var(--shadow-controls);
+}
+
+// Item-Farben je Variante als lokale Custom Properties — .pill und .segment
+// lesen generisch --item-rest/-hover/-active statt pro Variante zu verzweigen.
+.primary {
+	--item-rest: var(--color-item-primary-rest);
+	--item-hover: var(--color-item-primary-hover);
+	--item-active: var(--color-item-primary-active);
+}
+
+.secondary {
+	--item-rest: var(--color-item-secondary-rest);
+	--item-hover: var(--color-item-secondary-hover);
+	--item-active: var(--color-item-secondary-active);
+}
+
+.ghost {
+	--item-rest: var(--color-item-ghost-rest);
+	--item-hover: var(--color-item-ghost-hover);
+	--item-active: var(--color-item-ghost-active);
+}
+
+.pill {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0;
+	height: 0;
+	opacity: 0;
+	pointer-events: none;
+	background: var(--item-rest);
+	border-radius: var(--radius-3xl);
+	box-shadow: var(--shadow);
+	will-change: transform;
+}
+
+// position: relative hebt die Segmente in die Paint-Reihenfolge der
+// positionierten Elemente — in DOM-Reihenfolge NACH der Pille, also darüber.
+// Einziges Format: XS-Textsegment.
+.segment {
+	position: relative;
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 24px;
+	padding: 0 8px;
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 1%;
+	border-radius: var(--radius-3xl);
+	transition:
+		color var(--duration-state) var(--easing-ui),
+		background-color var(--duration-state) var(--easing-ui),
+		transform var(--duration-state) var(--easing-ui);
+	cursor: pointer;
+	user-select: none;
+
+	&:focus-visible {
+		outline: 1px solid var(--color-orange-300);
+	}
+
+	// default: transparent. hover nur auf inaktiven Segmenten (das ausgewählte
+	// trägt bereits die Pille als "selected"-Füllung). active/Press auf allen.
+	@media (hover: hover) and (pointer: fine) {
+		&:hover:not([data-segment-active="true"]) {
+			background-color: var(--item-hover);
+		}
+	}
+
+	&:active {
+		background-color: var(--item-active);
+		transform: scale(0.97);
+	}
+}

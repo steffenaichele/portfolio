@@ -3,8 +3,7 @@
 import { RiCloseLine } from "@remixicon/react";
 import { useTranslations } from "next-intl";
 
-import Option from "../Option/Option";
-import InteractionWrapper from "../InteractionWrapper/InteractionWrapper";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import { useZoomModal } from "../../hooks/useZoomModal";
 import styles from "./ImprintModal.module.scss";
@@ -19,14 +18,15 @@ const ImprintModal = () => {
 
 	return (
 		<>
-			<Option
-				ref={triggerRef}
+			<Button
+				underline
 				size="sm"
+				ref={triggerRef}
 				onClick={open}
 				aria-haspopup="dialog"
 				aria-expanded={mounted}>
 				<span>{t("page_title")}</span>
-			</Option>
+			</Button>
 
 			{mounted && (
 				<>
@@ -49,16 +49,14 @@ const ImprintModal = () => {
 						className={`t-modal ${styles.panel}`}>
 						{/* Close button */}
 						<div className={styles.closeRow}>
-							<InteractionWrapper variant="primary">
-								<Option
-									size="sm"
-									content="icon"
-									data-pill-rest
-									aria-label={t("close")}
-									onClick={close}>
-									<Icon icon={RiCloseLine} />
-								</Option>
-							</InteractionWrapper>
+							<Button
+								variant="filled"
+								size="sm"
+								content="icon"
+								aria-label={t("close")}
+								onClick={close}>
+								<Icon icon={RiCloseLine} />
+							</Button>
 						</div>
 
 						{/* Imprint content */}

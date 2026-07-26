@@ -34,7 +34,7 @@ export default async function Home() {
 					<p>{t("text3")}</p>
 					<div className={styles.workButtonWrapper}>
 						<p>{t.rich("text4")}</p>
-						<Button size="md" content="text" href="/work" underline>
+						<Button size="md" variant="chopped" content="text" href="/work" underline>
 							<span>{t("work_button")}</span>
 						</Button>
 					</div>

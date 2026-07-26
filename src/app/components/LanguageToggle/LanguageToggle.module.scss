@@ -1,14 +1,7 @@
-// Sprachumschalter als InteractionWrapper (variant secondary): nackte sm-Buttons, die
-// Auswahl-Pille (wenig Kontrast) ruht auf der aktiven Locale (data-pill-rest).
+// Sprachumschalter als SegmentedControl (variant subtle): die Auswahl-Pille
+// (wenig Kontrast) ruht auf der aktiven Locale und wandert nur bei Klick.
 .toggle {
 	display: inline-flex;
-}
-
-// Segment-Höhe auf die frühere Toggle-sm-Größe (1.75rem statt Button-sm 1.5rem).
-.item {
-	height: 1.75rem;
-	padding: 0 0.625rem;
-	font-size: 0.875rem;
 }
 
 .active {

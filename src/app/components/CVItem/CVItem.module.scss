@@ -2,7 +2,9 @@
 
 .item {
 	position: relative;
-	padding: 0 0 8px 0;
+	// padding: 24px;
+	// border-radius: var(--radius-2xl);
+	// background-color: var(--color-cvitem-bg);
 
 	[data-variant="experience"] & {
 		.timeWrapper {
@@ -24,52 +26,51 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 8px;
-		margin-bottom: 16px;
+		margin-bottom: 24px;
 
-		:first-child {
-			color: var(--color-text-tertiary);
-			font-weight: 400;
-			min-width: 0;
-			flex-shrink: 1;
+		.titleWrapper {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 8px;
 
-			.orgFull,
-			.orgShort {
-				color: var(--color-text-secondary);
+			.organization {
+				color: var(--color-text-primary);
+				font-size: var(--font-size-md);
+				line-height: 100%;
+				font-weight: 500;
+				min-width: 0;
 				flex-shrink: 0;
 				white-space: nowrap;
-				margin-right: 4px;
-			}
 
-			.orgShort {
-				display: none;
-			}
-
-			@media (max-width: bp.$breakpoint-sm) {
-				.orgFull {
-					display: none;
+				.orgFull,
+				.orgShort {
+					flex-shrink: 0;
+					white-space: nowrap;
 				}
 
 				.orgShort {
-					display: inline;
+					display: none;
+				}
+
+				@media (max-width: bp.$breakpoint-sm) {
+					.orgFull {
+						display: none;
+					}
+
+					.orgShort {
+						display: inline;
+					}
 				}
 			}
-		}
 
-		.orgRow {
-			display: flex;
-			min-width: 0;
-		}
-
-		.location {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			min-width: 0;
-		}
-
-		.organization {
-			font-size: var(--font-size-sm);
-			font-weight: 400;
+			.location {
+				color: var(--color-text-secondary);
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				min-width: 0;
+			}
 		}
 
 		.timeWrapper {
@@ -89,32 +90,20 @@
 	.rolesWrapper {
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 16px;
 
 		.roleWrapper {
 			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-			gap: 16px;
-
-			.roleTitle {
-				font-size: var(--font-size-md);
-				line-height: var(--line-height-md);
-				font-weight: 500;
-				color: var(--color-text-primary);
-				text-align: left;
-				text-wrap: balance;
-			}
+			flex-direction: column;
+			gap: 4px;
 
 			.time {
-				font-family: var(--font-mono);
-				text-align: right;
 				white-space: nowrap;
-				font-size: var(--font-size-xs);
-				line-height: var(--line-height-xs);
-				letter-spacing: -5%;
+				font-size: var(--font-size-sm);
+				line-height: 100%;
+				letter-spacing: 1%;
 				font-weight: 400;
-				color: var(--color-text-secondary);
+				color: var(--color-text-tertiary);
 
 				.yearShort {
 					display: none;
@@ -130,6 +119,17 @@
 					}
 				}
 			}
+
+			.roleTitle {
+				font-size: var(--font-size-md);
+				line-height: var(--line-height-md);
+				font-weight: 500;
+				color: var(--color-text-primary);
+				text-align: left;
+				text-wrap: balance;
+			}
+
+			
 		}
 	}
 }

@@ -4,9 +4,13 @@
 			"logo_label": "Steffen Aichele – Home"
 		},
 		"nav": {
-			"home": "Home",
-			"work": "Work",
 			"nav_label": "Navigation",
+			"back_to_home": "Back to home",
+			"github_label": "GitHub (opens in new window)",
+			"linkedin_label": "LinkedIn (opens in new window)",
+			"email": "Contact",
+			"email_copied": "Email address copied to clipboard",
+			"email_copy_failed": "Copy failed",
 			"switch_to_en": "Switch to English",
 			"switch_to_de": "Switch to German",
 			"language_label": "Select language"
@@ -14,10 +18,7 @@
 		"footer": {
 			"subtitle": "UX/UI Designer & Web Developer",
 			"copyright": "© 2026 Steffen Aichele – All rights reserved.",
-			"built_with": "Built with Next.js & SCSS",
-			"email": "Contact",
-			"email_copied": "Email address copied to clipbaord",
-			"email_copy_failed": "Copy failed"
+			"built_with": "Built with Next.js & SCSS"
 		},
 		"contact_button": "Contact",
 		"skip_to_main": "Skip to main content"
