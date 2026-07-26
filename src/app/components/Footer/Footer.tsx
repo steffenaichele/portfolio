@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import LanguageToggle from "../LanguageToggle/LanguageToggle";
 import ImprintModal from "../ImprintModal/ImprintModal";
 import styles from "./Footer.module.scss";
 
-// Footer: Meta + Impressum + Sprachumschalter. Die Kontakt-Gruppe
-// (Email/LinkedIn/GitHub) lebt jetzt in der floating Nav (components/Nav).
+// Footer: Meta + Impressum. Die Kontakt-Gruppe (Email/LinkedIn/GitHub) lebt
+// jetzt in der floating Nav (components/Nav). Der Sprachumschalter
+// (components/LanguageToggle) kommt post-launch mit DE zurück.
 const Footer = () => {
 	const t = useTranslations("layout.footer");
 
@@ -21,7 +21,6 @@ const Footer = () => {
 				</div>
 				<div className={styles.actions}>
 					<ImprintModal />
-					<LanguageToggle />
 				</div>
 			</div>
 		</footer>

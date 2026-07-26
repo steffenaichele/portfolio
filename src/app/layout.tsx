@@ -53,16 +53,15 @@ export const metadata: Metadata = {
 		template: "%s · Steffen Aichele",
 	},
 	description:
-		"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+		"Portfolio of Steffen Aichele – UX/UI Designer and Web Developer from Schwäbisch Gmünd.",
 	openGraph: {
 		type: "website",
-		locale: "de_DE",
-		alternateLocale: "en_US",
+		locale: "en_US",
 		url: "https://steffenaichele.xyz",
 		siteName: "Steffen Aichele",
 		title: "Steffen Aichele",
 		description:
-			"Portfolio von Steffen Aichele – UX/UI Designer und Full Stack Developer aus Schwäbisch Gmünd.",
+			"Portfolio of Steffen Aichele – UX/UI Designer and Web Developer from Schwäbisch Gmünd.",
 	},
 	twitter: {
 		card: "summary_large_image",

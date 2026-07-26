@@ -6,9 +6,10 @@ import type { Locale } from "@/i18n/config";
 import SegmentedControl from "../SegmentedControl/SegmentedControl";
 import styles from "./LanguageToggle.module.scss";
 
+// EN-only bis DE post-launch zurückkommt: die Sprachen folgen den locales in
+// i18n/config.ts. Die Komponente selbst bleibt bestehen, ist aber nicht gemountet.
 const languages: { key: Locale; label: string }[] = [
 	{ key: "en", label: "EN" },
-	{ key: "de", label: "DE" },
 ];
 
 export default function LanguageToggle() {
