@@ -1,26 +1,21 @@
+@use "../../styles/breakpoints" as bp;
+
 .header {
 	width: 100%;
-	max-width: var(--max-width);
-	margin-inline: auto;
+	position: fixed;
 	top: 0;
-	padding-inline: 1.75rem;
-	padding-top: max(8rem, env(safe-area-inset-top));
-	padding-bottom: 3.5rem;
+	padding-top: 60px;
 	z-index: 50;
-	border-radius: var(--radius-lg);
 
+	@media (width <= bp.$breakpoint-sm) {
+		padding-top: max(8rem, env(safe-area-inset-top));
+	}
 
-	.inner {
-		position: relative;
-		max-width: 32rem;
+	.wrapper {
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
 		align-items: center;
-		min-height: 2.75rem;
-		z-index: 10;
-
-		
+		justify-content: space-between;
+		gap: 16px;
 	}
 }
 

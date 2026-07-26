@@ -5,10 +5,9 @@
 @use "shadow";
 @use "tokens";
 @use "modal";
+@use "content-grid";
 
 :root {
-	--max-width: 560px;
-
 	color-scheme: light;
 
 	body {

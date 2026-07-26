@@ -17,7 +17,7 @@ export default async function Home() {
 	const t = await getTranslations('home');
 
 	return (
-		<main className={styles.page} id="main-content">
+		<main className={`${styles.page} content-grid`} id="main-content">
 			<section className={styles.section}>
 				<div className={styles.sectionHeader}>
 					<h1 className={styles.heading}>

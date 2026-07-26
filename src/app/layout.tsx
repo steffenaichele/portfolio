@@ -8,7 +8,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header/Header";
-import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
 import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
@@ -92,7 +91,7 @@ export default async function RootLayout({
 						</a>
 						<Header />
 						{children}
-						<Nav />
+						
 						<Footer />
 					</ToastProvider>
 				</NextIntlClientProvider>

@@ -1,9 +1,5 @@
 .page {
-	width: 100%;
-	max-width: var(--max-width);
-	display: flex;
-	flex-direction: column;
-	gap: 80px;
+	margin-top: 240px;
 
 	.section {
 		position: relative;
@@ -19,13 +15,10 @@
 			gap: 16px;
 
 			.heading {
-				font-family: var(--font-mono);
 				font-size: var(--font-size-sm);
 				line-height: 100%;
-				letter-spacing: -3%;
 				font-weight: 400;
 				color: var(--color-text-tertiary);
-				padding: 0 20px;
 				margin-bottom: 8px;
 			}
 		}
@@ -39,7 +32,6 @@
 			display: flex;
 			flex-direction: column;
 			gap: 24px;
-			padding: 0 20px;
 
 			.workButtonWrapper {
 				display: flex;
