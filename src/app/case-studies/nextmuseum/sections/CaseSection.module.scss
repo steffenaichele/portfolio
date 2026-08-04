@@ -2,12 +2,11 @@
 // braucht, steht in dessen eigenem Modul.
 
 .section {
-	// Über die volle Breite von <main> (8 Spuren) …
-	grid-column: 1 / -1;
+	// Eigenes 8-Spur-Raster (vormals von der case-grid geerbt). Kinder
+	// referenzieren weiterhin dieselben Linien 1–8 über subgrid.
 	display: grid;
-	// … und die Spuren werden geerbt, nicht neu erfunden: Kinder liegen damit
-	// exakt auf denselben Spalten wie die Seite.
-	grid-template-columns: subgrid;
+	grid-template-columns: repeat(8, 1fr);
+	column-gap: 24px;
 	row-gap: 40px;
 	padding-block: 96px;
 	// Freiraum für den fixierten Header beim Sprung über die Ankerlinks.

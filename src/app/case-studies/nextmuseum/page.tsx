@@ -27,21 +27,20 @@ export default async function NextmuseumCaseStudy() {
 	const t = await getTranslations("case_study");
 
 	return (
-		// id="case-study" ist der Anker für das seiten-spezifische
-		// scroll-behavior in page.module.scss.
-		<div id="case-study" className="case-grid">
+		<>
 			<CaseNav
 				sections={sections}
 				navLabel={t("nav_label")}
 				homeLabel={t("nav_home")}
 			/>
-			{/* id="main-content" bedient den Skip-Link aus dem Root-Layout. */}
-			<main id="main-content" className={styles.main}>
+			{/* id="case-study" ist der Anker für das seiten-spezifische
+			    scroll-behavior in page.module.scss. */}
+			<div id="case-study" className={styles.main}>
 				<IntroSection />
 				<ProjectSection />
 				<DecisionsSection />
 				<OutcomeSection />
-			</main>
-		</div>
+			</div>
+		</>
 	);
 }
