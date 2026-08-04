@@ -1,0 +1,360 @@
+@use "../../styles/breakpoints" as bp;
+
+.section {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding-top: 48px;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 20px;
+		right: 20px;
+		height: 1px;
+		background-color: var(--color-section-devider);
+	}
+}
+
+.heading {
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: 100%;
+	letter-spacing: -3%;
+	font-weight: 400;
+	color: var(--color-text-tertiary);
+	padding: 0 42px;
+	margin-bottom: 16px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+// Die Karte schneidet ab (overflow: hidden), damit die Produktshots außerhalb
+// stehen können und erst bei Hover/Fokus bzw. im offenen Zustand hereinfahren.
+// --shot-y ist die einzige Stellschraube dafür; jeder Zustand setzt sie neu.
+.card {
+	--shot-y: 104%;
+
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 40px 42px 34px;
+	border-radius: var(--radius-4xl);
+	background-color: var(--color-surface-bg);
+	box-shadow: var(--shadow-soft);
+	// Nur Compositor-Properties plus padding-bottom: die Höhe wächst bewusst,
+	// damit die Shots Platz bekommen, ohne den Text zu verschieben.
+	transition:
+		transform var(--duration-move) var(--easing-ui),
+		box-shadow var(--duration-move) var(--easing-ui),
+		padding-bottom var(--duration-reveal) var(--easing-ui);
+}
+
+.summary {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	cursor: pointer;
+	outline: none;
+
+	// Standard-Dreieck entfernen (Safari braucht zusätzlich das Pseudo-Element).
+	list-style: none;
+
+	&::-webkit-details-marker {
+		display: none;
+	}
+}
+
+// Fokusring um die ganze Karte statt um den Textblock — die Karte ist die
+// Trefferfläche.
+details.card:has(> .summary:focus-visible) {
+	outline: 2px solid var(--color-text-primary);
+	outline-offset: 2px;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+// Tags sind die Eyebrow des offenen Zustands: zugeklappt tragen Headline und
+// Subline allein.
+details.card:not([open]) .tags {
+	display: none;
+}
+
+.tag {
+	background-color: var(--color-case-tag-bg);
+	border-radius: var(--radius-full);
+	padding: 8px 15px;
+	font-size: var(--font-size-sm);
+	line-height: 100%;
+	letter-spacing: var(--letter-spacing-sm);
+	color: var(--color-text-primary);
+}
+
+.headline {
+	margin: 0;
+	max-width: 19ch;
+	font-size: var(--font-size-4xl);
+	line-height: var(--line-height-4xl);
+	// Redaktionelle Größe: dieselbe enge Laufweite wie die Hero-Headline.
+	letter-spacing: var(--letter-spacing-5xl);
+	font-weight: 600;
+	color: var(--color-text-primary);
+	text-wrap: pretty;
+}
+
+.subline {
+	margin: 0;
+	max-width: 46ch;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+	color: var(--color-text-secondary);
+	text-wrap: pretty;
+}
+
+.body {
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+	margin-top: 8px;
+	padding-top: 24px;
+	border-top: 1px solid var(--color-section-devider);
+}
+
+.duration {
+	flex: 0 0 188px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: var(--font-size-xs);
+	line-height: 100%;
+	letter-spacing: var(--letter-spacing-xs);
+	text-transform: uppercase;
+	color: var(--color-text-tertiary);
+}
+
+.durationValue {
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+	color: var(--color-text-primary);
+}
+
+.detail {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+.context {
+	margin: 0;
+	max-width: 42ch;
+	font-size: var(--font-size-lg);
+	line-height: var(--line-height-lg);
+	letter-spacing: var(--letter-spacing-lg);
+	color: var(--color-text-primary);
+	text-wrap: pretty;
+}
+
+.shots {
+	position: absolute;
+	right: 30px;
+	bottom: 0;
+	display: flex;
+	align-items: flex-end;
+	gap: 14px;
+	pointer-events: none;
+	transform: translateY(var(--shot-y));
+	transition: transform var(--duration-reveal) var(--easing-ui);
+}
+
+// Noch keine Assets: schraffierte Platzhalter im Format der späteren Shots.
+.shot {
+	flex: 0 0 auto;
+	display: grid;
+	place-items: center;
+	padding: 0 8px;
+	text-align: center;
+	border: 1px solid var(--color-case-shot-stroke);
+	border-radius: var(--radius-3xl);
+	background-image: repeating-linear-gradient(
+		135deg,
+		var(--color-case-shot-stroke) 0 9px,
+		var(--color-case-shot-bg) 9px 18px
+	);
+	box-shadow: var(--shadow-soft);
+	font-family: var(--font-mono);
+	font-size: var(--font-size-xs);
+	line-height: var(--line-height-xs);
+	letter-spacing: var(--letter-spacing-xs);
+	text-transform: uppercase;
+	color: var(--color-text-secondary);
+
+	&:nth-child(1) {
+		width: 148px;
+		height: 104px;
+		transform: rotate(-3deg);
+	}
+
+	&:nth-child(2) {
+		width: 214px;
+		height: 146px;
+		transform: translateY(-16px);
+	}
+
+	&:nth-child(3) {
+		width: 136px;
+		height: 96px;
+		transform: rotate(3deg);
+	}
+}
+
+// Zustände. Alle Nicht-Offen-Regeln tragen :not([open]), damit sich offene und
+// geschlossene Karte nie über Spezifität streiten.
+details.card[open] {
+	--shot-y: 28%;
+
+	padding-bottom: 168px;
+	box-shadow: var(--shadow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+	details.card:hover:not([open]),
+	details.card:has(> .summary:focus-visible):not([open]) {
+		--shot-y: 36%;
+
+		padding-bottom: 74px;
+		box-shadow: var(--shadow);
+	}
+
+	details.card:hover:not([open]) {
+		transform: translateY(-3px);
+	}
+}
+
+// Touch: kein Hover, also entscheidet die Scrollposition. Ohne JS (kein
+// [data-enhanced]) stehen die Shots dauerhaft angedockt — sichtbar schlägt
+// unsichtbar.
+@media (hover: none) {
+	.card:not([open]) {
+		--shot-y: 40%;
+	}
+
+	.list[data-enhanced] .card:not([open]) {
+		--shot-y: 104%;
+	}
+
+	.list[data-enhanced] .card[data-revealed]:not([open]) {
+		--shot-y: 40%;
+	}
+}
+
+@media (width <= bp.$breakpoint-sm) {
+	.heading {
+		padding: 0 24px;
+	}
+
+	.list {
+		gap: 12px;
+	}
+
+	.card {
+		gap: 12px;
+		padding: 26px 24px;
+	}
+
+	// Platz für die Shots ist auf Touch dauerhaft reserviert: der Scroll-Reveal
+	// soll nichts verschieben. Karten ohne Shots brauchen ihn nicht.
+	.card:has(.shots) {
+		padding-bottom: 96px;
+	}
+
+	.summary {
+		gap: 12px;
+	}
+
+	.headline {
+		max-width: none;
+		font-size: var(--font-size-3xl);
+		line-height: var(--line-height-3xl);
+	}
+
+	.subline {
+		max-width: none;
+	}
+
+	.body {
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.duration {
+		flex: 0 0 auto;
+	}
+
+	.context {
+		max-width: none;
+		font-size: var(--font-size-md);
+		line-height: var(--line-height-md);
+		letter-spacing: var(--letter-spacing-md);
+	}
+
+	details.card[open] {
+		padding-bottom: 112px;
+	}
+
+	.shots {
+		right: 14px;
+		gap: 10px;
+	}
+
+	.shot {
+		&:nth-child(1) {
+			width: 112px;
+			height: 82px;
+		}
+
+		&:nth-child(2) {
+			width: 162px;
+			height: 112px;
+			transform: translateY(-12px);
+		}
+
+		// Drittes Bild passt bei dieser Breite nicht mehr neben die anderen.
+		&:nth-child(3) {
+			display: none;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.card,
+	.shots {
+		transition: none;
+	}
+
+	details.card:hover:not([open]) {
+		transform: none;
+	}
+}
