@@ -1,0 +1,50 @@
+// Vier Ziele auf acht Spuren: je vier Spuren = zwei Karten pro Zeile.
+.goals {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: subgrid;
+	row-gap: 24px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	counter-reset: goal;
+}
+
+.goal {
+	grid-column: span 4;
+	counter-increment: goal;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 24px;
+	border-radius: var(--radius-xl);
+	background-color: var(--color-surface-bg);
+	box-shadow: var(--shadow-ring);
+}
+
+.goalLabel {
+	display: flex;
+	gap: 8px;
+	font-size: var(--font-size-lg);
+	line-height: var(--line-height-lg);
+	letter-spacing: var(--letter-spacing-lg);
+	font-weight: 600;
+	color: var(--color-text-primary);
+
+	// Nummerierung sichtbar halten, obwohl die Liste keinen Marker rendert.
+	&::before {
+		content: counter(goal);
+		font-family: var(--font-mono);
+		font-size: var(--font-size-sm);
+		font-weight: 500;
+		color: var(--color-text-tertiary);
+	}
+}
+
+.goalText {
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+	color: var(--color-text-secondary);
+	text-wrap: pretty;
+}

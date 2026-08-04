@@ -1,0 +1,48 @@
+.decision {
+	grid-column: 1 / -1;
+	display: grid;
+	// Auch hier: Spuren erben, nicht neu definieren.
+	grid-template-columns: subgrid;
+	row-gap: 24px;
+	padding-block-start: 56px;
+}
+
+.eyebrow {
+	grid-column: 1 / -1;
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: var(--line-height-sm);
+	letter-spacing: var(--letter-spacing-sm);
+	font-weight: 500;
+	color: var(--color-text-tertiary);
+}
+
+.title {
+	grid-column: 1 / 7;
+	max-width: 70ch;
+	font-size: var(--font-size-xl);
+	line-height: var(--line-height-xl);
+	letter-spacing: var(--letter-spacing-xl);
+	font-weight: 600;
+	color: var(--color-text-primary);
+}
+
+// Größer als die Überschrift, aber leichter: die Überschrift benennt, die These
+// argumentiert. Wer nur die vier Thesen liest, hat das Argument der Case Study.
+// Keine Anführungszeichen, kein linker Balken, keine Kursive — es ist kein Zitat.
+.thesis {
+	grid-column: 1 / 8;
+	max-width: 60ch;
+	padding-block-start: 20px;
+	border-top: 1px solid var(--color-section-devider);
+	font-size: var(--font-size-2xl);
+	line-height: var(--line-height-2xl);
+	letter-spacing: var(--letter-spacing-2xl);
+	font-weight: 400;
+	color: var(--color-text-primary);
+	text-wrap: pretty;
+}
+
+.disclosureSlot {
+	grid-column: 1 / 7;
+}

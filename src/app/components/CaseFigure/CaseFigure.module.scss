@@ -1,0 +1,48 @@
+.figure {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin: 0;
+}
+
+.frame {
+	position: relative;
+	aspect-ratio: var(--case-figure-ratio, 16 / 9);
+	overflow: hidden;
+	border-radius: var(--radius-lg);
+	background-color: var(--color-neutral-100);
+	box-shadow: var(--shadow-ring);
+
+	// Platzhalter-Zustand: solange kein Asset gesetzt ist, macht der gestrichelte
+	// Rahmen sichtbar, dass hier noch etwas fehlt.
+	&:has(.pending) {
+		display: grid;
+		place-items: center;
+		box-shadow: none;
+		outline: 1px dashed var(--color-neutral-300);
+		outline-offset: -1px;
+	}
+}
+
+.image {
+	object-fit: cover;
+}
+
+.pending {
+	font-family: var(--font-mono);
+	font-size: var(--font-size-xs);
+	line-height: var(--line-height-xs);
+	letter-spacing: var(--letter-spacing-xs);
+	text-transform: uppercase;
+	color: var(--color-text-tertiary);
+}
+
+.caption {
+	max-width: 70ch;
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: var(--line-height-sm);
+	letter-spacing: var(--letter-spacing-sm);
+	color: var(--color-text-secondary);
+	text-wrap: pretty;
+}

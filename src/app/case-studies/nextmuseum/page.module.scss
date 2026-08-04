@@ -1,0 +1,26 @@
+// Sanftes Scrollen nur auf dieser Seite. Der ganze Selektor steht in :global(),
+// weil CSS Modules sonst auch die ID umschreiben würde.
+:global(html:has(#case-study)) {
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:global(html:has(#case-study)) {
+		scroll-behavior: auto;
+	}
+}
+
+.main {
+	// Spalten 4–11. Spalte 12 bleibt bewusst leer.
+	grid-column: 4 / 12;
+	// Gleiche Rasterzeile wie die Navigation, sonst klebt sie nicht.
+	grid-row: 1;
+
+	display: grid;
+	// Ab hier erben alle Ebenen die acht Spuren der Seite.
+	grid-template-columns: subgrid;
+
+	// Ohne diesen Puffer erreicht der letzte, kurze Abschnitt das
+	// Beobachtungsband im oberen Drittel nie — der Link würde nie aktiv.
+	padding-bottom: 40vh;
+}

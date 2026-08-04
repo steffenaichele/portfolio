@@ -1,0 +1,24 @@
+// 12-Spalten-Raster für Case-Study-Seiten. Bewusst getrennt von .content-grid:
+// dort steht eine feste Lesebreite (768px) mit Breakout-Ausnahmen im Vordergrund,
+// hier muss jedes Element eine Spalte adressieren können (Ziele, Zustände, Bilder).
+//
+// Kinder von .case-grid setzen ihre Position über grid-column. Verschachtelte
+// Ebenen benutzen grid-template-columns: subgrid, damit sie die ECHTEN Spuren
+// der Seite erben — ein eigenes repeat(n, 1fr) sähe nur zufällig ausgerichtet aus.
+
+$case-columns: 12;
+$case-gutter: 24px;
+$case-max-width: 1440px;
+$case-page-margin: 32px;
+
+.case-grid {
+	display: grid;
+	grid-template-columns: repeat($case-columns, 1fr);
+	column-gap: $case-gutter;
+
+	// body ist flex + align-items: center → Kinder werden nicht gestreckt.
+	width: 100%;
+	max-width: $case-max-width;
+	margin-inline: auto;
+	padding-inline: $case-page-margin;
+}

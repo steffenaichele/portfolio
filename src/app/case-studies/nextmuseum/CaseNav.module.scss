@@ -1,0 +1,149 @@
+.nav {
+	// Spalten 1–3 des Seitenrasters.
+	grid-column: 1 / 4;
+	// Muss in derselben Rasterzeile wie <main> liegen: ein sticky Grid-Item
+	// klebt nur innerhalb seiner eigenen Zeile.
+	grid-row: 1;
+
+	position: sticky;
+	top: 0;
+	height: 100dvh;
+	display: flex;
+	align-items: center;
+}
+
+.inner {
+	display: flex;
+	gap: 20px;
+}
+
+.rail {
+	flex: none;
+	width: 2px;
+	align-self: stretch;
+	background-color: var(--color-neutral-300);
+	border-radius: var(--radius-full);
+	overflow: hidden;
+}
+
+.railFill {
+	display: block;
+	height: 100%;
+	background-color: var(--color-neutral-500);
+	transform: scaleY(0);
+	transform-origin: top;
+
+	// Scroll-getriebene Animation: der Fortschritt kommt aus der Scrollposition
+	// des Dokuments, nicht aus einem Timer und nicht aus einem Scroll-Listener.
+	// Firefox kennt animation-timeline noch nicht — dort bleibt die Füllung bei
+	// 0 und nur die Schiene ist sichtbar. Bewusst akzeptiert.
+	animation: rail-progress linear both;
+	animation-timeline: scroll(root block);
+}
+
+@keyframes rail-progress {
+	to {
+		transform: scaleY(1);
+	}
+}
+
+// Fallback für Browser ohne scroll-getriebene Animationen (Stand 2026: Firefox).
+// Dort kommt der Fortschritt aus demselben Observer wie die aktive Markierung —
+// vier Stufen statt stufenlos, aber die Schiene bleibt aussagekräftig.
+@supports not (animation-timeline: scroll()) {
+	.railFill {
+		animation: none;
+		transition: transform var(--duration-move) var(--easing-ui);
+	}
+
+	.rail[data-progress="1"] .railFill {
+		transform: scaleY(0.25);
+	}
+
+	.rail[data-progress="2"] .railFill {
+		transform: scaleY(0.5);
+	}
+
+	.rail[data-progress="3"] .railFill {
+		transform: scaleY(0.75);
+	}
+
+	.rail[data-progress="4"] .railFill {
+		transform: scaleY(1);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.railFill {
+			transition: none;
+		}
+	}
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.home {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	width: fit-content;
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: var(--line-height-sm);
+	letter-spacing: var(--letter-spacing-sm);
+	color: var(--color-text-secondary);
+	transition: color var(--duration-state) var(--easing-ui);
+
+	&:hover {
+		color: var(--color-text-primary);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--color-text-primary);
+		outline-offset: 4px;
+		border-radius: var(--radius-sm);
+	}
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.link {
+	display: block;
+	padding-block: 2px;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+	// Schriftschnitt bleibt konstant — ein Wechsel auf fett beim Aktivwerden
+	// würde die Breite ändern und die Liste springen lassen.
+	font-weight: 400;
+	color: var(--color-text-tertiary);
+	transition: color var(--duration-state) var(--easing-ui);
+
+	&:hover {
+		color: var(--color-text-secondary);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--color-text-primary);
+		outline-offset: 4px;
+		border-radius: var(--radius-sm);
+	}
+}
+
+.linkActive {
+	color: var(--color-text-primary);
+
+	&:hover {
+		color: var(--color-text-primary);
+	}
+}

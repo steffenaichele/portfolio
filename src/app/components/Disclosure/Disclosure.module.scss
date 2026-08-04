@@ -1,0 +1,61 @@
+.details {
+	border-top: 1px solid var(--color-section-devider);
+	border-bottom: 1px solid var(--color-section-devider);
+	padding-block: 4px;
+}
+
+.summary {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding-block: 12px;
+	cursor: pointer;
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	line-height: var(--line-height-sm);
+	letter-spacing: var(--letter-spacing-sm);
+	color: var(--color-text-secondary);
+
+	// Standard-Dreieck entfernen (Safari braucht zusätzlich das Pseudo-Element).
+	list-style: none;
+
+	&::-webkit-details-marker {
+		display: none;
+	}
+
+	&:hover {
+		color: var(--color-text-primary);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--color-text-primary);
+		outline-offset: 2px;
+		border-radius: var(--radius-sm);
+	}
+}
+
+.chevron {
+	display: inline-flex;
+	// Nur transform animiert → kein Reflow, kein Layout Shift beim Öffnen.
+	transition: transform var(--duration-state) var(--easing-ui);
+}
+
+.details[open] .chevron {
+	transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.chevron {
+		transition: none;
+	}
+}
+
+.body {
+	padding-block: 4px 16px;
+	max-width: 70ch;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-md);
+	letter-spacing: var(--letter-spacing-md);
+	color: var(--color-text-secondary);
+	text-wrap: pretty;
+}

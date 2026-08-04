@@ -61,6 +61,15 @@
 		"education_sr_label": "Education",
 		"visit_organization_label": "Visit {organization}"
 	},
+	"case_study": {
+		"nav_label": "Case study sections",
+		"nav_home": "Home",
+		"figure_pending": "Visual pending"
+	},
+	"case_nextmuseum": {
+		"meta_title": "Nextmuseum.io Redesign",
+		"meta_description": "Case study: restructuring nextmuseum.io around the life cycle of an open call — information architecture, design system and relaunch, 2023–2024."
+	},
 	"impressum": {
 		"page_title": "Imprint",
 		"legal_notice": "Legal notice pursuant to § 5 TMG",
