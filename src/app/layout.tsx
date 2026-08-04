@@ -20,9 +20,9 @@ const ppMori = localFont({
 			style: "regular",
 		},
 		{
-			path: "../fonts/PPMori-Extrabold.woff2",
-			weight: "800",
-			style: "extrabold",
+			path: "../fonts/PPMori-Semibold.woff2",
+			weight: "600",
+			style: "semibold",
 		},
 	],
 	variable: "--ppMori",

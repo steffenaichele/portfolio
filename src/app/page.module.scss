@@ -1,48 +1,20 @@
 .page {
-	margin-top: 240px;
 
 	.section {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		gap: 24px;
+		display: grid;
+		&:first-of-type {
+			min-height: 70dvh;
+			padding-bottom: 80px;
+			align-items: end;
+		}
 
-		.sectionHeader {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			gap: 16px;
-
-			.heading {
-				font-size: var(--font-size-sm);
-				line-height: 100%;
-				font-weight: 400;
-				color: var(--color-text-tertiary);
+		.heading {
+				font-size: var(--font-size-5xl);
+				line-height: 115%;
+				letter-spacing: var(--letter-spacing-5xl);
+				font-weight: 600;
+				color: var(--color-text-primary);
 				margin-bottom: 8px;
 			}
-		}
-
-		.intro {
-			font-size: var(--font-size-md);
-			line-height: var(--line-height-md);
-			color: var(--color-text-primary);
-			letter-spacing: var(--letter-spacing-md);
-			font-weight: 400;
-			display: flex;
-			flex-direction: column;
-			gap: 24px;
-
-			.workButtonWrapper {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-
-				:last-child {
-					color: var(--color-text-primary);
-					margin-left: 3px;
-				}
-			}
-		}
 	}
 }
