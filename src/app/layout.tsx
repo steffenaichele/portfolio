@@ -89,8 +89,9 @@ export default async function RootLayout({
 							{t("skip_to_main")}
 						</a>
 						<Header />
-						{children}
-						
+						<main id="main-content" className="content-grid">
+							{children}
+						</main>
 						<Footer />
 					</ToastProvider>
 				</NextIntlClientProvider>

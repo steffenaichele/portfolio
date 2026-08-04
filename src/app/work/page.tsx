@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
 // eigene, individuell gestylte Komposition (work/items/*) — kein zentrales Datenmodell.
 export default function WorkPage() {
 	return (
-		<main className={styles.page} id="main-content">
+		<div className={styles.page}>
 			<div className={styles.feed}>
 				<NextmuseumOpenCall />
 				<UpnextFestivalOnboarding />
 			</div>
-		</main>
+		</div>
 	);
 }

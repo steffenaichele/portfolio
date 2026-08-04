@@ -40,8 +40,8 @@ const CaseFigure = async ({
 						// sizes sagt Next, wie breit das Bild TATSÄCHLICH gerendert wird.
 						// Danach wählt der Browser die passende Datei aus dem srcset.
 						// Ohne sizes lädt fill immer 100vw = unnötig große Downloads.
-						// Spalten 4–11 sind bei 1440px Seitenbreite 909px breit.
-						sizes="(min-width: 1440px) 909px, 63vw"
+						// figureHalf ist die Hälfte der 768px-Lesebreite.
+						sizes="(min-width: 768px) 384px, 50vw"
 						className={styles.image}
 					/>
 				) : (
