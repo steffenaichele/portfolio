@@ -59,6 +59,21 @@ const nextConfig: NextConfig = {
 		return config;
 	},
 	reactCompiler: true,
+	async headers() {
+		return [
+			{
+				source: "/:path*",
+				headers: [
+					{
+						key: "Access-Control-Allow-Origin",
+						value: "https://app.paper.design",
+					},
+					{ key: "Access-Control-Allow-Methods", value: "GET,OPTIONS" },
+					{ key: "Vary", value: "Origin" },
+				],
+			},
+		];
+	},
 };
 
 export default withNextIntl(nextConfig);
