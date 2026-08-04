@@ -91,7 +91,7 @@ export default function CaseStudySection() {
 	);
 
 	return (
-		<section className={styles.section} aria-labelledby="case-studies-heading">
+		<section className={`${styles.section} breakout`} aria-labelledby="case-studies-heading">
 			<h2 className={styles.heading} id="case-studies-heading">
 				{t("cases_heading")}
 			</h2>

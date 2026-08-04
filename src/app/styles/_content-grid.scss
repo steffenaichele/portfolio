@@ -3,19 +3,25 @@
 .content-grid {
 	--padding-inline: 40px;
 	--content-max-width: var(--max-width);
+	--grid-gap: 24px;
+	// Breite einer der 12 Spalten, wenn die content-Spalte ihre volle
+	// --content-max-width erreicht (11 Gaps auf 12 Spalten).
+	--content-col: calc((var(--content-max-width) - 11 * var(--grid-gap)) / 12);
 
 	@media (width <= bp.$breakpoint-sm) {
 		--padding-inline: 24px;
 	}
 
+	width: 100%;
 	display: grid;
 	grid-template-columns:
 		[full-width-start] minmax(var(--padding-inline), 1fr)
 		[breakout-start] minmax(0, var(--padding-inline))
-		[content-start] min(
-			100% - (var(--padding-inline) * 2),
-			var(--content-max-width)
+		[content-start] repeat(
+			11,
+			minmax(0, var(--content-col)) var(--grid-gap)
 		)
+		minmax(0, var(--content-col))
 		[content-end]
 		minmax(0, var(--padding-inline)) [breakout-end]
 		minmax(var(--padding-inline), 1fr) [full-width-end];

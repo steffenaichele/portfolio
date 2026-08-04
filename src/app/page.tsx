@@ -18,7 +18,7 @@ export default async function Home() {
 	const t = await getTranslations('home');
 
 	return (
-		<div className={styles.page}>
+		<>
 			<section className={styles.section}>
 				<h1 className={styles.heading}>
 					{t("heading1")} <br />
@@ -27,6 +27,6 @@ export default async function Home() {
 			</section>
 			<CaseStudySection />
 			<CVSection />
-		</div>
+		</>
 	);
 }

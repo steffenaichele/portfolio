@@ -1,20 +1,17 @@
-.page {
+.section {
+	display: grid;
+	&:first-of-type {
+		min-height: 70dvh;
+		padding-bottom: 80px;
+		align-items: end;
+	}
 
-	.section {
-		display: grid;
-		&:first-of-type {
-			min-height: 70dvh;
-			padding-bottom: 80px;
-			align-items: end;
-		}
-
-		.heading {
-				font-size: var(--font-size-5xl);
-				line-height: 115%;
-				letter-spacing: var(--letter-spacing-5xl);
-				font-weight: 600;
-				color: var(--color-text-primary);
-				margin-bottom: 8px;
-			}
+	.heading {
+		font-size: var(--font-size-5xl);
+		line-height: 115%;
+		letter-spacing: var(--letter-spacing-5xl);
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin-bottom: 8px;
 	}
 }
