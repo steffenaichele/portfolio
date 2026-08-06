@@ -1,12 +1,9 @@
 // Gemeinsame Bausteine aller vier Abschnitte. Alles, was nur ein Abschnitt
 // braucht, steht in dessen eigenem Modul.
 
+// Spuren und column-gap kommen von der globalen .content-grid, die im JSX
+// zusätzlich gesetzt wird. Hier steht nur noch, was der Abschnitt selbst mitbringt.
 .section {
-	// Eigenes 8-Spur-Raster (vormals von der case-grid geerbt). Kinder
-	// referenzieren weiterhin dieselben Linien 1–8 über subgrid.
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	column-gap: 24px;
 	row-gap: 40px;
 	padding-block: 96px;
 	// Freiraum für den fixierten Header beim Sprung über die Ankerlinks.
@@ -43,9 +40,9 @@
 	color: var(--color-text-secondary);
 }
 
-// Fließtext: sechs der acht Spuren, zusätzlich hart bei 70 Zeichen gedeckelt.
+// Fließtext: neun der zwölf Spuren, zusätzlich hart bei 70 Zeichen gedeckelt.
 .prose {
-	grid-column: 1 / 7;
+	grid-column: 1 / 10;
 	max-width: 70ch;
 	display: flex;
 	flex-direction: column;
@@ -58,7 +55,7 @@
 }
 
 // Label/Wert-Paare (Intro-Metadaten, Zustände eines Open Calls). Drei Zustände
-// teilen acht Spuren nicht sauber auf — als Zeilenform passt beides ins Raster.
+// teilen zwölf Spuren nicht sauber auf — als Zeilenform passt beides ins Raster.
 .definitionList {
 	grid-column: 1 / -1;
 	display: grid;
@@ -68,7 +65,7 @@
 }
 
 .term {
-	grid-column: 1 / 3;
+	grid-column: 1 / 4;
 	font-family: var(--font-mono);
 	font-size: var(--font-size-sm);
 	line-height: var(--line-height-md);
@@ -78,7 +75,7 @@
 }
 
 .definition {
-	grid-column: 3 / 9;
+	grid-column: 4 / 13;
 	max-width: 70ch;
 	margin: 0;
 	display: flex;
@@ -100,7 +97,7 @@
 }
 
 .figureHalf {
-	grid-column: span 4;
+	grid-column: span 6;
 }
 
 .link {

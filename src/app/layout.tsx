@@ -89,7 +89,7 @@ export default async function RootLayout({
 							{t("skip_to_main")}
 						</a>
 						<Header />
-						<main id="main-content" className="content-grid">
+						<main id="main-content" className="page-grid">
 							{children}
 						</main>
 						<Footer />

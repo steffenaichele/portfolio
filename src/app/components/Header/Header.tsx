@@ -13,7 +13,7 @@ const Header = () => {
 
 	return (
 		<header
-			className={`${styles.header} content-grid`}
+			className={`${styles.header} page-grid`}
 			aria-label="Site header">
 			<div className={`${styles.wrapper}`}>
 				<Link

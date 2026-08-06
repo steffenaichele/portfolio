@@ -7,7 +7,7 @@ const heading =
 	sections.find((section) => section.id === "project")?.heading ?? "";
 
 const ProjectSection = () => (
-	<section id="project" className={shared.section}>
+	<section id="project" className={`${shared.section} content-grid`}>
 		<h2 className={shared.heading}>{heading}</h2>
 
 		<div className={shared.prose}>

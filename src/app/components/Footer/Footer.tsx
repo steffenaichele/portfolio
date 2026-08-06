@@ -11,7 +11,7 @@ const Footer = () => {
 	const t = useTranslations("layout.footer");
 
 	return (
-		<footer aria-label="Footer" className={`${styles.footer} content-grid`}>
+		<footer aria-label="Footer" className={`${styles.footer} page-grid`}>
 			<div className={`${styles.row} breakout`}>
 				<div className={styles.meta}>
 					<p>{t("copyright")}</p>

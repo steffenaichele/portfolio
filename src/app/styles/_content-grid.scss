@@ -1,38 +1,61 @@
 @use "breakpoints" as bp;
 
-.content-grid {
+// Tokens und Spurdefinition liegen auf :root, nicht auf .page-grid: var()
+// löst seine inneren Variablen erst am benutzenden Element auf. Lägen die
+// Tokens auf der Klasse, wäre --page-grid-columns überall sonst ungültig
+// und das Raster fiele lautlos auf eine einzige Spalte zurück.
+:root {
 	--padding-inline: 40px;
 	--content-max-width: var(--max-width);
 	--grid-gap: 24px;
-	// Breite einer der 12 Spalten, wenn die content-Spalte ihre volle
-	// --content-max-width erreicht (11 Gaps auf 12 Spalten).
-	--content-col: calc((var(--content-max-width) - 11 * var(--grid-gap)) / 12);
+	// ponytail: die expliziten Spans der Case-Study-Module (1 / 10, 4 / 13)
+	// gehen von 12 Spalten aus. 1 / -1 und span N passen sich von selbst an,
+	// die expliziten nicht — die erste Media Query, die --column-count ändert,
+	// braucht dort passende Overrides.
+	--column-count: 12;
+	// Nur für das repeat() der Seitenspur: dort ist keine Rechnung erlaubt,
+	// die Zahl muss als fertiger Integer ankommen. Zusammen mit
+	// --column-count ändern.
+	--column-gaps: 11;
+	// Breite einer Spalte, wenn die Spur ihre volle --content-max-width
+	// erreicht (ein Gap weniger als Spalten).
+	--content-col: calc(
+		(var(--content-max-width) - (var(--column-count) - 1) * var(--grid-gap)) /
+			var(--column-count)
+	);
 
 	@media (width <= bp.$breakpoint-sm) {
 		--padding-inline: 24px;
 	}
 
+	// Der Wert muss in derselben Zeile wie der Doppelpunkt beginnen — startet er
+	// erst in der nächsten, zerlegt Nexts PostCSS-Durchlauf den Token-Strom
+	// falsch ("Unexpected end of input"). Umbrüche innerhalb des Werts sind ok.
+	--page-grid-columns: [full-width-start] var(--padding-inline)
+		[spotlight-start] minmax(var(--padding-inline), 1fr) [breakout-start]
+		minmax(0, var(--padding-inline)) [main-start]
+		repeat(var(--column-gaps), minmax(0, var(--content-col)) var(--grid-gap))
+		minmax(0, var(--content-col)) [main-end] minmax(0, var(--padding-inline))
+		[breakout-end] minmax(var(--padding-inline), 1fr) [spotlight-end]
+		var(--padding-inline) [full-width-end];
+}
+
+.page-grid {
 	width: 100%;
 	display: grid;
-	grid-template-columns:
-		[full-width-start] minmax(var(--padding-inline), 1fr)
-		[breakout-start] minmax(0, var(--padding-inline))
-		[content-start] repeat(
-			11,
-			minmax(0, var(--content-col)) var(--grid-gap)
-		)
-		minmax(0, var(--content-col))
-		[content-end]
-		minmax(0, var(--padding-inline)) [breakout-end]
-		minmax(var(--padding-inline), 1fr) [full-width-end];
+	grid-template-columns: var(--page-grid-columns);
 
 	> :not(.breakout, .full-width),
 	.full-width > :not(.breakout, .full-width) {
-		grid-column: content;
+		grid-column: main;
 	}
 
 	> .breakout {
 		grid-column: breakout;
+	}
+
+	> .spotlight {
+		grid-column: spotlight;
 	}
 
 	> .full-width {
@@ -46,4 +69,23 @@
 		max-height: 45vh;
 		object-fit: cover;
 	}
+}
+
+// Die Spalten des Seitenrasters, aber frei platzierbar: subgrid setzt voraus,
+// dass das Element Grid-Item eines Grid-Elternteils ist — sobald ein normaler
+// <div> dazwischenliegt, reißt die Kette. Eigene Spuren überstehen jede
+// Verschachtelung und liegen bei gleicher Boxbreite exakt auf den Spuren der
+// main-Spur.
+.content-grid {
+	display: grid;
+	grid-template-columns: repeat(
+		var(--column-count),
+		minmax(0, var(--content-col))
+	);
+	column-gap: var(--grid-gap);
+	// Zentriert den Spaltenblock, sobald der Container breiter ist als
+	// --content-max-width. Kein margin-inline: auto und keine 1fr-Flanken:
+	// Flanken zwängen die Gaps in eigene Spuren, und dann zählen die
+	// Linien-Nummern der Kinder die Gaps mit — jeder Teil-Span wäre unlesbar.
+	justify-content: center;
 }
