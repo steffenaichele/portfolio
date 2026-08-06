@@ -9,6 +9,10 @@
 
 :root {
 	color-scheme: light;
+	// Der Body-Scroll-Lock der Modals löst sich mit dem nativen close-Event,
+	// also zu BEGINN der Exit-Transition. Ohne reservierte Rinne käme die
+	// Scrollbar zurück, während der Backdrop noch ausblendet — sichtbarer Sprung.
+	scrollbar-gutter: stable;
 
 	body {
 		padding: 0;

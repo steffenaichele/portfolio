@@ -9,71 +9,54 @@ import { useZoomModal } from "../../hooks/useZoomModal";
 import styles from "./ImprintModal.module.scss";
 
 // Impressum als Modal (keine eigene Route mehr). Modal-Mechanik über useZoomModal
-// (wie ImpressionCard): t-modal/-backdrop-Klassen (globals.css), Escape,
-// Body-Scroll-Lock, Focus-Trap, Fokus-Rückgabe an den Trigger.
+// (wie ImpressionCard): natives <dialog> — Escape, Focus-Trap, Fokus-Rückgabe an
+// den Trigger und der Backdrop kommen vom Browser, die Transition aus _modal.scss.
 const ImprintModal = () => {
 	const t = useTranslations("impressum");
-	const { mounted, open, close, triggerRef, modalRef, backdropRef } =
-		useZoomModal();
+	const { isOpen, open, close, dialogRef } = useZoomModal();
 
 	return (
 		<>
 			<Button
 				underline
 				size="sm"
-				ref={triggerRef}
 				onClick={open}
 				aria-haspopup="dialog"
-				aria-expanded={mounted}>
+				aria-expanded={isOpen}>
 				<span>{t("page_title")}</span>
 			</Button>
 
-			{mounted && (
-				<>
-					{/* Backdrop */}
-					<button
-						ref={backdropRef}
-						type="button"
-						tabIndex={-1}
+			<dialog
+				ref={dialogRef}
+				// Light-Dismiss (Klick auf den Backdrop) nativ — ohne Handler.
+				closedby="any"
+				aria-label={t("page_title")}
+				className={`t-modal ${styles.panel}`}>
+				{/* Close button */}
+				<div className={styles.closeRow}>
+					<Button
+						variant="filled"
+						size="sm"
+						content="icon"
 						aria-label={t("close")}
-						onClick={close}
-						className={`t-modal-backdrop ${styles.backdrop}`}
-					/>
+						onClick={close}>
+						<Icon icon={RiCloseLine} />
+					</Button>
+				</div>
 
-					{/* Panel */}
-					<div
-						ref={modalRef}
-						role="dialog"
-						aria-modal="true"
-						aria-label={t("page_title")}
-						className={`t-modal ${styles.panel}`}>
-						{/* Close button */}
-						<div className={styles.closeRow}>
-							<Button
-								variant="filled"
-								size="sm"
-								content="icon"
-								aria-label={t("close")}
-								onClick={close}>
-								<Icon icon={RiCloseLine} />
-							</Button>
-						</div>
-
-						{/* Imprint content */}
-						<div className={styles.content}>
-							<h2 className={styles.title}>{t("page_title")}</h2>
-							<div className={styles.body}>
-								<p className={styles.notice}>{t("legal_notice")}</p>
-								<address className={styles.address}>
-									<p>Steffen Aichele</p>
-									<p>Lönsstraße 4</p>
-									<p>73529 Schwäbisch Gmünd</p>
-								</address>
-							</div>
-						</div>
+				{/* Imprint content */}
+				<div className={styles.content}>
+					<h2 className={styles.title}>{t("page_title")}</h2>
+					<div className={styles.body}>
+						<p className={styles.notice}>{t("legal_notice")}</p>
+						<address className={styles.address}>
+							<p>Steffen Aichele</p>
+							<p>Lönsstraße 4</p>
+							<p>73529 Schwäbisch Gmünd</p>
+						</address>
 					</div>
-				</>
-			)}
+				</div>
+			</dialog>
 		</>
 	);
 };

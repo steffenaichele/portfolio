@@ -1,62 +1,84 @@
-// transitions-dev — modal open/close (used by ImpressionCard + ImprintModal).
-// Shared global partial rather than split per-component: both consumers toggle
-// the same is-open/is-closing class-name string literals directly in JS, so
-// keeping one shared definition avoids two copies drifting apart.
+// Open/Close-Transition der <dialog>-Modals (ImpressionCard + ImprintModal).
+// Shared global partial, weil beide Consumer dieselbe .t-modal-Klasse tragen.
 // Dauer/Easing kommen aus den globalen Motion-Tokens (_tokens.scss):
 // Open = --duration-move, Close = --duration-state, Kurve = --easing-modal.
-// Nur die modal-spezifischen Scale-Werte bleiben hier lokal.
 :root {
 	--modal-scale: 0.96;
-	--modal-scale-close: 0.96;
+}
+
+// UA-Stylesheet neutralisieren (padding/border/inset/max-* auf dialog:modal).
+// :where() hat Spezifität 0: schlägt damit immer das UA-Sheet, verliert aber
+// immer gegen die .panel-Regeln der Komponenten-Module — unabhängig davon, in
+// welcher Reihenfolge globale und Modul-Styles im Bundle landen.
+:where(dialog.t-modal) {
+	inset: auto;
+	padding: 0;
+	border: none;
+	max-width: none;
+	max-height: none;
+}
+
+// display + overlay mit allow-discrete halten den Dialog während der
+// Exit-Transition im Top Layer — ohne sie verschwindet er beim close() sofort.
+.t-modal,
+.t-modal::backdrop {
+	transition:
+		opacity var(--duration-state) var(--easing-modal),
+		transform var(--duration-state) var(--easing-modal),
+		display var(--duration-state) allow-discrete,
+		overlay var(--duration-state) allow-discrete;
+	opacity: 0;
 }
 
 .t-modal {
 	transform-origin: center;
 	transform: scale(var(--modal-scale));
-	opacity: 0;
-	pointer-events: none;
-	transition:
-		transform var(--duration-move) var(--easing-modal),
-		opacity var(--duration-move) var(--easing-modal);
 	will-change: transform, opacity;
-
-	&.is-open {
-		transform: scale(1);
-		opacity: 1;
-		pointer-events: auto;
-	}
-
-	&.is-closing {
-		transform: scale(var(--modal-scale-close));
-		opacity: 0;
-		pointer-events: none;
-		transition:
-			transform var(--duration-state) var(--easing-modal),
-			opacity var(--duration-state) var(--easing-modal);
-	}
 }
 
-.t-modal-backdrop {
-	opacity: 0;
-	transition: opacity var(--duration-move) var(--easing-modal);
+.t-modal::backdrop {
+	// Fallback, weil ::backdrop erst seit Chrome 122 vom Dialog erbt — ohne
+	// Vererbung wäre die Custom Property hier undefiniert und der Backdrop
+	// unsichtbar. Wert gespiegelt aus --color-modal-backdrop (_tokens.scss).
+	background-color: var(--color-modal-backdrop, rgb(0 0 0 / 60%));
+}
 
-	&.is-open {
-		opacity: 1;
+.t-modal[open],
+.t-modal[open]::backdrop {
+	opacity: 1;
+	transition-duration: var(--duration-move);
+}
+
+.t-modal[open] {
+	transform: scale(1);
+}
+
+// Muss NACH den [open]-Regeln stehen: gleiche Spezifität, Quellreihenfolge
+// entscheidet. Liefert den Startwert der Enter-Transition.
+@starting-style {
+	.t-modal[open],
+	.t-modal[open]::backdrop {
+		opacity: 0;
 	}
 
-	&.is-closing {
-		opacity: 0;
-		transition: opacity var(--duration-state) var(--easing-modal);
+	.t-modal[open] {
+		transform: scale(var(--modal-scale));
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.t-modal {
-		transition-property: opacity;
+	// display/overlay bleiben in der Liste — ohne sie fällt der Dialog beim
+	// Schließen sofort aus dem Top Layer und die Opacity blendet nie aus.
+	.t-modal,
+	.t-modal::backdrop {
+		transition:
+			opacity var(--duration-state) var(--easing-modal),
+			display var(--duration-state) allow-discrete,
+			overlay var(--duration-state) allow-discrete;
+	}
 
-		&.is-open,
-		&.is-closing {
-			transform: none;
-		}
+	.t-modal,
+	.t-modal[open] {
+		transform: none;
 	}
 }
