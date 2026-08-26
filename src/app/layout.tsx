@@ -8,7 +8,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import Header from "./components/Header/Header";
-import PixelGradient from "./components/PixelGradient/PixelGradient";
 import Footer from "./components/Footer/Footer";
 import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
@@ -84,7 +83,6 @@ export default async function RootLayout({
 			data-scroll-behavior="smooth"
 			className={`${styles.html} ${ppMori.variable} ${ppNeueMontrealMono.variable}`}>
 			<body className={styles.body}>
-				<PixelGradient />
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ToastProvider>
 						<a href="#main-content" className={styles.skipLink}>
