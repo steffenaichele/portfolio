@@ -10,7 +10,7 @@
 	aspect-ratio: var(--case-figure-ratio, 16 / 9);
 	overflow: hidden;
 	border-radius: var(--radius-lg);
-	background-color: var(--color-neutral-100);
+	background-color: var(--color-grey-500);
 	box-shadow: var(--shadow-ring);
 
 	// Platzhalter-Zustand: solange kein Asset gesetzt ist, macht der gestrichelte
@@ -19,7 +19,7 @@
 		display: grid;
 		place-items: center;
 		box-shadow: none;
-		outline: 1px dashed var(--color-neutral-300);
+		outline: 1px dashed var(--color-grey-700);
 		outline-offset: -1px;
 	}
 }
