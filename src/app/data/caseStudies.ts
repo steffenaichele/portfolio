@@ -1,12 +1,9 @@
 // Case Studies der Arbeiten. Noch reine Stubs: Struktur steht, Inhalte
-// (body, role, timeframe) werden beim Content-Neuaufbau gefüllt — TODO unten.
+// werden beim Content-Neuaufbau gefüllt — TODO unten.
 // Englisch inline, weil der Launch EN-only ist.
 export type CaseStudy = {
 	id: string;
 	title: string;
-	role: string;
-	body: string;
-	link?: string;
 	timeframe?: string;
 
 	// Felder der Homepage-Karte (CaseStudySection). Alles außer headline ist
@@ -28,9 +25,6 @@ export const caseStudies: CaseStudy[] = [
 	{
 		id: "nextmuseum",
 		title: "Nextmuseum.io",
-		role: "", // TODO
-		body: "", // TODO
-		link: "https://nextmuseum.io/",
 		// Tags und Zeitraum stehen so auch in data/caseStudies/nextmuseum.ts
 		// (intro.tags / intro.duration) — das ist die Quelle, wenn sich etwas
 		// ändert. Bewusst dupliziert statt importiert: diese Datei landet über
@@ -49,16 +43,12 @@ export const caseStudies: CaseStudy[] = [
 	{
 		id: "museum-exhibit",
 		title: "Museum Exhibit",
-		role: "UX/UI Designer & Fullstack Developer",
-		body: "", // TODO
 		headline: "Museum Exhibit", // TODO: editoriale Headline
 		// TODO: subline, tags, context, shots — Karte bleibt bis dahin zu.
 	},
 	{
 		id: "habit-app",
 		title: "Habit App",
-		role: "", // TODO
-		body: "", // TODO
 		headline: "Habit App", // TODO: editoriale Headline
 		// TODO: subline, tags, context, shots — Karte bleibt bis dahin zu.
 	},

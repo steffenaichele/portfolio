@@ -26,7 +26,7 @@ Package manager is **pnpm**.
 - **React 19.2** with React Compiler enabled (`reactCompiler: true` in next.config.ts)
 - **TypeScript** strict mode
 - **SCSS Modules** (`sass`) — no Tailwind, no utility framework
-- **next-intl** for i18n (cookie + Accept-Language negotiation, no locale routes)
+- **next-intl** for i18n (`NEXT_LOCALE` cookie, no locale routes)
 - **@remixicon/react** for icons, **react-progressive-blur** for blur overlays
 - **Vercel** for deployment, analytics, speed insights
 
@@ -55,20 +55,19 @@ src/
 │   │   └── impressions.ts     # Impression type + entries, getImpression()
 │   ├── hooks/
 │   │   ├── useLocale.ts       # Locale read + cookie-based switch
-│   │   └── useZoomModal.ts    # Headless modal behaviour (focus trap, Escape, scroll lock)
+│   │   └── useZoomModal.ts    # <dialog> wiring — scroll lock + open state
 │   ├── lib/
 │   │   ├── clickable.tsx      # Shared link/button helpers, clipboard copy
 │   │   └── motion.ts          # FLIP maths + prefers-reduced-motion probe
 │   ├── styles/                # Global SCSS partials (see Design System)
 │   ├── work/
 │   │   ├── page.tsx           # Impressions feed — composes work/items/*
-│   │   ├── items/             # One composition per impression, individually styled
-│   │   └── snippets/          # Standalone demos (PillFollowDemo)
+│   │   └── items/             # One composition per impression, individually styled
 │   ├── layout.tsx             # Root layout, fonts, metadata, providers
 │   ├── page.tsx               # Home: intro + CVSection
 │   └── opengraph-image.tsx    # Generated OG image (next/og)
 ├── fonts/                     # PP Mori + PP Neue Montreal Mono
-└── i18n/                      # next-intl config + request-time locale negotiation
+└── i18n/                      # next-intl config + request-time locale resolution
 messages/
 └── en.json                    # UI chrome only — no structured content
 ```
@@ -91,8 +90,8 @@ Adding a work impression:
 
 ### i18n
 - **EN-only at launch.** `locales = ["en"]`, `DEFAULT_LOCALE = "en"` in `src/i18n/config.ts`.
-- No locale routes. `src/i18n/request.ts` resolves the locale per request: `NEXT_LOCALE` cookie → Accept-Language → default.
-- **Bringing DE back post-launch:** add `"de"` to `locales` in `src/i18n/config.ts`, restore the `de` branch in the Accept-Language negotiation, re-add the DE entry to the `languages` array in `LanguageToggle`, mount `<LanguageToggle />` in the Footer, and add `messages/de.json`.
+- No locale routes. `src/i18n/request.ts` resolves the locale per request: `NEXT_LOCALE` cookie → default.
+- **Bringing DE back post-launch:** add `"de"` to `locales` in `src/i18n/config.ts`, re-add Accept-Language negotiation to `request.ts` (dropped while EN-only, since it could only ever return `"en"`), re-add the DE entry to the `languages` array in `LanguageToggle`, mount `<LanguageToggle />` in the Footer, and add `messages/de.json`.
 - `LanguageToggle` and `useLocale` are kept but currently unmounted — do not delete them.
 
 ## Design System & Styling
@@ -105,8 +104,11 @@ Adding a work impression:
 - `_typography.scss` — `--font-sans` / `--font-mono`, size/line-height/letter-spacing scale
 - `_motion.scss` — durations and easings, named by purpose
 - `_radius.scss`, `_shadow.scss`, `_breakpoints.scss`
-- `_content-grid.scss` — the `.content-grid` layout utility with `.breakout` / `.full-width` escape hatches
-- `_modal.scss` — shared `.t-modal` / `.t-modal-backdrop` open/close transitions
+- `_content-grid.scss` — two global classes plus the grid tokens on `:root`:
+  - `.page-grid` — the page-level layout utility, with `.breakout` / `.spotlight` / `.full-width` escape hatches. Children land on the `main` line by default.
+  - `.content-grid` — the shared column tracks, usable at any nesting depth (`subgrid` needs an unbroken grid-item chain; this does not). Centres via `justify-content`.
+  - `--column-count` drives both. `--column-gaps` (= count − 1) exists only because `repeat()` needs a literal integer and rejects `calc()`.
+- `_modal.scss` — shared `.t-modal` open/close transitions for `<dialog>` (`@starting-style` + `transition-behavior: allow-discrete`)
 
 Component-specific styling goes in the component's own `.module.scss`. Only genuinely shared definitions belong in a global partial.
 
@@ -114,14 +116,14 @@ Component-specific styling goes in the component's own `.module.scss`. Only genu
 There is **no animation library** (no Framer Motion / `motion` package). Animation is CSS-first:
 
 - Durations and easings are tokens named by **purpose**, not tempo: `--duration-state` (150ms), `--duration-move` (300ms), `--duration-panel` (800ms); `--easing-ui`, `--easing-modal`, `--easing-emphasized`. New cases continue the pattern (`--duration-<purpose>`).
-- Components that need a duration in JS **read the CSS custom property** via `getComputedStyle` instead of duplicating the value as a constant (see `CVSection`, `useZoomModal`).
+- Components that need a duration in JS **read the CSS custom property** via `getComputedStyle` instead of duplicating the value as a constant (see `CVSection`, `ToastNotification`).
 - `src/app/lib/motion.ts` holds the hand-rolled FLIP maths (`readInlineBounds`, `computeFlipTransform`) and `prefersReducedMotion()` — CSS `@media (prefers-reduced-motion)` cannot reach inline styles, so JS paths query it themselves.
 - Animate only compositor properties (`transform`, `opacity`, `background-color`); set geometry instantly and apply an inverse transform (FLIP).
-- Modals toggle the `is-open` / `is-closing` class-name literals directly in JS against the shared `_modal.scss` definitions.
+- Modals animate purely in CSS: `<dialog>` toggles `[open]`, and `@starting-style` + `transition-behavior: allow-discrete` carry the enter/exit transitions. No class-name juggling in JS.
 
 ### Interaction Patterns
 - **Selection pill** (`SegmentedControl`): a persistent pill marks the active segment and slides on change via FLIP. Used by the CV tabs and `LanguageToggle`.
-- **Zoom modal** (`useZoomModal`): headless behaviour — open/close timing from `--duration-state`, Escape to close, body scroll lock, focus trap, focus returned to the trigger. `ImpressionCard` and `ImprintModal` both wire it up.
+- **Zoom modal** (`useZoomModal`): thin wrapper over `<dialog>.showModal()`. The platform provides Escape, the focus trap, focus return to the trigger, background inertness and top-layer placement; the hook adds only the body scroll lock and the state backing `aria-expanded`. `ImpressionCard` and `ImprintModal` both wire it up.
 
 ### Typography
 - **PP Mori** (sans, self-hosted): Regular 400 + Extrabold 800.
@@ -146,7 +148,7 @@ feature/* → develop → main (production)
 ## Accessibility Requirements
 
 WCAG 2.1 AA:
-- Modals (ImpressionCard zoom, ImprintModal): focus trap, Escape closes, focus returns to trigger, `aria-modal`, body scroll lock — all provided by `useZoomModal`
+- Modals (ImpressionCard zoom, ImprintModal): focus trap, Escape closes, focus returns to trigger, modal semantics — all native to `<dialog>.showModal()`; `useZoomModal` adds the body scroll lock
 - `aria-selected` / `aria-controls` on the CV tabs, `aria-expanded` on expandable UI
 - `aria-label` on icon-only buttons; alt text on all images
 - External links announce themselves via an sr-only suffix (`lib/clickable.tsx`)

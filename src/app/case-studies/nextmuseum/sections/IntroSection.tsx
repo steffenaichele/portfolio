@@ -8,7 +8,7 @@ const heading =
 	sections.find((section) => section.id === "intro")?.heading ?? "";
 
 const IntroSection = () => (
-	<section id="intro" className={shared.section}>
+	<section id="intro" className={`${shared.section} content-grid`}>
 		<div className={styles.header}>
 			<h1 className={styles.title}>{heading}</h1>
 			<ul className={styles.tags}>

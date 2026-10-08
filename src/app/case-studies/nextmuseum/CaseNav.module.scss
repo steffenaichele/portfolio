@@ -19,7 +19,7 @@
 	flex: none;
 	width: 2px;
 	align-self: stretch;
-	background-color: var(--color-neutral-300);
+	background-color: var(--color-grey-700);
 	border-radius: var(--radius-full);
 	overflow: hidden;
 }
@@ -27,7 +27,7 @@
 .railFill {
 	display: block;
 	height: 100%;
-	background-color: var(--color-neutral-500);
+	background-color: var(--color-grey-900);
 	transform: scaleY(0);
 	transform-origin: top;
 

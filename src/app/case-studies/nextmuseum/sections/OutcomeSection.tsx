@@ -8,7 +8,7 @@ const heading =
 	sections.find((section) => section.id === "outcome")?.heading ?? "";
 
 const OutcomeSection = () => (
-	<section id="outcome" className={shared.section}>
+	<section id="outcome" className={`${shared.section} content-grid`}>
 		<h2 className={shared.heading}>{heading}</h2>
 
 		{/* Zahlen als Ziffern für Überflieger — dieselben Werte stehen im

@@ -1,49 +1,146 @@
 @use "breakpoints" as bp;
 
-.content-grid {
+:root {
 	--padding-inline: 40px;
+	--column-count: 12;
+
 	--content-max-width: var(--max-width);
 	--grid-gap: 24px;
-	// Breite einer der 12 Spalten, wenn die content-Spalte ihre volle
-	// --content-max-width erreicht (11 Gaps auf 12 Spalten).
-	--content-col: calc((var(--content-max-width) - 11 * var(--grid-gap)) / 12);
+
+	--gap-count: calc(var(--column-count) - 1);
+	--content-col: calc(
+		(var(--content-max-width) - var(--gap-count) * var(--grid-gap)) /
+			var(--column-count)
+	); // size of 1 column in the content grid
+
+	@media (width <= bp.$breakpoint-lg) {
+		--padding-inline: 24px;
+		--column-count: 8;
+	}
+
+	@media (width <= bp.$breakpoint-md) {
+		--padding-inline: 24px;
+		--column-count: 6;
+	}
 
 	@media (width <= bp.$breakpoint-sm) {
 		--padding-inline: 24px;
+		--column-count: 4;
 	}
+}
 
+.page-grid {
 	width: 100%;
 	display: grid;
 	grid-template-columns:
-		[full-width-start] minmax(var(--padding-inline), 1fr)
-		[breakout-start] minmax(0, var(--padding-inline))
-		[content-start] repeat(
-			11,
-			minmax(0, var(--content-col)) var(--grid-gap)
-		)
-		minmax(0, var(--content-col))
-		[content-end]
-		minmax(0, var(--padding-inline)) [breakout-end]
-		minmax(var(--padding-inline), 1fr) [full-width-end];
+		[full-width-start] var(--padding-inline)
+		[spotlight-start] minmax(var(--padding-inline), 1fr)
+		[breakout-start]
+		minmax(0, var(--padding-inline))
+		[main-start]
+		minmax(200px, var(--content-max-width))
+		[main-end] minmax(0, var(--padding-inline))
+		[breakout-end] minmax(var(--padding-inline), 1fr)
+		[spotlight-end] var(--padding-inline)
+		[full-width-end];
 
-	> :not(.breakout, .full-width),
-	.full-width > :not(.breakout, .full-width) {
-		grid-column: content;
+	> :not(.breakout, .spotlight, .full-width),
+	.full-width > :not(.breakout, .spotlight, .full-width) {
+		grid-column: main;
+
+		&.content-grid {
+			display: grid;
+			grid-template-columns:
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col));
+		}
+
+		.content-grid {
+			display: grid;
+			grid-template-columns:
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col));
+		}
 	}
 
 	> .breakout {
 		grid-column: breakout;
+		&.content-grid {
+			display: grid;
+			grid-template-columns:
+				minmax(0, 1fr)
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col))
+				minmax(0, 1fr);
+			justify-content: center;
+			background: blue;
+		}
+
+		.content-grid {
+			display: grid;
+			grid-template-columns:
+				minmax(0, 1fr)
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col))
+				minmax(0, 1fr);
+			justify-content: center;
+			background: blue;
+		}
 	}
 
-	> .full-width {
-		grid-column: full-width;
-		display: grid;
-		grid-template-columns: inherit;
-	}
+	> .spotlight {
+		grid-column: spotlight;
+		&.content-grid {
+			display: grid;
+			grid-template-columns:
+				minmax(0, 1fr)
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col))
+				minmax(0, 1fr);
+			justify-content: center;
+			background: blue;
+		}
 
-	img.full-width {
-		width: 100%;
-		max-height: 45vh;
-		object-fit: cover;
+		.content-grid {
+			display: grid;
+			grid-template-columns:
+				minmax(0, 1fr)
+				repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+				minmax(0, var(--content-col))
+				minmax(0, 1fr);
+			justify-content: center;
+			background: blue;
+		}
+
+		> .full-width {
+			grid-column: full-width;
+			&.content-grid {
+				display: grid;
+				grid-template-columns:
+					minmax(0, 1fr)
+					repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+					minmax(0, var(--content-col))
+					minmax(0, 1fr);
+				justify-content: center;
+				background: blue;
+			}
+
+			.content-grid {
+				display: grid;
+				grid-template-columns:
+					minmax(0, 1fr)
+					repeat(calc(var(--column-count) - 1), minmax(0, var(--content-col)) var(--grid-gap))
+					minmax(0, var(--content-col))
+					minmax(0, 1fr);
+				justify-content: center;
+				background: blue;
+			}
+		}
+
+		img.full-width {
+			width: 100%;
+			max-height: 45vh;
+			object-fit: cover;
+		}
 	}
 }

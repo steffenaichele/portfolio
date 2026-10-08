@@ -12,39 +12,18 @@ import Footer from "./components/Footer/Footer";
 import { ToastProvider } from "./components/ToastNotification/ToastNotification";
 import styles from "./layout.module.scss";
 
-const ppMori = localFont({
+const Areal = localFont({
 	src: [
 		{
-			path: "../fonts/PPMori-Regular.woff2",
+			path: "../fonts/ABCArealSuperfamilyVariable.woff2",
 			weight: "400",
 			style: "regular",
 		},
-		{
-			path: "../fonts/PPMori-Semibold.woff2",
-			weight: "600",
-			style: "semibold",
-		},
 	],
-	variable: "--ppMori",
+	variable: "--areal",
 	display: "swap",
 });
 
-const ppNeueMontrealMono = localFont({
-	src: [
-		{
-			path: "../fonts/PPNeueMontrealMono-Regular.woff",
-			weight: "400",
-			style: "regular",
-		},
-		{
-			path: "../fonts/PPNeueMontrealMono-Medium.woff",
-			weight: "500",
-			style: "medium",
-		},
-	],
-	variable: "--ppNeueMontrealMono",
-	display: "swap",
-});
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://steffenaichele.xyz"),
@@ -81,7 +60,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			data-scroll-behavior="smooth"
-			className={`${styles.html} ${ppMori.variable} ${ppNeueMontrealMono.variable}`}>
+			className={`${styles.html} ${Areal.variable}`}>
 			<body className={styles.body}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<ToastProvider>
@@ -89,7 +68,7 @@ export default async function RootLayout({
 							{t("skip_to_main")}
 						</a>
 						<Header />
-						<main id="main-content" className="content-grid">
+						<main id="main-content" className="page-grid">
 							{children}
 						</main>
 						<Footer />

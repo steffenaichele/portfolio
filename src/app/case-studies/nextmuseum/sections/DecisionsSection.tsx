@@ -15,7 +15,7 @@ const heading =
 	sections.find((section) => section.id === "decisions")?.heading ?? "";
 
 const DecisionsSection = () => (
-	<section id="decisions" className={shared.section}>
+	<section id="decisions" className={`${shared.section} content-grid`}>
 		<h2 className={shared.heading}>{heading}</h2>
 
 		<div className={shared.prose}>

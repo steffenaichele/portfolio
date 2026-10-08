@@ -7,7 +7,6 @@ import IntroSection from "./sections/IntroSection";
 import ProjectSection from "./sections/ProjectSection";
 import DecisionsSection from "./sections/DecisionsSection";
 import OutcomeSection from "./sections/OutcomeSection";
-import styles from "./page.module.scss";
 
 // generateMetadata ist der App-Router-Weg, <title> und <meta> zu setzen: Next
 // ruft die Funktion beim Rendern auf dem Server auf und schreibt das Ergebnis
@@ -35,7 +34,7 @@ export default async function NextmuseumCaseStudy() {
 			/>
 			{/* id="case-study" ist der Anker für das seiten-spezifische
 			    scroll-behavior in page.module.scss. */}
-			<div id="case-study" className={styles.main}>
+			<div id="case-study">
 				<IntroSection />
 				<ProjectSection />
 				<DecisionsSection />

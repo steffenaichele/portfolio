@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, type ReactNode, type RefObject } from "react";
-import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { RiCloseLine } from "@remixicon/react";
 
@@ -26,17 +25,16 @@ import styles from "./ImpressionCard.module.scss";
  * - label     — barrierefreier Name der Card (für Zoom-/Dialog-Label)
  * - className  — Layout pro Komposition (aspect-ratio etc.), liegt auf .card
  *
- * Das Zoom-Panel rendert per Portal an document.body: .card nutzt scale/overflow
- * (Hover), was sonst einen Containing-Block für das fixe Panel bilden würde.
+ * Das Zoom-Panel ist ein natives <dialog>: showModal() hebt es in den Top Layer,
+ * dessen Containing Block der Viewport ist — das scale/overflow der Card (Hover)
+ * kann es dort nicht mehr beschneiden, ein Portal ist deshalb nicht nötig.
  */
 
 type ImpressionCardContextValue = {
-	mounted: boolean;
+	isOpen: boolean;
 	open: () => void;
 	close: () => void;
-	triggerRef: RefObject<HTMLButtonElement | null>;
-	modalRef: RefObject<HTMLDivElement | null>;
-	backdropRef: RefObject<HTMLButtonElement | null>;
+	dialogRef: RefObject<HTMLDialogElement | null>;
 	zoomLabel: string;
 	closeLabel: string;
 	dialogLabel: string;
@@ -63,16 +61,13 @@ interface ImpressionCardProps {
 
 const ImpressionCard = ({ label, className, children }: ImpressionCardProps) => {
 	const t = useTranslations("impressions");
-	const { mounted, open, close, triggerRef, modalRef, backdropRef } =
-		useZoomModal();
+	const { isOpen, open, close, dialogRef } = useZoomModal();
 
 	const value: ImpressionCardContextValue = {
-		mounted,
+		isOpen,
 		open,
 		close,
-		triggerRef,
-		modalRef,
-		backdropRef,
+		dialogRef,
 		zoomLabel: t("zoom_label", { label }),
 		closeLabel: t("modal_close"),
 		dialogLabel: label,
@@ -92,57 +87,43 @@ const Header = ({ children }: { children: ReactNode }) => (
 
 /** Medienbereich — freier Inhalt (z.B. <Image fill>) plus der Zoom-Trigger. */
 const Media = ({ children }: { children: ReactNode }) => {
-	const { open, mounted, triggerRef, zoomLabel } = useImpressionCard();
+	const { open, isOpen, zoomLabel } = useImpressionCard();
 	return (
 		<>
 			{children}
 			<button
-				ref={triggerRef}
 				type="button"
 				onClick={open}
 				className={styles.trigger}
 				aria-label={zoomLabel}
-				aria-expanded={mounted}
+				aria-expanded={isOpen}
 				aria-haspopup="dialog"
 			/>
 		</>
 	);
 };
 
-/** Zoom-Panel — freier Modal-Inhalt. Chrome (Backdrop, Close) liefert die Shell. */
+/** Zoom-Panel — freier Modal-Inhalt. Backdrop liefert der Browser, Close die Shell. */
 const Zoom = ({ children }: { children: ReactNode }) => {
-	const { mounted, close, modalRef, backdropRef, dialogLabel, closeLabel } =
-		useImpressionCard();
-	if (!mounted) return null;
+	const { close, dialogRef, dialogLabel, closeLabel } = useImpressionCard();
 
-	return createPortal(
-		<>
-			<button
-				ref={backdropRef}
-				type="button"
-				tabIndex={-1}
+	return (
+		<dialog
+			ref={dialogRef}
+			// Light-Dismiss (Klick auf den Backdrop) nativ — ohne Handler.
+			closedby="any"
+			aria-label={dialogLabel}
+			className={`t-modal ${styles.panel}`}>
+			<Button
+				variant="filled"
+				size="sm"
+				content="icon"
 				aria-label={closeLabel}
-				onClick={close}
-				className={`t-modal-backdrop ${styles.backdrop}`}
-			/>
-			<div
-				ref={modalRef}
-				role="dialog"
-				aria-modal="true"
-				aria-label={dialogLabel}
-				className={`t-modal ${styles.panel}`}>
-				<Button
-					variant="filled"
-					size="sm"
-					content="icon"
-					aria-label={closeLabel}
-					onClick={close}>
-					<Icon icon={RiCloseLine} />
-				</Button>
-				{children}
-			</div>
-		</>,
-		document.body,
+				onClick={close}>
+				<Icon icon={RiCloseLine} />
+			</Button>
+			{children}
+		</dialog>
 	);
 };
 

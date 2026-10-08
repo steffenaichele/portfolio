@@ -1,5 +1,5 @@
-// Drei Kennzahlen auf je zwei Spuren (1–6). Die Spuren 7–8 bleiben leer —
-// dasselbe Prinzip wie die freie Spalte 12 auf Seitenebene.
+// Drei Kennzahlen auf je drei Spuren (1–9). Die Spuren 10–12 bleiben leer —
+// dasselbe Prinzip wie zuvor die freien Spuren am Zeilenende.
 .stats {
 	grid-column: 1 / -1;
 	display: grid;
@@ -10,7 +10,7 @@
 }
 
 .stat {
-	grid-column: span 2;
+	grid-column: span 3;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;

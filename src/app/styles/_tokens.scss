@@ -1,16 +1,16 @@
 :root {
 	--max-width: 768px;
 
-	--color-bg: var(--color-neutral-50);
+	--color-bg: var(--color-grey-400);
 
-	--color-text-primary: var(--color-neutral-950);
-	--color-text-secondary: var(--color-neutral-500);
-	--color-text-tertiary: var(--color-neutral-400);
+	--color-text-primary: var(--color-grey-1200);
+	--color-text-secondary: var(--color-grey-1100);
+	--color-text-tertiary: var(--color-grey-900);
 	--color-text-exp: var(--color-emerald-500);
 	--color-text-edu: var(--color-sky-500);
 
-	--color-item-primary-bg-rest: var(--color-neutral-200);
-	--color-item-primary-bg-hover: var(--color-neutral-300);
+	--color-item-primary-bg-rest: var(--color-grey-600);
+	--color-item-primary-bg-hover: var(--color-grey-700);
 	--color-item-primary-bg-active: var(--color-white);
 
 	--color-item-secondary-rest: color-mix(in oklab, var(--color-white) 20%, transparent);
@@ -29,24 +29,24 @@
 
 	--color-button-primary-label: var(--color-text-primary);
 	--color-button-primary-icon: var(--color-text-secondary);
-	--color-button-primary-bg: var(--color-neutral-200);
-	--color-button-primary-bg-hover: var(--color-neutral-300);
+	--color-button-primary-bg: var(--color-grey-600);
+	--color-button-primary-bg-hover: var(--color-grey-700);
 
-	--color-section-devider: var(--color-neutral-200);
+	--color-section-devider: var(--color-grey-600);
 
 	--color-cvsection-bg-default: transparent;
-	--color-cvsection-bg-change: var(--color-neutral-100);
+	--color-cvsection-bg-change: var(--color-grey-500);
 	
 	--color-cvitem-bg: var(--color-white);
 	--color-cvitem-exp-badge-bg: var(--color-emerald-100);
 	--color-cvitem-edu-badge-bg: var(--color-sky-100);
 
-	--color-case-tag-bg: var(--color-neutral-200);
-	--color-case-shot-bg: var(--color-neutral-100);
-	--color-case-shot-stroke: var(--color-neutral-200);
+	--color-case-tag-bg: var(--color-grey-600);
+	--color-case-shot-bg: var(--color-grey-500);
+	--color-case-shot-stroke: var(--color-grey-600);
 
 	--color-surface-bg: var(--color-white);
-	--color-surface-bg-hover: var(--color-neutral-50);
+	--color-surface-bg-hover: var(--color-grey-400);
 
 	--color-modal-backdrop: rgb(0 0 0 / 60%);
 

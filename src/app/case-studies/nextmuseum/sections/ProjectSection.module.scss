@@ -1,4 +1,4 @@
-// Vier Ziele auf acht Spuren: je vier Spuren = zwei Karten pro Zeile.
+// Vier Ziele auf zwölf Spuren: je sechs Spuren = zwei Karten pro Zeile.
 .goals {
 	grid-column: 1 / -1;
 	display: grid;
@@ -11,7 +11,7 @@
 }
 
 .goal {
-	grid-column: span 4;
+	grid-column: span 6;
 	counter-increment: goal;
 	display: flex;
 	flex-direction: column;
