@@ -12,6 +12,14 @@
 		0px 8px 8px 0px color-mix(in oklch, var(--color-black) 5%, transparent),
 		0px 16px 16px 0px color-mix(in oklch, var(--color-black) 5%, transparent);
 
+	// filter: drop-shadow() takes one shadow per function, no spread, no list
+	--shadow-drop:
+		drop-shadow(0 1px 1px color-mix(in oklch, var(--color-black) 5%, transparent))
+		drop-shadow(0 2px 2px color-mix(in oklch, var(--color-black) 5%, transparent))
+		drop-shadow(0 4px 4px color-mix(in oklch, var(--color-black) 5%, transparent))
+		drop-shadow(0 8px 8px color-mix(in oklch, var(--color-black) 5%, transparent))
+		drop-shadow(0 16px 16px color-mix(in oklch, var(--color-black) 5%, transparent));
+
 	--shadow-soft:
 		0px 0px 0px 1px color-mix(in oklch, var(--color-black) 5%, transparent),
 		0px 1px 1px -0.5px color-mix(in oklch, var(--color-black) 5%, transparent),

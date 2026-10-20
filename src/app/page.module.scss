@@ -1,5 +1,6 @@
 .section {
 	display: grid;
+
 	&:first-of-type {
 		min-height: 70dvh;
 		padding-bottom: 80px;
@@ -15,3 +16,13 @@
 		margin-bottom: 8px;
 	}
 }
+
+.case-studies {
+		display: flex;
+		flex-direction: column;
+		gap: 80px;
+
+		> * {
+			flex: none;
+		}
+	}

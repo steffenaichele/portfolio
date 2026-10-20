@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import CVSection from "./components/CVSection/CVSection";
+import CaseStudyFolder from "./components/CaseStudyFolder/CaseStudyFolder";
+import { caseStudies } from "./data/caseStudies";
 import styles from "./page.module.scss";
 
 import Button from "./components/Button/Button";
@@ -24,8 +26,10 @@ export default async function Home() {
 					{t("heading2")}
 				</h1>
 			</section>
-			<section id="case-studies" className={styles.section}>
-
+			<section id="case-studies" className={`${styles.section} ${styles["case-studies"]}`}>
+				{caseStudies.map((caseStudy) => (
+					<CaseStudyFolder key={caseStudy.id} caseStudy={caseStudy} />
+				))}
 			</section>
 			<CVSection />
 		</>
