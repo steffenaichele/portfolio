@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import CaseStudySection from "./components/CaseStudySection/CaseStudySection";
 import CVSection from "./components/CVSection/CVSection";
 import styles from "./page.module.scss";
 
@@ -25,7 +24,9 @@ export default async function Home() {
 					{t("heading2")}
 				</h1>
 			</section>
-			<CaseStudySection />
+			<section id="case-studies" className={styles.section}>
+
+			</section>
 			<CVSection />
 		</>
 	);

@@ -67,6 +67,17 @@ export default async function RootLayout({
 						<a href="#main-content" className={styles.skipLink}>
 							{t("skip_to_main")}
 						</a>
+						<div id="bg-gradient" className={styles.bgGradient}>
+							<div className={styles.bgGradientInner}>
+								<div className={styles.bgGradientElement} />
+								<div className={styles.bgGradientElement} />
+								<div className={styles.bgGradientElement} />
+								<div className={styles.bgGradientElement} />
+								<div className={styles.bgGradientElement} />
+							</div>
+							<div className={styles.bgGradientBlend} />
+						</div>
+
 						<Header />
 						<main id="main-content" className="page-grid">
 							{children}

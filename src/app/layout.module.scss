@@ -17,6 +17,7 @@
 		position: relative;
 		width: 100%;
 		min-height: 100dvh;
+		padding: 0 32px;
 		color: var(--color-text-primary);
 		font-family: var(--font-sans);
 		text-wrap: balance;
@@ -50,6 +51,86 @@
 				background-color: var(--color-button-primary-bg);
 				color: var(--color-button-primary-label);
 			}
+		}
+
+		main {
+			width: 100%;
+			max-width: 1024px;
+			margin-top: 240px;
+		}
+
+		.bgGradient {
+			position: fixed;
+			width: 100%;
+			height: 560px;
+			top: 0;
+			left: 0;
+			z-index: -1;
+			overflow: hidden;
+
+			.bgGradientInner {
+				position: absolute;
+				top: -240px;
+				left: -40%;
+				width: 180%;
+				height: 800px;
+				filter: blur(250px);
+
+				.bgGradientElement {
+					position: absolute;
+					border-radius: 100%;
+					
+					&:nth-child(1) {
+						top: 400px;
+						left: 5%;
+						width: 45%;
+						height: 400px;
+						background: var(--color-gradient-blue);
+					}
+
+					&:nth-child(2) {
+						top: 70px;
+						left: 10%;
+						width: 55%;
+						height: 310px;
+						background: var(--color-gradient-purple);
+					}
+
+					&:nth-child(3) {
+						top: 300px;
+						left: 35%;
+						width: 35%;
+						height: 420px;
+						background: var(--color-bg);
+					}
+
+					&:nth-child(4) {
+						top: 0;
+						left: 45%;
+						width: 50%;
+						height: 335px;
+						background: var(--color-gradient-pink);
+					}
+
+					&:nth-child(5) {
+						top: 250px;
+						left: 45%;
+						width: 45%;
+						height: 495px;
+						background: var(--color-gradient-peach);
+					}
+				}
+			}
+
+			.bgGradientBlend{
+					position: absolute;
+					top: 140px;
+					left: -40%;
+					width: 180%;
+					height: 840px;
+					background: var(--color-bg);
+					filter: blur(250px);
+				}
 		}
 	}
 }
