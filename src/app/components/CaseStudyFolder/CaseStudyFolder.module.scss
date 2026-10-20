@@ -34,6 +34,7 @@
 		left: 0;
 		width: 100%;
 		height: calc(100% - 48px);
+		padding: 32px 24px 28px 24px;
 		border-radius: inherit;
 		background: linear-gradient(color-mix(in oklch, var(--color-grey-100) 85%, transparent), color-mix(in oklch, var(--color-grey-200) 85%, transparent));
 		-webkit-backdrop-filter: blur(40px);
@@ -58,6 +59,15 @@
 			border: 1px solid color-mix(in oklch, var(--color-grey-1100) 12.5%, transparent);
 			border-radius: inherit;
 			pointer-events: none;
+		}
+
+		.headline {
+			font-size: 20px;
+			line-height: 110%;
+			letter-spacing: -0.5px;
+			font-weight: 600;
+			color: var(--color-text-primary);
+			margin-bottom: 8px;
 		}
 	}
 }

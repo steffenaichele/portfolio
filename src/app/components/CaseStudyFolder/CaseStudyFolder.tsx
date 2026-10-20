@@ -17,20 +17,27 @@ const CaseStudyFolder = ({ caseStudy }: CaseStudyFolderProps) => {
 			<div className={styles.shots}>
 				{shots.map((shot, i) => (
 					<div key={i} className={styles.shot}>
-						<Image src={shot.src} alt={shot.alt} fill sizes="120px" />
+						<Image
+							src={shot.src}
+							alt={shot.alt}
+							fill
+							sizes="120px"
+						/>
 					</div>
 				))}
 			</div>
 			<div className={styles.front}>
-				<h2 className={styles.title}>{caseStudy.title}</h2>
-				{caseStudy.context && <p className={styles.description}>{caseStudy.context}</p>}
-				{caseStudy.caseHref && (
-					<div className={styles.actions}>
-						<Button href={caseStudy.caseHref} variant="filled" size="md" content="text">
-							<span>Read case study</span>
-						</Button>
-					</div>
-				)}
+				<h2 className={styles.headline}>{caseStudy.headline}</h2>
+				<p className={styles.subline}>{caseStudy.subline}</p>
+				<div className={styles.actions}>
+					<Button
+						href={caseStudy.caseHref}
+						variant="filled"
+						size="md"
+						content="text">
+						<span>Read case study</span>
+					</Button>
+				</div>
 			</div>
 		</article>
 	);
