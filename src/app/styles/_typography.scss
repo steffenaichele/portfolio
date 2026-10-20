@@ -1,6 +1,10 @@
 :root {
 	--font-sans: var(--areal), sans-serif;
 
+	// Custom axes of Areal (wght + slnt run through font-weight / font-style)
+	--font-axis-mono: 0; // MONO 0–100
+	--font-axis-darkmode: 0; // DRKM 0–1
+
 	--font-size-xs: 0.75rem;
 	--line-height-xs: 130%;
 	--letter-spacing-xs: 0;

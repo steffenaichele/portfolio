@@ -16,8 +16,8 @@ const Areal = localFont({
 	src: [
 		{
 			path: "../fonts/ABCArealSuperfamilyVariable.woff2",
-			weight: "400",
-			style: "regular",
+			weight: "400 700", // wght axis
+			style: "oblique -12deg 0deg", // slnt axis
 		},
 	],
 	variable: "--areal",

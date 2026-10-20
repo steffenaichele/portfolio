@@ -14,6 +14,9 @@
 	scrollbar-gutter: stable;
 
 	body {
+		font-variation-settings:
+			"MONO" var(--font-axis-mono),
+			"DRKM" var(--font-axis-darkmode);
 		padding: 0;
 		display: flex;
 		flex-direction: column;
