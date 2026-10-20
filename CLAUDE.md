@@ -8,76 +8,16 @@ Personal portfolio website for Steffen Aichele (UX/UI Designer and Web Developer
 
 Launch scope is **English only**. All content is static — no CMS or database.
 
-## Development Commands
-
-```bash
-pnpm dev      # Development server (http://localhost:3000)
-pnpm build    # Production build (also runs the TypeScript check)
-pnpm start    # Production server
-pnpm lint     # ESLint
-```
-
-Package manager is **pnpm**.
+Package manager is **pnpm** (`pnpm build` also runs the TypeScript check).
 
 ## Architecture Overview
-
-### Tech Stack
-- **Next.js 16.2.10** with App Router (Server Components by default), Turbopack
-- **React 19.2** with React Compiler enabled (`reactCompiler: true` in next.config.ts)
-- **TypeScript** strict mode
-- **SCSS Modules** (`sass`) — no Tailwind, no utility framework
-- **next-intl** for i18n (`NEXT_LOCALE` cookie, no locale routes)
-- **@remixicon/react** for icons, **react-progressive-blur** for blur overlays
-- **Vercel** for deployment, analytics, speed insights
-
-### Directory Structure
-
-```
-src/
-├── app/
-│   ├── components/            # One folder per component: <Name>/<Name>.tsx + <Name>.module.scss
-│   │   ├── Button/            # Variants + sizes, external links, clipboard
-│   │   ├── CVItem/            # Single CV entry (roles, duration, org link)
-│   │   ├── CVSection/         # Experience/Education tabs with cross-fading panels
-│   │   ├── Footer/            # Meta + ImprintModal
-│   │   ├── Header/            # Logo + floating Nav
-│   │   ├── ImpressionCard/    # Compound card shell (Header/Media/Zoom slots) + zoom modal
-│   │   ├── ImprintModal/      # Imprint as modal (no route)
-│   │   ├── LanguageToggle/    # Currently unmounted — returns post-launch with DE
-│   │   ├── Logo/
-│   │   ├── Nav/               # Floating nav: back, GitHub, LinkedIn, email copy
-│   │   ├── SegmentedControl/  # Toggle group with sliding selection pill (FLIP)
-│   │   ├── ToastNotification/ # Toast provider + useToast
-│   │   └── Icon.tsx           # Flat file — thin wrapper, has no styles of its own
-│   ├── data/                  # Structured content, typed (see Content Model)
-│   │   ├── cv.ts              # CVRole/CVEntry types + experience, education, skills
-│   │   ├── caseStudies.ts     # CaseStudy type + three stubs (bodies are TODO)
-│   │   └── impressions.ts     # Impression type + entries, getImpression()
-│   ├── hooks/
-│   │   ├── useLocale.ts       # Locale read + cookie-based switch
-│   │   └── useZoomModal.ts    # <dialog> wiring — scroll lock + open state
-│   ├── lib/
-│   │   ├── clickable.tsx      # Shared link/button helpers, clipboard copy
-│   │   └── motion.ts          # FLIP maths + prefers-reduced-motion probe
-│   ├── styles/                # Global SCSS partials (see Design System)
-│   ├── work/
-│   │   ├── page.tsx           # Impressions feed — composes work/items/*
-│   │   └── items/             # One composition per impression, individually styled
-│   ├── layout.tsx             # Root layout, fonts, metadata, providers
-│   ├── page.tsx               # Home: intro + CVSection
-│   └── opengraph-image.tsx    # Generated OG image (next/og)
-├── fonts/                     # PP Mori + PP Neue Montreal Mono
-└── i18n/                      # next-intl config + request-time locale resolution
-messages/
-└── en.json                    # UI chrome only — no structured content
-```
 
 ### Content Model
 
 **Translatable UI text and structured content are separate concerns.**
 
 - `messages/en.json` holds **only UI chrome**: headings, labels, aria-labels, meta titles/descriptions, button text.
-- `src/app/data/*.ts` holds **structured content**, typed, with English strings inline: CV entries, impressions, case studies.
+- `src/app/data/` holds **structured content**, typed, with English strings inline: CV entries, impressions (`impressions.ts`), case studies (one file per study in `caseStudies/`, registered in `caseStudies/index.ts`).
 
 Consequence: adding or editing content does not touch `messages/`, and a message file never grows arrays of domain objects.
 
