@@ -1,4 +1,21 @@
-.folder {
+.caseStudyFolder {
+  display: flex;
+  aspect-ratio: 1 / 1;
+  width: calc((100% - 8px) / 2);
+  min-width: 430px;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border-radius: 24px;
+
+  &:hover {
+	cursor: pointer;
+	background-color: color-mix(var(--color-grey-0) 25%, transparent);
+	backdrop-filter: blur(8px) saturate(1.4);
+	box-shadow: var(--shadow-soft);
+  }
+
+  .folder {
 	position: relative;
 	width: 350px;
 	height: 268px;
@@ -13,7 +30,10 @@
 			content: "";
 			position: absolute;
 			inset: 0;
-			background: linear-gradient(var(--color-grey-200) 0%, var(--color-grey-400) 20%);
+			background: linear-gradient(
+				var(--color-grey-200) 0%,
+				var(--color-grey-400) 20%
+			);
 			mask: url("/back.svg") no-repeat center / 100% 100%;
 		}
 
@@ -28,6 +48,26 @@
 		}
 	}
 
+	.shots {
+		display: flex;
+		gap: 8px;
+		margin-bottom: 16px;
+
+		.shot {
+			flex: 1;
+			aspect-ratio: 4 / 3;
+			position: relative;
+			overflow: hidden;
+			border-radius: var(--radius-lg);
+			background-color: var(--color-case-shot-bg);
+			border: 1px solid var(--color-case-shot-stroke);
+
+			img {
+				object-fit: cover;
+			}
+		}
+	}
+
 	.front {
 		position: absolute;
 		top: 48px;
@@ -36,10 +76,14 @@
 		height: calc(100% - 48px);
 		padding: 32px 24px 28px 24px;
 		border-radius: inherit;
-		background: linear-gradient(color-mix(in oklch, var(--color-grey-100) 85%, transparent), color-mix(in oklch, var(--color-grey-200) 85%, transparent));
+		background: linear-gradient(
+			color-mix(in oklch, var(--color-grey-100) 85%, transparent),
+			color-mix(in oklch, var(--color-grey-200) 85%, transparent)
+		);
 		-webkit-backdrop-filter: blur(40px);
 		backdrop-filter: blur(40px);
-		box-shadow: inset 0 6px 6px 0 color-mix(in oklch, var(--color-white) 20%, transparent);
+		box-shadow: inset 0 6px 6px 0
+			color-mix(in oklch, var(--color-white) 20%, transparent);
 		isolation: isolate;
 
 		&::before {
@@ -56,7 +100,8 @@
 			content: "";
 			position: absolute;
 			inset: 0;
-			border: 1px solid color-mix(in oklch, var(--color-grey-1100) 12.5%, transparent);
+			border: 1px solid
+				color-mix(in oklch, var(--color-grey-1100) 12.5%, transparent);
 			border-radius: inherit;
 			pointer-events: none;
 		}
@@ -71,23 +116,4 @@
 		}
 	}
 }
-
-.shots {
-	display: flex;
-	gap: 8px;
-	margin-bottom: 16px;
-
-	.shot {
-		flex: 1;
-		aspect-ratio: 4 / 3;
-		position: relative;
-		overflow: hidden;
-		border-radius: var(--radius-lg);
-		background-color: var(--color-case-shot-bg);
-		border: 1px solid var(--color-case-shot-stroke);
-
-		img {
-			object-fit: cover;
-		}
-	}
 }
