@@ -79,7 +79,7 @@ export default async function RootLayout({
 						</div>
 
 						<Header />
-						<main id="main-content" className="page-grid">
+						<main id="main-content">
 							{children}
 						</main>
 						<Footer />
