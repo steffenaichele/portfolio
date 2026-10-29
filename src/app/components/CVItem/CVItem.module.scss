@@ -36,7 +36,7 @@
 
 			.organization {
 				color: var(--color-text-primary);
-				font-size: var(--font-size-md);
+				font-size: 1rem;
 				line-height: 100%;
 				font-weight: 400;
 				min-width: 0;
@@ -77,7 +77,7 @@
 			font-family: var(--font-mono);
 			padding: 4px 8px;
 			border-radius: 8px;
-			font-size: var(--font-size-xs);
+			font-size: 0.75rem;
 			letter-spacing: -5%;
 			line-height: 100%;
 			font-variant-numeric: tabular-nums;
@@ -99,7 +99,7 @@
 
 			.time {
 				white-space: nowrap;
-				font-size: var(--font-size-sm);
+				font-size: 0.875rem;
 				line-height: 100%;
 				letter-spacing: 1%;
 				font-weight: 400;
@@ -121,8 +121,8 @@
 			}
 
 			.roleTitle {
-				font-size: var(--font-size-md);
-				line-height: var(--line-height-md);
+				font-size: 1rem;
+				line-height: 150%;
 				font-weight: 400;
 				color: var(--color-text-primary);
 				text-align: left;

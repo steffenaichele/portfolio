@@ -11,7 +11,7 @@ export const contentType = "image/png";
 export default async function OgImage() {
 	// WOFF-Variante nur fürs OG-Image: satori (next/og) kann kein woff2 lesen.
 	const fontRegular = await readFile(
-		join(process.cwd(), "src/fonts/PPMori-Regular.woff"),
+		join(process.cwd(), "src/fonts/ABCAreal-Regular.woff"),
 	);
 
 	return new ImageResponse(
@@ -25,7 +25,7 @@ export default async function OgImage() {
 					justifyContent: "center",
 					padding: "96px",
 					backgroundColor: "#f5f5f5",
-					fontFamily: "PP Mori",
+					fontFamily: "Areal",
 				}}>
 				<div style={{ fontSize: 88, color: "#0a0a0a" }}>
 					Steffen Aichele
@@ -39,7 +39,7 @@ export default async function OgImage() {
 			...size,
 			fonts: [
 				{
-					name: "PP Mori",
+					name: "Areal",
 					data: fontRegular,
 					weight: 400,
 					style: "normal",

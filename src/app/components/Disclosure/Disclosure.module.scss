@@ -11,9 +11,9 @@
 	padding-block: 12px;
 	cursor: pointer;
 	font-family: var(--font-mono);
-	font-size: var(--font-size-sm);
-	line-height: var(--line-height-sm);
-	letter-spacing: var(--letter-spacing-sm);
+	font-size: 0.875rem;
+	line-height: 140%;
+	letter-spacing: 1%;
 	color: var(--color-text-secondary);
 
 	// Standard-Dreieck entfernen (Safari braucht zusätzlich das Pseudo-Element).
@@ -53,9 +53,9 @@
 .body {
 	padding-block: 4px 16px;
 	max-width: 70ch;
-	font-size: var(--font-size-md);
-	line-height: var(--line-height-md);
-	letter-spacing: var(--letter-spacing-md);
+	font-size: 1rem;
+	line-height: 150%;
+	letter-spacing: 2%;
 	color: var(--color-text-secondary);
 	text-wrap: pretty;
 }
