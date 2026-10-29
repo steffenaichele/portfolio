@@ -1,28 +1,35 @@
 .section {
-	display: grid;
-
-	&:first-of-type {
-		min-height: 70dvh;
-		padding-bottom: 80px;
-		align-items: end;
+	width: 100%;
+	position: relative;
+	display: flex;
+	
+	&.hero {
+		max-width: 430px;
+		padding: 240px 40px 0 40px;
+		flex-direction: column;
+		gap: 24px;
+	
+		.greeting {
+			color: var(--color-text-tertiary);
+		}
+		
+		.heading {
+			color: var(--color-text-primary);
+		}
+	
+		.heroImage {
+			margin-top: 20px;
+			border-radius: 10px;
+			box-shadow: var(--shadow);
+		}
 	}
 
-	.heading {
-		font-size: var(--font-size-5xl);
-		line-height: 115%;
-		letter-spacing: var(--letter-spacing-5xl);
-		font-weight: 600;
-		color: var(--color-text-primary);
-		margin-bottom: 8px;
+	&.caseStudies {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 8px;
 	}
 }
 
-.case-studies {
-		display: flex;
-		flex-direction: column;
-		gap: 80px;
 
-		> * {
-			flex: none;
-		}
-	}
+
