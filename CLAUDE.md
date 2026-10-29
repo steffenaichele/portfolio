@@ -41,13 +41,9 @@ Adding a work impression:
 
 - `_colors.scss` — raw palette
 - `_tokens.scss` — semantic tokens (`--color-bg`, `--color-text-primary/secondary/tertiary`, item/button/CV/modal/toast tokens)
-- `_typography.scss` — `--font-sans` / `--font-mono`, size/line-height/letter-spacing scale
+- `_typography.scss` — `--font-sans`, Areal axis vars, and the `.text-heading` / `.text-body` text styles (literal values, no scale tokens)
 - `_motion.scss` — durations and easings, named by purpose
 - `_radius.scss`, `_shadow.scss`, `_breakpoints.scss`
-- `_content-grid.scss` — two global classes plus the grid tokens on `:root`:
-  - `.page-grid` — the page-level layout utility, with `.breakout` / `.spotlight` / `.full-width` escape hatches. Children land on the `main` line by default.
-  - `.content-grid` — the shared column tracks, usable at any nesting depth (`subgrid` needs an unbroken grid-item chain; this does not). Centres via `justify-content`.
-  - `--column-count` drives both. `--column-gaps` (= count − 1) exists only because `repeat()` needs a literal integer and rejects `calc()`.
 - `_modal.scss` — shared `.t-modal` open/close transitions for `<dialog>` (`@starting-style` + `transition-behavior: allow-discrete`)
 
 Component-specific styling goes in the component's own `.module.scss`. Only genuinely shared definitions belong in a global partial.
@@ -66,10 +62,9 @@ There is **no animation library** (no Framer Motion / `motion` package). Animati
 - **Zoom modal** (`useZoomModal`): thin wrapper over `<dialog>.showModal()`. The platform provides Escape, the focus trap, focus return to the trigger, background inertness and top-layer placement; the hook adds only the body scroll lock and the state backing `aria-expanded`. `ImpressionCard` and `ImprintModal` both wire it up.
 
 ### Typography
-- **PP Mori** (sans, self-hosted): Regular 400 + Extrabold 800.
-- **PP Neue Montreal Mono**: Regular 400 + Medium 500.
-- Add weights in `layout.tsx` only when actually used.
-- `opengraph-image.tsx` loads the **woff** variant on purpose — satori (`next/og`) cannot read woff2.
+- **ABC Areal** (self-hosted variable font, `src/fonts/ABCArealSuperfamilyVariable.woff2`): axes `wght` 400–700, `slnt`, `MONO`, `DRKM`. Loaded in `layout.tsx` as `--areal`; the custom axes are driven by `--font-axis-mono` / `--font-axis-darkmode`.
+- **Text styles:** global classes `.text-heading` and `.text-body` in `_typography.scss`, with literal values — no size/line-height/letter-spacing scale tokens. Components apply the class in JSX (`className="text-heading"`); add a new style only when a second use appears.
+- `opengraph-image.tsx` (generates the social share image) loads `src/fonts/ABCAreal-Regular.woff` on purpose — satori (`next/og`) cannot read woff2 or variable fonts. It is the variable woff2 instanced at wght 400 with fontTools (`instancer`); regenerate it if the font file changes.
 
 ## Git Workflow & Branching
 
