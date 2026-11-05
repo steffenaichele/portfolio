@@ -1,119 +1,93 @@
 .caseStudyFolder {
-  display: flex;
-  aspect-ratio: 1 / 1;
-  width: calc((100% - 8px) / 2);
-  min-width: 430px;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border-radius: 24px;
+	width: 100%;
+	height: 400px;
+	display: grid;
+	grid-template-columns: 400px 1fr;
+	grid-template-rows: 100%;
+	border-radius: 24px;
 
-  &:hover {
-	cursor: pointer;
-	background-color: color-mix(var(--color-grey-0) 25%, transparent);
-	backdrop-filter: blur(8px) saturate(1.4);
-	box-shadow: var(--shadow-soft);
-  }
+	&:hover {
+		cursor: pointer;
+		background-color: color-mix(var(--color-grey-0) 25%, transparent);
+		backdrop-filter: blur(8px) saturate(1.4);
+		box-shadow: var(--shadow-soft);
+	}
 
-  .folder {
-	position: relative;
-	width: 350px;
-	height: 268px;
-	border-radius: var(--radius-3xl);
-
-	.back {
-		position: absolute;
-		inset: 0;
-		filter: var(--shadow-drop);
-
-		&::before {
-			content: "";
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(
-				var(--color-grey-200) 0%,
-				var(--color-grey-400) 20%
-			);
-			mask: url("/back.svg") no-repeat center / 100% 100%;
-		}
-
-		// Masks only read alpha, so the stroke colour comes from the background and
-		// back-stroke.svg (the outline, clipped to the shape = 1px inside) is the mask.
-		&::after {
-			content: "";
-			position: absolute;
-			inset: 0;
-			background: var(--color-grey-500);
-			mask: url("/back-stroke.svg") no-repeat center / 100% 100%;
-		}
+	.textWrapper {
+		grid-column: 1;
+		grid-row: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 48px;
 	}
 
 	.shots {
-		display: flex;
-		gap: 8px;
-		margin-bottom: 16px;
+		grid-column: 2;
+		grid-row: 1;
+		position: relative;
+		height: 100%;
+
+		.shotWrapper {
+			padding: 4px;
+			border-radius: 24px;
+			background-color: var(--color-grey-0);
+			box-shadow: var(--shadow-soft);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			z-index: 2;
+			transition:
+				scale var(--duration-move) var(--easing-ui),
+				rotate var(--duration-move) var(--easing-ui),
+				translate var(--duration-move) var(--easing-ui),
+				box-shadow var(--duration-move) var(--easing-ui);
+		}
+
+		.shotWrapper:hover {
+			scale: 1.1;
+			box-shadow: var(--shadow);
+		}
+
+		&:has(.shotWrapper:hover) .shotWrapper:not(:hover) {
+			z-index: 1;
+			scale: 0.97;
+			--shift: 8px;
+		}
 
 		.shot {
-			flex: 1;
-			aspect-ratio: 4 / 3;
-			position: relative;
-			overflow: hidden;
-			border-radius: var(--radius-lg);
-			background-color: var(--color-case-shot-bg);
-			border: 1px solid var(--color-case-shot-stroke);
+			z-index: 2;
 
-			img {
-				object-fit: cover;
+			:hover {
+				cursor: pointer;
+			}
+		}
+
+		&:global(.upnext) {
+			.shotWrapper {
+				&:nth-child(1) {
+					translate: calc(-50% + 85px) calc(-50% - 6px + var(--shift, 0px));
+					rotate: 8deg;
+				}
+
+				&:nth-child(2) {
+					translate: calc(-50% - 5px) calc(-50% + 8px + var(--shift, 0px));
+					rotate: 6deg;
+				}
+
+				&:nth-child(3) {
+					translate: calc(-50% - 94px) calc(-50% - 6px + var(--shift, 0px));
+					rotate: -4deg;
+				}
+
+				&:hover {
+					rotate: 0deg;
+				}
+
+				.shot {
+					width: 148px;
+					height: auto;
+				}
 			}
 		}
 	}
-
-	.front {
-		position: absolute;
-		top: 48px;
-		left: 0;
-		width: 100%;
-		height: calc(100% - 48px);
-		padding: 32px 24px 28px 24px;
-		border-radius: inherit;
-		background: linear-gradient(
-			color-mix(in oklch, var(--color-grey-100) 85%, transparent),
-			color-mix(in oklch, var(--color-grey-200) 85%, transparent)
-		);
-		-webkit-backdrop-filter: blur(40px);
-		backdrop-filter: blur(40px);
-		box-shadow: inset 0 6px 6px 0
-			color-mix(in oklch, var(--color-white) 20%, transparent);
-		isolation: isolate;
-
-		&::before {
-			content: "";
-			position: absolute;
-			inset: 0;
-			border-radius: inherit;
-			pointer-events: none;
-			box-shadow: inset 0 -32px 128px 0 var(--color-grey-500);
-			mix-blend-mode: multiply;
-		}
-
-		&::after {
-			content: "";
-			position: absolute;
-			inset: 0;
-			border: 1px solid
-				color-mix(in oklch, var(--color-grey-1100) 12.5%, transparent);
-			border-radius: inherit;
-			pointer-events: none;
-		}
-
-		.headline {
-			font-size: 20px;
-			line-height: 110%;
-			letter-spacing: -0.5px;
-			font-weight: 600;
-			color: var(--color-text-primary);
-			margin-bottom: 8px;
-		}
-	}
-}
 }

@@ -13,33 +13,30 @@ const CaseStudyFolder = ({ caseStudy }: CaseStudyFolderProps) => {
 
 	return (
 		<article className={styles.caseStudyFolder}>
-			<div className={styles.folder}>
-				<div className={styles.back}></div>
-				<div className={styles.shots}>
-					{shots.map((shot, i) => (
-						<div key={i} className={styles.shot}>
-							<Image
-								src={shot.src}
-								alt={shot.alt}
-								fill
-								sizes="120px"
-							/>
-						</div>
-					))}
-				</div>
-				<div className={styles.front}>
-					<h2 className={styles.headline}>{caseStudy.headline}</h2>
-					<p className={styles.subline}>{caseStudy.subline}</p>
-					<div className={styles.actions}>
-						<Button
-							href={caseStudy.caseHref}
-							variant="filled"
-							size="md"
-							content="text">
-							<span>Read case study</span>
-						</Button>
+			<div className={styles.textWrapper}>
+				<h2 className={styles.headline}>{caseStudy.headline}</h2>
+				<p className={styles.subline}>{caseStudy.subline}</p>
+				<Button
+					href={caseStudy.caseHref}
+					variant="filled"
+					size="md"
+					content="text">
+					<span>Read case study</span>
+				</Button>
+			</div>
+			<div className={`${styles.shots} ${caseStudy.id}`}>
+				{shots.map((shot, index) => (
+					<div className={styles.shotWrapper} key={index}>
+						<Image
+							key={index}
+							src={shot.src}
+							alt={shot.alt}
+							width={300}
+							height={200}
+							className={styles.shot}
+						/>
 					</div>
-				</div>
+				))}
 			</div>
 		</article>
 	);

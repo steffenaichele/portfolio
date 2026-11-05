@@ -10,7 +10,6 @@ export type CaseStudy = {
 	/** Editoriale Zeile — bewusst NICHT der Projekttitel. */
 	headline: string;
 	subline?: string;
-	tags?: string[];
 	/** Ein bis zwei Sätze zu Rolle und Ergebnis. */
 	context?: string;
 	/** Interne Route — nur gesetzt, wenn die Case Study auch existiert. */
