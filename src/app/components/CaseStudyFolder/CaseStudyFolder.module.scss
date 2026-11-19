@@ -1,0 +1,93 @@
+.caseStudyFolder {
+	width: 100%;
+	height: 400px;
+	display: grid;
+	grid-template-columns: 400px 1fr;
+	grid-template-rows: 100%;
+	border-radius: 32px;
+	background-color: color-mix(var(--color-grey-0) 25%, transparent);
+	backdrop-filter: blur(8px) saturate(1.4);
+
+	&:hover {
+		cursor: pointer;
+		// box-shadow: var(--shadow-soft);
+	}
+
+	.textWrapper {
+		grid-column: 1;
+		grid-row: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 48px;
+	}
+
+	.shots {
+		grid-column: 2;
+		grid-row: 1;
+		position: relative;
+		height: 100%;
+
+		.shotWrapper {
+			padding: 4px;
+			border-radius: 24px;
+			background-color: var(--color-grey-0);
+			box-shadow: var(--shadow-soft);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			z-index: 2;
+			transition:
+				scale var(--duration-move) var(--easing-ui),
+				rotate var(--duration-move) var(--easing-ui),
+				translate var(--duration-move) var(--easing-ui),
+				box-shadow var(--duration-move) var(--easing-ui);
+		}
+
+		.shotWrapper:hover {
+			scale: 1.1;
+			box-shadow: var(--shadow);
+		}
+
+		&:has(.shotWrapper:hover) .shotWrapper:not(:hover) {
+			z-index: 1;
+			scale: 0.97;
+			--shift: 8px;
+		}
+
+		.shot {
+			z-index: 2;
+
+			:hover {
+				cursor: pointer;
+			}
+		}
+
+		&:global(.upnext) {
+			.shotWrapper {
+				&:nth-child(1) {
+					translate: calc(-50% + 85px) calc(-50% - 6px + var(--shift, 0px));
+					rotate: 8deg;
+				}
+
+				&:nth-child(2) {
+					translate: calc(-50% - 5px) calc(-50% + 8px + var(--shift, 0px));
+					rotate: 6deg;
+				}
+
+				&:nth-child(3) {
+					translate: calc(-50% - 94px) calc(-50% - 6px + var(--shift, 0px));
+					rotate: -4deg;
+				}
+
+				&:hover {
+					rotate: 0deg;
+				}
+
+				.shot {
+					width: 148px;
+					height: auto;
+				}
+			}
+		}
+	}
+}

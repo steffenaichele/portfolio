@@ -8,76 +8,16 @@ Personal portfolio website for Steffen Aichele (UX/UI Designer and Web Developer
 
 Launch scope is **English only**. All content is static — no CMS or database.
 
-## Development Commands
-
-```bash
-pnpm dev      # Development server (http://localhost:3000)
-pnpm build    # Production build (also runs the TypeScript check)
-pnpm start    # Production server
-pnpm lint     # ESLint
-```
-
-Package manager is **pnpm**.
+Package manager is **pnpm** (`pnpm build` also runs the TypeScript check).
 
 ## Architecture Overview
-
-### Tech Stack
-- **Next.js 16.2.10** with App Router (Server Components by default), Turbopack
-- **React 19.2** with React Compiler enabled (`reactCompiler: true` in next.config.ts)
-- **TypeScript** strict mode
-- **SCSS Modules** (`sass`) — no Tailwind, no utility framework
-- **next-intl** for i18n (`NEXT_LOCALE` cookie, no locale routes)
-- **@remixicon/react** for icons, **react-progressive-blur** for blur overlays
-- **Vercel** for deployment, analytics, speed insights
-
-### Directory Structure
-
-```
-src/
-├── app/
-│   ├── components/            # One folder per component: <Name>/<Name>.tsx + <Name>.module.scss
-│   │   ├── Button/            # Variants + sizes, external links, clipboard
-│   │   ├── CVItem/            # Single CV entry (roles, duration, org link)
-│   │   ├── CVSection/         # Experience/Education tabs with cross-fading panels
-│   │   ├── Footer/            # Meta + ImprintModal
-│   │   ├── Header/            # Logo + floating Nav
-│   │   ├── ImpressionCard/    # Compound card shell (Header/Media/Zoom slots) + zoom modal
-│   │   ├── ImprintModal/      # Imprint as modal (no route)
-│   │   ├── LanguageToggle/    # Currently unmounted — returns post-launch with DE
-│   │   ├── Logo/
-│   │   ├── Nav/               # Floating nav: back, GitHub, LinkedIn, email copy
-│   │   ├── SegmentedControl/  # Toggle group with sliding selection pill (FLIP)
-│   │   ├── ToastNotification/ # Toast provider + useToast
-│   │   └── Icon.tsx           # Flat file — thin wrapper, has no styles of its own
-│   ├── data/                  # Structured content, typed (see Content Model)
-│   │   ├── cv.ts              # CVRole/CVEntry types + experience, education, skills
-│   │   ├── caseStudies.ts     # CaseStudy type + three stubs (bodies are TODO)
-│   │   └── impressions.ts     # Impression type + entries, getImpression()
-│   ├── hooks/
-│   │   ├── useLocale.ts       # Locale read + cookie-based switch
-│   │   └── useZoomModal.ts    # <dialog> wiring — scroll lock + open state
-│   ├── lib/
-│   │   ├── clickable.tsx      # Shared link/button helpers, clipboard copy
-│   │   └── motion.ts          # FLIP maths + prefers-reduced-motion probe
-│   ├── styles/                # Global SCSS partials (see Design System)
-│   ├── work/
-│   │   ├── page.tsx           # Impressions feed — composes work/items/*
-│   │   └── items/             # One composition per impression, individually styled
-│   ├── layout.tsx             # Root layout, fonts, metadata, providers
-│   ├── page.tsx               # Home: intro + CVSection
-│   └── opengraph-image.tsx    # Generated OG image (next/og)
-├── fonts/                     # PP Mori + PP Neue Montreal Mono
-└── i18n/                      # next-intl config + request-time locale resolution
-messages/
-└── en.json                    # UI chrome only — no structured content
-```
 
 ### Content Model
 
 **Translatable UI text and structured content are separate concerns.**
 
 - `messages/en.json` holds **only UI chrome**: headings, labels, aria-labels, meta titles/descriptions, button text.
-- `src/app/data/*.ts` holds **structured content**, typed, with English strings inline: CV entries, impressions, case studies.
+- `src/app/data/` holds **structured content**, typed, with English strings inline: CV entries, impressions (`impressions.ts`), case studies (one file per study in `caseStudies/`, registered in `caseStudies/index.ts`).
 
 Consequence: adding or editing content does not touch `messages/`, and a message file never grows arrays of domain objects.
 
@@ -101,13 +41,9 @@ Adding a work impression:
 
 - `_colors.scss` — raw palette
 - `_tokens.scss` — semantic tokens (`--color-bg`, `--color-text-primary/secondary/tertiary`, item/button/CV/modal/toast tokens)
-- `_typography.scss` — `--font-sans` / `--font-mono`, size/line-height/letter-spacing scale
+- `_typography.scss` — `--font-sans`, Areal axis vars, and the `.text-heading` / `.text-body` text styles (literal values, no scale tokens)
 - `_motion.scss` — durations and easings, named by purpose
 - `_radius.scss`, `_shadow.scss`, `_breakpoints.scss`
-- `_content-grid.scss` — two global classes plus the grid tokens on `:root`:
-  - `.page-grid` — the page-level layout utility, with `.breakout` / `.spotlight` / `.full-width` escape hatches. Children land on the `main` line by default.
-  - `.content-grid` — the shared column tracks, usable at any nesting depth (`subgrid` needs an unbroken grid-item chain; this does not). Centres via `justify-content`.
-  - `--column-count` drives both. `--column-gaps` (= count − 1) exists only because `repeat()` needs a literal integer and rejects `calc()`.
 - `_modal.scss` — shared `.t-modal` open/close transitions for `<dialog>` (`@starting-style` + `transition-behavior: allow-discrete`)
 
 Component-specific styling goes in the component's own `.module.scss`. Only genuinely shared definitions belong in a global partial.
@@ -126,10 +62,9 @@ There is **no animation library** (no Framer Motion / `motion` package). Animati
 - **Zoom modal** (`useZoomModal`): thin wrapper over `<dialog>.showModal()`. The platform provides Escape, the focus trap, focus return to the trigger, background inertness and top-layer placement; the hook adds only the body scroll lock and the state backing `aria-expanded`. `ImpressionCard` and `ImprintModal` both wire it up.
 
 ### Typography
-- **PP Mori** (sans, self-hosted): Regular 400 + Extrabold 800.
-- **PP Neue Montreal Mono**: Regular 400 + Medium 500.
-- Add weights in `layout.tsx` only when actually used.
-- `opengraph-image.tsx` loads the **woff** variant on purpose — satori (`next/og`) cannot read woff2.
+- **ABC Areal** (self-hosted variable font, `src/fonts/ABCArealSuperfamilyVariable.woff2`): axes `wght` 400–700, `slnt`, `MONO`, `DRKM`. Loaded in `layout.tsx` as `--areal`; the custom axes are driven by `--font-axis-mono` / `--font-axis-darkmode`.
+- **Text styles:** global classes `.text-heading` and `.text-body` in `_typography.scss`, with literal values — no size/line-height/letter-spacing scale tokens. Components apply the class in JSX (`className="text-heading"`); add a new style only when a second use appears.
+- `opengraph-image.tsx` (generates the social share image) loads `src/fonts/ABCAreal-Regular.woff` on purpose — satori (`next/og`) cannot read woff2 or variable fonts. It is the variable woff2 instanced at wght 400 with fontTools (`instancer`); regenerate it if the font file changes.
 
 ## Git Workflow & Branching
 
